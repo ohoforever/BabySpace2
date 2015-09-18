@@ -1,0 +1,318 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.hummingbird.babyspace.mapper.BabyMatureMapper" >
+  <resultMap id="BaseResultMap" type="com.hummingbird.babyspace.entity.BabyMature" >
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="child_id" property="childId" jdbcType="INTEGER" />
+    <result column="content" property="content" jdbcType="VARCHAR" />
+    <result column="title" property="title" jdbcType="VARCHAR" />
+    <result column="tag" property="tag" jdbcType="VARCHAR" />
+    <result column="image1" property="image1" jdbcType="VARCHAR" />
+    <result column="image2" property="image2" jdbcType="VARCHAR" />
+    <result column="image3" property="image3" jdbcType="VARCHAR" />
+    <result column="image4" property="image4" jdbcType="VARCHAR" />
+    <result column="image5" property="image5" jdbcType="VARCHAR" />
+    <result column="image6" property="image6" jdbcType="VARCHAR" />
+    <result column="image7" property="image7" jdbcType="VARCHAR" />
+    <result column="image8" property="image8" jdbcType="VARCHAR" />
+    <result column="image9" property="image9" jdbcType="VARCHAR" />
+    <result column="redflower_count" property="redflowerCount" jdbcType="INTEGER" />
+    <result column="act_time" property="actTime" jdbcType="TIMESTAMP" />
+    <result column="insert_time" property="insertTime" jdbcType="TIMESTAMP" />
+    <result column="update_time" property="updateTime" jdbcType="TIMESTAMP" />
+    <result column="status" property="status" jdbcType="VARCHAR" />
+    <result column="operator" property="operator" jdbcType="VARCHAR" />
+    <result column="determine" property="determine" jdbcType="VARCHAR" />
+    <result column="share_title" property="shareTitle" jdbcType="VARCHAR" />
+    <result column="share_content" property="shareContent" jdbcType="VARCHAR" />
+    <result column="share_img_index" property="shareImgIndex" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    id, child_id, content, title, tag, image1, image2, image3, image4, image5, image6, 
+    image7, image8, image9, redflower_count, act_time, insert_time, update_time, status, 
+    operator, determine, share_title, share_content, share_img_index
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from t_bbkj_baby_mature
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from t_bbkj_baby_mature
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.hummingbird.babyspace.entity.BabyMature" >
+    insert into t_bbkj_baby_mature (id, child_id, content, 
+      title, tag, image1, 
+      image2, image3, image4, 
+      image5, image6, image7, 
+      image8, image9, redflower_count, 
+      act_time, insert_time, update_time, 
+      status, operator, determine, 
+      share_title, share_content, share_img_index
+      )
+    values (#{id,jdbcType=INTEGER}, #{childId,jdbcType=INTEGER}, #{content,jdbcType=VARCHAR}, 
+      #{title,jdbcType=VARCHAR}, #{tag,jdbcType=VARCHAR}, #{image1,jdbcType=VARCHAR}, 
+      #{image2,jdbcType=VARCHAR}, #{image3,jdbcType=VARCHAR}, #{image4,jdbcType=VARCHAR}, 
+      #{image5,jdbcType=VARCHAR}, #{image6,jdbcType=VARCHAR}, #{image7,jdbcType=VARCHAR}, 
+      #{image8,jdbcType=VARCHAR}, #{image9,jdbcType=VARCHAR}, #{redflowerCount,jdbcType=INTEGER}, 
+      #{actTime,jdbcType=TIMESTAMP}, #{insertTime,jdbcType=TIMESTAMP}, #{updateTime,jdbcType=TIMESTAMP}, 
+      #{status,jdbcType=VARCHAR}, #{operator,jdbcType=VARCHAR}, #{determine,jdbcType=VARCHAR}, 
+      #{shareTitle,jdbcType=VARCHAR}, #{shareContent,jdbcType=VARCHAR}, #{shareImgIndex,jdbcType=VARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.hummingbird.babyspace.entity.BabyMature" >
+    insert into t_bbkj_baby_mature
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="childId != null" >
+        child_id,
+      </if>
+      <if test="content != null" >
+        content,
+      </if>
+      <if test="title != null" >
+        title,
+      </if>
+      <if test="tag != null" >
+        tag,
+      </if>
+      <if test="image1 != null" >
+        image1,
+      </if>
+      <if test="image2 != null" >
+        image2,
+      </if>
+      <if test="image3 != null" >
+        image3,
+      </if>
+      <if test="image4 != null" >
+        image4,
+      </if>
+      <if test="image5 != null" >
+        image5,
+      </if>
+      <if test="image6 != null" >
+        image6,
+      </if>
+      <if test="image7 != null" >
+        image7,
+      </if>
+      <if test="image8 != null" >
+        image8,
+      </if>
+      <if test="image9 != null" >
+        image9,
+      </if>
+      <if test="redflowerCount != null" >
+        redflower_count,
+      </if>
+      <if test="actTime != null" >
+        act_time,
+      </if>
+      <if test="insertTime != null" >
+        insert_time,
+      </if>
+      <if test="updateTime != null" >
+        update_time,
+      </if>
+      <if test="status != null" >
+        status,
+      </if>
+      <if test="operator != null" >
+        operator,
+      </if>
+      <if test="determine != null" >
+        determine,
+      </if>
+      <if test="shareTitle != null" >
+        share_title,
+      </if>
+      <if test="shareContent != null" >
+        share_content,
+      </if>
+      <if test="shareImgIndex != null" >
+        share_img_index,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="childId != null" >
+        #{childId,jdbcType=INTEGER},
+      </if>
+      <if test="content != null" >
+        #{content,jdbcType=VARCHAR},
+      </if>
+      <if test="title != null" >
+        #{title,jdbcType=VARCHAR},
+      </if>
+      <if test="tag != null" >
+        #{tag,jdbcType=VARCHAR},
+      </if>
+      <if test="image1 != null" >
+        #{image1,jdbcType=VARCHAR},
+      </if>
+      <if test="image2 != null" >
+        #{image2,jdbcType=VARCHAR},
+      </if>
+      <if test="image3 != null" >
+        #{image3,jdbcType=VARCHAR},
+      </if>
+      <if test="image4 != null" >
+        #{image4,jdbcType=VARCHAR},
+      </if>
+      <if test="image5 != null" >
+        #{image5,jdbcType=VARCHAR},
+      </if>
+      <if test="image6 != null" >
+        #{image6,jdbcType=VARCHAR},
+      </if>
+      <if test="image7 != null" >
+        #{image7,jdbcType=VARCHAR},
+      </if>
+      <if test="image8 != null" >
+        #{image8,jdbcType=VARCHAR},
+      </if>
+      <if test="image9 != null" >
+        #{image9,jdbcType=VARCHAR},
+      </if>
+      <if test="redflowerCount != null" >
+        #{redflowerCount,jdbcType=INTEGER},
+      </if>
+      <if test="actTime != null" >
+        #{actTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="insertTime != null" >
+        #{insertTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateTime != null" >
+        #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="status != null" >
+        #{status,jdbcType=VARCHAR},
+      </if>
+      <if test="operator != null" >
+        #{operator,jdbcType=VARCHAR},
+      </if>
+      <if test="determine != null" >
+        #{determine,jdbcType=VARCHAR},
+      </if>
+      <if test="shareTitle != null" >
+        #{shareTitle,jdbcType=VARCHAR},
+      </if>
+      <if test="shareContent != null" >
+        #{shareContent,jdbcType=VARCHAR},
+      </if>
+      <if test="shareImgIndex != null" >
+        #{shareImgIndex,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.hummingbird.babyspace.entity.BabyMature" >
+    update t_bbkj_baby_mature
+    <set >
+      <if test="childId != null" >
+        child_id = #{childId,jdbcType=INTEGER},
+      </if>
+      <if test="content != null" >
+        content = #{content,jdbcType=VARCHAR},
+      </if>
+      <if test="title != null" >
+        title = #{title,jdbcType=VARCHAR},
+      </if>
+      <if test="tag != null" >
+        tag = #{tag,jdbcType=VARCHAR},
+      </if>
+      <if test="image1 != null" >
+        image1 = #{image1,jdbcType=VARCHAR},
+      </if>
+      <if test="image2 != null" >
+        image2 = #{image2,jdbcType=VARCHAR},
+      </if>
+      <if test="image3 != null" >
+        image3 = #{image3,jdbcType=VARCHAR},
+      </if>
+      <if test="image4 != null" >
+        image4 = #{image4,jdbcType=VARCHAR},
+      </if>
+      <if test="image5 != null" >
+        image5 = #{image5,jdbcType=VARCHAR},
+      </if>
+      <if test="image6 != null" >
+        image6 = #{image6,jdbcType=VARCHAR},
+      </if>
+      <if test="image7 != null" >
+        image7 = #{image7,jdbcType=VARCHAR},
+      </if>
+      <if test="image8 != null" >
+        image8 = #{image8,jdbcType=VARCHAR},
+      </if>
+      <if test="image9 != null" >
+        image9 = #{image9,jdbcType=VARCHAR},
+      </if>
+      <if test="redflowerCount != null" >
+        redflower_count = #{redflowerCount,jdbcType=INTEGER},
+      </if>
+      <if test="actTime != null" >
+        act_time = #{actTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="insertTime != null" >
+        insert_time = #{insertTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateTime != null" >
+        update_time = #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="status != null" >
+        status = #{status,jdbcType=VARCHAR},
+      </if>
+      <if test="operator != null" >
+        operator = #{operator,jdbcType=VARCHAR},
+      </if>
+      <if test="determine != null" >
+        determine = #{determine,jdbcType=VARCHAR},
+      </if>
+      <if test="shareTitle != null" >
+        share_title = #{shareTitle,jdbcType=VARCHAR},
+      </if>
+      <if test="shareContent != null" >
+        share_content = #{shareContent,jdbcType=VARCHAR},
+      </if>
+      <if test="shareImgIndex != null" >
+        share_img_index = #{shareImgIndex,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.hummingbird.babyspace.entity.BabyMature" >
+    update t_bbkj_baby_mature
+    set child_id = #{childId,jdbcType=INTEGER},
+      content = #{content,jdbcType=VARCHAR},
+      title = #{title,jdbcType=VARCHAR},
+      tag = #{tag,jdbcType=VARCHAR},
+      image1 = #{image1,jdbcType=VARCHAR},
+      image2 = #{image2,jdbcType=VARCHAR},
+      image3 = #{image3,jdbcType=VARCHAR},
+      image4 = #{image4,jdbcType=VARCHAR},
+      image5 = #{image5,jdbcType=VARCHAR},
+      image6 = #{image6,jdbcType=VARCHAR},
+      image7 = #{image7,jdbcType=VARCHAR},
+      image8 = #{image8,jdbcType=VARCHAR},
+      image9 = #{image9,jdbcType=VARCHAR},
+      redflower_count = #{redflowerCount,jdbcType=INTEGER},
+      act_time = #{actTime,jdbcType=TIMESTAMP},
+      insert_time = #{insertTime,jdbcType=TIMESTAMP},
+      update_time = #{updateTime,jdbcType=TIMESTAMP},
+      status = #{status,jdbcType=VARCHAR},
+      operator = #{operator,jdbcType=VARCHAR},
+      determine = #{determine,jdbcType=VARCHAR},
+      share_title = #{shareTitle,jdbcType=VARCHAR},
+      share_content = #{shareContent,jdbcType=VARCHAR},
+      share_img_index = #{shareImgIndex,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+</mapper>

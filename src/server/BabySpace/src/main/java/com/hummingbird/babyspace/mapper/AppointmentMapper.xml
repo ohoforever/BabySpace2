@@ -1,0 +1,142 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.hummingbird.babyspace.mapper.AppointmentMapper" >
+  <resultMap id="BaseResultMap" type="com.hummingbird.babyspace.entity.Appointment" >
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="mobile_num" property="mobileNum" jdbcType="INTEGER" />
+    <result column="parent_name" property="parentName" jdbcType="VARCHAR" />
+    <result column="baby_name" property="babyName" jdbcType="VARCHAR" />
+    <result column="baby_sex" property="babySex" jdbcType="VARCHAR" />
+    <result column="baby_birthday" property="babyBirthday" jdbcType="DATE" />
+    <result column="city" property="city" jdbcType="VARCHAR" />
+    <result column="district" property="district" jdbcType="VARCHAR" />
+    <result column="union_id" property="unionId" jdbcType="INTEGER" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    id, mobile_num, parent_name, baby_name, baby_sex, baby_birthday, city, district, 
+    union_id
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from t_khkf_appointment
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from t_khkf_appointment
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.hummingbird.babyspace.entity.Appointment" >
+    insert into t_khkf_appointment (id, mobile_num, parent_name, 
+      baby_name, baby_sex, baby_birthday, 
+      city, district, union_id
+      )
+    values (#{id,jdbcType=INTEGER}, #{mobileNum,jdbcType=INTEGER}, #{parentName,jdbcType=VARCHAR}, 
+      #{babyName,jdbcType=VARCHAR}, #{babySex,jdbcType=VARCHAR}, #{babyBirthday,jdbcType=DATE}, 
+      #{city,jdbcType=VARCHAR}, #{district,jdbcType=VARCHAR}, #{unionId,jdbcType=INTEGER}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.hummingbird.babyspace.entity.Appointment" >
+    insert into t_khkf_appointment
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="mobileNum != null" >
+        mobile_num,
+      </if>
+      <if test="parentName != null" >
+        parent_name,
+      </if>
+      <if test="babyName != null" >
+        baby_name,
+      </if>
+      <if test="babySex != null" >
+        baby_sex,
+      </if>
+      <if test="babyBirthday != null" >
+        baby_birthday,
+      </if>
+      <if test="city != null" >
+        city,
+      </if>
+      <if test="district != null" >
+        district,
+      </if>
+      <if test="unionId != null" >
+        union_id,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="mobileNum != null" >
+        #{mobileNum,jdbcType=INTEGER},
+      </if>
+      <if test="parentName != null" >
+        #{parentName,jdbcType=VARCHAR},
+      </if>
+      <if test="babyName != null" >
+        #{babyName,jdbcType=VARCHAR},
+      </if>
+      <if test="babySex != null" >
+        #{babySex,jdbcType=VARCHAR},
+      </if>
+      <if test="babyBirthday != null" >
+        #{babyBirthday,jdbcType=DATE},
+      </if>
+      <if test="city != null" >
+        #{city,jdbcType=VARCHAR},
+      </if>
+      <if test="district != null" >
+        #{district,jdbcType=VARCHAR},
+      </if>
+      <if test="unionId != null" >
+        #{unionId,jdbcType=INTEGER},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.hummingbird.babyspace.entity.Appointment" >
+    update t_khkf_appointment
+    <set >
+      <if test="mobileNum != null" >
+        mobile_num = #{mobileNum,jdbcType=INTEGER},
+      </if>
+      <if test="parentName != null" >
+        parent_name = #{parentName,jdbcType=VARCHAR},
+      </if>
+      <if test="babyName != null" >
+        baby_name = #{babyName,jdbcType=VARCHAR},
+      </if>
+      <if test="babySex != null" >
+        baby_sex = #{babySex,jdbcType=VARCHAR},
+      </if>
+      <if test="babyBirthday != null" >
+        baby_birthday = #{babyBirthday,jdbcType=DATE},
+      </if>
+      <if test="city != null" >
+        city = #{city,jdbcType=VARCHAR},
+      </if>
+      <if test="district != null" >
+        district = #{district,jdbcType=VARCHAR},
+      </if>
+      <if test="unionId != null" >
+        union_id = #{unionId,jdbcType=INTEGER},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.hummingbird.babyspace.entity.Appointment" >
+    update t_khkf_appointment
+    set mobile_num = #{mobileNum,jdbcType=INTEGER},
+      parent_name = #{parentName,jdbcType=VARCHAR},
+      baby_name = #{babyName,jdbcType=VARCHAR},
+      baby_sex = #{babySex,jdbcType=VARCHAR},
+      baby_birthday = #{babyBirthday,jdbcType=DATE},
+      city = #{city,jdbcType=VARCHAR},
+      district = #{district,jdbcType=VARCHAR},
+      union_id = #{unionId,jdbcType=INTEGER}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+</mapper>

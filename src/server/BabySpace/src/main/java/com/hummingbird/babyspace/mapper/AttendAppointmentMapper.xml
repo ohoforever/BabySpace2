@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.hummingbird.babyspace.mapper.AttendAppointmentMapper" >
+  <resultMap id="BaseResultMap" type="com.hummingbird.babyspace.entity.AttendAppointment" >
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="insert_time" property="insertTime" jdbcType="TIMESTAMP" />
+    <result column="candidate_id" property="candidateId" jdbcType="INTEGER" />
+    <result column="course_name" property="courseName" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    id, insert_time, candidate_id, course_name
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from t_khkf_attend_appointment
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from t_khkf_attend_appointment
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.hummingbird.babyspace.entity.AttendAppointment" >
+    insert into t_khkf_attend_appointment (id, insert_time, candidate_id, 
+      course_name)
+    values (#{id,jdbcType=INTEGER}, #{insertTime,jdbcType=TIMESTAMP}, #{candidateId,jdbcType=INTEGER}, 
+      #{courseName,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.hummingbird.babyspace.entity.AttendAppointment" >
+    insert into t_khkf_attend_appointment
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="insertTime != null" >
+        insert_time,
+      </if>
+      <if test="candidateId != null" >
+        candidate_id,
+      </if>
+      <if test="courseName != null" >
+        course_name,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="insertTime != null" >
+        #{insertTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="candidateId != null" >
+        #{candidateId,jdbcType=INTEGER},
+      </if>
+      <if test="courseName != null" >
+        #{courseName,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.hummingbird.babyspace.entity.AttendAppointment" >
+    update t_khkf_attend_appointment
+    <set >
+      <if test="insertTime != null" >
+        insert_time = #{insertTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="candidateId != null" >
+        candidate_id = #{candidateId,jdbcType=INTEGER},
+      </if>
+      <if test="courseName != null" >
+        course_name = #{courseName,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.hummingbird.babyspace.entity.AttendAppointment" >
+    update t_khkf_attend_appointment
+    set insert_time = #{insertTime,jdbcType=TIMESTAMP},
+      candidate_id = #{candidateId,jdbcType=INTEGER},
+      course_name = #{courseName,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+</mapper>

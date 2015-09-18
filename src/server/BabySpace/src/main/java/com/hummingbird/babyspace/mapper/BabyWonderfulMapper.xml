@@ -1,0 +1,294 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.hummingbird.babyspace.mapper.BabyWonderfulMapper" >
+  <resultMap id="BaseResultMap" type="com.hummingbird.babyspace.entity.BabyWonderful" >
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="content" property="content" jdbcType="VARCHAR" />
+    <result column="title" property="title" jdbcType="VARCHAR" />
+    <result column="tag" property="tag" jdbcType="VARCHAR" />
+    <result column="image1" property="image1" jdbcType="VARCHAR" />
+    <result column="image2" property="image2" jdbcType="VARCHAR" />
+    <result column="image3" property="image3" jdbcType="VARCHAR" />
+    <result column="image4" property="image4" jdbcType="VARCHAR" />
+    <result column="image5" property="image5" jdbcType="VARCHAR" />
+    <result column="image6" property="image6" jdbcType="VARCHAR" />
+    <result column="image7" property="image7" jdbcType="VARCHAR" />
+    <result column="image8" property="image8" jdbcType="VARCHAR" />
+    <result column="image9" property="image9" jdbcType="VARCHAR" />
+    <result column="like_count" property="likeCount" jdbcType="INTEGER" />
+    <result column="act_time" property="actTime" jdbcType="TIMESTAMP" />
+    <result column="insert_time" property="insertTime" jdbcType="TIMESTAMP" />
+    <result column="update_time" property="updateTime" jdbcType="TIMESTAMP" />
+    <result column="status" property="status" jdbcType="VARCHAR" />
+    <result column="operator" property="operator" jdbcType="INTEGER" />
+    <result column="share_title" property="shareTitle" jdbcType="VARCHAR" />
+    <result column="share_img_index" property="shareImgIndex" jdbcType="INTEGER" />
+    <result column="share_content" property="shareContent" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    id, content, title, tag, image1, image2, image3, image4, image5, image6, image7, 
+    image8, image9, like_count, act_time, insert_time, update_time, status, operator, 
+    share_title, share_img_index, share_content
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from t_bbjc_baby_wonderful
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from t_bbjc_baby_wonderful
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.hummingbird.babyspace.entity.BabyWonderful" >
+    insert into t_bbjc_baby_wonderful (id, content, title, 
+      tag, image1, image2, 
+      image3, image4, image5, 
+      image6, image7, image8, 
+      image9, like_count, act_time, 
+      insert_time, update_time, status, 
+      operator, share_title, share_img_index, 
+      share_content)
+    values (#{id,jdbcType=INTEGER}, #{content,jdbcType=VARCHAR}, #{title,jdbcType=VARCHAR}, 
+      #{tag,jdbcType=VARCHAR}, #{image1,jdbcType=VARCHAR}, #{image2,jdbcType=VARCHAR}, 
+      #{image3,jdbcType=VARCHAR}, #{image4,jdbcType=VARCHAR}, #{image5,jdbcType=VARCHAR}, 
+      #{image6,jdbcType=VARCHAR}, #{image7,jdbcType=VARCHAR}, #{image8,jdbcType=VARCHAR}, 
+      #{image9,jdbcType=VARCHAR}, #{likeCount,jdbcType=INTEGER}, #{actTime,jdbcType=TIMESTAMP}, 
+      #{insertTime,jdbcType=TIMESTAMP}, #{updateTime,jdbcType=TIMESTAMP}, #{status,jdbcType=VARCHAR}, 
+      #{operator,jdbcType=INTEGER}, #{shareTitle,jdbcType=VARCHAR}, #{shareImgIndex,jdbcType=INTEGER}, 
+      #{shareContent,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.hummingbird.babyspace.entity.BabyWonderful" >
+    insert into t_bbjc_baby_wonderful
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="content != null" >
+        content,
+      </if>
+      <if test="title != null" >
+        title,
+      </if>
+      <if test="tag != null" >
+        tag,
+      </if>
+      <if test="image1 != null" >
+        image1,
+      </if>
+      <if test="image2 != null" >
+        image2,
+      </if>
+      <if test="image3 != null" >
+        image3,
+      </if>
+      <if test="image4 != null" >
+        image4,
+      </if>
+      <if test="image5 != null" >
+        image5,
+      </if>
+      <if test="image6 != null" >
+        image6,
+      </if>
+      <if test="image7 != null" >
+        image7,
+      </if>
+      <if test="image8 != null" >
+        image8,
+      </if>
+      <if test="image9 != null" >
+        image9,
+      </if>
+      <if test="likeCount != null" >
+        like_count,
+      </if>
+      <if test="actTime != null" >
+        act_time,
+      </if>
+      <if test="insertTime != null" >
+        insert_time,
+      </if>
+      <if test="updateTime != null" >
+        update_time,
+      </if>
+      <if test="status != null" >
+        status,
+      </if>
+      <if test="operator != null" >
+        operator,
+      </if>
+      <if test="shareTitle != null" >
+        share_title,
+      </if>
+      <if test="shareImgIndex != null" >
+        share_img_index,
+      </if>
+      <if test="shareContent != null" >
+        share_content,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="content != null" >
+        #{content,jdbcType=VARCHAR},
+      </if>
+      <if test="title != null" >
+        #{title,jdbcType=VARCHAR},
+      </if>
+      <if test="tag != null" >
+        #{tag,jdbcType=VARCHAR},
+      </if>
+      <if test="image1 != null" >
+        #{image1,jdbcType=VARCHAR},
+      </if>
+      <if test="image2 != null" >
+        #{image2,jdbcType=VARCHAR},
+      </if>
+      <if test="image3 != null" >
+        #{image3,jdbcType=VARCHAR},
+      </if>
+      <if test="image4 != null" >
+        #{image4,jdbcType=VARCHAR},
+      </if>
+      <if test="image5 != null" >
+        #{image5,jdbcType=VARCHAR},
+      </if>
+      <if test="image6 != null" >
+        #{image6,jdbcType=VARCHAR},
+      </if>
+      <if test="image7 != null" >
+        #{image7,jdbcType=VARCHAR},
+      </if>
+      <if test="image8 != null" >
+        #{image8,jdbcType=VARCHAR},
+      </if>
+      <if test="image9 != null" >
+        #{image9,jdbcType=VARCHAR},
+      </if>
+      <if test="likeCount != null" >
+        #{likeCount,jdbcType=INTEGER},
+      </if>
+      <if test="actTime != null" >
+        #{actTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="insertTime != null" >
+        #{insertTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateTime != null" >
+        #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="status != null" >
+        #{status,jdbcType=VARCHAR},
+      </if>
+      <if test="operator != null" >
+        #{operator,jdbcType=INTEGER},
+      </if>
+      <if test="shareTitle != null" >
+        #{shareTitle,jdbcType=VARCHAR},
+      </if>
+      <if test="shareImgIndex != null" >
+        #{shareImgIndex,jdbcType=INTEGER},
+      </if>
+      <if test="shareContent != null" >
+        #{shareContent,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.hummingbird.babyspace.entity.BabyWonderful" >
+    update t_bbjc_baby_wonderful
+    <set >
+      <if test="content != null" >
+        content = #{content,jdbcType=VARCHAR},
+      </if>
+      <if test="title != null" >
+        title = #{title,jdbcType=VARCHAR},
+      </if>
+      <if test="tag != null" >
+        tag = #{tag,jdbcType=VARCHAR},
+      </if>
+      <if test="image1 != null" >
+        image1 = #{image1,jdbcType=VARCHAR},
+      </if>
+      <if test="image2 != null" >
+        image2 = #{image2,jdbcType=VARCHAR},
+      </if>
+      <if test="image3 != null" >
+        image3 = #{image3,jdbcType=VARCHAR},
+      </if>
+      <if test="image4 != null" >
+        image4 = #{image4,jdbcType=VARCHAR},
+      </if>
+      <if test="image5 != null" >
+        image5 = #{image5,jdbcType=VARCHAR},
+      </if>
+      <if test="image6 != null" >
+        image6 = #{image6,jdbcType=VARCHAR},
+      </if>
+      <if test="image7 != null" >
+        image7 = #{image7,jdbcType=VARCHAR},
+      </if>
+      <if test="image8 != null" >
+        image8 = #{image8,jdbcType=VARCHAR},
+      </if>
+      <if test="image9 != null" >
+        image9 = #{image9,jdbcType=VARCHAR},
+      </if>
+      <if test="likeCount != null" >
+        like_count = #{likeCount,jdbcType=INTEGER},
+      </if>
+      <if test="actTime != null" >
+        act_time = #{actTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="insertTime != null" >
+        insert_time = #{insertTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateTime != null" >
+        update_time = #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="status != null" >
+        status = #{status,jdbcType=VARCHAR},
+      </if>
+      <if test="operator != null" >
+        operator = #{operator,jdbcType=INTEGER},
+      </if>
+      <if test="shareTitle != null" >
+        share_title = #{shareTitle,jdbcType=VARCHAR},
+      </if>
+      <if test="shareImgIndex != null" >
+        share_img_index = #{shareImgIndex,jdbcType=INTEGER},
+      </if>
+      <if test="shareContent != null" >
+        share_content = #{shareContent,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.hummingbird.babyspace.entity.BabyWonderful" >
+    update t_bbjc_baby_wonderful
+    set content = #{content,jdbcType=VARCHAR},
+      title = #{title,jdbcType=VARCHAR},
+      tag = #{tag,jdbcType=VARCHAR},
+      image1 = #{image1,jdbcType=VARCHAR},
+      image2 = #{image2,jdbcType=VARCHAR},
+      image3 = #{image3,jdbcType=VARCHAR},
+      image4 = #{image4,jdbcType=VARCHAR},
+      image5 = #{image5,jdbcType=VARCHAR},
+      image6 = #{image6,jdbcType=VARCHAR},
+      image7 = #{image7,jdbcType=VARCHAR},
+      image8 = #{image8,jdbcType=VARCHAR},
+      image9 = #{image9,jdbcType=VARCHAR},
+      like_count = #{likeCount,jdbcType=INTEGER},
+      act_time = #{actTime,jdbcType=TIMESTAMP},
+      insert_time = #{insertTime,jdbcType=TIMESTAMP},
+      update_time = #{updateTime,jdbcType=TIMESTAMP},
+      status = #{status,jdbcType=VARCHAR},
+      operator = #{operator,jdbcType=INTEGER},
+      share_title = #{shareTitle,jdbcType=VARCHAR},
+      share_img_index = #{shareImgIndex,jdbcType=INTEGER},
+      share_content = #{shareContent,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+</mapper>

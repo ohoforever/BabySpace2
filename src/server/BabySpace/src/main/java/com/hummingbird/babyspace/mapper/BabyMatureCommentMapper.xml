@@ -1,0 +1,117 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.hummingbird.babyspace.mapper.BabyMatureCommentMapper" >
+  <resultMap id="BaseResultMap" type="com.hummingbird.babyspace.entity.BabyMatureComment" >
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="mature_id" property="matureId" jdbcType="INTEGER" />
+    <result column="sender_type" property="senderType" jdbcType="VARCHAR" />
+    <result column="sender_id" property="senderId" jdbcType="INTEGER" />
+    <result column="reply_to" property="replyTo" jdbcType="INTEGER" />
+    <result column="content" property="content" jdbcType="VARCHAR" />
+    <result column="insert_time" property="insertTime" jdbcType="TIMESTAMP" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    id, mature_id, sender_type, sender_id, reply_to, content, insert_time
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from t_bbkj_baby_mature_comment
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from t_bbkj_baby_mature_comment
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.hummingbird.babyspace.entity.BabyMatureComment" >
+    insert into t_bbkj_baby_mature_comment (id, mature_id, sender_type, 
+      sender_id, reply_to, content, 
+      insert_time)
+    values (#{id,jdbcType=INTEGER}, #{matureId,jdbcType=INTEGER}, #{senderType,jdbcType=VARCHAR}, 
+      #{senderId,jdbcType=INTEGER}, #{replyTo,jdbcType=INTEGER}, #{content,jdbcType=VARCHAR}, 
+      #{insertTime,jdbcType=TIMESTAMP})
+  </insert>
+  <insert id="insertSelective" parameterType="com.hummingbird.babyspace.entity.BabyMatureComment" >
+    insert into t_bbkj_baby_mature_comment
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="matureId != null" >
+        mature_id,
+      </if>
+      <if test="senderType != null" >
+        sender_type,
+      </if>
+      <if test="senderId != null" >
+        sender_id,
+      </if>
+      <if test="replyTo != null" >
+        reply_to,
+      </if>
+      <if test="content != null" >
+        content,
+      </if>
+      <if test="insertTime != null" >
+        insert_time,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="matureId != null" >
+        #{matureId,jdbcType=INTEGER},
+      </if>
+      <if test="senderType != null" >
+        #{senderType,jdbcType=VARCHAR},
+      </if>
+      <if test="senderId != null" >
+        #{senderId,jdbcType=INTEGER},
+      </if>
+      <if test="replyTo != null" >
+        #{replyTo,jdbcType=INTEGER},
+      </if>
+      <if test="content != null" >
+        #{content,jdbcType=VARCHAR},
+      </if>
+      <if test="insertTime != null" >
+        #{insertTime,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.hummingbird.babyspace.entity.BabyMatureComment" >
+    update t_bbkj_baby_mature_comment
+    <set >
+      <if test="matureId != null" >
+        mature_id = #{matureId,jdbcType=INTEGER},
+      </if>
+      <if test="senderType != null" >
+        sender_type = #{senderType,jdbcType=VARCHAR},
+      </if>
+      <if test="senderId != null" >
+        sender_id = #{senderId,jdbcType=INTEGER},
+      </if>
+      <if test="replyTo != null" >
+        reply_to = #{replyTo,jdbcType=INTEGER},
+      </if>
+      <if test="content != null" >
+        content = #{content,jdbcType=VARCHAR},
+      </if>
+      <if test="insertTime != null" >
+        insert_time = #{insertTime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.hummingbird.babyspace.entity.BabyMatureComment" >
+    update t_bbkj_baby_mature_comment
+    set mature_id = #{matureId,jdbcType=INTEGER},
+      sender_type = #{senderType,jdbcType=VARCHAR},
+      sender_id = #{senderId,jdbcType=INTEGER},
+      reply_to = #{replyTo,jdbcType=INTEGER},
+      content = #{content,jdbcType=VARCHAR},
+      insert_time = #{insertTime,jdbcType=TIMESTAMP}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+</mapper>

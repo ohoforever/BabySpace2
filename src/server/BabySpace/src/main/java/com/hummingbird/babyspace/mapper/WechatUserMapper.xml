@@ -1,0 +1,299 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.hummingbird.babyspace.mapper.WechatUserMapper" >
+  <resultMap id="BaseResultMap" type="com.hummingbird.babyspace.entity.WechatUser" >
+    <id column="userid" property="userid" jdbcType="INTEGER" />
+    <result column="openid" property="openid" jdbcType="CHAR" />
+    <result column="nickname" property="nickname" jdbcType="VARCHAR" />
+    <result column="sex" property="sex" jdbcType="TINYINT" />
+    <result column="language" property="language" jdbcType="CHAR" />
+    <result column="city" property="city" jdbcType="VARCHAR" />
+    <result column="province" property="province" jdbcType="VARCHAR" />
+    <result column="country" property="country" jdbcType="VARCHAR" />
+    <result column="headimgurl" property="headimgurl" jdbcType="VARCHAR" />
+    <result column="subscribe_time" property="subscribeTime" jdbcType="INTEGER" />
+    <result column="unionid" property="unionid" jdbcType="CHAR" />
+    <result column="remark" property="remark" jdbcType="VARCHAR" />
+    <result column="subscribe" property="subscribe" jdbcType="TINYINT" />
+    <result column="groupid" property="groupid" jdbcType="INTEGER" />
+    <result column="add_time" property="addTime" jdbcType="TIMESTAMP" />
+    <result column="update_time" property="updateTime" jdbcType="TIMESTAMP" />
+    <result column="qr_ticket" property="qrTicket" jdbcType="VARCHAR" />
+    <result column="qr_expire_seconds" property="qrExpireSeconds" jdbcType="INTEGER" />
+    <result column="qr_create_time" property="qrCreateTime" jdbcType="INTEGER" />
+  </resultMap>
+  <resultMap id="ResultMapWithBLOBs" type="com.hummingbird.babyspace.entity.WechatUser" extends="BaseResultMap" >
+    <result column="privilege" property="privilege" jdbcType="LONGVARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    userid, openid, nickname, sex, language, city, province, country, headimgurl, subscribe_time, 
+    unionid, remark, subscribe, groupid, add_time, update_time, qr_ticket, qr_expire_seconds, 
+    qr_create_time
+  </sql>
+  <sql id="Blob_Column_List" >
+    privilege
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="ResultMapWithBLOBs" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from t_wx_user
+    where userid = #{userid,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from t_wx_user
+    where userid = #{userid,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.hummingbird.babyspace.entity.WechatUser" >
+    insert into t_wx_user (userid, openid, nickname, 
+      sex, language, city, province, 
+      country, headimgurl, subscribe_time, 
+      unionid, remark, subscribe, 
+      groupid, add_time, update_time, 
+      qr_ticket, qr_expire_seconds, qr_create_time, 
+      privilege)
+    values (#{userid,jdbcType=INTEGER}, #{openid,jdbcType=CHAR}, #{nickname,jdbcType=VARCHAR}, 
+      #{sex,jdbcType=TINYINT}, #{language,jdbcType=CHAR}, #{city,jdbcType=VARCHAR}, #{province,jdbcType=VARCHAR}, 
+      #{country,jdbcType=VARCHAR}, #{headimgurl,jdbcType=VARCHAR}, #{subscribeTime,jdbcType=INTEGER}, 
+      #{unionid,jdbcType=CHAR}, #{remark,jdbcType=VARCHAR}, #{subscribe,jdbcType=TINYINT}, 
+      #{groupid,jdbcType=INTEGER}, #{addTime,jdbcType=TIMESTAMP}, #{updateTime,jdbcType=TIMESTAMP}, 
+      #{qrTicket,jdbcType=VARCHAR}, #{qrExpireSeconds,jdbcType=INTEGER}, #{qrCreateTime,jdbcType=INTEGER}, 
+      #{privilege,jdbcType=LONGVARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.hummingbird.babyspace.entity.WechatUser" >
+    insert into t_wx_user
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="userid != null" >
+        userid,
+      </if>
+      <if test="openid != null" >
+        openid,
+      </if>
+      <if test="nickname != null" >
+        nickname,
+      </if>
+      <if test="sex != null" >
+        sex,
+      </if>
+      <if test="language != null" >
+        language,
+      </if>
+      <if test="city != null" >
+        city,
+      </if>
+      <if test="province != null" >
+        province,
+      </if>
+      <if test="country != null" >
+        country,
+      </if>
+      <if test="headimgurl != null" >
+        headimgurl,
+      </if>
+      <if test="subscribeTime != null" >
+        subscribe_time,
+      </if>
+      <if test="unionid != null" >
+        unionid,
+      </if>
+      <if test="remark != null" >
+        remark,
+      </if>
+      <if test="subscribe != null" >
+        subscribe,
+      </if>
+      <if test="groupid != null" >
+        groupid,
+      </if>
+      <if test="addTime != null" >
+        add_time,
+      </if>
+      <if test="updateTime != null" >
+        update_time,
+      </if>
+      <if test="qrTicket != null" >
+        qr_ticket,
+      </if>
+      <if test="qrExpireSeconds != null" >
+        qr_expire_seconds,
+      </if>
+      <if test="qrCreateTime != null" >
+        qr_create_time,
+      </if>
+      <if test="privilege != null" >
+        privilege,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="userid != null" >
+        #{userid,jdbcType=INTEGER},
+      </if>
+      <if test="openid != null" >
+        #{openid,jdbcType=CHAR},
+      </if>
+      <if test="nickname != null" >
+        #{nickname,jdbcType=VARCHAR},
+      </if>
+      <if test="sex != null" >
+        #{sex,jdbcType=TINYINT},
+      </if>
+      <if test="language != null" >
+        #{language,jdbcType=CHAR},
+      </if>
+      <if test="city != null" >
+        #{city,jdbcType=VARCHAR},
+      </if>
+      <if test="province != null" >
+        #{province,jdbcType=VARCHAR},
+      </if>
+      <if test="country != null" >
+        #{country,jdbcType=VARCHAR},
+      </if>
+      <if test="headimgurl != null" >
+        #{headimgurl,jdbcType=VARCHAR},
+      </if>
+      <if test="subscribeTime != null" >
+        #{subscribeTime,jdbcType=INTEGER},
+      </if>
+      <if test="unionid != null" >
+        #{unionid,jdbcType=CHAR},
+      </if>
+      <if test="remark != null" >
+        #{remark,jdbcType=VARCHAR},
+      </if>
+      <if test="subscribe != null" >
+        #{subscribe,jdbcType=TINYINT},
+      </if>
+      <if test="groupid != null" >
+        #{groupid,jdbcType=INTEGER},
+      </if>
+      <if test="addTime != null" >
+        #{addTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateTime != null" >
+        #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="qrTicket != null" >
+        #{qrTicket,jdbcType=VARCHAR},
+      </if>
+      <if test="qrExpireSeconds != null" >
+        #{qrExpireSeconds,jdbcType=INTEGER},
+      </if>
+      <if test="qrCreateTime != null" >
+        #{qrCreateTime,jdbcType=INTEGER},
+      </if>
+      <if test="privilege != null" >
+        #{privilege,jdbcType=LONGVARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.hummingbird.babyspace.entity.WechatUser" >
+    update t_wx_user
+    <set >
+      <if test="openid != null" >
+        openid = #{openid,jdbcType=CHAR},
+      </if>
+      <if test="nickname != null" >
+        nickname = #{nickname,jdbcType=VARCHAR},
+      </if>
+      <if test="sex != null" >
+        sex = #{sex,jdbcType=TINYINT},
+      </if>
+      <if test="language != null" >
+        language = #{language,jdbcType=CHAR},
+      </if>
+      <if test="city != null" >
+        city = #{city,jdbcType=VARCHAR},
+      </if>
+      <if test="province != null" >
+        province = #{province,jdbcType=VARCHAR},
+      </if>
+      <if test="country != null" >
+        country = #{country,jdbcType=VARCHAR},
+      </if>
+      <if test="headimgurl != null" >
+        headimgurl = #{headimgurl,jdbcType=VARCHAR},
+      </if>
+      <if test="subscribeTime != null" >
+        subscribe_time = #{subscribeTime,jdbcType=INTEGER},
+      </if>
+      <if test="unionid != null" >
+        unionid = #{unionid,jdbcType=CHAR},
+      </if>
+      <if test="remark != null" >
+        remark = #{remark,jdbcType=VARCHAR},
+      </if>
+      <if test="subscribe != null" >
+        subscribe = #{subscribe,jdbcType=TINYINT},
+      </if>
+      <if test="groupid != null" >
+        groupid = #{groupid,jdbcType=INTEGER},
+      </if>
+      <if test="addTime != null" >
+        add_time = #{addTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateTime != null" >
+        update_time = #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="qrTicket != null" >
+        qr_ticket = #{qrTicket,jdbcType=VARCHAR},
+      </if>
+      <if test="qrExpireSeconds != null" >
+        qr_expire_seconds = #{qrExpireSeconds,jdbcType=INTEGER},
+      </if>
+      <if test="qrCreateTime != null" >
+        qr_create_time = #{qrCreateTime,jdbcType=INTEGER},
+      </if>
+      <if test="privilege != null" >
+        privilege = #{privilege,jdbcType=LONGVARCHAR},
+      </if>
+    </set>
+    where userid = #{userid,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKeyWithBLOBs" parameterType="com.hummingbird.babyspace.entity.WechatUser" >
+    update t_wx_user
+    set openid = #{openid,jdbcType=CHAR},
+      nickname = #{nickname,jdbcType=VARCHAR},
+      sex = #{sex,jdbcType=TINYINT},
+      language = #{language,jdbcType=CHAR},
+      city = #{city,jdbcType=VARCHAR},
+      province = #{province,jdbcType=VARCHAR},
+      country = #{country,jdbcType=VARCHAR},
+      headimgurl = #{headimgurl,jdbcType=VARCHAR},
+      subscribe_time = #{subscribeTime,jdbcType=INTEGER},
+      unionid = #{unionid,jdbcType=CHAR},
+      remark = #{remark,jdbcType=VARCHAR},
+      subscribe = #{subscribe,jdbcType=TINYINT},
+      groupid = #{groupid,jdbcType=INTEGER},
+      add_time = #{addTime,jdbcType=TIMESTAMP},
+      update_time = #{updateTime,jdbcType=TIMESTAMP},
+      qr_ticket = #{qrTicket,jdbcType=VARCHAR},
+      qr_expire_seconds = #{qrExpireSeconds,jdbcType=INTEGER},
+      qr_create_time = #{qrCreateTime,jdbcType=INTEGER},
+      privilege = #{privilege,jdbcType=LONGVARCHAR}
+    where userid = #{userid,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.hummingbird.babyspace.entity.WechatUser" >
+    update t_wx_user
+    set openid = #{openid,jdbcType=CHAR},
+      nickname = #{nickname,jdbcType=VARCHAR},
+      sex = #{sex,jdbcType=TINYINT},
+      language = #{language,jdbcType=CHAR},
+      city = #{city,jdbcType=VARCHAR},
+      province = #{province,jdbcType=VARCHAR},
+      country = #{country,jdbcType=VARCHAR},
+      headimgurl = #{headimgurl,jdbcType=VARCHAR},
+      subscribe_time = #{subscribeTime,jdbcType=INTEGER},
+      unionid = #{unionid,jdbcType=CHAR},
+      remark = #{remark,jdbcType=VARCHAR},
+      subscribe = #{subscribe,jdbcType=TINYINT},
+      groupid = #{groupid,jdbcType=INTEGER},
+      add_time = #{addTime,jdbcType=TIMESTAMP},
+      update_time = #{updateTime,jdbcType=TIMESTAMP},
+      qr_ticket = #{qrTicket,jdbcType=VARCHAR},
+      qr_expire_seconds = #{qrExpireSeconds,jdbcType=INTEGER},
+      qr_create_time = #{qrCreateTime,jdbcType=INTEGER}
+    where userid = #{userid,jdbcType=INTEGER}
+  </update>
+</mapper>
