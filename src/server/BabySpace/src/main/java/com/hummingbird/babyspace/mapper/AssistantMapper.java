@@ -1,10 +1,8 @@
 package com.hummingbird.babyspace.mapper;
 
-import java.util.List;
+import com.hummingbird.babyspace.entity.Assistant;
 
-import com.hummingbird.babyspace.entity.Candidate;
-
-public interface CandidateMapper {
+public interface AssistantMapper {
     /**
      * 根据主键删除记录
      */
@@ -13,31 +11,25 @@ public interface CandidateMapper {
     /**
      * 保存记录,不管记录里面的属性是否为空
      */
-    int insert(Candidate record);
+    int insert(Assistant record);
 
     /**
      * 保存属性不为空的记录
      */
-    int insertSelective(Candidate record);
+    int insertSelective(Assistant record);
 
     /**
      * 根据主键查询记录
      */
-    Candidate selectByPrimaryKey(Integer id);
+    Assistant selectByPrimaryKey(Integer id);
 
     /**
      * 根据主键更新属性不为空的记录
      */
-    int updateByPrimaryKeySelective(Candidate record);
+    int updateByPrimaryKeySelective(Assistant record);
 
     /**
      * 根据主键更新记录
      */
-    int updateByPrimaryKey(Candidate record);
-
-	/**
-	 * 查询待开发的客户
-	 * @return
-	 */
-	List<Candidate> selectNoAssistantCandidate();
+    int updateByPrimaryKey(Assistant record);
 }

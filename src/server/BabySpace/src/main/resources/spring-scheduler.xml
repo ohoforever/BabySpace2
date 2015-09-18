@@ -8,30 +8,30 @@
            http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-2.0.xsd">
 	
 	<!-- 调度器  -->  
-	<!-- <bean class="org.springframework.scheduling.quartz.SchedulerFactoryBean">  
+	 <bean class="org.springframework.scheduling.quartz.SchedulerFactoryBean">  
         <property name="triggers">  
             <list>  
-                 生成对账文件  
-                <ref bean="genAccountCompareTask" />  
+                 <!-- 指定到业务员开发 -->  
+                <ref bean="assignCancidate2assistantTask" />  
             </list>  
         </property>  
     </bean> 
     	    	 
-	生成对账文件
-	<bean id="genAccountCompareTask" class="org.springframework.scheduling.quartz.CronTriggerFactoryBean">
+	<!-- 指定到业务员开发 -->
+	<bean id="assignCancidate2assistantTask" class="org.springframework.scheduling.quartz.CronTriggerFactoryBean">
 		<property name="jobDetail">
-			<ref bean="genAccountCompareJob" />
+			<ref bean="assignCancidate2assistantJob" />
 		</property>
 		<property name="cronExpression">
-			<value>11 0 0 * * ?</value>
+			<value>*/30 * * * * ?</value>
 		</property>
 	</bean>
-	
-	<bean id="genAccountCompareJob" class="org.springframework.scheduling.quartz.MethodInvokingJobDetailFactoryBean">
-		<property name="targetObject"><ref bean="checkAccountsServiceImpl" /></property>
-		<property name="targetMethod" value="createCheckfile" />
+	<!-- 指定到业务员开发 -->
+	<bean id="assignCancidate2assistantJob" class="org.springframework.scheduling.quartz.MethodInvokingJobDetailFactoryBean">
+		<property name="targetObject"><ref bean="CustomerDevService" /></property>
+		<property name="targetMethod" value="assignCancidate2assistant" />
 		<property name="concurrent" value="false"/> 
-	</bean> -->
+	</bean>
 	
 		
 </beans>

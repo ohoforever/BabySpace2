@@ -26,6 +26,14 @@
     from t_khkf_candidate
     where id = #{id,jdbcType=INTEGER}
   </select>
+  <select id="selectNoAssistantCandidate" resultMap="BaseResultMap"  >
+    select 
+    <include refid="Base_Column_List" />
+    from t_khkf_candidate
+    where status='CRT'
+    and current_assistant_id is null
+    and level in ('A','B','C')
+  </select>
   <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
     delete from t_khkf_candidate
     where id = #{id,jdbcType=INTEGER}
