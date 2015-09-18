@@ -46,6 +46,8 @@ public class Appointment {
      */
     private String district;
 
+    private Integer unionId;
+
     /**
      * @return 预约id
      */
@@ -164,5 +166,13 @@ public class Appointment {
      */
     public void setDistrict(String district) {
         this.district = district == null ? null : district.trim();
+    }
+
+    public Integer getUnionId() {
+        return unionId;
+    }
+
+    public void setUnionId(Integer unionId) {
+        this.unionId = unionId;
     }
 }

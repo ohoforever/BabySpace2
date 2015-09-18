@@ -10,9 +10,11 @@
     <result column="baby_birthday" property="babyBirthday" jdbcType="DATE" />
     <result column="city" property="city" jdbcType="VARCHAR" />
     <result column="district" property="district" jdbcType="VARCHAR" />
+    <result column="union_id" property="unionId" jdbcType="INTEGER" />
   </resultMap>
   <sql id="Base_Column_List" >
-    id, mobile_num, parent_name, baby_name, baby_sex, baby_birthday, city, district
+    id, mobile_num, parent_name, baby_name, baby_sex, baby_birthday, city, district, 
+    union_id
   </sql>
   <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
     select 
@@ -27,10 +29,12 @@
   <insert id="insert" parameterType="com.hummingbird.babyspace.entity.Appointment" >
     insert into t_khkf_appointment (id, mobile_num, parent_name, 
       baby_name, baby_sex, baby_birthday, 
-      city, district)
+      city, district, union_id
+      )
     values (#{id,jdbcType=INTEGER}, #{mobileNum,jdbcType=INTEGER}, #{parentName,jdbcType=VARCHAR}, 
       #{babyName,jdbcType=VARCHAR}, #{babySex,jdbcType=VARCHAR}, #{babyBirthday,jdbcType=DATE}, 
-      #{city,jdbcType=VARCHAR}, #{district,jdbcType=VARCHAR})
+      #{city,jdbcType=VARCHAR}, #{district,jdbcType=VARCHAR}, #{unionId,jdbcType=INTEGER}
+      )
   </insert>
   <insert id="insertSelective" parameterType="com.hummingbird.babyspace.entity.Appointment" >
     insert into t_khkf_appointment
@@ -59,6 +63,9 @@
       <if test="district != null" >
         district,
       </if>
+      <if test="unionId != null" >
+        union_id,
+      </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides="," >
       <if test="id != null" >
@@ -84,6 +91,9 @@
       </if>
       <if test="district != null" >
         #{district,jdbcType=VARCHAR},
+      </if>
+      <if test="unionId != null" >
+        #{unionId,jdbcType=INTEGER},
       </if>
     </trim>
   </insert>
@@ -111,6 +121,9 @@
       <if test="district != null" >
         district = #{district,jdbcType=VARCHAR},
       </if>
+      <if test="unionId != null" >
+        union_id = #{unionId,jdbcType=INTEGER},
+      </if>
     </set>
     where id = #{id,jdbcType=INTEGER}
   </update>
@@ -122,7 +135,8 @@
       baby_sex = #{babySex,jdbcType=VARCHAR},
       baby_birthday = #{babyBirthday,jdbcType=DATE},
       city = #{city,jdbcType=VARCHAR},
-      district = #{district,jdbcType=VARCHAR}
+      district = #{district,jdbcType=VARCHAR},
+      union_id = #{unionId,jdbcType=INTEGER}
     where id = #{id,jdbcType=INTEGER}
   </update>
 </mapper>

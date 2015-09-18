@@ -12,9 +12,19 @@ public class AttendAppointment {
     private Integer id;
 
     /**
-     * 家长手机号
+     * 插入时间
      */
     private Date insertTime;
+
+    /**
+     * 预约id
+     */
+    private Integer candidateId;
+
+    /**
+     * 试听课程名称
+     */
+    private String courseName;
 
     /**
      * @return 候选人id
@@ -32,7 +42,7 @@ public class AttendAppointment {
     }
 
     /**
-     * @return 家长手机号
+     * @return 插入时间
      */
     public Date getInsertTime() {
         return insertTime;
@@ -40,9 +50,39 @@ public class AttendAppointment {
 
     /**
      * @param insertTime 
-	 *            家长手机号
+	 *            插入时间
      */
     public void setInsertTime(Date insertTime) {
         this.insertTime = insertTime;
+    }
+
+    /**
+     * @return 预约id
+     */
+    public Integer getCandidateId() {
+        return candidateId;
+    }
+
+    /**
+     * @param candidateId 
+	 *            预约id
+     */
+    public void setCandidateId(Integer candidateId) {
+        this.candidateId = candidateId;
+    }
+
+    /**
+     * @return 试听课程名称
+     */
+    public String getCourseName() {
+        return courseName;
+    }
+
+    /**
+     * @param courseName 
+	 *            试听课程名称
+     */
+    public void setCourseName(String courseName) {
+        this.courseName = courseName == null ? null : courseName.trim();
     }
 }
