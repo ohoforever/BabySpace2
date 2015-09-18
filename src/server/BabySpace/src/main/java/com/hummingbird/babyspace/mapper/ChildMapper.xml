@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.hummingbird.babyspace.mapper.ChildMapper" >
+  <resultMap id="BaseResultMap" type="com.hummingbird.babyspace.entity.Child" >
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="user_id" property="userId" jdbcType="INTEGER" />
+    <result column="baby_name" property="babyName" jdbcType="VARCHAR" />
+    <result column="baby_sex" property="babySex" jdbcType="VARCHAR" />
+    <result column="baby_birthday" property="babyBirthday" jdbcType="DATE" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    id, user_id, baby_name, baby_sex, baby_birthday
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from t_yhgl_child
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from t_yhgl_child
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.hummingbird.babyspace.entity.Child" >
+    insert into t_yhgl_child (id, user_id, baby_name, 
+      baby_sex, baby_birthday)
+    values (#{id,jdbcType=INTEGER}, #{userId,jdbcType=INTEGER}, #{babyName,jdbcType=VARCHAR}, 
+      #{babySex,jdbcType=VARCHAR}, #{babyBirthday,jdbcType=DATE})
+  </insert>
+  <insert id="insertSelective" parameterType="com.hummingbird.babyspace.entity.Child" >
+    insert into t_yhgl_child
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="userId != null" >
+        user_id,
+      </if>
+      <if test="babyName != null" >
+        baby_name,
+      </if>
+      <if test="babySex != null" >
+        baby_sex,
+      </if>
+      <if test="babyBirthday != null" >
+        baby_birthday,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="userId != null" >
+        #{userId,jdbcType=INTEGER},
+      </if>
+      <if test="babyName != null" >
+        #{babyName,jdbcType=VARCHAR},
+      </if>
+      <if test="babySex != null" >
+        #{babySex,jdbcType=VARCHAR},
+      </if>
+      <if test="babyBirthday != null" >
+        #{babyBirthday,jdbcType=DATE},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.hummingbird.babyspace.entity.Child" >
+    update t_yhgl_child
+    <set >
+      <if test="userId != null" >
+        user_id = #{userId,jdbcType=INTEGER},
+      </if>
+      <if test="babyName != null" >
+        baby_name = #{babyName,jdbcType=VARCHAR},
+      </if>
+      <if test="babySex != null" >
+        baby_sex = #{babySex,jdbcType=VARCHAR},
+      </if>
+      <if test="babyBirthday != null" >
+        baby_birthday = #{babyBirthday,jdbcType=DATE},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.hummingbird.babyspace.entity.Child" >
+    update t_yhgl_child
+    set user_id = #{userId,jdbcType=INTEGER},
+      baby_name = #{babyName,jdbcType=VARCHAR},
+      baby_sex = #{babySex,jdbcType=VARCHAR},
+      baby_birthday = #{babyBirthday,jdbcType=DATE}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+</mapper>

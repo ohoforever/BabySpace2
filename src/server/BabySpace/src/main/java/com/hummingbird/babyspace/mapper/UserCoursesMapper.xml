@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.hummingbird.babyspace.mapper.UserCoursesMapper" >
+  <resultMap id="BaseResultMap" type="com.hummingbird.babyspace.entity.UserCourses" >
+    <id column="user_id" property="userId" jdbcType="INTEGER" />
+    <result column="course_count" property="courseCount" jdbcType="INTEGER" />
+    <result column="course_left" property="courseLeft" jdbcType="INTEGER" />
+    <result column="insert_time" property="insertTime" jdbcType="TIMESTAMP" />
+    <result column="update_time" property="updateTime" jdbcType="TIMESTAMP" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    user_id, course_count, course_left, insert_time, update_time
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from t_kcgl_user_courses
+    where user_id = #{userId,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from t_kcgl_user_courses
+    where user_id = #{userId,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.hummingbird.babyspace.entity.UserCourses" >
+    insert into t_kcgl_user_courses (user_id, course_count, course_left, 
+      insert_time, update_time)
+    values (#{userId,jdbcType=INTEGER}, #{courseCount,jdbcType=INTEGER}, #{courseLeft,jdbcType=INTEGER}, 
+      #{insertTime,jdbcType=TIMESTAMP}, #{updateTime,jdbcType=TIMESTAMP})
+  </insert>
+  <insert id="insertSelective" parameterType="com.hummingbird.babyspace.entity.UserCourses" >
+    insert into t_kcgl_user_courses
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="userId != null" >
+        user_id,
+      </if>
+      <if test="courseCount != null" >
+        course_count,
+      </if>
+      <if test="courseLeft != null" >
+        course_left,
+      </if>
+      <if test="insertTime != null" >
+        insert_time,
+      </if>
+      <if test="updateTime != null" >
+        update_time,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="userId != null" >
+        #{userId,jdbcType=INTEGER},
+      </if>
+      <if test="courseCount != null" >
+        #{courseCount,jdbcType=INTEGER},
+      </if>
+      <if test="courseLeft != null" >
+        #{courseLeft,jdbcType=INTEGER},
+      </if>
+      <if test="insertTime != null" >
+        #{insertTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateTime != null" >
+        #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.hummingbird.babyspace.entity.UserCourses" >
+    update t_kcgl_user_courses
+    <set >
+      <if test="courseCount != null" >
+        course_count = #{courseCount,jdbcType=INTEGER},
+      </if>
+      <if test="courseLeft != null" >
+        course_left = #{courseLeft,jdbcType=INTEGER},
+      </if>
+      <if test="insertTime != null" >
+        insert_time = #{insertTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateTime != null" >
+        update_time = #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where user_id = #{userId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.hummingbird.babyspace.entity.UserCourses" >
+    update t_kcgl_user_courses
+    set course_count = #{courseCount,jdbcType=INTEGER},
+      course_left = #{courseLeft,jdbcType=INTEGER},
+      insert_time = #{insertTime,jdbcType=TIMESTAMP},
+      update_time = #{updateTime,jdbcType=TIMESTAMP}
+    where user_id = #{userId,jdbcType=INTEGER}
+  </update>
+</mapper>

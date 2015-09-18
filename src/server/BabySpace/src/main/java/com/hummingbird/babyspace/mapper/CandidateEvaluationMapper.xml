@@ -1,0 +1,133 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.hummingbird.babyspace.mapper.CandidateEvaluationMapper" >
+  <resultMap id="BaseResultMap" type="com.hummingbird.babyspace.entity.CandidateEvaluation" >
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="candidate_id" property="candidateId" jdbcType="INTEGER" />
+    <result column="assistant_id" property="assistantId" jdbcType="INTEGER" />
+    <result column="level" property="level" jdbcType="VARCHAR" />
+    <result column="insert_time" property="insertTime" jdbcType="TIMESTAMP" />
+    <result column="star" property="star" jdbcType="INTEGER" />
+  </resultMap>
+  <resultMap id="ResultMapWithBLOBs" type="com.hummingbird.babyspace.entity.CandidateEvaluation" extends="BaseResultMap" >
+    <result column="evaluation" property="evaluation" jdbcType="LONGVARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    id, candidate_id, assistant_id, level, insert_time, star
+  </sql>
+  <sql id="Blob_Column_List" >
+    evaluation
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="ResultMapWithBLOBs" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from t_khkf_candidate_evaluation
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from t_khkf_candidate_evaluation
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.hummingbird.babyspace.entity.CandidateEvaluation" >
+    insert into t_khkf_candidate_evaluation (id, candidate_id, assistant_id, 
+      level, insert_time, star, 
+      evaluation)
+    values (#{id,jdbcType=INTEGER}, #{candidateId,jdbcType=INTEGER}, #{assistantId,jdbcType=INTEGER}, 
+      #{level,jdbcType=VARCHAR}, #{insertTime,jdbcType=TIMESTAMP}, #{star,jdbcType=INTEGER}, 
+      #{evaluation,jdbcType=LONGVARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.hummingbird.babyspace.entity.CandidateEvaluation" >
+    insert into t_khkf_candidate_evaluation
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="candidateId != null" >
+        candidate_id,
+      </if>
+      <if test="assistantId != null" >
+        assistant_id,
+      </if>
+      <if test="level != null" >
+        level,
+      </if>
+      <if test="insertTime != null" >
+        insert_time,
+      </if>
+      <if test="star != null" >
+        star,
+      </if>
+      <if test="evaluation != null" >
+        evaluation,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="candidateId != null" >
+        #{candidateId,jdbcType=INTEGER},
+      </if>
+      <if test="assistantId != null" >
+        #{assistantId,jdbcType=INTEGER},
+      </if>
+      <if test="level != null" >
+        #{level,jdbcType=VARCHAR},
+      </if>
+      <if test="insertTime != null" >
+        #{insertTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="star != null" >
+        #{star,jdbcType=INTEGER},
+      </if>
+      <if test="evaluation != null" >
+        #{evaluation,jdbcType=LONGVARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.hummingbird.babyspace.entity.CandidateEvaluation" >
+    update t_khkf_candidate_evaluation
+    <set >
+      <if test="candidateId != null" >
+        candidate_id = #{candidateId,jdbcType=INTEGER},
+      </if>
+      <if test="assistantId != null" >
+        assistant_id = #{assistantId,jdbcType=INTEGER},
+      </if>
+      <if test="level != null" >
+        level = #{level,jdbcType=VARCHAR},
+      </if>
+      <if test="insertTime != null" >
+        insert_time = #{insertTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="star != null" >
+        star = #{star,jdbcType=INTEGER},
+      </if>
+      <if test="evaluation != null" >
+        evaluation = #{evaluation,jdbcType=LONGVARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKeyWithBLOBs" parameterType="com.hummingbird.babyspace.entity.CandidateEvaluation" >
+    update t_khkf_candidate_evaluation
+    set candidate_id = #{candidateId,jdbcType=INTEGER},
+      assistant_id = #{assistantId,jdbcType=INTEGER},
+      level = #{level,jdbcType=VARCHAR},
+      insert_time = #{insertTime,jdbcType=TIMESTAMP},
+      star = #{star,jdbcType=INTEGER},
+      evaluation = #{evaluation,jdbcType=LONGVARCHAR}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.hummingbird.babyspace.entity.CandidateEvaluation" >
+    update t_khkf_candidate_evaluation
+    set candidate_id = #{candidateId,jdbcType=INTEGER},
+      assistant_id = #{assistantId,jdbcType=INTEGER},
+      level = #{level,jdbcType=VARCHAR},
+      insert_time = #{insertTime,jdbcType=TIMESTAMP},
+      star = #{star,jdbcType=INTEGER}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+</mapper>
