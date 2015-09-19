@@ -2,47 +2,95 @@
 
 <block name="body">
 	<!-- 表单 -->
-
 <?php $sex = ['MALE###'=>'男宝宝','FEMALE#'=>'女宝宝','UNKNOWN'=>'不详'];?>
+<div class="widget-box" style="opacity: 1; z-index: 0;margin-bottom:1em;">
+<div class="widget-header header-color-blue">
+          <h5 class="bigger lighter"> 客户信息</h5>        
+</div>
+<div class="widget-body">
+<div class=""> 
+       <table class="table table-striped table-bordered table-hover" style="margin-bottom:0px;">
+	<tbody>
+		<tr>
+			<td>家长名称:{$item.parent_name}</td>
+			<td>家长电话:{$item.mobile_num}</td>
+		</tr>
+		<tr>
+			<td>宝宝名称:{$item.baby_name}</td>
+			<td>宝宝性别:<?php echo $sex[$item['baby_sex']];?></td>
+		</tr>
+		<tr>
+			<td>家庭所在城市:{$item.city}</td>
+			<td>家庭所在城市区域:{$item.district}</td>
+		</tr>
+		<tr>
+			<td>宝宝生日:{$item.baby_birthday}</td>
+			<td></td>
+		</tr>
+	 </tbody>
+	</table>
+</div>
+</div>
+</div>
+<?php foreach($list as $v){?>
+<div class="widget-box" style="opacity: 1; z-index: 0;margin-bottom:1em;">
+<div class="widget-header header-color-blue">
+          <h5 class="bigger lighter">标注人:<?php echo $v['assistant_id'];?></h5>        
+</div>
+<div class="widget-body">
+<div class=""> 
+       <table class="table table-striped table-bordered table-hover" style="margin-bottom:0px;">
+	<tbody>
+		<tr>
+			<td>用户级别:<?php echo $v['level']?></td>
+			<td>候选人星数:<?php echo $v['star']?></td>
+		</tr>
+		<tr>
+			<td colspan="2">内容:<?php echo $v['evaluation']?></td>
+		</tr>
+	 </tbody>
+	</table>
+</div>
+</div>
+</div>
+<?php }?>
+
 	<form id="form" action="{:U('allocatesave')}" method="post" class="form-horizontal">
-		<div class="form-group">
-                <label class="col-xs-12 col-sm-2 control-label no-padding-right">家长名称</label>
-                <label class=" col-xs-12 col-sm-5 blue no-padding-right"><strong>{$item.parent_name}</strong></label>
-                </div>
-		<div class="form-group">
-                <label class="col-xs-12 col-sm-2 control-label no-padding-right">家长电话</label>
-                <label class=" col-xs-12 col-sm-5 blue no-padding-right"><strong>{$item.mobile_num}</strong></label>
-                </div>
-		<div class="form-group">
-                <label class="col-xs-12 col-sm-2 control-label no-padding-right">宝宝姓名</label>
-                <label class=" col-xs-12 col-sm-5 blue no-padding-right"><strong>{$item.baby_name}</strong></label>
-                </div>
-		<div class="form-group">
-                <label class="col-xs-12 col-sm-2 control-label no-padding-right">宝宝性别</label>
-                <label class=" col-xs-12 col-sm-5 blue no-padding-right"><strong><?php echo $sex[$item['baby_sex']]?></strong></label>
-                </div>
-		<div class="form-group">
-                <label class="col-xs-12 col-sm-2 control-label no-padding-right">宝宝生日</label>
-                <label class=" col-xs-12 col-sm-5 blue no-padding-right"><strong>{$item.baby_birthday}</strong></label>
-                </div>
-		<div class="form-group">
-                <label class="col-xs-12 col-sm-2 control-label no-padding-right">家庭所在城市</label>
-                <label class=" col-xs-12 col-sm-5 blue no-padding-right"><strong>{$item.city}</strong></label>
-                </div>
-		<div class="form-group">
-                <label class="col-xs-12 col-sm-2 control-label no-padding-right">家庭所在城市区域</label>
-                <label class=" col-xs-12 col-sm-5 blue no-padding-right"><strong>{$item.district}</strong></label>
-                </div>
-		<div class="form-group">
-                <label class="col-xs-12 col-sm-2 control-label no-padding-right">候选人星数</label>
-			<div class="col-xs-12 col-sm-5">
+<div class="widget-box" style="opacity: 1; z-index: 0;margin-bottom:1em;">
+<div class="widget-header header-color-blue">
+          <h5 class="bigger lighter"> 添加评级</h5>        
+</div>
+<div class="widget-body">
+<div class=""> 
+       <table class="table table-striped table-bordered table-hover" style="margin-bottom:0px;">
+	<tbody>
+		<tr>
+			<td><span>评级:</span>
 				<select name="current_assistant_id">
-				<?php for ($i=0;$i<=5;$i++){?>
-				<option value="<?php echo $v['id']?>" <?php echo $item['current_assistant_id']==$v['id']?'selected':''?> ><?php echo $v['username']?></option>
-				<?php }?>
+				<option value="A" >A级</option>
+				<option value="B" >B级</option>
+				<option value="C" >C级</option>
 				</select>
-			</div>
-                </div>
+			</td>
+			<td><span>候选人星数:</span>
+				<select name="current_assistant_id">
+				<?php for ($i=1;$i<=5;$i++){?>
+				<option value="<?php echo $i?>" ><?php echo $i?></option>
+				<?php }?>
+				</select>&nbsp;<span>星</span>
+			</td>
+		</tr>
+		<tr>
+			<td colspan="2">内容:
+			<textarea name="evaluation" rows="10" cols="15" style="width:100%;">
+			</textarea>
+			</td>
+		</tr>
+	 </tbody>
+	</table>
+</div>
+</div>
+
 		<div class="clearfix form-actions">
 			<input type="hidden" name="id" value="{$item.id}"/>
             <div class="col-xs-12 center">
