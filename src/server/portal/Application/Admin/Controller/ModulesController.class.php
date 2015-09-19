@@ -7,7 +7,6 @@
 // | Author: 麦当苗儿 <zuojiazi@vip.qq.com> <http://www.zjzit.cn>
 // +----------------------------------------------------------------------
 namespace Admin\Controller;
-use Admin\Service\ApiService;
 
 /**
  * 模型数据管理控制器
@@ -96,11 +95,12 @@ class ModulesController extends ThinkController {
             $data[] = $tmp;
         }
 //        var_dump($data);
+
+        M('product_module')->addAll($data);
         //清空前台缓存
         $api = new ApiService();
         $api->setApiUrl(C('APIURI.mall'))
             ->setData()->send('index/console/cleanCache');
 
-        M('product_module')->addAll($data);
     }
 }

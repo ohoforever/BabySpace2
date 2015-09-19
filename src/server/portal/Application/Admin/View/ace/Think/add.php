@@ -25,6 +25,12 @@
 		<volist name=":parse_config_attr($model['field_group'])" id="group">
         <div id="tab{$key}" class="tab-pane <eq name="key" value="1">active</eq> tab{$key}">
             <volist name="fields[$key]" id="field">
+                <?php
+                if($field['type'] == 'hidden'){
+                    echo '<input type="hidden" value="'.I($field['name']).'" name="'.$field['name'].'" />';
+                    continue;
+                }
+                ?>
                 <if condition="$field['is_show'] == 1 || $field['is_show'] == 2">
                 <div class="form-group">
                     <label class="col-xs-12 col-sm-2 control-label no-padding-right">{$field['title']}</label>
@@ -62,7 +68,7 @@
                             <case value="radio">
                                 <volist name=":parse_field_attr($field['extra'])" id="vo">
                                 	<label>
-                                        <input type="radio" class="ace" value="{$key}" name="{$field.name}">
+                                        <input type="radio" class="ace" value="{$key}" <eq name="field.value" value="$key">checked</eq> name="{$field.name}">
                                         <span class="lbl">{$vo}&nbsp;</span>
                                 	</label>
                                 </volist>
