@@ -13,7 +13,7 @@
     </div>
     <!-- 数据列表 -->
     <div class="table-responsive">
-        <div class="dataTables_wrapper">  
+        <div class="dataTables_wrapper">
             <div class="row">
                 <div class="col-sm-12">
                     <form action="" class="search-form">
@@ -28,7 +28,7 @@
                         </label>
                         </empty>
 				        <!-- 高级搜索 -->
-				        <label> 
+				        <label>
                             <input type="text" name="{$model['search_key']|default='title'}" class="search-input" value="{:I('title')}" placeholder="请输入关键字">
                         </label>
                         <label>
@@ -36,10 +36,10 @@
                                <i class="icon-search"></i>搜索
                             </button>
                         </label>
-                    </form>  
+                    </form>
                 </div>
             </div>
-            
+
             <table class="table table-striped table-bordered table-hover dataTable">
                 <!-- 表头 -->
                 <thead>

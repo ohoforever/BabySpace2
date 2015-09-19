@@ -53,9 +53,10 @@ return array(
 		'maxSize'  => 2*1024*1024, //上传的文件大小限制 (0-不做限制)
 		'exts'     => 'jpg,gif,png,jpeg', //允许上传的文件后缀
 		'autoSub'  => true, //自动子目录保存文件
-		'subName'  => array('date', 'Y-m-d'), //子目录创建方式，[0]-函数名，[1]-参数，多个参数使用数组
-		'rootPath' => SITE_PATH.'/Uploads/Picture/', //保存根路径
-		'urlPath'  => '/Uploads/Picture/', //url访问根目录
+//		'subName'  => array('date', 'Y-m-d'), //子目录创建方式，[0]-函数名，[1]-参数，多个参数使用数组
+        'subName'  => '',
+		'rootPath' => '', //保存根路径
+		'urlPath'  => '', //url访问根目录
 		'savePath' => '', //保存路径
 		'saveName' => array('uniqid', ''), //上传文件命名规则，[0]-函数名，[1]-参数，多个参数使用数组
 		'saveExt'  => '', //文件保存后缀，空则使用原后缀
@@ -64,20 +65,20 @@ return array(
 		'callback' => false, //检测文件是否存在回调函数，如果存在返回文件信息数组
     ), //图片上传相关配置（文件上传类配置）
 
-    'PICTURE_UPLOAD_DRIVER'=>'local',
+    'PICTURE_UPLOAD_DRIVER'=>'qiniu',
     //本地上传文件驱动配置
     'UPLOAD_LOCAL_CONFIG'=>array(),
     'UPLOAD_BCS_CONFIG'=>array(
-        'AccessKey'=>'',
-        'SecretKey'=>'',
-        'bucket'=>'',
-        'rename'=>false
+        'AccessKey'=>'=',
+        'SecretKey'=>'=',
+        'bucket'=>'=',
+        'rename'=>true
     ),
     'UPLOAD_QINIU_CONFIG'=>array(
-        'accessKey'=>'__ODsglZwwjRJNZHAu7vtcEf-zgIxdQAY-QqVrZD',
-        'secrectKey'=>'Z9-RahGtXhKeTUYy9WCnLbQ98ZuZ_paiaoBjByKv',
-        'bucket'=>'onethinktest',
-        'domain'=>'onethinktest.u.qiniudn.com',
+        'accessKey'=>'xNgZC-3TPDcYJv8gnRNDKsa9pKQbohKEdReyIK79',
+        'secrectKey'=>'yetfBK45sGhRSJgYbDCKkCY4sNAhnd8cGPNLR0_V',
+        'bucket'=>'weitaohui',
+        'domain'=>'7xaw5p.com1.z0.glb.clouddn.com',
         'timeout'=>3600,
     ),
 

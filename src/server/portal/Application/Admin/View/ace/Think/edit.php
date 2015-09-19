@@ -14,7 +14,7 @@
 <!-- 标签页导航 -->
 <div class="tabbable">
     <ul class="nav nav-tabs padding-18">
-        
+
         <volist name=":parse_config_attr($model['field_group'])" id="group">
         <li <eq name="key" value="1">class="active"</eq>><a data-toggle="tab" href="#tab{$key}">{$group}</a></li>
         </volist>
@@ -73,7 +73,7 @@
                                 <volist name=":parse_field_attr($field['extra'])" id="vo">
                                 	<label>
 										<input type="checkbox" class="ace" name="{$field.name}[]" value="{$key}"<in name="key" value="$data[$field['name']]" >checked="checked"</in> />
-										<span class="lbl"> {$vo}&nbsp;</span> 
+										<span class="lbl"> {$vo}&nbsp;</span>
 									</label>
                                 </volist>
                             </case>
@@ -92,7 +92,7 @@
 									</div>
 								</div>
 								<script type="text/javascript">
-								<?php 
+								<?php
 								    $thumb = array();
 								    foreach (explode("\r\n", $field['extra']) as $k=>$v){
                                         if(empty($v)){
@@ -198,13 +198,13 @@
                 <input type="hidden" name="id" value="{$data.id}">
                 <button type="submit" target-form="form-horizontal" class="btn btn-success ajax-post no-refresh" id="sub-btn">
                     <i class="icon-ok bigger-110"></i> 确认保存
-                </button> 
+                </button>
                 <button type="reset" class="btn" id="reset-btn">
                     <i class="icon-undo bigger-110"></i> 重置
-                </button>   
+                </button>
                 <a onclick="history.go(-1)" class="btn btn-info" href="javascript:;">
                    <i class="icon-reply"></i>返回上一页
-                </a>  
+                </a>
             </div>
         </div>
     </div>

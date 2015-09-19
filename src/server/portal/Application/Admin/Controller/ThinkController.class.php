@@ -15,6 +15,10 @@ namespace Admin\Controller;
  */
 class ThinkController extends AdminController {
 
+    public function plists($model,$where=array(),$order='',$field=true){
+
+        return parent::lists($model,$where,$order,$field);
+    }
     /**
      * 显示指定模型列表数据
      * @param  String $model 模型标识
@@ -33,9 +37,9 @@ class ThinkController extends AdminController {
         $fields = array();
         $grids  = preg_split('/[;\r\n]+/s', trim($model['list_grid']));
         foreach ($grids as &$value) {
-        	if(trim($value) === ''){
-        		continue;
-        	}
+            if(trim($value) === ''){
+                continue;
+            }
             // 字段:标题:链接
             $val      = explode(':', $value);
             // 支持多个字段显示
@@ -164,8 +168,8 @@ class ThinkController extends AdminController {
     public function setStatus($model='Document'){
         return parent::setStatus($model);
     }
-    
-    public function edit($model = null, $id = 0){
+
+    public function edit($model = null, $id = 0, $jumpurl=''){
         //获取模型信息
         $model = M('Model')->find($model);
         $model || $this->error('模型不存在！');
@@ -175,7 +179,8 @@ class ThinkController extends AdminController {
             // 获取模型的字段信息
             $Model  =   $this->checkAttr($Model,$model['id']);
             if($Model->create() && $Model->save()){
-                $this->success('保存'.$model['title'].'成功！', U('lists?model='.$model['name']));
+                $jumpurl = empty($jumpurl) ? U('lists?model='.$model['name']) : U($jumpurl);
+                $this->success('保存'.$model['title'].'成功！', $jumpurl);
             } else {
                 $this->error($Model->getError());
             }
@@ -194,7 +199,7 @@ class ThinkController extends AdminController {
         }
     }
 
-    public function add($model = null){
+    public function add($model = null,$jumpurl=''){
         //获取模型信息
         $model = M('Model')->where(array('status' => 1))->find($model);
         $model || $this->error('模型不存在！');
@@ -203,7 +208,9 @@ class ThinkController extends AdminController {
             // 获取模型的字段信息
             $Model  =   $this->checkAttr($Model,$model['id']);
             if($Model->create() && $Model->add()){
-                $this->success('添加'.$model['title'].'成功！', U('lists?model='.$model['name']));
+
+                $jumpurl = empty($jumpurl) ? U('lists?model='.$model['name']) : U($jumpurl);
+                $this->success('添加'.$model['title'].'成功！', $jumpurl);
             } else {
                 $this->error($Model->getError());
             }
