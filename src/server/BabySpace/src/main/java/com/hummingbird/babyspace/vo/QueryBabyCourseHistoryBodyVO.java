@@ -6,20 +6,29 @@ public class QueryBabyCourseHistoryBodyVO {
 	 /*"body":
 	    {
 
-	        "unionId":"wzreildknf90454kj434",
+	        "babyName":"wzreildknf90454kj434",
 	        "orderId":"23487398",
 	        "pageIndex":"1",
 	        "pageSize":"10"
 	    }*/
-	private String unionId;
+	private String babyName;
+	private String schoolName;
+	public String getSchoolName() {
+		return schoolName;
+	}
+	public void setSchoolName(String schoolName) {
+		this.schoolName = schoolName;
+	}
+
 	private String orderId;
 	protected Integer pageSize;
 	protected Integer pageIndex;
-	public String getUnionId() {
-		return unionId;
+
+	public String getBabyName() {
+		return babyName;
 	}
-	public void setUnionId(String unionId) {
-		this.unionId = unionId;
+	public void setBabyName(String babyName) {
+		this.babyName = babyName;
 	}
 	public String getOrderId() {
 		return orderId;

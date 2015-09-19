@@ -150,4 +150,11 @@
       email = #{email,jdbcType=VARCHAR}
     where id = #{id,jdbcType=INTEGER}
   </update>
+  
+   <select id="selectByUnionId" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from t_user
+    where union_id = #{unionId,jdbcType=VARCHAR}
+  </select>
 </mapper>

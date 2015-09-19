@@ -1,6 +1,6 @@
 package com.hummingbird.babyspace.vo;
 
-public class QueryBabyCourseHistoryDetailReturnnVO {
+public class QueryBabyCourseHistoryDetailReturnVO {
 	/* "list":[{
 		    "schoolName":"白云校区",
 		    "courseName":"幼儿教育",
@@ -9,7 +9,7 @@ public class QueryBabyCourseHistoryDetailReturnnVO {
 		    "attendTime":"2015-02-01 14:55:09"
 		    }]*/
 	private String schoolName;
-	private String courseName;
+	private String className;
 	private String babyName;
 	private Integer courseCount;
 	private String attendTime;
@@ -19,11 +19,12 @@ public class QueryBabyCourseHistoryDetailReturnnVO {
 	public void setSchoolName(String schoolName) {
 		this.schoolName = schoolName;
 	}
-	public String getCourseName() {
-		return courseName;
+	
+	public String getClassName() {
+		return className;
 	}
-	public void setCourseName(String courseName) {
-		this.courseName = courseName;
+	public void setClassName(String className) {
+		this.className = className;
 	}
 	public String getBabyName() {
 		return babyName;

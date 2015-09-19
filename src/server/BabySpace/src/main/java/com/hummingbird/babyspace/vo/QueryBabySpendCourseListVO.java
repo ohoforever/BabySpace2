@@ -3,7 +3,7 @@ package com.hummingbird.babyspace.vo;
 import com.hummingbird.commonbiz.vo.AppBaseVO;
 import com.hummingbird.commonbiz.vo.Decidable;
 /**
- * @Description: 查询耗课历史列表
+ * @Description: 查询所有课程列表
  * @author liudou
  *
  */

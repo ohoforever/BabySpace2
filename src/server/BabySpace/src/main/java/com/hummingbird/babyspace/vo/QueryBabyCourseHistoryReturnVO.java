@@ -15,7 +15,7 @@ public class QueryBabyCourseHistoryReturnVO {
 	private Integer pageSize;
 	private Integer pageIndex;
 	private Integer total;
-	private List<QueryBabyCourseHistoryDetailReturnnVO> list;
+	private List<QueryBabyCourseHistoryDetailReturnVO> list;
 	public Integer getPageSize() {
 		return pageSize;
 	}
@@ -34,10 +34,10 @@ public class QueryBabyCourseHistoryReturnVO {
 	public void setTotal(Integer total) {
 		this.total = total;
 	}
-	public List<QueryBabyCourseHistoryDetailReturnnVO> getList() {
+	public List<QueryBabyCourseHistoryDetailReturnVO> getList() {
 		return list;
 	}
-	public void setList(List<QueryBabyCourseHistoryDetailReturnnVO> list) {
+	public void setList(List<QueryBabyCourseHistoryDetailReturnVO> list) {
 		this.list = list;
 	}
 	

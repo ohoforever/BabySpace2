@@ -40,4 +40,9 @@ public interface CandidateMapper {
 	 * @return
 	 */
 	List<Candidate> selectNoAssistantCandidate();
+	
+	  /**
+     * 根据手机号查询记录
+     */
+    Candidate selectByMobileNum(String mobileNum);
 }

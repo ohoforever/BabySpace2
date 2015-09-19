@@ -34,6 +34,12 @@
     and current_assistant_id is null
     and level in ('A','B','C')
   </select>
+   <select id="selectByMobileNum" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from t_khkf_candidate
+    where mobile_num = #{mobileNum,jdbcType=VARCHAR}
+  </select>
   <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
     delete from t_khkf_candidate
     where id = #{id,jdbcType=INTEGER}
