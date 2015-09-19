@@ -32,4 +32,10 @@ public interface MemberMapper {
      * 根据主键更新记录
      */
     int updateByPrimaryKey(Member record);
+    
+    /**
+     * 根据userId查询会员
+     */
+    Member selectByUserId(Integer userId);
+
 }

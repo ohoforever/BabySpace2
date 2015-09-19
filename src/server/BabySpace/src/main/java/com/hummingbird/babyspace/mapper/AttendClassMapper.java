@@ -1,6 +1,11 @@
 package com.hummingbird.babyspace.mapper;
 
+import java.util.List;
+
+import org.apache.ibatis.annotations.Param;
+
 import com.hummingbird.babyspace.entity.AttendClass;
+import com.hummingbird.babyspace.face.Pagingnation;
 
 public interface AttendClassMapper {
     /**
@@ -32,4 +37,13 @@ public interface AttendClassMapper {
      * 根据主键更新记录
      */
     int updateByPrimaryKey(AttendClass record);
+    
+    /**
+     * 查询耗课节数
+     */
+    int queryCourseCount(String orderId);
+
+    int queryAddCourseOrderTotal(String orderId);
+    
+    List<AttendClass> queryAddCourseOrder(@Param("orderId")String orderId,@Param("page")Pagingnation page);
 }

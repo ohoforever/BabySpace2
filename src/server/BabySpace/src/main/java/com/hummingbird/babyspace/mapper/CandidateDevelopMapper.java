@@ -1,5 +1,9 @@
 package com.hummingbird.babyspace.mapper;
 
+import java.util.List;
+
+import com.hummingbird.babyspace.entity.Assistant;
+import com.hummingbird.babyspace.entity.Candidate;
 import com.hummingbird.babyspace.entity.CandidateDevelop;
 
 public interface CandidateDevelopMapper {
@@ -32,4 +36,11 @@ public interface CandidateDevelopMapper {
      * 根据主键更新记录
      */
     int updateByPrimaryKey(CandidateDevelop record);
+
+	/**
+	 * 为待开发的客户查询合适的业务员
+	 * @param candidate
+	 * @return
+	 */
+	List<Assistant> selectIdleAssistant(Candidate candidate);
 }

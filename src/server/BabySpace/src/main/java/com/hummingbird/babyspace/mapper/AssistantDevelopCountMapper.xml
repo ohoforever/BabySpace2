@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.hummingbird.babyspace.mapper.AssistantDevelopCountMapper" >
+  <resultMap id="BaseResultMap" type="com.hummingbird.babyspace.entity.AssistantDevelopCount" >
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="developing_count" property="developingCount" jdbcType="INTEGER" />
+    <result column="developed_count" property="developedCount" jdbcType="INTEGER" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    id, developing_count, developed_count
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from t_assistant_develop_count
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from t_assistant_develop_count
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.hummingbird.babyspace.entity.AssistantDevelopCount" >
+    insert into t_assistant_develop_count (id, developing_count, developed_count
+      )
+    values (#{id,jdbcType=INTEGER}, #{developingCount,jdbcType=INTEGER}, #{developedCount,jdbcType=INTEGER}
+      )
+  </insert>
+  <insert id="insertNewAssistant"  >
+    insert into t_assistant_develop_count (id, developing_count, developed_count )
+    select m.id,(select count(*) from t_khkf_candidate_develop d,t_khkf_candidate c where d.candidate_id=c.id and c.status='CRT' and d.assistant_id = m.id ),
+    (select count(*) from t_khkf_candidate c where c.status='OK#' and c.current_assistant_id = m.id ) 
+    from t_ucenter_member m
+    where
+    m.id not in (
+    	select id from t_assistant_develop_count
+    )
+
+    
+  </insert>
+  <insert id="insertSelective" parameterType="com.hummingbird.babyspace.entity.AssistantDevelopCount" >
+    insert into t_assistant_develop_count
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="developingCount != null" >
+        developing_count,
+      </if>
+      <if test="developedCount != null" >
+        developed_count,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="developingCount != null" >
+        #{developingCount,jdbcType=INTEGER},
+      </if>
+      <if test="developedCount != null" >
+        #{developedCount,jdbcType=INTEGER},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.hummingbird.babyspace.entity.AssistantDevelopCount" >
+    update t_assistant_develop_count
+    <set >
+      <if test="developingCount != null" >
+        developing_count = #{developingCount,jdbcType=INTEGER},
+      </if>
+      <if test="developedCount != null" >
+        developed_count = #{developedCount,jdbcType=INTEGER},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.hummingbird.babyspace.entity.AssistantDevelopCount" >
+    update t_assistant_develop_count
+    set developing_count = #{developingCount,jdbcType=INTEGER},
+      developed_count = #{developedCount,jdbcType=INTEGER}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+</mapper>

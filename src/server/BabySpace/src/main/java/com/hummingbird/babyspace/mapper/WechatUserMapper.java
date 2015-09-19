@@ -37,4 +37,13 @@ public interface WechatUserMapper {
      * 根据主键更新记录
      */
     int updateByPrimaryKey(WechatUser record);
+    /**
+     * 根据openId查询记录
+     */
+    WechatUser selectByOpenId(String openId);
+    
+    /**
+     * 根据unionId查询记录
+     */
+    WechatUser selectByUnionId(String unionId);
 }

@@ -1,6 +1,11 @@
 package com.hummingbird.babyspace.mapper;
 
+import java.util.List;
+
+import org.apache.ibatis.annotations.Param;
+
 import com.hummingbird.babyspace.entity.Advertisement;
+import com.hummingbird.common.face.Pagingnation;
 
 public interface AdvertisementMapper {
     /**
@@ -37,4 +42,19 @@ public interface AdvertisementMapper {
      * 根据主键更新记录
      */
     int updateByPrimaryKey(Advertisement record);
+
+	/**
+	 * 获取总记录数
+	 * @param unionId
+	 * @return
+	 */
+	int selectTotalCountByUnionId(String unionId);
+
+	/**
+	 * 获取广告信息
+	 * @param unionId
+	 * @param page
+	 * @return
+	 */
+	List<Advertisement> selectByUnionId(@Param("unionId") String unionId,@Param("page") Pagingnation page);
 }

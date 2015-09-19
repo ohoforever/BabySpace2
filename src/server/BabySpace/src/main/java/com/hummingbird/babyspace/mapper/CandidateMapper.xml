@@ -3,7 +3,7 @@
 <mapper namespace="com.hummingbird.babyspace.mapper.CandidateMapper" >
   <resultMap id="BaseResultMap" type="com.hummingbird.babyspace.entity.Candidate" >
     <id column="id" property="id" jdbcType="INTEGER" />
-    <result column="mobile_num" property="mobileNum" jdbcType="INTEGER" />
+    <result column="mobile_num" property="mobileNum" jdbcType="VARCHAR" />
     <result column="parent_name" property="parentName" jdbcType="VARCHAR" />
     <result column="baby_name" property="babyName" jdbcType="VARCHAR" />
     <result column="baby_sex" property="babySex" jdbcType="VARCHAR" />
@@ -26,6 +26,20 @@
     from t_khkf_candidate
     where id = #{id,jdbcType=INTEGER}
   </select>
+  <select id="selectNoAssistantCandidate" resultMap="BaseResultMap"  >
+    select 
+    <include refid="Base_Column_List" />
+    from t_khkf_candidate
+    where status='CRT'
+    and current_assistant_id is null
+    and level in ('A','B','C')
+  </select>
+   <select id="selectByMobileNum" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from t_khkf_candidate
+    where mobile_num = #{mobileNum,jdbcType=VARCHAR}
+  </select>
   <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
     delete from t_khkf_candidate
     where id = #{id,jdbcType=INTEGER}
@@ -36,7 +50,7 @@
       city, district, level, 
       current_assistant_id, status, insert_time, 
       star)
-    values (#{id,jdbcType=INTEGER}, #{mobileNum,jdbcType=INTEGER}, #{parentName,jdbcType=VARCHAR}, 
+    values (#{id,jdbcType=INTEGER}, #{mobileNum,jdbcType=VARCHAR}, #{parentName,jdbcType=VARCHAR}, 
       #{babyName,jdbcType=VARCHAR}, #{babySex,jdbcType=VARCHAR}, #{babyBirthday,jdbcType=DATE}, 
       #{city,jdbcType=VARCHAR}, #{district,jdbcType=VARCHAR}, #{level,jdbcType=VARCHAR}, 
       #{currentAssistantId,jdbcType=INTEGER}, #{status,jdbcType=VARCHAR}, #{insertTime,jdbcType=TIMESTAMP}, 
@@ -90,7 +104,7 @@
         #{id,jdbcType=INTEGER},
       </if>
       <if test="mobileNum != null" >
-        #{mobileNum,jdbcType=INTEGER},
+        #{mobileNum,jdbcType=VARCHAR},
       </if>
       <if test="parentName != null" >
         #{parentName,jdbcType=VARCHAR},
@@ -131,7 +145,7 @@
     update t_khkf_candidate
     <set >
       <if test="mobileNum != null" >
-        mobile_num = #{mobileNum,jdbcType=INTEGER},
+        mobile_num = #{mobileNum,jdbcType=VARCHAR},
       </if>
       <if test="parentName != null" >
         parent_name = #{parentName,jdbcType=VARCHAR},
@@ -171,7 +185,7 @@
   </update>
   <update id="updateByPrimaryKey" parameterType="com.hummingbird.babyspace.entity.Candidate" >
     update t_khkf_candidate
-    set mobile_num = #{mobileNum,jdbcType=INTEGER},
+    set mobile_num = #{mobileNum,jdbcType=VARCHAR},
       parent_name = #{parentName,jdbcType=VARCHAR},
       baby_name = #{babyName,jdbcType=VARCHAR},
       baby_sex = #{babySex,jdbcType=VARCHAR},

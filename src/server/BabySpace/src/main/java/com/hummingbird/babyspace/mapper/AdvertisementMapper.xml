@@ -11,12 +11,13 @@
     <result column="status" property="status" jdbcType="VARCHAR" />
     <result column="operator" property="operator" jdbcType="INTEGER" />
     <result column="url" property="url" jdbcType="VARCHAR" />
+    <result column="description" property="description" jdbcType="VARCHAR" />
   </resultMap>
   <resultMap id="ResultMapWithBLOBs" type="com.hummingbird.babyspace.entity.Advertisement" extends="BaseResultMap" >
     <result column="content" property="content" jdbcType="LONGVARCHAR" />
   </resultMap>
   <sql id="Base_Column_List" >
-    id, title, type, tag, insert_time, update_time, status, operator, url
+    id, title, type, tag, insert_time, update_time, status, operator, url, description
   </sql>
   <sql id="Blob_Column_List" >
     content
@@ -29,6 +30,22 @@
     from t_yxtg_advertisement
     where id = #{id,jdbcType=INTEGER}
   </select>
+  <select id="selectTotalCountByUnionId" resultType="int" parameterType="java.lang.String" >
+    select 
+    count(*)
+    from t_yxtg_advertisement
+    where status='OK#'
+  </select>
+  <select id="selectByUnionId" resultMap="ResultMapWithBLOBs"  >
+    select 
+    <include refid="Base_Column_List" />
+    from t_yxtg_advertisement
+    where status='OK#'
+    order by insert_time desc
+    <if test="page != null" >
+    limit #{page.firstResult,jdbcType=DECIMAL}  ,#{page.pageSize,jdbcType=DECIMAL}
+    </if> 
+  </select>
   <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
     delete from t_yxtg_advertisement
     where id = #{id,jdbcType=INTEGER}
@@ -37,11 +54,11 @@
     insert into t_yxtg_advertisement (id, title, type, 
       tag, insert_time, update_time, 
       status, operator, url, 
-      content)
+      description, content)
     values (#{id,jdbcType=INTEGER}, #{title,jdbcType=VARCHAR}, #{type,jdbcType=VARCHAR}, 
       #{tag,jdbcType=VARCHAR}, #{insertTime,jdbcType=TIMESTAMP}, #{updateTime,jdbcType=TIMESTAMP}, 
       #{status,jdbcType=VARCHAR}, #{operator,jdbcType=INTEGER}, #{url,jdbcType=VARCHAR}, 
-      #{content,jdbcType=LONGVARCHAR})
+      #{description,jdbcType=VARCHAR}, #{content,jdbcType=LONGVARCHAR})
   </insert>
   <insert id="insertSelective" parameterType="com.hummingbird.babyspace.entity.Advertisement" >
     insert into t_yxtg_advertisement
@@ -72,6 +89,9 @@
       </if>
       <if test="url != null" >
         url,
+      </if>
+      <if test="description != null" >
+        description,
       </if>
       <if test="content != null" >
         content,
@@ -105,6 +125,9 @@
       <if test="url != null" >
         #{url,jdbcType=VARCHAR},
       </if>
+      <if test="description != null" >
+        #{description,jdbcType=VARCHAR},
+      </if>
       <if test="content != null" >
         #{content,jdbcType=LONGVARCHAR},
       </if>
@@ -137,6 +160,9 @@
       <if test="url != null" >
         url = #{url,jdbcType=VARCHAR},
       </if>
+      <if test="description != null" >
+        description = #{description,jdbcType=VARCHAR},
+      </if>
       <if test="content != null" >
         content = #{content,jdbcType=LONGVARCHAR},
       </if>
@@ -153,6 +179,7 @@
       status = #{status,jdbcType=VARCHAR},
       operator = #{operator,jdbcType=INTEGER},
       url = #{url,jdbcType=VARCHAR},
+      description = #{description,jdbcType=VARCHAR},
       content = #{content,jdbcType=LONGVARCHAR}
     where id = #{id,jdbcType=INTEGER}
   </update>
@@ -165,7 +192,8 @@
       update_time = #{updateTime,jdbcType=TIMESTAMP},
       status = #{status,jdbcType=VARCHAR},
       operator = #{operator,jdbcType=INTEGER},
-      url = #{url,jdbcType=VARCHAR}
+      url = #{url,jdbcType=VARCHAR},
+      description = #{description,jdbcType=VARCHAR}
     where id = #{id,jdbcType=INTEGER}
   </update>
 </mapper>

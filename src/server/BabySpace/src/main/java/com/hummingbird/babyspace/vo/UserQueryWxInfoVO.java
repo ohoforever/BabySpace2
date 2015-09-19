@@ -12,7 +12,7 @@ public class UserQueryWxInfoVO {
 	private String openid;
 	private String nickname;
 	private String sex;
-	private String opheadimgurlenid;
+	private String headimgurl;
 	private String unionId;
 	private String subscribe;
 	public String getOpenid() {
@@ -33,11 +33,12 @@ public class UserQueryWxInfoVO {
 	public void setSex(String sex) {
 		this.sex = sex;
 	}
-	public String getOpheadimgurlenid() {
-		return opheadimgurlenid;
+	
+	public String getHeadimgurl() {
+		return headimgurl;
 	}
-	public void setOpheadimgurlenid(String opheadimgurlenid) {
-		this.opheadimgurlenid = opheadimgurlenid;
+	public void setHeadimgurl(String headimgurl) {
+		this.headimgurl = headimgurl;
 	}
 	public String getUnionId() {
 		return unionId;

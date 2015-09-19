@@ -39,19 +39,37 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	<li><label>响应</label><div id="resp"></div></li>
 	</ul>
 	</div>
-	<ul id="menu">
-		<li><input type="button"   onclick='setbinding("/rc/exchange/queryTelFlowProduct","{\"app\":{\"appId\":\"ADP\",\"timeStamp\":\"TIMESTAMP\",  \"nonce\":\"NONCE\", \"signature\":\"SIGNATURE\"  },\"body\":  {\"mobileNum\":\"13912345678\",\"maxFee\":5000}}")' value="查询可用产品" ></li>
-		<li><input type="button"   onclick='setbinding("/rc/exchange/transfer_to_tel_flow","{\"app\":{\"appId\":\"ADP\",\"timeStamp\":\"TIMESTAMP\",  \"nonce\":\"NONCE\", \"signature\":\"SIGNATURE\"  },\"body\":  {\"mobileNum\":\"13912345678\",\"productId\":1,\"appOrderId\":\"abc12345\"},\"tsig\":{\"orderMD5\":\"ORDERMD5\",\"signature\":\"SIGNATURE\",\"timeStamp\":\"TIMESTAMP\",\"nonce\":\"NONCE\"}}")' value="申请兑换" ></li>
-		<li><input type="button"   onclick='setbinding("/rc/exchange/query_tel_flow_result","{\"app\":{\"appId\":\"ADP\",\"timeStamp\":\"TIMESTAMP\",  \"nonce\":\"NONCE\", \"signature\":\"SIGNATURE\"  },\"body\":  {\"appOrderId\":\"abc12345\"}}")' value="查询兑换结果" ></li> 
-		<li><input type="button"   onclick='setbinding("/rc/exchange/tel_flow_result_notify","{\"orderNo\":\"EX201509090000000000\",\"partnerOrderNo\": \"12345\", \"status\":\"1\"}")' value="兑换结果通知" ></li> 
-	<br>
-
-<!-- <li><input type="button"   onclick='setbinding("/userAuth/get_accountcode","{\"app\":{\"appId\":\"zjhtwallet\",\"timeStamp\":\"TIMESTAMP\",\"nonce\":\"NONCE\",\"signature\":\"b94490aecabf04eba1e9ab58dc76c115\"},\"mobileNum\":\"18922260815\"}")' value="获取账户验证码" ></li>
-<li><input type="button"   onclick='setbinding("/userAuth/set_paymentcode","{\"app\":{\"appId\":\"zjhtwallet\",\"timeStamp\":\"TIMESTAMP\",\"nonce\":\"NONCE\",\"signature\":\"b94490aecabf04eba1e9ab58dc76c115\"},\"mobileNum\":\"18922260815\",\"accountCode\":\"123456\",\"paymentCodeMD5\":\"qwer1234567\"}")' value="设置支付密码" ></li>
-<li><input type="button"   onclick='setbinding("/userAuth/genkey","{\"app\":{\"appId\":\"zjhtwallet\",\"timeStamp\":\"TIMESTAMP\",\"nonce\":\"NONCE\",\"signature\":\"73ef10be2e08a0ad541d28fbe99a0df4\"},\"order\":{\"mobileNum\":\"13912345678\",\"objectSum\":500000,\"productName\":\"有油贷5000元产品\",\"remark\":\"在有油贷网站够爱5000元有油贷产品\",\"appOrderId\":\"AO201412122344888444\"},\"tsig\":{\"orderMD5\":\"ORDERMD5\",\"signature\":\"SIGNATURE\",\"timeStamp\":\"TIMESTAMP\",\"nonce\":\"NONCE\"}}")' value="生成key" ></li>
-<li><input type="button"   onclick='setbinding4string("/userAuth/genParam","{\"app\":{\"appId\":\"zjhtwallet\",\"timeStamp\":\"TIMESTAMP\",\"nonce\":\"NONCE\",\"signature\":\"73ef10be2e08a0ad541d28fbe99a0df4\"},\"order\":{\"mobileNum\":\"13912345678\",\"objectSum\":500000,\"productName\":\"有油贷5000元产品\",\"remark\":\"在有油贷网站够爱5000元有油贷产品\",\"appOrderId\":\"AO201412122344888444\"},\"tsig\":{\"orderMD5\":\"ORDERMD5\",\"signature\":\"SIGNATURE\",\"timeStamp\":\"TIMESTAMP\",\"nonce\":\"NONCE\"}}")' value="生成签名" ></li>
-<li><input type="button"   onclick='setbinding("/sms/send","{\"user\":\"test\",\"password\":\"smst\",\"mobileNum\":\"18922260815\",\"content\":\"测试\"}")' value="短信发送" ></li>
-  --></ul> 
+	<table>
+	<tr><td colspan="6">用户中心</td></tr>
+	<tr>
+		<td><input type="button"  value="微信用户注册"  onclick='setbinding("/userCenter/info/reg","{\"app\":{\"appId\":\"ADP\",\"timeStamp\":\"TIMESTAMP\",  \"nonce\":\"NONCE\", \"signature\":\"SIGNATURE\"  },\"body\":{\"openId\":\"oITR0uAkXSsTgY2YaU2ItDN2kh7g\",\"nickname\":\"大师你懂吗\",\"sex\":\"1\",\"language\":\"zh_CN\",\"city\":\"深圳\", \"province\":\"广东\",\"country\":\"中国\",\"headimgurl\":\"http://wx.qlogo.cn/mmopen/PiajxSqBRaEInIaAHHYN9ia0CF5rUljZlhDMHniaoft7MXwXDtLTHuACWyWTePqpvVc2qL6aGZchEUBg5X0RZsxyQ/0\",\"subscribe_time\":\"1440076007\",\"unionId\":\"olbkKt-8vkqpPod-N7i1SzSxddIo\",\"remark\":\"\",\"subscribe\":\"1\",\"groupid\":\"0\",\"privilege\":\"\"}}")'></td>
+		<td><input type="button"  value="微信用户绑定"  onclick='setbinding("/userCenter/user/bind","{\"app\":{\"appId\":\"ADP\",\"timeStamp\":\"TIMESTAMP\",  \"nonce\":\"NONCE\", \"signature\":\"SIGNATURE\"  },\"body\":{\"unionId\":\"olbkKt-8vkqpPod-N7i1SzSxddIo\",\"mobileNum\":\"18600003333\"}}")'></td>
+		<td><input type="button"  value="查询用户信息"  onclick='setbinding("/userCenter/user/query","{\"app\":{\"appId\":\"ADP\",\"timeStamp\":\"TIMESTAMP\",  \"nonce\":\"NONCE\", \"signature\":\"SIGNATURE\"  },\"body\":{\"unionId\":\"olbkKt-8vkqpPod-N7i1SzSxddIo\",\"openId\":\"oITR0uAkXSsTgY2YaU2ItDN2kh7g\"}}")'></td>
+		
+	</tr>
+	<tr><td colspan="6">宝宝课程和扫码上课 </td></tr>
+	<tr>
+		<td><input type="button"  value="宝宝课程查询"  onclick='setbinding("/babyCourse/course/queryBabyCourseList","{\"app\":{\"appId\":\"ADP\",\"timeStamp\":\"TIMESTAMP\",  \"nonce\":\"NONCE\", \"signature\":\"SIGNATURE\"  },\"body\":{\"unionId\":\"olbkKt-8vkqpPod-N7i1SzSxddIo\"}}")'></td>
+		<td><input type="button"  value="宝宝耗课历史"  onclick='setbinding("/babyCourse/queryBabyCourseHistoryList","{\"app\":{\"appId\":\"ADP\",\"timeStamp\":\"TIMESTAMP\",  \"nonce\":\"NONCE\", \"signature\":\"SIGNATURE\"  },\"body\":{\"schoolName\":\"白云校区\",\"babyName\":\"蚯蚓\",\"orderId\":\"ZJ97898653\",\"pageIndex\":1,\"pageSize\":10}}")'></td>
+		<td><input type="button"  value="扫码上课确认"  onclick='setbinding("/courseManager/course/query","{\"app\":{\"appId\":\"ADP\",\"timeStamp\":\"TIMESTAMP\",  \"nonce\":\"NONCE\", \"signature\":\"SIGNATURE\"  },\"body\":{\"unionId\":\"olbkKt-8vkqpPod-N7i1SzSxddIo\",\"courseNum\":2,\"courseName\":\"3215\"}}")'></td>
+		<td><input type="button"  value="扫码上课"  onclick='setbinding("/courseManager/course/spend","{\"app\":{\"appId\":\"ADP\",\"timeStamp\":\"TIMESTAMP\",  \"nonce\":\"NONCE\", \"signature\":\"SIGNATURE\"  },\"body\":{\"childId\":543,\"courseName\":\"音律\",\"courseNum\":2,\"orderId\":\"ZJ97898653\"}}")'></td>
+		
+	</tr>
+	<tr><td colspan="6">试听预约 </td></tr>
+	<tr>
+		<td><input type="button"  value="线上预约"  onclick='setbinding("/customerDev/candidate/add","{\"app\":{\"appId\":\"ADP\",\"timeStamp\":\"TIMESTAMP\",  \"nonce\":\"NONCE\", \"signature\":\"SIGNATURE\"  },\"body\":{\"unionId\":\"olbkKt-8vkqpPod-N723232xddIo\",\"mobileNum\":\"13657256331\",\"userName\":\"蝌蚪妈\",\"babyName\":\"蝌蚪\",\"babyBirthday\":\"2012-9-12\",\"babySex\":\"MALE\",\"city\":\"深圳市\",\"district\":\"南山区\"}}")'></td>
+		<td><input type="button"  value="查看是否预约接口"  onclick='setbinding("/customerDev/judgeAppointment","{\"app\":{\"appId\":\"ADP\",\"timeStamp\":\"TIMESTAMP\",  \"nonce\":\"NONCE\", \"signature\":\"SIGNATURE\"  },\"body\":{\"unionId\":\"olbkKt-8vkqpPod-N7i1SzSxddIo\"}}")'></td>
+		<td><input type="button"  value="记录预约上课信息"  onclick='setbinding("/courseManager/course/record","{\"app\":{\"appId\":\"ADP\",\"timeStamp\":\"TIMESTAMP\",  \"nonce\":\"NONCE\", \"signature\":\"SIGNATURE\"  },\"body\":{\"unionId\":\"olbkKt-8vkqpPod-N7i1SzSxddIo\",\"courseName\":\"3215\"}}")'></td>
+		<td><input type="button"  value="预约分享接口"  onclick='setbinding("/customerDev/share","{\"app\":{\"appId\":\"ADP\",\"timeStamp\":\"TIMESTAMP\",  \"nonce\":\"NONCE\", \"signature\":\"SIGNATURE\"  },\"body\":{\"unionId\":\"olbkKt-8vkqpPod-N7i1SzSxddIo\",\"recordId\":43647}}")'></td>
+		
+	</tr>
+	<tr><td colspan="6">广告</td>
+	</tr>
+	<tr>
+		<td><input type="button"   onclick='setbinding("/advertisement/getAdvertisementList","{\"app\":{\"appId\":\"babyspace\",\"timeStamp\":\"TIMESTAMP\",  \"nonce\":\"NONCE\", \"signature\":\"SIGNATURE\"  },\"body\":  {\"unionId\":\"13912345678\",\"pageIndex\":0,\"pageSize\":10}}")' value="查询广告列表" ></td>
+		<td><input type="button"   onclick='setbinding("/advertisement/getAdvertisementDetail","{\"app\":{\"appId\":\"babyspace\",\"timeStamp\":\"TIMESTAMP\",  \"nonce\":\"NONCE\", \"signature\":\"SIGNATURE\"  },\"body\":  {\"advertisementId\":1}}")' value="获取广告详情" ></td>
+	</tr>
+</table> 
   </body>
     <script>
     var type='payload'

@@ -23,6 +23,21 @@
     from t_bbkj_baby_attend_class
     where id = #{id,jdbcType=INTEGER}
   </select>
+   <select id="queryCourseCount" resultType="java.lang.Integer" parameterType="java.lang.String" >
+   SELECT SUM(course_count) FROM
+	t_bbkj_baby_attend_class
+	WHERE order_id=#{orderId,jdbcType=VARCHAR} and status='OK#'
+  </select>
+  <select id="queryAddCourseOrderTotal" resultType="java.lang.Integer" parameterType="java.lang.String" >
+   SELECT  ifnull(count(*),0) FROM
+	t_bbkj_baby_attend_class
+	WHERE order_id=#{orderId,jdbcType=VARCHAR} and status='OK#'
+  </select>
+  <select id="queryAddCourseOrder" resultMap="BaseResultMap" >
+   SELECT * FROM
+	t_bbkj_baby_attend_class
+	WHERE order_id=#{orderId,jdbcType=VARCHAR} and status='OK#' ORDER BY insert_time desc limit #{page.firstResult,jdbcType=DECIMAL}  ,#{page.pageSize,jdbcType=DECIMAL} 
+  </select>
   <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
     delete from t_bbkj_baby_attend_class
     where id = #{id,jdbcType=INTEGER}

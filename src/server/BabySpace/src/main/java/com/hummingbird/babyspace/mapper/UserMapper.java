@@ -32,4 +32,8 @@ public interface UserMapper {
      * 根据主键更新记录
      */
     int updateByPrimaryKey(User record);
+    /**
+     * 根据unionId查询记录
+     */
+    User selectByUnionId(String unionId);
 }

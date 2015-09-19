@@ -7,6 +7,24 @@
     <result column="assistant_id" property="assistantId" jdbcType="INTEGER" />
     <result column="insert_time" property="insertTime" jdbcType="TIMESTAMP" />
   </resultMap>
+  <resultMap id="assistantResultMap" type="com.hummingbird.babyspace.entity.Assistant" >
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="username" property="username" jdbcType="CHAR" />
+    <result column="password" property="password" jdbcType="CHAR" />
+    <result column="wx_userid" property="wxUserid" jdbcType="INTEGER" />
+    <result column="email" property="email" jdbcType="VARCHAR" />
+    <result column="mobile" property="mobile" jdbcType="CHAR" />
+    <result column="reg_time" property="regTime" jdbcType="INTEGER" />
+    <result column="reg_ip" property="regIp" jdbcType="BIGINT" />
+    <result column="last_login_time" property="lastLoginTime" jdbcType="INTEGER" />
+    <result column="last_login_ip" property="lastLoginIp" jdbcType="BIGINT" />
+    <result column="update_time" property="updateTime" jdbcType="INTEGER" />
+    <result column="status" property="status" jdbcType="TINYINT" />
+    <result column="token" property="token" jdbcType="CHAR" />
+    <result column="params" property="params" jdbcType="VARCHAR" />
+    <result column="city" property="city" jdbcType="VARCHAR" />
+    <result column="district" property="district" jdbcType="VARCHAR" />
+  </resultMap>
   <sql id="Base_Column_List" >
     id, candidate_id, assistant_id, insert_time
   </sql>
@@ -16,6 +34,37 @@
     from t_khkf_candidate_develop
     where id = #{id,jdbcType=INTEGER}
   </select>
+  <select id="selectIdleAssistant" resultMap="assistantResultMap" parameterType="com.hummingbird.babyspace.entity.Candidate" >
+  <!-- 查询该业务员没有开发过,开发的客户个数小于400个,业务员城市与客户城市一致的数据 -->
+    select 
+    m.*
+    from 
+    t_ucenter_member m,t_khkf_candidate c,
+    t_assistant_develop_count d,
+    t_base_setting s
+    where m.city=c.city
+    and c.status='CRT'
+    and c.current_assistant_id is null
+    and d.id = m.id
+    and d.developing_count  &lt; s.value
+    and s.key='assistant_dev_count'
+    and c.id not in (
+    	select candidate_id from t_khkf_candidate_develop where assistant_id=m.id
+    )
+    and c.id=#{id}
+	order by d.developing_count 
+   
+  </select>
+  <update id="change2z" >
+  <!-- 查询该业务员没有开发过,开发的客户个数小于400个,业务员城市与客户城市一致的数据 -->
+    update t_khkf_candidate c
+    INNER JOIN (select candidate_id , count(*) assistantcount  from t_khkf_candidate_develop group by candidate_id) d ON c.id = d.candidate_id and d.assistantcount>=8
+    set c.level='Z',update_time = now()
+    where c.level='C'
+    and c.status = 'CRT' 
+   
+   
+  </update>
   <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
     delete from t_khkf_candidate_develop
     where id = #{id,jdbcType=INTEGER}
