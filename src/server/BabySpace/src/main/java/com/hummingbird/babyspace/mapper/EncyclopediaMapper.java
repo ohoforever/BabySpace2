@@ -1,6 +1,12 @@
 package com.hummingbird.babyspace.mapper;
 
+import java.util.List;
+
+import org.apache.ibatis.annotations.Param;
+
+import com.hummingbird.babyspace.entity.BabyWonderful;
 import com.hummingbird.babyspace.entity.Encyclopedia;
+import com.hummingbird.common.face.Pagingnation;
 
 public interface EncyclopediaMapper {
     /**
@@ -37,4 +43,23 @@ public interface EncyclopediaMapper {
      * 根据主键更新记录
      */
     int updateByPrimaryKey(Encyclopedia record);
+
+	/**
+	 * 查询总记录数
+	 * @param unionId 微信
+	 * @param channelId 栏目
+	 * @param searchKeyword 搜索条件
+	 * @return
+	 */
+	int selectTotalCountByUnionId(@Param("unionId") String unionId,@Param("channelId") Integer channelId,@Param("searchKeyword") String searchKeyword);
+
+	/**
+	 * 查询分页结果
+	 * @param unionId
+	 * @param channelId
+	 * @param searchKeyword
+	 * @param page
+	 * @return
+	 */
+	List<Encyclopedia> selectByUnionId(@Param("unionId")String unionId,@Param("channelId") Integer channelId,@Param("searchKeyword") String searchKeyword,@Param("page") Pagingnation page);
 }

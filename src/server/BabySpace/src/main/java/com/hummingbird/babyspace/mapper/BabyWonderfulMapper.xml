@@ -291,4 +291,22 @@
       share_content = #{shareContent,jdbcType=VARCHAR}
     where id = #{id,jdbcType=INTEGER}
   </update>
+  
+  <select id="selectTotalCountByUnionId" resultType="int" parameterType="java.lang.String" >
+    select 
+    count(*)
+    from t_bbjc_baby_wonderful
+    where status='OK#'
+  </select>
+  <select id="selectByUnionId" resultMap="BaseResultMap"  >
+    select 
+    <include refid="Base_Column_List" />
+    from t_bbjc_baby_wonderful
+    where status='OK#'
+    order by insert_time desc
+    <if test="page != null" >
+    limit #{page.firstResult,jdbcType=DECIMAL}  ,#{page.pageSize,jdbcType=DECIMAL}
+    </if> 
+  </select>
+  
 </mapper>

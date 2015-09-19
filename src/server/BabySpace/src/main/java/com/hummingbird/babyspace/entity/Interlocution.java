@@ -37,6 +37,15 @@ public class Interlocution {
      * 回复时间
      */
     private Date replyTime;
+    
+    /**
+     * 标题
+     */
+    private String title;
+    /**
+     * 回复人
+     */
+    private String answerUser;
 
     public Integer getId() {
         return id;
@@ -135,4 +144,42 @@ public class Interlocution {
     public void setReplyTime(Date replyTime) {
         this.replyTime = replyTime;
     }
+
+	/**
+	 * 标题 
+	 */
+	public String getTitle() {
+		return title;
+	}
+
+	/**
+	 * 标题 
+	 */
+	public void setTitle(String title) {
+		this.title = title;
+	}
+
+	/* (non-Javadoc)
+	 * @see java.lang.Object#toString()
+	 */
+	@Override
+	public String toString() {
+		return "Interlocution [id=" + id + ", unionId=" + unionId + ", question=" + question + ", insertTime="
+				+ insertTime + ", answer=" + answer + ", replyOperator=" + replyOperator + ", replyTime=" + replyTime
+				+ ", title=" + title + ", answerUser=" + answerUser + "]";
+	}
+
+	/**
+	 * 回复人 
+	 */
+	public String getAnswerUser() {
+		return answerUser;
+	}
+
+	/**
+	 * 回复人 
+	 */
+	public void setAnswerUser(String answerUser) {
+		this.answerUser = answerUser;
+	}
 }

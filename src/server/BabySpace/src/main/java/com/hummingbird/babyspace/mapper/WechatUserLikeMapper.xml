@@ -17,6 +17,14 @@
     from t_wechat_like
     where id = #{id,jdbcType=INTEGER}
   </select>
+  <select id="countUserLike" resultType="java.lang.Integer" >
+    select 
+    count(1)
+    from t_wechat_like
+    where record_Id = #{recordId}
+    and union_id = #{unionId}
+    and type=#{type}
+  </select>
   <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
     delete from t_wechat_like
     where id = #{id,jdbcType=INTEGER}

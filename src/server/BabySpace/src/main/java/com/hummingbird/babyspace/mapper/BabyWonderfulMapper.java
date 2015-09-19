@@ -1,6 +1,12 @@
 package com.hummingbird.babyspace.mapper;
 
+import java.util.List;
+
+import org.apache.ibatis.annotations.Param;
+
+import com.hummingbird.babyspace.entity.Advertisement;
 import com.hummingbird.babyspace.entity.BabyWonderful;
+import com.hummingbird.common.face.Pagingnation;
 
 public interface BabyWonderfulMapper {
     /**
@@ -32,4 +38,19 @@ public interface BabyWonderfulMapper {
      * 根据主键更新记录
      */
     int updateByPrimaryKey(BabyWonderful record);
+
+	/**
+	 * 获取总记录数
+	 * @param unionId
+	 * @return
+	 */
+	int selectTotalCountByUnionId(String unionId);
+
+	/**
+	 * 获取分页列表
+	 * @param unionId
+	 * @param page
+	 * @return
+	 */
+	List<BabyWonderful> selectByUnionId(@Param("unionId") String unionId,@Param("page") Pagingnation page);
 }

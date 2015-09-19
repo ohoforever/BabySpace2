@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
-<mapper namespace="com.hummingbird.babyspace.mapper.WechatUserShaeMapper" >
-  <resultMap id="BaseResultMap" type="com.hummingbird.babyspace.entity.WechatUserShae" >
+<mapper namespace="com.hummingbird.babyspace.mapper.WechatUserShareMapper" >
+  <resultMap id="BaseResultMap" type="com.hummingbird.babyspace.entity.WechatUserShare" >
     <id column="id" property="id" jdbcType="INTEGER" />
     <result column="union_id" property="unionId" jdbcType="VARCHAR" />
     <result column="record_id" property="recordId" jdbcType="INTEGER" />
@@ -21,13 +21,13 @@
     delete from t_wechat_share
     where id = #{id,jdbcType=INTEGER}
   </delete>
-  <insert id="insert" parameterType="com.hummingbird.babyspace.entity.WechatUserShae" >
+  <insert id="insert" parameterType="com.hummingbird.babyspace.entity.WechatUserShare" >
     insert into t_wechat_share (id, union_id, record_id, 
       insert_time, type)
     values (#{id,jdbcType=INTEGER}, #{unionId,jdbcType=VARCHAR}, #{recordId,jdbcType=INTEGER}, 
       #{insertTime,jdbcType=TIMESTAMP}, #{type,jdbcType=VARCHAR})
   </insert>
-  <insert id="insertSelective" parameterType="com.hummingbird.babyspace.entity.WechatUserShae" >
+  <insert id="insertSelective" parameterType="com.hummingbird.babyspace.entity.WechatUserShare" >
     insert into t_wechat_share
     <trim prefix="(" suffix=")" suffixOverrides="," >
       <if test="id != null" >
@@ -64,7 +64,7 @@
       </if>
     </trim>
   </insert>
-  <update id="updateByPrimaryKeySelective" parameterType="com.hummingbird.babyspace.entity.WechatUserShae" >
+  <update id="updateByPrimaryKeySelective" parameterType="com.hummingbird.babyspace.entity.WechatUserShare" >
     update t_wechat_share
     <set >
       <if test="unionId != null" >
@@ -82,7 +82,7 @@
     </set>
     where id = #{id,jdbcType=INTEGER}
   </update>
-  <update id="updateByPrimaryKey" parameterType="com.hummingbird.babyspace.entity.WechatUserShae" >
+  <update id="updateByPrimaryKey" parameterType="com.hummingbird.babyspace.entity.WechatUserShare" >
     update t_wechat_share
     set union_id = #{unionId,jdbcType=VARCHAR},
       record_id = #{recordId,jdbcType=INTEGER},
