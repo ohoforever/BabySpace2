@@ -1,5 +1,7 @@
 package com.hummingbird.babyspace.mapper;
 
+import java.util.List;
+
 import com.hummingbird.babyspace.entity.Child;
 
 public interface ChildMapper {
@@ -32,4 +34,8 @@ public interface ChildMapper {
      * 根据主键更新记录
      */
     int updateByPrimaryKey(Child record);
+    
+    public List<Child> selectByUserId(Integer userId);
+    
+    int selectUserIdByChildId(Integer childId);
 }

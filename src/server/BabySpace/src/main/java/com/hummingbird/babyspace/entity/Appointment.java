@@ -46,7 +46,7 @@ public class Appointment {
      */
     private String district;
 
-    private Integer unionId;
+    private String unionId;
 
     /**
      * @return 预约id
@@ -63,22 +63,17 @@ public class Appointment {
         this.id = id;
     }
 
-    /**
-     * @return 家长手机号
-     */
+   
+
     public String getMobileNum() {
-        return mobileNum;
-    }
+		return mobileNum;
+	}
 
-    /**
-     * @param mobileNum 
-	 *            家长手机号
-     */
-    public void setMobileNum(String mobileNum) {
-        this.mobileNum = mobileNum;
-    }
+	public void setMobileNum(String mobileNum) {
+		this.mobileNum = mobileNum;
+	}
 
-    /**
+	/**
      * @return 家长名称
      */
     public String getParentName() {
@@ -168,11 +163,13 @@ public class Appointment {
         this.district = district == null ? null : district.trim();
     }
 
-    public Integer getUnionId() {
-        return unionId;
-    }
+	public String getUnionId() {
+		return unionId;
+	}
 
-    public void setUnionId(Integer unionId) {
-        this.unionId = unionId;
-    }
+	public void setUnionId(String unionId) {
+		this.unionId = unionId;
+	}
+
+   
 }

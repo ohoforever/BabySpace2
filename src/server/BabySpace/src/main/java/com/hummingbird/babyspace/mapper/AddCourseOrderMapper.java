@@ -1,5 +1,7 @@
 package com.hummingbird.babyspace.mapper;
 
+import java.util.List;
+
 import com.hummingbird.babyspace.entity.AddCourseOrder;
 
 public interface AddCourseOrderMapper {
@@ -32,4 +34,11 @@ public interface AddCourseOrderMapper {
      * 根据主键更新记录
      */
     int updateByPrimaryKey(AddCourseOrder record);
+    
+    /**
+     * 根据宝宝查课程
+     * @param childId
+     * @return
+     */
+    List<AddCourseOrder> selectByChildId(Integer childId);
 }

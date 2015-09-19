@@ -17,6 +17,18 @@
     from t_yhgl_child
     where id = #{id,jdbcType=INTEGER}
   </select>
+   <select id="selectByUserId"  resultMap="BaseResultMap"  parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from t_yhgl_child
+    where user_id = #{userId,jdbcType=INTEGER}
+  </select>
+   <select id="selectUserIdByChildId"  parameterType="java.lang.Integer" >
+    select 
+    user_id
+    from t_yhgl_child
+    where child_id = #{childId,jdbcType=INTEGER}
+  </select>
   <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
     delete from t_yhgl_child
     where id = #{id,jdbcType=INTEGER}

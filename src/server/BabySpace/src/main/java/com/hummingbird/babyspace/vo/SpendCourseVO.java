@@ -1,40 +1,27 @@
 package com.hummingbird.babyspace.vo;
 
-public class SpendCourseVO {
-	/*"body":{
-	    "childId":543,
-		"courseName":"音律",
-		"courseNum":2,
-		"orderId":"43647",
-		}*/
-	private String courseName;
-	private String orderId;
-	private Integer childId;
-	private Integer courseNum;
-	public String getCourseName() {
-		return courseName;
+import com.hummingbird.commonbiz.vo.AppBaseVO;
+import com.hummingbird.commonbiz.vo.Decidable;
+
+/**
+ * @Description: 耗课
+ * @author liudou
+ *
+ */
+public class SpendCourseVO extends AppBaseVO implements Decidable{
+	private SpendCourseBodyVO body;
+
+	public SpendCourseBodyVO getBody() {
+		return body;
 	}
-	public void setCourseName(String courseName) {
-		this.courseName = courseName;
-	}
-	public String getOrderId() {
-		return orderId;
-	}
-	public void setOrderId(String orderId) {
-		this.orderId = orderId;
-	}
-	public Integer getChildId() {
-		return childId;
-	}
-	public void setChildId(Integer childId) {
-		this.childId = childId;
-	}
-	public Integer getCourseNum() {
-		return courseNum;
-	}
-	public void setCourseNum(Integer courseNum) {
-		this.courseNum = courseNum;
+
+	public void setBody(SpendCourseBodyVO body) {
+		this.body = body;
 	}
 	
+	public String toString() {
+		return "SpendCourseBodyVO [body=" + body + ", app="
+				+ app + "]";
+	}
 	
 }

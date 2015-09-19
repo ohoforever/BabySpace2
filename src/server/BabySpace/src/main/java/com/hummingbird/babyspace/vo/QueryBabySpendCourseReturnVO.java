@@ -7,7 +7,7 @@ import java.util.List;
  *
  */
 public class QueryBabySpendCourseReturnVO {
-	/*{"errcode":0,"errmsg":"查询宝宝课程状态成功","pageSize":10,"pageIndex":0,"total":100,
+	/*{"errcode":0,"errmsg":"查询宝宝课程状态成功",
         "list":[{
 		    "courseName":"幼儿心理",
 		    "orderId":"23487398",

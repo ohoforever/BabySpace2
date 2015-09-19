@@ -9,10 +9,18 @@ public class QueryBabySpendCourseDetailReturnVO {
 		    "courseCount":"10"
 		    },*/
 	private String courseName;
+	private String schoolName;
 	private String orderId;
 	private String babyName;
 	private String updateTime;
 	private Integer courseCount;
+	
+	public String getSchoolName() {
+		return schoolName;
+	}
+	public void setSchoolName(String schoolName) {
+		this.schoolName = schoolName;
+	}
 	public String getCourseName() {
 		return courseName;
 	}

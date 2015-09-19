@@ -1,23 +1,27 @@
 package com.hummingbird.babyspace.vo;
+
+import com.hummingbird.commonbiz.vo.AppBaseVO;
+import com.hummingbird.commonbiz.vo.Decidable;
+
 /**
  * @Description: 分享
  * @author liudou
  *
  */
-public class ShareVO {
-	private String unionId;
-	private String recordId;
-	public String getUnionId() {
-		return unionId;
+public class ShareVO extends AppBaseVO implements Decidable{
+	private ShareBodyVO body;
+
+	public ShareBodyVO getBody() {
+		return body;
 	}
-	public void setUnionId(String unionId) {
-		this.unionId = unionId;
+
+	public void setBody(ShareBodyVO body) {
+		this.body = body;
 	}
-	public String getRecordId() {
-		return recordId;
-	}
-	public void setRecordId(String recordId) {
-		this.recordId = recordId;
+	@Override
+	public String toString() {
+		return "ShareVO [body=" + body + ", app="
+				+ app + "]";
 	}
 	
 }

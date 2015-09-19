@@ -22,6 +22,21 @@
     from t_khkf_appointment
     where id = #{id,jdbcType=INTEGER}
   </select>
+   <select id="selectByUnionId" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from t_khkf_appointment
+    where union_id = #{unionId,jdbcType=VARCHAR} order by id desc
+  </select>
+   <select id="selectNotUseByUnionId" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from t_khkf_appointment
+    where union_id = #{unionId,jdbcType=VARCHAR}
+    and id not in (
+	SELECT id from t_khkf_attend_appointment WHERE union_id=#{unionId,jdbcType=VARCHAR}
+	)
+  </select>
   <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
     delete from t_khkf_appointment
     where id = #{id,jdbcType=INTEGER}
