@@ -14,7 +14,7 @@ public class Appointment {
     /**
      * 家长手机号
      */
-    private Integer mobileNum;
+    private String mobileNum;
 
     /**
      * 家长名称
@@ -66,7 +66,7 @@ public class Appointment {
     /**
      * @return 家长手机号
      */
-    public Integer getMobileNum() {
+    public String getMobileNum() {
         return mobileNum;
     }
 
@@ -74,7 +74,7 @@ public class Appointment {
      * @param mobileNum 
 	 *            家长手机号
      */
-    public void setMobileNum(Integer mobileNum) {
+    public void setMobileNum(String mobileNum) {
         this.mobileNum = mobileNum;
     }
 

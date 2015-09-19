@@ -52,6 +52,11 @@ public class Advertisement {
     private String url;
 
     /**
+     * 摘要
+     */
+    private String description;
+
+    /**
      * 内容
      */
     private String content;
@@ -189,6 +194,21 @@ public class Advertisement {
      */
     public void setUrl(String url) {
         this.url = url == null ? null : url.trim();
+    }
+
+    /**
+     * @return 摘要
+     */
+    public String getDescription() {
+        return description;
+    }
+
+    /**
+     * @param description 
+	 *            摘要
+     */
+    public void setDescription(String description) {
+        this.description = description == null ? null : description.trim();
     }
 
     /**

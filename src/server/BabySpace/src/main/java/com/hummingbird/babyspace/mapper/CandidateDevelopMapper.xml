@@ -51,7 +51,7 @@
     and c.id not in (
     	select candidate_id from t_khkf_candidate_develop where assistant_id=m.id
     )
-    and c.id=#{candidate.id}
+    and c.id=#{id}
 	order by d.developing_count 
    
   </select>
@@ -64,7 +64,7 @@
     and c.status = 'CRT' 
    
    
-  </select>
+  </update>
   <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
     delete from t_khkf_candidate_develop
     where id = #{id,jdbcType=INTEGER}

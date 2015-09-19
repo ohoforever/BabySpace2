@@ -40,10 +40,8 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	</ul>
 	</div>
 	<ul id="menu">
-		<li><input type="button"   onclick='setbinding("/rc/exchange/queryTelFlowProduct","{\"app\":{\"appId\":\"ADP\",\"timeStamp\":\"TIMESTAMP\",  \"nonce\":\"NONCE\", \"signature\":\"SIGNATURE\"  },\"body\":  {\"mobileNum\":\"13912345678\",\"maxFee\":5000}}")' value="查询可用产品" ></li>
-		<li><input type="button"   onclick='setbinding("/rc/exchange/transfer_to_tel_flow","{\"app\":{\"appId\":\"ADP\",\"timeStamp\":\"TIMESTAMP\",  \"nonce\":\"NONCE\", \"signature\":\"SIGNATURE\"  },\"body\":  {\"mobileNum\":\"13912345678\",\"productId\":1,\"appOrderId\":\"abc12345\"},\"tsig\":{\"orderMD5\":\"ORDERMD5\",\"signature\":\"SIGNATURE\",\"timeStamp\":\"TIMESTAMP\",\"nonce\":\"NONCE\"}}")' value="申请兑换" ></li>
-		<li><input type="button"   onclick='setbinding("/rc/exchange/query_tel_flow_result","{\"app\":{\"appId\":\"ADP\",\"timeStamp\":\"TIMESTAMP\",  \"nonce\":\"NONCE\", \"signature\":\"SIGNATURE\"  },\"body\":  {\"appOrderId\":\"abc12345\"}}")' value="查询兑换结果" ></li> 
-		<li><input type="button"   onclick='setbinding("/rc/exchange/tel_flow_result_notify","{\"orderNo\":\"EX201509090000000000\",\"partnerOrderNo\": \"12345\", \"status\":\"1\"}")' value="兑换结果通知" ></li> 
+		<li><input type="button"   onclick='setbinding("/advertisement/getAdvertisementList","{\"app\":{\"appId\":\"babyspace\",\"timeStamp\":\"TIMESTAMP\",  \"nonce\":\"NONCE\", \"signature\":\"SIGNATURE\"  },\"body\":  {\"unionId\":\"13912345678\",\"pageIndex\":0,\"pageSize\":10}}")' value="查询广告列表" ></li>
+		<li><input type="button"   onclick='setbinding("/advertisement/getAdvertisementDetail","{\"app\":{\"appId\":\"babyspace\",\"timeStamp\":\"TIMESTAMP\",  \"nonce\":\"NONCE\", \"signature\":\"SIGNATURE\"  },\"body\":  {\"advertisementId\":1}}")' value="获取广告详情" ></li>
 	<br>
 
 <!-- <li><input type="button"   onclick='setbinding("/userAuth/get_accountcode","{\"app\":{\"appId\":\"zjhtwallet\",\"timeStamp\":\"TIMESTAMP\",\"nonce\":\"NONCE\",\"signature\":\"b94490aecabf04eba1e9ab58dc76c115\"},\"mobileNum\":\"18922260815\"}")' value="获取账户验证码" ></li>
