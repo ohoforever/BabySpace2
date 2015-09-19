@@ -5,13 +5,14 @@
     <id column="id" property="id" jdbcType="INTEGER" />
     <result column="union_id" property="unionId" jdbcType="VARCHAR" />
     <result column="question" property="question" jdbcType="VARCHAR" />
+    <result column="title" property="title" jdbcType="VARCHAR" />
     <result column="insert_time" property="insertTime" jdbcType="TIMESTAMP" />
     <result column="answer" property="answer" jdbcType="VARCHAR" />
     <result column="reply_operator" property="replyOperator" jdbcType="INTEGER" />
     <result column="reply_time" property="replyTime" jdbcType="TIMESTAMP" />
   </resultMap>
   <sql id="Base_Column_List" >
-    id, union_id, question, insert_time, answer, reply_operator, reply_time
+    id, union_id, question, insert_time, answer, reply_operator, reply_time,title
   </sql>
   <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
     select 
@@ -26,10 +27,10 @@
   <insert id="insert" parameterType="com.hummingbird.babyspace.entity.Interlocution" >
     insert into t_zsgl_Interlocution (id, union_id, question, 
       insert_time, answer, reply_operator, 
-      reply_time)
+      reply_time,title)
     values (#{id,jdbcType=INTEGER}, #{unionId,jdbcType=VARCHAR}, #{question,jdbcType=VARCHAR}, 
       #{insertTime,jdbcType=TIMESTAMP}, #{answer,jdbcType=VARCHAR}, #{replyOperator,jdbcType=INTEGER}, 
-      #{replyTime,jdbcType=TIMESTAMP})
+      #{replyTime,jdbcType=TIMESTAMP},#{title})
   </insert>
   <insert id="insertSelective" parameterType="com.hummingbird.babyspace.entity.Interlocution" >
     insert into t_zsgl_Interlocution
@@ -55,6 +56,9 @@
       <if test="replyTime != null" >
         reply_time,
       </if>
+      <if test="title != null" >
+        title,
+      </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides="," >
       <if test="id != null" >
@@ -77,6 +81,9 @@
       </if>
       <if test="replyTime != null" >
         #{replyTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="title != null" >
+        #{title},
       </if>
     </trim>
   </insert>
@@ -101,6 +108,9 @@
       <if test="replyTime != null" >
         reply_time = #{replyTime,jdbcType=TIMESTAMP},
       </if>
+      <if test="title != null" >
+        title = #{title},
+      </if>
     </set>
     where id = #{id,jdbcType=INTEGER}
   </update>
@@ -111,7 +121,25 @@
       insert_time = #{insertTime,jdbcType=TIMESTAMP},
       answer = #{answer,jdbcType=VARCHAR},
       reply_operator = #{replyOperator,jdbcType=INTEGER},
+      title = #{title},
       reply_time = #{replyTime,jdbcType=TIMESTAMP}
     where id = #{id,jdbcType=INTEGER}
   </update>
+  
+  <select id="selectTotalCountByUnionId" resultType="int" parameterType="java.lang.String" >
+    select 
+    count(*)
+    from t_zsgl_Interlocution
+    where union_id=#{unionId}
+  </select>
+  <select id="selectByUnionId" resultMap="BaseResultMap"  >
+    select 
+    <include refid="Base_Column_List" />
+    from t_zsgl_Interlocution
+    where union_id=#{unionId}
+    order by insert_time desc
+    <if test="page != null" >
+    limit #{page.firstResult,jdbcType=DECIMAL}  ,#{page.pageSize,jdbcType=DECIMAL}
+    </if> 
+  </select>
 </mapper>

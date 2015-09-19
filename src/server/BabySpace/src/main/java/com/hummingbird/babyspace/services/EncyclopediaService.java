@@ -8,21 +8,23 @@ package com.hummingbird.babyspace.services;
 import java.util.List;
 
 import com.hummingbird.babyspace.entity.Advertisement;
+import com.hummingbird.babyspace.entity.BabyWonderful;
+import com.hummingbird.babyspace.entity.Encyclopedia;
 import com.hummingbird.common.face.Pagingnation;
 
 /**
  * @author john huang
  * 2015年9月19日 上午12:23:21
- * 本类主要做为 广告管理
+ * 本类主要做为 十万个为什么
  */
-public interface AdvertisementService {
+public interface EncyclopediaService {
 
 	/**
-	 * 查询广告列表
+	 * 查询十万个为什么列表
 	 * @param unionId
 	 * @param page
 	 * @return
 	 */
-	public List<Advertisement> getAdvertisementByPage(String unionId,Pagingnation page);
+	public List<Encyclopedia> getEncyclopediaByPage(String unionId,Integer channelId,String searchKeyword,Pagingnation page);
 	
 }

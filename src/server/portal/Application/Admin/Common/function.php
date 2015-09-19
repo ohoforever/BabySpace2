@@ -273,6 +273,7 @@ function get_attribute_type($type=''){
         'editor'    =>  array('编辑器','text NOT NULL'),
         'picture'   =>  array('上传图片','int(10) UNSIGNED NOT NULL'),
         'file'      =>  array('上传附件','int(10) UNSIGNED NOT NULL'),
+        'hidden'       =>  array('隐藏标签','int(10) UNSIGNED NOT NULL'),
         'district'      =>  array('城市编码','int(10) UNSIGNED NOT NULL'),
     );
     return $type?$_type[$type][0]:$_type;

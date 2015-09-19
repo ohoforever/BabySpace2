@@ -168,4 +168,23 @@
       description = #{description,jdbcType=VARCHAR}
     where id = #{id,jdbcType=INTEGER}
   </update>
+  <select id="selectTotalCountByUnionId" resultType="int"  >
+    select 
+    count(*)
+    from t_bbjc_baby_wonderful
+    where channel=#{channelId}
+    and status='OK#'
+  </select>
+  <select id="selectByUnionId" resultMap="BaseResultMap"  >
+    select 
+    id, channel, title, tag, insert_time, update_time, status, operator, description
+    from t_bbjc_baby_wonderful
+    where channel=#{channelId}
+    and status='OK#'
+    order by insert_time desc
+    <if test="page != null" >
+    limit #{page.firstResult,jdbcType=DECIMAL}  ,#{page.pageSize,jdbcType=DECIMAL}
+    </if> 
+  </select>
+  
 </mapper>

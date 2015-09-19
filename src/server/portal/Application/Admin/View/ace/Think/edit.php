@@ -180,6 +180,12 @@
 							    }
 								</script>
                             </case>
+                            <case value="district">
+                                <div id="city_{$field.name}"></div>
+                                <script>
+                                    <?php echo hook('H_XbDistrict', array('id'=>'city_'.$field['name'],'district'=>$field['name'],'selected'=>$data[$field['name']]));?>
+                                </script>
+                            </case>
                             <default/>
                             <input type="text" class="width-100" name="{$field.name}" value="{$data[$field['name']]}">
                         </switch>
@@ -232,6 +238,12 @@ $(function(){
         autoclose:true
     });
     showTab();
+    <?php if(isset($active_menu)):?>
+    //导航高亮
+    highlight_subnav('<?=U($active_menu)?>');
+    <?php else:?>
+    highlight_subnav('{:U('Model/index')}');
+    <?php endif;?>
 });
 </script>
 </block>

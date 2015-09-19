@@ -50,7 +50,6 @@ class PictureModel extends Model{
 
                 /* 记录文件信息 */
                 $value['path'] = $setting['rootPath'].$value['savepath'].$value['savename'];
-                $value['url'] = $setting['urlPath'].$value['savepath'].$value['savename'];//在模板里的url路径
                 if($this->create($value) && ($id = $this->add())){
                     $value['id'] = $id;
                 } else {
@@ -143,6 +142,7 @@ class PictureModel extends Model{
 	 * @param $data
 	 */
 	public function removeTrash($data){
+        var_dump($data);
 		$this->where(array('id'=>$data['id'],))->delete();
 	}
 

@@ -5,7 +5,7 @@ import java.util.Date;
 /**
  * 分享历史表
  */
-public class WechatUserShae {
+public class WechatUserShare {
     /**
      * 记录id
      */

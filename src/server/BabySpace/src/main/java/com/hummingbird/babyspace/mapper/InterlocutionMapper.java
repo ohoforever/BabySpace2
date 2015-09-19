@@ -1,6 +1,11 @@
 package com.hummingbird.babyspace.mapper;
 
+import java.util.List;
+
+import org.apache.ibatis.annotations.Param;
+
 import com.hummingbird.babyspace.entity.Interlocution;
+import com.hummingbird.common.face.Pagingnation;
 
 public interface InterlocutionMapper {
     /**
@@ -32,4 +37,19 @@ public interface InterlocutionMapper {
      * 根据主键更新记录
      */
     int updateByPrimaryKey(Interlocution record);
+
+	/**
+	 * 查询记录数
+	 * @param unionId
+	 * @return
+	 */
+	int selectTotalCountByUnionId(String unionId);
+
+	/**
+	 * 查询分页
+	 * @param unionId
+	 * @param page
+	 * @return
+	 */
+	List<Interlocution> selectByUnionId(@Param("unionId") String unionId,@Param("page")  Pagingnation page);
 }

@@ -1,5 +1,7 @@
 package com.hummingbird.babyspace.mapper;
 
+import org.apache.ibatis.annotations.Param;
+
 import com.hummingbird.babyspace.entity.WechatUserLike;
 
 public interface WechatUserLikeMapper {
@@ -32,4 +34,13 @@ public interface WechatUserLikeMapper {
      * 根据主键更新记录
      */
     int updateByPrimaryKey(WechatUserLike record);
+
+	/**
+	 * 查看用户是否点赞过,点赞时数目大于1
+	 * @param unionId
+	 * @param id
+	 * @param string
+	 * @return
+	 */
+	int countUserLike(@Param("unionId") String unionId,@Param("recordId") Integer recordId,@Param("type") String type);
 }

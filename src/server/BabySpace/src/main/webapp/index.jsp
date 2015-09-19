@@ -68,8 +68,18 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	<tr>
 		<td><input type="button"   onclick='setbinding("/advertisement/getAdvertisementList","{\"app\":{\"appId\":\"babyspace\",\"timeStamp\":\"TIMESTAMP\",  \"nonce\":\"NONCE\", \"signature\":\"SIGNATURE\"  },\"body\":  {\"unionId\":\"13912345678\",\"pageIndex\":0,\"pageSize\":10}}")' value="查询广告列表" ></td>
 		<td><input type="button"   onclick='setbinding("/advertisement/getAdvertisementDetail","{\"app\":{\"appId\":\"babyspace\",\"timeStamp\":\"TIMESTAMP\",  \"nonce\":\"NONCE\", \"signature\":\"SIGNATURE\"  },\"body\":  {\"advertisementId\":1}}")' value="获取广告详情" ></td>
+		<td><input type="button"   onclick='setbinding("/babyWonderful/babyWonderfulList","{\"app\":{\"appId\":\"babyspace\",\"timeStamp\":\"TIMESTAMP\",  \"nonce\":\"NONCE\", \"signature\":\"SIGNATURE\"  },\"body\":  {\"unionId\":\"13912345678\",\"pageIndex\":0,\"pageSize\":10}}")' value="查询宝宝精彩列表" ></td>
+		<td><input type="button"   onclick='setbinding("/babyWonderful/queryBabyWonderfulDetail","{\"app\":{\"appId\":\"babyspace\",\"timeStamp\":\"TIMESTAMP\",  \"nonce\":\"NONCE\", \"signature\":\"SIGNATURE\"  },\"body\": {\"unionId\":\"13912345678\",\"recordId\":1}}")' value="获取宝宝精彩详情" ></td>
+		<td><input type="button"   onclick='setbinding("/babyWonderful/praise","{\"app\":{\"appId\":\"babyspace\",\"timeStamp\":\"TIMESTAMP\",  \"nonce\":\"NONCE\", \"signature\":\"SIGNATURE\"  },\"body\":  {\"unionId\":\"13912345678\",\"recordId\":1}}")' value="宝宝精彩点赞" ></td>
 	</tr>
-</table> 
+	<tr>
+		<td><input type="button"   onclick='setbinding("/babyWonderful/share","{\"app\":{\"appId\":\"babyspace\",\"timeStamp\":\"TIMESTAMP\",  \"nonce\":\"NONCE\", \"signature\":\"SIGNATURE\"  },\"body\":  {\"unionId\":\"13912345678\",\"recordId\":1}}")' value="宝宝精彩分享" ></td>
+		<td><input type="button"   onclick='setbinding("/knowledgeManager/babyInterlocution/questionList","{\"app\":{\"appId\":\"babyspace\",\"timeStamp\":\"TIMESTAMP\",  \"nonce\":\"NONCE\", \"signature\":\"SIGNATURE\"  },\"body\":  {\"unionId\":\"13912345678\",\"pageIndex\":0,\"pageSize\":10}}")' value="查询宝宝问答列表" ></td>
+		<td><input type="button"   onclick='setbinding("/knowledgeManager/babyInterlocution/submitQuestion","{\"app\":{\"appId\":\"babyspace\",\"timeStamp\":\"TIMESTAMP\",  \"nonce\":\"NONCE\", \"signature\":\"SIGNATURE\"  },\"body\":  {\"unionId\":\"13912345678\",\"title\":\"小孩不说话\",\"desc\":\"我家小孩3岁了,只会叫爸爸妈妈,其它不会讲,请问正常吗\"}}")' value="宝宝问答提问题" ></td>
+		<td><input type="button"   onclick='setbinding("/knowledgeManager/encyclopedia/queryEncyclopediaList","{\"app\":{\"appId\":\"babyspace\",\"timeStamp\":\"TIMESTAMP\",  \"nonce\":\"NONCE\", \"signature\":\"SIGNATURE\"  },\"body\": {\"searchKeyword\":\"不爱说话\",\"pageIndex\":0,\"pageSize\":10}}")' value="查询十万个为什么列表" ></td>
+		<td><input type="button"   onclick='setbinding("/knowledgeManager/encyclopedia/queryEncyclopediaDetail","{\"app\":{\"appId\":\"babyspace\",\"timeStamp\":\"TIMESTAMP\",  \"nonce\":\"NONCE\", \"signature\":\"SIGNATURE\"  },\"body\":  {\"recordId\":1}}")' value="查看十万个为什么" ></td>
+	</tr>
+</table>
   </body>
     <script>
     var type='payload'
@@ -198,3 +208,4 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	</script>
   
 </html>
+

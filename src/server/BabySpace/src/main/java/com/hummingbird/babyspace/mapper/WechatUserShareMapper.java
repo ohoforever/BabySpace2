@@ -1,8 +1,8 @@
 package com.hummingbird.babyspace.mapper;
 
-import com.hummingbird.babyspace.entity.WechatUserShae;
+import com.hummingbird.babyspace.entity.WechatUserShare;
 
-public interface WechatUserShaeMapper {
+public interface WechatUserShareMapper {
     /**
      * 根据主键删除记录
      */
@@ -11,25 +11,25 @@ public interface WechatUserShaeMapper {
     /**
      * 保存记录,不管记录里面的属性是否为空
      */
-    int insert(WechatUserShae record);
+    int insert(WechatUserShare record);
 
     /**
      * 保存属性不为空的记录
      */
-    int insertSelective(WechatUserShae record);
+    int insertSelective(WechatUserShare record);
 
     /**
      * 根据主键查询记录
      */
-    WechatUserShae selectByPrimaryKey(Integer id);
+    WechatUserShare selectByPrimaryKey(Integer id);
 
     /**
      * 根据主键更新属性不为空的记录
      */
-    int updateByPrimaryKeySelective(WechatUserShae record);
+    int updateByPrimaryKeySelective(WechatUserShare record);
 
     /**
      * 根据主键更新记录
      */
-    int updateByPrimaryKey(WechatUserShae record);
+    int updateByPrimaryKey(WechatUserShare record);
 }

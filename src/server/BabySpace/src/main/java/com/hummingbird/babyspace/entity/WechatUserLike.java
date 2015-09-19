@@ -6,6 +6,9 @@ import java.util.Date;
  * 点赞表
  */
 public class WechatUserLike {
+	
+	
+	
     private Integer id;
 
     /**
