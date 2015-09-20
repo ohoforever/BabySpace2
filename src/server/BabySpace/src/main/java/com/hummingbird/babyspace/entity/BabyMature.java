@@ -124,7 +124,7 @@ public class BabyMature {
     /**
      * 分享的图片下标,以0为开始
      */
-    private String shareImgIndex;
+    private Integer shareImgIndex;
 
     /**
      * @return 记录id
@@ -474,7 +474,7 @@ public class BabyMature {
     /**
      * @return 分享的图片下标,以0为开始
      */
-    public String getShareImgIndex() {
+    public Integer getShareImgIndex() {
         return shareImgIndex;
     }
 
@@ -482,7 +482,7 @@ public class BabyMature {
      * @param shareImgIndex 
 	 *            分享的图片下标,以0为开始
      */
-    public void setShareImgIndex(String shareImgIndex) {
-        this.shareImgIndex = shareImgIndex == null ? null : shareImgIndex.trim();
+    public void setShareImgIndex(Integer shareImgIndex) {
+        this.shareImgIndex = shareImgIndex;
     }
 }

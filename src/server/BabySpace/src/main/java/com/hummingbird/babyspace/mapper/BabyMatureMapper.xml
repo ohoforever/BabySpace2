@@ -25,7 +25,7 @@
     <result column="determine" property="determine" jdbcType="VARCHAR" />
     <result column="share_title" property="shareTitle" jdbcType="VARCHAR" />
     <result column="share_content" property="shareContent" jdbcType="VARCHAR" />
-    <result column="share_img_index" property="shareImgIndex" jdbcType="VARCHAR" />
+    <result column="share_img_index" property="shareImgIndex" jdbcType="INTEGER" />
   </resultMap>
   <sql id="Base_Column_List" >
     id, child_id, content, title, tag, image1, image2, image3, image4, image5, image6, 
@@ -59,7 +59,7 @@
       #{image8,jdbcType=VARCHAR}, #{image9,jdbcType=VARCHAR}, #{redflowerCount,jdbcType=INTEGER}, 
       #{actTime,jdbcType=TIMESTAMP}, #{insertTime,jdbcType=TIMESTAMP}, #{updateTime,jdbcType=TIMESTAMP}, 
       #{status,jdbcType=VARCHAR}, #{operator,jdbcType=VARCHAR}, #{determine,jdbcType=VARCHAR}, 
-      #{shareTitle,jdbcType=VARCHAR}, #{shareContent,jdbcType=VARCHAR}, #{shareImgIndex,jdbcType=VARCHAR}
+      #{shareTitle,jdbcType=VARCHAR}, #{shareContent,jdbcType=VARCHAR}, #{shareImgIndex}
       )
   </insert>
   <insert id="insertSelective" parameterType="com.hummingbird.babyspace.entity.BabyMature" >
@@ -209,7 +209,7 @@
         #{shareContent,jdbcType=VARCHAR},
       </if>
       <if test="shareImgIndex != null" >
-        #{shareImgIndex,jdbcType=VARCHAR},
+        #{shareImgIndex},
       </if>
     </trim>
   </insert>
@@ -283,7 +283,7 @@
         share_content = #{shareContent,jdbcType=VARCHAR},
       </if>
       <if test="shareImgIndex != null" >
-        share_img_index = #{shareImgIndex,jdbcType=VARCHAR},
+        share_img_index = #{shareImgIndex},
       </if>
     </set>
     where id = #{id,jdbcType=INTEGER}
@@ -312,7 +312,29 @@
       determine = #{determine,jdbcType=VARCHAR},
       share_title = #{shareTitle,jdbcType=VARCHAR},
       share_content = #{shareContent,jdbcType=VARCHAR},
-      share_img_index = #{shareImgIndex,jdbcType=VARCHAR}
+      share_img_index = #{shareImgIndex}
     where id = #{id,jdbcType=INTEGER}
   </update>
+  <select id="selectTotalCountByUnionId" resultType="int" parameterType="java.lang.String" >
+    select 
+    count(*)
+    from t_bbkj_baby_mature m,t_yhgl_child c,t_user u
+    where m.child_id = c.id
+    and c.user_id = u.id
+    and u.union_id=#{unionId}
+    and m.status='OK#'
+  </select>
+  <select id="selectByUnionId" resultMap="BaseResultMap"  >
+    select 
+    m.*
+    from t_bbkj_baby_mature m,t_yhgl_child c,t_user u
+    where m.child_id = c.id
+    and c.user_id = u.id
+    and u.union_id=#{unionId}
+    and m.status='OK#'
+    order by m.insert_time desc
+    <if test="page != null" >
+    limit #{page.firstResult,jdbcType=DECIMAL}  ,#{page.pageSize,jdbcType=DECIMAL}
+    </if> 
+  </select>
 </mapper>
