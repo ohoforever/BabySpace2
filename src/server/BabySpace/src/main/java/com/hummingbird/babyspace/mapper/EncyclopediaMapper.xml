@@ -173,6 +173,7 @@
     count(*)
     from t_bbjc_baby_wonderful
     where channel=#{channelId}
+    and ( title like "%"#{searchKeyword}"%"  or  content like "%"#{searchKeyword}"%"   )  
     and status='OK#'
   </select>
   <select id="selectByUnionId" resultMap="BaseResultMap"  >
@@ -180,6 +181,7 @@
     id, channel, title, tag, insert_time, update_time, status, operator, description
     from t_bbjc_baby_wonderful
     where channel=#{channelId}
+     and ( title like "%"#{searchKeyword}"%"  or  content like "%"#{searchKeyword}"%"   )  
     and status='OK#'
     order by insert_time desc
     <if test="page != null" >
