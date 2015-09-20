@@ -80,7 +80,7 @@ public class UserCenterController extends BaseController{
 			}
 			
 			UserQueryReturnVO result=userSer.queryUserInfo(body);
-			rm.put("reslut", result);
+			rm.put("result", result);
 			
 		} catch (Exception e1) {
 			log.error(String.format(messagebase+"失败"),e1);
