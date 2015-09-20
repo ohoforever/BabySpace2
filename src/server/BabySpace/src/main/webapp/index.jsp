@@ -79,6 +79,12 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		<td><input type="button"   onclick='setbinding("/knowledgeManager/encyclopedia/queryEncyclopediaList","{\"app\":{\"appId\":\"babyspace\",\"timeStamp\":\"TIMESTAMP\",  \"nonce\":\"NONCE\", \"signature\":\"SIGNATURE\"  },\"body\": {\"searchKeyword\":\"不爱说话\",\"pageIndex\":0,\"pageSize\":10}}")' value="查询十万个为什么列表" ></td>
 		<td><input type="button"   onclick='setbinding("/knowledgeManager/encyclopedia/queryEncyclopediaDetail","{\"app\":{\"appId\":\"babyspace\",\"timeStamp\":\"TIMESTAMP\",  \"nonce\":\"NONCE\", \"signature\":\"SIGNATURE\"  },\"body\":  {\"recordId\":1}}")' value="查看十万个为什么" ></td>
 	</tr>
+	<tr>
+		<td><input type="button"   onclick='setbinding("/babyMature/queryBabyMatureList","{\"app\":{\"appId\":\"babyspace\",\"timeStamp\":\"TIMESTAMP\",  \"nonce\":\"NONCE\", \"signature\":\"SIGNATURE\"  },\"body\":  {\"unionId\":\"13912345678\",\"pageIndex\":0,\"pageSize\":10}}")' value="查询成长时光列表" ></td>
+		<td><input type="button"   onclick='setbinding("/babyMature/getBabyMature","{\"app\":{\"appId\":\"babyspace\",\"timeStamp\":\"TIMESTAMP\",  \"nonce\":\"NONCE\", \"signature\":\"SIGNATURE\"  },\"body\":  {\"matrueId\":1}}")' value="查看成长时光详情" ></td>
+		<td><input type="button"   onclick='setbinding("/babyMature/addComment","{\"app\":{\"appId\":\"babyspace\",\"timeStamp\":\"TIMESTAMP\",  \"nonce\":\"NONCE\", \"signature\":\"SIGNATURE\"  },\"body\":  {\"unionId\":\"13912345678\",\"matrueId\":1,\"replyTo\":1,\"comment\":\"谢谢老师\"}}")' value="成长时光发表评论" ></td>
+		<td><input type="button"   onclick='setbinding("/babyMature/addShareHistory","{\"app\":{\"appId\":\"babyspace\",\"timeStamp\":\"TIMESTAMP\",  \"nonce\":\"NONCE\", \"signature\":\"SIGNATURE\"  },\"body\": {\"unionId\":\"13912345678\",\"recordId\":1} }")' value="成长时光分享" ></td>
+	</tr>
 </table>
   </body>
     <script>

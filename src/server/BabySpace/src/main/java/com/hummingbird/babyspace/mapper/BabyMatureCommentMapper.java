@@ -1,5 +1,7 @@
 package com.hummingbird.babyspace.mapper;
 
+import java.util.List;
+
 import com.hummingbird.babyspace.entity.BabyMatureComment;
 
 public interface BabyMatureCommentMapper {
@@ -32,4 +34,11 @@ public interface BabyMatureCommentMapper {
      * 根据主键更新记录
      */
     int updateByPrimaryKey(BabyMatureComment record);
+
+	/**
+	 * 查询成长时光评论列表
+	 * @param id
+	 * @return
+	 */
+	List<BabyMatureComment> selectComments(Integer  matureId);
 }
