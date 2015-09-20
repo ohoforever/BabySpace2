@@ -57,11 +57,20 @@ class AssistController extends AdminController {
 		$this->meta_title = '查看客户信息';
 		$this->display();
 	}
-    public function add(){
-        $this->meta_title = '添加客户信息';
-        $this->display();
-    }
-    public function save(){
+
+	public function mark($id=0){
+		empty($id) && $this->error('参数错误！');
+		$map = ['id'=>$id,'current_assistant_id'=>$this->_uid,'status'=>'CRT'];
+		$info = M('khkf_candidate')->field(true)->find($map);
+		empty($info) && $this->error('请求的数据不存在！');
+		$list = M('khkf_candidate_evaluation')->field(true)->where($map)->select();
+		$this->assign('item',$info);
+		$this->assign('list',$list);
+		$this->meta_title = '标注客户';
+		$this->display('info');
+	}
+
+	public function marked(){
         $data['parent_name'] = I('post.parent_name');
         empty($data['parent_name']) && $this->error('请输入家长姓名');
         $data['mobile_num'] = I('post.mobile_num');
@@ -96,25 +105,6 @@ class AssistController extends AdminController {
         }
     }
 
-    public function allocate(){
-	    if(!empty(I('parent_name')))
-	    {
-		    $map['parent_name']= array('like', '%'.I('parent_name').'%');
-	    }
-	    if(!empty(I('mobile_num')))
-	    {
-		    $map['mobile_num']= I('parent_name');
-	    }
-	    if(!empty(I('baby_name')))
-	    {
-		    $map['baby_name']= array('like', '%'.I('baby_name').'%');
-	    }
-	    $map['status']    =   'CRT';
-	    $list   =   $this->lists('khkf_candidate', $map);
-	    $this->assign('_list', $list);
-	    $this->meta_title = '调配客户列表';
-	    $this->display();
-    }
     public function allocatesave()
     {
 	    $current_assistant_id = I('post.current_assistant_id');
@@ -134,28 +124,6 @@ class AssistController extends AdminController {
 		    $this->error('保存失败！');
 	    }else {
 		    $model->rollback(); 
-		    $this->error('保存失败！');
-	    }
-    }
-    public function allocateinfo($id=0)
-    {
-        empty($id) && $this->error('参数错误！');
-        $info = M('khkf_candidate')->field(true)->find($id);
-        $this->assign('item', $info);
-        $assi = M('ucenter_member')->field('id,username')->where("user_type='ASST'")->select();
-        $this->assign('assi', $assi);
-        $this->meta_title = '客户信息详情';
-        $this->display();
-    }
-    public function setStatus()
-    {
-	    $type = I('get.type');
-	    $id = I('get.id');
-	    $status = $type=='S'?'OK#':'FLS';
-	    $res = M('khkf_candidate')->where('id='.$id)->save(['update_time'=>date('Y-m-d H:i:s'),'status'=>$status]);
-	    if($res !== false){
-		    $this->success('设置完成！',U('custommanage/allocate'));
-	    }else {
 		    $this->error('保存失败！');
 	    }
     }
