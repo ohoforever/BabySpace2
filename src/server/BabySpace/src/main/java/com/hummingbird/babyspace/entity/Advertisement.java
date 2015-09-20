@@ -60,6 +60,10 @@ public class Advertisement {
      * 内容
      */
     private String content;
+    /**
+     * 广告图片
+     */
+    private String pic;
 
     /**
      * @return 广告id
@@ -225,4 +229,28 @@ public class Advertisement {
     public void setContent(String content) {
         this.content = content == null ? null : content.trim();
     }
+
+	/**
+	 * 广告图片 
+	 */
+	public String getPic() {
+		return pic;
+	}
+
+	/**
+	 * 广告图片 
+	 */
+	public void setPic(String pic) {
+		this.pic = pic;
+	}
+
+	/* (non-Javadoc)
+	 * @see java.lang.Object#toString()
+	 */
+	@Override
+	public String toString() {
+		return "Advertisement [id=" + id + ", title=" + title + ", type=" + type + ", tag=" + tag + ", insertTime="
+				+ insertTime + ", updateTime=" + updateTime + ", status=" + status + ", operator=" + operator + ", url="
+				+ url + ", description=" + description + ", content=" + content + ", pic=" + pic + "]";
+	}
 }

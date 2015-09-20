@@ -11,13 +11,14 @@
     <result column="status" property="status" jdbcType="VARCHAR" />
     <result column="operator" property="operator" jdbcType="INTEGER" />
     <result column="url" property="url" jdbcType="VARCHAR" />
+    <result column="pic" property="pic" jdbcType="VARCHAR" />
     <result column="description" property="description" jdbcType="VARCHAR" />
   </resultMap>
   <resultMap id="ResultMapWithBLOBs" type="com.hummingbird.babyspace.entity.Advertisement" extends="BaseResultMap" >
     <result column="content" property="content" jdbcType="LONGVARCHAR" />
   </resultMap>
   <sql id="Base_Column_List" >
-    id, title, type, tag, insert_time, update_time, status, operator, url, description
+    id, title, type, tag, insert_time, update_time, status, operator, url, description,pic
   </sql>
   <sql id="Blob_Column_List" >
     content
@@ -54,11 +55,11 @@
     insert into t_yxtg_advertisement (id, title, type, 
       tag, insert_time, update_time, 
       status, operator, url, 
-      description, content)
+      description, content,pic)
     values (#{id,jdbcType=INTEGER}, #{title,jdbcType=VARCHAR}, #{type,jdbcType=VARCHAR}, 
       #{tag,jdbcType=VARCHAR}, #{insertTime,jdbcType=TIMESTAMP}, #{updateTime,jdbcType=TIMESTAMP}, 
       #{status,jdbcType=VARCHAR}, #{operator,jdbcType=INTEGER}, #{url,jdbcType=VARCHAR}, 
-      #{description,jdbcType=VARCHAR}, #{content,jdbcType=LONGVARCHAR})
+      #{description,jdbcType=VARCHAR}, #{content,jdbcType=LONGVARCHAR},#{pic})
   </insert>
   <insert id="insertSelective" parameterType="com.hummingbird.babyspace.entity.Advertisement" >
     insert into t_yxtg_advertisement
@@ -180,7 +181,8 @@
       operator = #{operator,jdbcType=INTEGER},
       url = #{url,jdbcType=VARCHAR},
       description = #{description,jdbcType=VARCHAR},
-      content = #{content,jdbcType=LONGVARCHAR}
+      content = #{content,jdbcType=LONGVARCHAR},
+      pic=#{pic}
     where id = #{id,jdbcType=INTEGER}
   </update>
   <update id="updateByPrimaryKey" parameterType="com.hummingbird.babyspace.entity.Advertisement" >
@@ -193,7 +195,8 @@
       status = #{status,jdbcType=VARCHAR},
       operator = #{operator,jdbcType=INTEGER},
       url = #{url,jdbcType=VARCHAR},
-      description = #{description,jdbcType=VARCHAR}
+      description = #{description,jdbcType=VARCHAR},
+      pic=#{pic}
     where id = #{id,jdbcType=INTEGER}
   </update>
 </mapper>

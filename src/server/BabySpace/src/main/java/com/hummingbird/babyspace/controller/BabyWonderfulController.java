@@ -125,7 +125,8 @@ public class BabyWonderfulController extends BaseController {
 							
 							String picurl = ObjectUtils.toString(PropertyUtils.getProperty(ori, "image"+i));
 							if(StringUtils.isNotBlank(picurl)){
-								piclist.add(picurl+"?imageView2/2/w/"+smallpicwidth);
+//								piclist.add(picurl+"?imageView2/2/w/"+smallpicwidth);
+								piclist.add(picurl);
 							}
 							i++;
 						}
