@@ -11,29 +11,9 @@
                         <label>宝宝姓名
                             <input type="text" class="search-input" name="baby_name" value="<?=I('baby_name')?>">
                         </label>
-                        <label>年龄 (月)&nbsp;
-                            <input type="text" class="search-input" name="baby_age" value="<?=I('baby_age')?>">
-
-                            <label>月份
-                                <?php
-                                $month_list = [
-                                    0=>'--请选择月份--',
-                                    '01'=>'一月',
-                                    '02'=>'二月',
-                                    '03'=>'三月',
-                                    '04'=>'四月',
-                                    '05'=>'五月',
-                                    '06'=>'六月',
-                                    '07'=>'七月',
-                                    '08'=>'八月',
-                                    '09'=>'九月',
-                                    '10'=>'十月',
-                                    '11'=>'十一月',
-                                    '12'=>'十二月',
-                                ];
-                                echo form_dropdown('month',$month_list,I('month'));
-                                ?>
-                            </label>
+                        <label>宝宝年龄
+                            <input type="text" class="search-input" name="baby_age" value="<?=I('baby_age')?>" placeholder="单位：月">
+                        </label>
                     </div>
                     <div class="col-sm-12">
                         <label>课程名称
@@ -41,6 +21,26 @@
                         </label>
                         <label>学校名称
                             <input type="text" class="search-input" name="school_name" value="<?=I('school_name')?>">
+                        </label>
+                        <label>耗课月份
+                            <?php
+                            $month_list = [
+                                0=>'--请选择月份--',
+                                '01'=>'一月',
+                                '02'=>'二月',
+                                '03'=>'三月',
+                                '04'=>'四月',
+                                '05'=>'五月',
+                                '06'=>'六月',
+                                '07'=>'七月',
+                                '08'=>'八月',
+                                '09'=>'九月',
+                                '10'=>'十月',
+                                '11'=>'十一月',
+                                '12'=>'十二月',
+                            ];
+                            echo form_dropdown('month',$month_list,I('month'));
+                            ?>
                         </label>
                         <label>
                             <button class="btn btn-sm btn-primary" type="button" id="search-btn" url="<?=U('index')?>">
@@ -78,7 +78,9 @@
 						<td><?=$vo['classname']?></td>
 						<td><?=$vo['school_name']?></td>
 						<td>
-                            <a href="<?=U('index',array('order_id'=>$vo['order_id']))?>">耗课历史</a>
+                            <a href="<?=U('index',array('order_id'=>$vo['order_id']))?>">耗课历史</a> |
+                            <a href="<?=U('edit',array('id'=>$vo['id']))?>">修改</a> |
+                            <a class="ajax-get confirm" href="<?=U('delete',array('id'=>$vo['id']))?>">删除</a>
 	                   </td>
 					</tr>
 					</volist>

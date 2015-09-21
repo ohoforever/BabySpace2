@@ -64,6 +64,41 @@ class AttendController extends AdminController {
         $this->display();
     }
 
+    function edit($id=0){
+        if(empty($id)){
+            $this->error('ID不能为空！');
+        }
+        $prefix = C('DB_PREFIX');
+        $model = M()->table($prefix.'bbkj_baby_attend_class a')
+            ->join($prefix.'kcgl_add_course_order b on a.order_id = b.order_id')
+            ->join($prefix.'yhgl_child c on a.child_id = c.id');
+        $item = $model->where(['a.id'=>$id])
+                    ->field('a.*,b.school_name,c.baby_name,c.baby_birthday')
+                    ->find();
+
+        if(IS_POST){
+            $data = [];
+            $data['course_count'] = I('post.course_count');
+            $act_data = I('post.act_date');
+            $time = I('post.act_time');
+
+            $data['act_time'] = ($act_data.' '.$time);
+            $data['update_time'] = time_format();
+
+            $f = M('bbkj_baby_attend_class')->where(['id'=>$id])->save($data);
+            if($f){
+                $this->success('修改成功！',U('attend/index'));
+            }else{
+                $this->error('修改失败，请重新再试！');
+            }
+        }
+
+        $this->assign('item',$item);
+        $this->meta_title = '耗课修改';
+
+        $this->display();
+    }
+
     function add(){
         if(IS_POST){
 
