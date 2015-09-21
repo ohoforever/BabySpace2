@@ -4,7 +4,7 @@
 <script type="text/javascript" src="__STATIC__/uploadify/jquery.uploadify.min.js"></script>
 <div class="page-header">
     <h1>
-        新增
+        编辑
         <small>
             <i class="icon-double-angle-right"></i>
              {$model['title']}

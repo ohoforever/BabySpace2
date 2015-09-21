@@ -6,9 +6,28 @@
             <!-- 基础文档模型 -->
             <div class="tab-pane active tab1" id="tab1">
                 <div class="form-group cf">
+                    <label class="col-xs-12 col-sm-2 control-label no-padding-right">问题标题</label>
+                    <div class="col-xs-12 col-sm-6">
+                        <div class="line-height-2 blue">{$data['title']}</div>
+
+                    </div>
+                    <div class="help-block col-xs-12 col-sm-reset inline">
+                    </div>
+
+                </div>
+                <div class="form-group cf">
+                    <label class="col-xs-12 col-sm-2 control-label no-padding-right">问题内容</label>
+                    <div class="col-xs-12 col-sm-6">
+                        <div class="line-height-2 ">{$data['question']}</div>
+
+                    </div>
+                    <div class="help-block col-xs-12 col-sm-reset inline">
+                    </div>
+                </div>
+                <div class="form-group cf">
                     <label class="col-xs-12 col-sm-2 control-label no-padding-right">回复内容</label>
                     <div class="col-xs-12 col-sm-6">
-                        <textarea class="width-100" name="answer"></textarea>
+                        <textarea class="width-100" name="answer" >{$data['answer']}</textarea>
                     </div>
                     <div class="help-block col-xs-12 col-sm-reset inline">
                     </div>

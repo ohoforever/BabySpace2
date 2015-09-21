@@ -1,4 +1,5 @@
 <extend name="Public/base" />
+
 <block name="body">
 <script type="text/javascript" src="__STATIC__/uploadify/jquery.uploadify.min.js"></script>
 <div class="page-header">
