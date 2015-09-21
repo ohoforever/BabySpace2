@@ -4,57 +4,39 @@
 	<!-- 表单 -->
 
 <?php $sex = ['MALE###'=>'男宝宝','FEMALE#'=>'女宝宝','UNKNOWN'=>'不详'];?>
-	<form id="form" action="{:U('allocatesave')}" method="post" class="form-horizontal">
-		<div class="form-group">
-                <label class="col-xs-12 col-sm-2 control-label no-padding-right">家长名称</label>
-                <label class=" col-xs-12 col-sm-5 blue no-padding-right"><strong>{$item.parent_name}</strong></label>
-                </div>
-		<div class="form-group">
-                <label class="col-xs-12 col-sm-2 control-label no-padding-right">家长电话</label>
-                <label class=" col-xs-12 col-sm-5 blue no-padding-right"><strong>{$item.mobile_num}</strong></label>
-                </div>
-		<div class="form-group">
-                <label class="col-xs-12 col-sm-2 control-label no-padding-right">宝宝姓名</label>
-                <label class=" col-xs-12 col-sm-5 blue no-padding-right"><strong>{$item.baby_name}</strong></label>
-                </div>
-		<div class="form-group">
-                <label class="col-xs-12 col-sm-2 control-label no-padding-right">宝宝性别</label>
-                <label class=" col-xs-12 col-sm-5 blue no-padding-right"><strong><?php echo $sex[$item['baby_sex']]?></strong></label>
-                </div>
-		<div class="form-group">
-                <label class="col-xs-12 col-sm-2 control-label no-padding-right">宝宝生日</label>
-                <label class=" col-xs-12 col-sm-5 blue no-padding-right"><strong>{$item.baby_birthday}</strong></label>
-                </div>
-		<div class="form-group">
-                <label class="col-xs-12 col-sm-2 control-label no-padding-right">家庭所在城市</label>
-                <label class=" col-xs-12 col-sm-5 blue no-padding-right"><strong>{$item.city}</strong></label>
-                </div>
-		<div class="form-group">
-                <label class="col-xs-12 col-sm-2 control-label no-padding-right">家庭所在城市区域</label>
-                <label class=" col-xs-12 col-sm-5 blue no-padding-right"><strong>{$item.district}</strong></label>
-                </div>
-		<div class="form-group">
-                <label class="col-xs-12 col-sm-2 control-label no-padding-right">候选人星数</label>
-                <label class=" col-xs-12 col-sm-5 blue no-padding-right"><strong>{$item.star}星</strong></label>
-                </div>
-		<div class="form-group">
-                <label class="col-xs-12 col-sm-2 control-label no-padding-right">客户评级</label>
-                <label class=" col-xs-12 col-sm-5 blue no-padding-right"><strong>{$item.level}级</strong></label>
-                </div>
-		<div class="form-group">
-                <label class="col-xs-12 col-sm-2 control-label no-padding-right">当前业务员</label>
-			<div class="col-xs-12 col-sm-5">
-				<select name="current_assistant_id">
-				<option value=""  >无人跟单</option>
-				<?php foreach ($assi as $v){?>
-				<option value="<?php echo $v['id']?>" <?php echo $item['current_assistant_id']==$v['id']?'selected':''?> ><?php echo $v['username']?></option>
-				<?php }?>
-				</select>
-			</div>
-                </div>
-		<div class="clearfix form-actions">
-			<input type="hidden" name="id" value="{$item.id}"/>
-            <div class="col-xs-12 center">
+<div class="widget-box" style="opacity: 1; z-index: 0;margin-bottom:1em;">
+<div class="widget-header " style="color:#999;">
+          <h5 class="bigger lighter"> 客户信息</h5>        
+</div>
+<div class="widget-body">
+<div class=""> 
+       <table class="table table-bordered " style="margin-bottom:0px;">
+	<tbody>
+		<tr>
+			<td><span style="color:#999;padding-right:8px;">家长名称:</span>{$item.parent_name}</td>
+			<td><span style="color:#999;padding-right:8px;">家长电话:</span>{$item.mobile_num}</td>
+		</tr>
+		<tr>
+			<td><span style="color:#999;padding-right:8px;">宝宝名称:</span>{$item.baby_name}</td>
+			<td><span style="color:#999;padding-right:8px;">宝宝性别:</span><?php echo $sex[$item['baby_sex']];?></td>
+		</tr>
+		<tr>
+			<td><span style="color:#999;padding-right:8px;">家庭所在城市:</span>{$item.city}</td>
+			<td><span style="color:#999;padding-right:8px;">家庭所在城市区域:</span>{$item.district}</td>
+		</tr>
+		<tr>
+			<td><span style="color:#999;padding-right:8px;">宝宝生日:</span>{$item.baby_birthday}</td>
+			<td><span style="color:#999;padding-right:8px;">候选人星数:</span>{$item.star}星</td>
+		</tr>
+		<tr>
+			<td colspan="1"><span style="color:#999;padding-right:8px;">客户评级:</span>{$item.level}</td>
+			<td></td>
+		</tr>
+	 </tbody>
+	</table>
+</div>
+</div>
+            <div class="col-xs-12 center" style="margin-top:1em;">
                 <button type="submit" target-form="form-horizontal" class="btn btn-success ajax-post no-refresh" id="sub-btn">
                     <i class="icon-ok bigger-110"></i> 确认保存
                 </button> 
@@ -63,7 +45,6 @@
 	            </a>  
             </div>
         </div>
-	</form>
 </block>
 
 <block name="script">
