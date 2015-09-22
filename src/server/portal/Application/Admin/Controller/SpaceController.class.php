@@ -20,6 +20,12 @@ class SpaceController extends AdminController {
      * @author huajie <banhuajie@163.com>
      */
 
+	private $_uid;
+
+	public function _initialize(){
+		$this->_uid= session('user_auth')['uid'];
+		parent:: _initialize();
+	}
 
 	public function index(){
 		if(!empty(I('baby_name')))
@@ -39,6 +45,7 @@ class SpaceController extends AdminController {
 		$this->display();
 	}
 	public function activelist(){
+		$cid = I('id');
 		if(!empty(I('title')))
 		{
 			$map['title']= array('like', '%'.I('title').'%');
@@ -55,8 +62,10 @@ class SpaceController extends AdminController {
 		{
 			$map['insert_time']= array('<=', I('etime').' 23:59:59');
 		}
+		$map['child_id'] = $cid;
 		$list   =   $this->lists('bbkj_baby_mature', $map);
 		$this->assign('_list', $list);
+		$this->assign('cid', $cid);
 		$this->meta_title = '宝宝动态列表';
 		$this->display();
 	}
@@ -72,8 +81,56 @@ class SpaceController extends AdminController {
 	}
 	public function activeadd()
 	{
+		$child_id = I('cid');
 		$this->meta_title ='发布动态';
+		$this->assign('child_id', $child_id);
 		$this->display();
+	}
+	public function save()
+	{
+		$data['title'] = I('post.title');
+		empty($data['title']) && $this->error('请输入发布标题');
+		$data['content'] = I('post.content');
+		empty($data['content']) && $this->error('请输入发布内容');
+		$data['redflower_count'] = I('post.redflower_count');
+		empty($data['redflower_count']) && $this->error('请选择红花朵数');
+		$data['act_time'] = I('post.act_time');
+		empty($data['act_time']) && $this->error('请选择活动时间');
+		$data['determine'] = I('post.determine');
+		empty($data['determine']) && $this->error('请输入老师评价');
+		$data['share_title'] = I('post.share_title');
+		empty($data['share_title']) && $this->error('请输入分享标题');
+		$data['share_content'] = I('post.share_content');
+		empty($data['share_content']) && $this->error('请输入分享内容');
+		$data['share_img_index'] = I('post.share_img_index');
+		empty(I('image'.$data['share_img_index'])) && $this->error('选择分享的图片不能为空');
+		$data['update_time'] = time_format();
+		$data['tag'] = I('post.tag');
+		for($i=1;$i<10;$i++)
+		{
+			//if(!empty(I('post.image'.$i)))
+		//	{
+				$data['image'.$i] = I('post.image'.$i);
+		//	}
+		}
+		$id = I('post.id');
+		$cid = I('post.child_id');
+		if(empty($id))
+		{
+			$data['child_id'] = I('post.child_id');
+			$data['insert_time'] = time_format();
+			$data['status'] = "OK#";
+			$data['operator'] = $this->_uid;
+			$ret = M('bbkj_baby_mature')->add($data);
+		}else{
+			$ret = M('bbkj_baby_mature')->where('id='.$id)->save($data);
+		}
+		if($ret)
+		{
+			$this->success('保存成功！',U('space/activelist?id='.$cid));
+		}
+		$this->error('保存失败！');
+
 	}
 	public function activeshow($id=0)
 	{

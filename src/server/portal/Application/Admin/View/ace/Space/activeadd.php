@@ -1,82 +1,141 @@
 <extend name="Public/base" />
 
 <block name="body">
+<script type="text/javascript" src="__STATIC__/uploadify/jquery.uploadify.min.js"></script>
 	<!-- 表单 -->
 	<form id="form" action="{:U('save')}" method="post" class="form-horizontal">
 		<div class="form-group">
-			<label class="col-xs-12 col-sm-2 control-label no-padding-right">家长名称</label>
+			<label class="col-xs-12 col-sm-2 control-label no-padding-right">发布标题</label>
 			<div class="col-xs-12 col-sm-5">
-				<input type="text" class="width-100" name="parent_name" value="{$data.parent_name}">
+				<input type="text" class="width-100" name="title" value="{$item.title}">
 			</div>
-			<span class="help-block col-xs-12 col-sm-5 inline">（输入家长姓名）</span>
+			<span class="help-block col-xs-12 col-sm-5 inline">（输入标题）</span>
 		</div>
 		<div class="form-group">
-			<label class="col-xs-12 col-sm-2 control-label no-padding-right">家长电话</label>
+			<label class="col-xs-12 col-sm-2 control-label no-padding-right">关键词</label>
 			<div class="col-xs-12 col-sm-5">
-				<input type="text" class="width-100" name="mobile_num" value="{$data.mobile_num}">
+				<input type="text" class="width-100" name="tag" value="{$item.tag}">
 			</div>
-			<span class="help-block col-xs-12 col-sm-5 inline">（输入家长手机号）</span>
+			<span class="help-block col-xs-12 col-sm-5 inline">（输入关键词,多个关键词以逗号分隔）</span>
 		</div>
 		<div class="form-group">
-			<label class="col-xs-12 col-sm-2 control-label no-padding-right">宝宝名称</label>
+			<label class="col-xs-12 col-sm-2 control-label no-padding-right">发布内容</label>
 			<div class="col-xs-12 col-sm-5">
-				<input type="text" class="width-100" name="baby_name" value="{$data.baby_name}">
+			<textarea name="content" rows="10" cols="15" style="width:100%;">{$item.content}</textarea>
 			</div>
-			<span class="help-block col-xs-12 col-sm-5 inline">（输入宝宝名称）</span>
+			<span class="help-block col-xs-12 col-sm-5 inline">（输入发布内容）</span>
 		</div>
 		<div class="form-group">
-			<label class="col-xs-12 col-sm-2 control-label no-padding-right">宝宝性别</label>
+			<label class="col-xs-12 col-sm-2 control-label no-padding-right">宝宝获得红花数</label>
 			<div class="col-xs-12 col-sm-5">
-				<select name="baby_sex">
-					<option value="UNKNOWN" <?php echo $data['baby_sex']=='UNKNOWN'?'selected':''?> >不详</option>
-					<option value="MALE###" <?php echo $data['baby_sex']=='MALE###'?'selected':''?> >男宝宝</option>
-					<option value="FEMALE#" <?php echo $data['baby_sex']=='FEMALE#'?'selected':''?> >女宝宝</option>
+			<select name="redflower_count">
+<?php for($i=1;$i<6;$i++){
+echo '<option value="'.$i.'" '.($i==$item['redflower_count']?'selected':'').'>'.$i.'朵</option>';
+}
+?>
+</select>
+			</div>
+			<span class="help-block col-xs-12 col-sm-5 inline">（选择宝宝红花数）</span>
+		</div>
+		<div class="form-group">
+			<label class="col-xs-12 col-sm-2 control-label no-padding-right">活动时间</label>
+			<div class="col-xs-12 col-sm-5">
+				<input name="act_time" class="autosize-transition day-input span12 form-control" value="{$item.act_time}">
+			</div>
+			<span class="help-block col-xs-12 col-sm-5 inline">(选择活动时间）</span>
+		</div>
+		<div class="form-group">
+			<label class="col-xs-12 col-sm-2 control-label no-padding-right">老师评语</label>
+			<div class="col-xs-12 col-sm-5">
+			<textarea name="determine" rows="10" cols="15" style="width:100%;">{$item.determine}</textarea>
+			</div>
+			<span class="help-block col-xs-12 col-sm-5 inline">（输入老师评语）</span>
+		</div>
+<?php for($i=0;$i<2;$i++){
+?>
+                    <div class="form-group cf">
+                        <label class="col-xs-12 col-sm-2 control-label no-padding-right">上传照片</label>
+                        <div class="col-xs-12 col-sm-6">
+                            <div class="controls">
+                                <input type="hidden" value="" id="cover_id_{$i}" name="{$i+1}">
+				<input type="file" id="upload_picture_{$i}" >
+                                <div class="upload-img-box">
+				 </div>
+                            </div>
+                            <script type="text/javascript">
+                                //上传图片
+                                /* 初始化上传插件 */
+                                $("#upload_picture_{$i}").uploadify({
+                                    "height"          : 30,
+				    "swf"             : "__STATIC__/uploadify/uploadify.swf",
+                                    "fileObjName"     : "download",
+				//    'formData'        : {<?php echo implode(',', $thumb)?>},
+                                    "buttonText"      : "上传图片",
+                                    "uploader"        : "{:U('File/uploadPicture',array('session_id'=>session_id()))}",
+                                    "width"           : 120,
+                                    'removeTimeout'	  : 1,
+                                    'fileTypeExts'	  : '*.jpg; *.png; *.gif;',
+                                    "onUploadSuccess" : uploadPicture{$i},
+                                    'onFallback' : function() {
+                                        alert('未检测到兼容版本的Flash.');
+                                    }
+                                });
+                                function uploadPicture{$i}(file, data){
+                                    var data = $.parseJSON(data);
+                                    var src = '';
+                                    if(data.status){
+                                        src = data.url || '' + data.path;
+                                        $("#cover_id_{$i}").val(src);
+                                        $("#cover_id_{$i}").parent().find('.upload-img-box').html(
+                                            '<div class="upload-pre-item"><img width="120" src="' + src + '"/></div>'
+                                        );
+                                    } else {
+                                        updateAlert(data.info);
+                                        setTimeout(function(){
+                                            $('#top-alert').find('button').click();
+                                            $(that).removeClass('disabled').prop('disabled',false);
+                                        },1500);
+                                    }
+                                }
+                            </script>
+                        </div>
+                        <div class="help-block col-xs-12 col-sm-reset inline">
+                        </div>
+                    </div>
+<?php  }?>
+		<div class="form-group">
+			<label class="col-xs-12 col-sm-2 control-label no-padding-right">分享标题</label>
+			<div class="col-xs-12 col-sm-5">
+				<input name="share_title" class="autosize-transition span12 form-control" value="{$item.share_title}">
+			</div>
+			<span class="help-block col-xs-12 col-sm-5 inline">（输入分享标题）</span>
+		</div>
+		<div class="form-group">
+			<label class="col-xs-12 col-sm-2 control-label no-padding-right">分享内容</label>
+			<div class="col-xs-12 col-sm-5">
+			<textarea name="share_content" rows="10" cols="15" style="width:100%;">{$item.share_content}</textarea>
+			</div>
+			<span class="help-block col-xs-12 col-sm-5 inline">（输入分享内容）</span>
+		</div>
+		<div class="form-group">
+			<label class="col-xs-12 col-sm-2 control-label no-padding-right">分享的图片</label>
+			<div class="col-xs-12 col-sm-5">
+				<select name="share_img_index">
+					<option value="1" <?php echo $item['share_img_index']==1?'selected':''?> >第1张</option>
+					<option value="2" <?php echo $item['share_img_index']==2?'selected':''?> >第2张</option>
+					<option value="3" <?php echo $item['share_img_index']==3?'selected':''?> >第3张</option>
+					<option value="4" <?php echo $item['share_img_index']==4?'selected':''?> >第4张</option>
+					<option value="5" <?php echo $item['share_img_index']==5?'selected':''?> >第5张</option>
+					<option value="6" <?php echo $item['share_img_index']==6?'selected':''?> >第6张</option>
+					<option value="7" <?php echo $item['share_img_index']==7?'selected':''?> >第7张</option>
+					<option value="8" <?php echo $item['share_img_index']==8?'selected':''?> >第8张</option>
+					<option value="9" <?php echo $item['share_img_index']==9?'selected':''?> >第9张</option>
 				</select>
 			</div>
-			<span class="help-block col-xs-12 col-sm-5 inline">（选择宝宝性别）</span>
+			<span class="help-block col-xs-12 col-sm-5 inline">（选择微信分享的时候用来显示的图片）</span>
 		</div>
-		<div class="form-group">
-			<label class="col-xs-12 col-sm-2 control-label no-padding-right">宝宝生日</label>
-			<div class="col-xs-12 col-sm-5">
-                        <input type="text" name="baby_birthday" class="day-input width-100" id="baby_birthday" value="{$data.baby_birthday}" />
-			</div>
-			<span class="help-block col-xs-12 col-sm-5 inline">（选择宝宝生日）</span>
-		</div>
-		<div class="form-group">
-			<label class="col-xs-12 col-sm-2 control-label no-padding-right">家庭所在城市</label>
-			<div class="col-xs-12 col-sm-5">
-				<input name="city" class="autosize-transition span12 form-control" value="{$data.city}">
-			</div>
-			<span class="help-block col-xs-12 col-sm-5 inline">（输入家庭所在城市）</span>
-		</div>
-		<div class="form-group">
-			<label class="col-xs-12 col-sm-2 control-label no-padding-right">家庭所在城市区域</label>
-			<div class="col-xs-12 col-sm-5">
-				<input name="district" class="autosize-transition span12 form-control" value="{$data.district}">
-			</div>
-			<span class="help-block col-xs-12 col-sm-5 inline">（输入家庭所在城市区域）</span>
-		</div>
-		<div class="form-group">
-			<label class="col-xs-12 col-sm-2 control-label no-padding-right">候选人星数</label>
-			<div class="col-xs-12 col-sm-5">
-				<input name="star" class="autosize-transition span12 form-control" value="{$data.star}">
-			</div>
-			<span class="help-block col-xs-12 col-sm-5 inline">（输入候选人星数）</span>
-		</div>
-		<div class="form-group">
-			<label class="col-xs-12 col-sm-2 control-label no-padding-right">客户评级</label>
-			<div class="col-xs-12 col-sm-5">
-				<select name="level">
-					<option value="" >未设置评级</option>
-					<option value="A" <?php echo $data['level']=='A'?'selected':''?> >A评级</option>
-					<option value="B" <?php echo $data['level']=='B'?'selected':''?> >B评级</option>
-				</select>
-			</div>
-			<span class="help-block col-xs-12 col-sm-5 inline">（选择客户评级）</span>
-		</div>
-
 		<div class="clearfix form-actions">
-			<input type="hidden" name="id" value="{$data.id}"/>
+			<input type="hidden" name="child_id" value="{$child_id}"/>
             <div class="col-xs-12 center">
                 <button type="submit" target-form="form-horizontal" class="btn btn-success ajax-post no-refresh" id="sub-btn">
                     <i class="icon-ok bigger-110"></i> 确认保存
@@ -93,7 +152,6 @@
 </block>
 
 <block name="script">
-<script type="text/javascript" src="__STATIC__/uploadify/jquery.uploadify.min.js"></script>
 <script type="text/javascript" charset="utf-8">
 	Think.setValue('type',{$type|default=1});
     //导航高亮

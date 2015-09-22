@@ -8,7 +8,7 @@
                 <div class="col-sm-12">
                     <div class="search-form">
 	                <label>
-	                    <a class="btn btn-sm btn-primary" href="{:U('activeadd')}"><i class="icon-plus"></i>新增</a>
+	                    <a class="btn btn-sm btn-primary" href="{:U('activeadd?cid='.$cid)}"><i class="icon-plus"></i>新增</a>
 	                </label>
                         <label>动态标题
                             <input type="text" class="search-input" name="title" value="{:I('title')}" placeholder="请输入动态标题">
