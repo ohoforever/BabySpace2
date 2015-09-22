@@ -2,15 +2,6 @@
 
 <block name="body">
 <script type="text/javascript" src="__STATIC__/uploadify/jquery.uploadify.min.js"></script>
-<div class="page-header">
-    <h1>
-        新增
-        <small>
-            <i class="icon-double-angle-right"></i>
-             {$model['title']}
-        </small>
-    </h1>
-</div>
 <!-- 标签页导航 -->
 <div class="tabbable">
     <ul class="nav nav-tabs padding-18">
@@ -91,9 +82,6 @@
 									<input type="file" id="upload_picture_{$field.name}">
 									<input type="hidden" name="{$field.name}" id="cover_id_{$field.name}"/>
 									<div class="upload-img-box" style="margin-top:4px;">
-									<notempty name="data[$field['name']]">
-										<div class="upload-pre-item"><img src="{$data[$field['name']]|get_cover='path'}"/></div>
-									</notempty>
 									</div>
 								</div>
 								<script type="text/javascript">
@@ -128,7 +116,7 @@
 							    	var src = '';
 							        if(data.status){
 							        	src = data.url || '__ROOT__' + data.path;
-                                        $("#cover_id_{$field.name}").val(<eq name="$field.extra" value="src">data.id<else/>src</eq>);
+                                        $("#cover_id_{$field.name}").val(<eq name="field.extra" value="src">data.id<else/>src</eq>);
                                         $("#cover_id_{$field.name}").parent().find('.upload-img-box').html(
 							        		'<div class="upload-pre-item"><img width="120" src="' + src + '"/></div>'
 							        	);
