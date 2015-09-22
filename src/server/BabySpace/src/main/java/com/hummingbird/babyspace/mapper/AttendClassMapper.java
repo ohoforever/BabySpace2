@@ -17,6 +17,11 @@ public interface AttendClassMapper {
      * 保存记录,不管记录里面的属性是否为空
      */
     int insert(AttendClass record);
+    
+    /**
+     * 保存记录并返回Id
+     */
+    int insertAndGetId(AttendClass record);
 
     /**
      * 保存属性不为空的记录

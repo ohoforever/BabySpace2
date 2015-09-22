@@ -44,7 +44,7 @@ public class Encyclopedia {
     /**
      * 录入人
      */
-    private String operator;
+    private Integer operator;
 
     /**
      * 摘要
@@ -161,22 +161,17 @@ public class Encyclopedia {
         this.status = status == null ? null : status.trim();
     }
 
-    /**
-     * @return 录入人
-     */
-    public String getOperator() {
-        return operator;
-    }
+    
 
-    /**
-     * @param operator 
-	 *            录入人
-     */
-    public void setOperator(String operator) {
-        this.operator = operator == null ? null : operator.trim();
-    }
+    public Integer getOperator() {
+		return operator;
+	}
 
-    /**
+	public void setOperator(Integer operator) {
+		this.operator = operator;
+	}
+
+	/**
      * @return 摘要
      */
     public String getDescription() {

@@ -65,7 +65,7 @@ public class CourseManagerController extends BaseController{
 		   return rm;
 		  }
 		  
-		  String messagebase = "参加活动记录";
+		  String messagebase = "查询耗课信息";
 		  rm.setBaseErrorCode(29900);
 		  rm.setErrmsg(messagebase+"成功");
 		  try {
@@ -147,7 +147,8 @@ public class CourseManagerController extends BaseController{
 		   if(log.isDebugEnabled()){
 		    log.debug("检验通过，获取请求");
 		   }
-		   //记录信息,减去会员课数表的课
+		   //减去会员课数表的课,记录信息
+		  
 		   courManSer.spendCourse(body);
 		   
 		    

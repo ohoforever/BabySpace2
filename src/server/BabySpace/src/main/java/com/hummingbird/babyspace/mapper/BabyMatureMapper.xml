@@ -21,7 +21,7 @@
     <result column="insert_time" property="insertTime" jdbcType="TIMESTAMP" />
     <result column="update_time" property="updateTime" jdbcType="TIMESTAMP" />
     <result column="status" property="status" jdbcType="VARCHAR" />
-    <result column="operator" property="operator" jdbcType="VARCHAR" />
+    <result column="operator" property="operator" jdbcType="INTEGER" />
     <result column="determine" property="determine" jdbcType="VARCHAR" />
     <result column="share_title" property="shareTitle" jdbcType="VARCHAR" />
     <result column="share_content" property="shareContent" jdbcType="VARCHAR" />
@@ -58,7 +58,7 @@
       #{image5,jdbcType=VARCHAR}, #{image6,jdbcType=VARCHAR}, #{image7,jdbcType=VARCHAR}, 
       #{image8,jdbcType=VARCHAR}, #{image9,jdbcType=VARCHAR}, #{redflowerCount,jdbcType=INTEGER}, 
       #{actTime,jdbcType=TIMESTAMP}, #{insertTime,jdbcType=TIMESTAMP}, #{updateTime,jdbcType=TIMESTAMP}, 
-      #{status,jdbcType=VARCHAR}, #{operator,jdbcType=VARCHAR}, #{determine,jdbcType=VARCHAR}, 
+      #{status,jdbcType=VARCHAR}, #{operator,jdbcType=INTEGER}, #{determine,jdbcType=VARCHAR}, 
       #{shareTitle,jdbcType=VARCHAR}, #{shareContent,jdbcType=VARCHAR}, #{shareImgIndex}
       )
   </insert>
@@ -197,7 +197,7 @@
         #{status,jdbcType=VARCHAR},
       </if>
       <if test="operator != null" >
-        #{operator,jdbcType=VARCHAR},
+        #{operator,jdbcType=INTEGER},
       </if>
       <if test="determine != null" >
         #{determine,jdbcType=VARCHAR},
@@ -271,7 +271,7 @@
         status = #{status,jdbcType=VARCHAR},
       </if>
       <if test="operator != null" >
-        operator = #{operator,jdbcType=VARCHAR},
+        operator = #{operator,jdbcType=INTEGER},
       </if>
       <if test="determine != null" >
         determine = #{determine,jdbcType=VARCHAR},
@@ -308,7 +308,7 @@
       insert_time = #{insertTime,jdbcType=TIMESTAMP},
       update_time = #{updateTime,jdbcType=TIMESTAMP},
       status = #{status,jdbcType=VARCHAR},
-      operator = #{operator,jdbcType=VARCHAR},
+      operator = #{operator,jdbcType=INTEGER},
       determine = #{determine,jdbcType=VARCHAR},
       share_title = #{shareTitle,jdbcType=VARCHAR},
       share_content = #{shareContent,jdbcType=VARCHAR},
