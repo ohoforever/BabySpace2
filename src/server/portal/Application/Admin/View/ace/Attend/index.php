@@ -59,7 +59,8 @@
 					<th class="">宝宝姓名</th>
 					<th class="hidden-480">年龄（月）</th>
 					<th class="">耗课课时</th>
-					<th class="">耗课时间                                                                                    </th>
+					<th class="">剩余课时</th>
+					<th class="">耗课时间</th>
 					<th class="hidden-480">课程名称</th>
 					<th class="hidden-480">学校名称</th>
 					<th class="">操作</th>
@@ -74,6 +75,7 @@
 						<td><?=$vo['baby_name']?></td>
 						<td class="hidden-480"><?=getMonthNum($today,$vo['baby_birthday'])?></td>
 						<td><?=$vo['course_count']?></td>
+						<td><?=$vo['left_course_count']?></td>
 						<td><?=$vo['act_time']?></td>
 						<td class="hidden-480"><?=$vo['classname']?></td>
 						<td class="hidden-480"><?=$vo['school_name']?></td>

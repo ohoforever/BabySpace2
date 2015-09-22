@@ -173,10 +173,11 @@ class AttendController extends AdminController {
         if(IS_POST){
 
             $data = [];
-            $data['childId'] = I('post.childId');
+            $data['childId']    = I('post.childId');
             $data['courseName'] = I('post.courseName');
-            $data['courseNum'] = I('post.courseNum');
-            $data['orderId'] = I('post.orderId');
+            $data['courseNum']  = I('post.courseNum');
+            $data['orderId']    = I('post.orderId');
+            $data['operator']   = is_login();
 
             $api = new ApiService();
             $resp = $api->setApiUrl(C('APIURI.baby'))
