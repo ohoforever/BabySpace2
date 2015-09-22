@@ -92,7 +92,7 @@ public class UserCenterController extends BaseController{
 		return rm;
 	}
 	
-	@RequestMapping(value = "/info/reg", method = RequestMethod.POST)
+	@RequestMapping(value = "/info/save", method = RequestMethod.POST)
 	public @ResponseBody Object register(HttpServletRequest request) {
 		
 		UserRegVO transorder;
@@ -107,7 +107,7 @@ public class UserCenterController extends BaseController{
 			return rm;
 		}
 		
-		String messagebase = "注册";
+		String messagebase = "保存用户信息";
 		rm.setBaseErrorCode(29900);
 		rm.setErrmsg(messagebase+"成功");
 		try {
@@ -122,10 +122,10 @@ public class UserCenterController extends BaseController{
 			if(log.isDebugEnabled()){
 				log.debug("检验通过，获取请求");
 			}
-			WechatUser wxUser=wxUserDao.selectByOpenId(body.getOpenId());
+			WechatUser wxUser=wxUserDao.selectByOpenId(body.getOpenid());
 			if(wxUser==null){
 				wxUser=new WechatUser();
-				wxUser.setOpenid(body.getOpenId());
+				wxUser.setOpenid(body.getOpenid());
 				wxUser.setNickname(body.getNickname());
 				wxUser.setSex(Byte.valueOf(body.getSex()));
 				wxUser.setLanguage(body.getLanguage());
@@ -134,14 +134,14 @@ public class UserCenterController extends BaseController{
 				wxUser.setCountry(body.getCountry());
 				wxUser.setHeadimgurl(body.getHeadimgurl());
 				wxUser.setSubscribeTime(Integer.valueOf(body.getSubscribe_time()));
-				wxUser.setUnionid(body.getUnionId());
+				wxUser.setUnionid(body.getUnionid());
 				wxUser.setRemark(body.getRemark());
 				wxUser.setSubscribe(Byte.valueOf(body.getSubscribe()));
 				wxUser.setGroupid(Integer.valueOf(body.getGroupid()));
 				wxUser.setPrivilege(body.getPrivilege());
 				wxUserDao.insert(wxUser);
 			}else{
-				wxUser.setOpenid(body.getOpenId());
+				wxUser.setOpenid(body.getOpenid());
 				wxUser.setNickname(body.getNickname());
 				wxUser.setSex(Byte.valueOf(body.getSex()));
 				wxUser.setLanguage(body.getLanguage());
@@ -150,7 +150,7 @@ public class UserCenterController extends BaseController{
 				wxUser.setCountry(body.getCountry());
 				wxUser.setHeadimgurl(body.getHeadimgurl());
 				wxUser.setSubscribeTime(Integer.valueOf(body.getSubscribe_time()));
-				wxUser.setUnionid(body.getUnionId());
+				wxUser.setUnionid(body.getUnionid());
 				wxUser.setRemark(body.getRemark());
 				wxUser.setSubscribe(Byte.valueOf(body.getSubscribe()));
 				wxUser.setGroupid(Integer.valueOf(body.getGroupid()));
@@ -205,16 +205,14 @@ public class UserCenterController extends BaseController{
 			WechatUser wxUser=wxUserDao.selectByUnionId(body.getUnionId());
 			if(wxUser==null){
 				log.error(String.format("根据unionId[%s]查不到微信记录", body.getUnionId()));
-				
+				throw new BusinessException(BusinessException.ERRCODE_REQUEST,"微信用户不存在");
 			}else{
 				User user=userDao.selectByUnionId(body.getUnionId());
 				if(user==null){
-					user=new User();
-					user.setInsertTime(new Date());
-					user.setMobileNum(body.getMobileNum());
-					user.setUnionId(body.getUnionId());
-					user.setUpdateTime(new Date());
-					userDao.insert(user);
+					log.error("用户不存在");
+					throw new BusinessException(BusinessException.ERRCODE_REQUEST,"用户不存在");
+				}else{
+					userSer.Binding(user, body);
 				}
 			}
 			
