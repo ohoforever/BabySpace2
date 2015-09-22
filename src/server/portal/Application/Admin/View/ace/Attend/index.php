@@ -55,13 +55,13 @@
             <table class="table table-striped table-bordered table-hover dataTable">
 			    <thead>
 			        <tr>
-					<th class="">订单号</th>
+					<th class="hidden-480">订单号</th>
 					<th class="">宝宝姓名</th>
-					<th class="">年龄（月）</th>
+					<th class="hidden-480">年龄（月）</th>
 					<th class="">耗课课时</th>
 					<th class="">耗课时间                                                                                    </th>
-					<th class="">课程名称</th>
-					<th class="">学校名称</th>
+					<th class="hidden-480">课程名称</th>
+					<th class="hidden-480">学校名称</th>
 					<th class="">操作</th>
 					</tr>
 			    </thead>
@@ -70,13 +70,13 @@
 					<notempty name="_list">
 					<volist name="_list" id="vo">
 					<tr>
-						<td><a href="<?=U('index',array('order_id'=>$vo['order_id']))?>"><?=$vo['order_id']?> </td>
+						<td class="hidden-480"><a href="<?=U('index',array('order_id'=>$vo['order_id']))?>"><?=$vo['order_id']?> </td>
 						<td><?=$vo['baby_name']?></td>
-						<td><?=getMonthNum($today,$vo['baby_birthday'])?></td>
+						<td class="hidden-480"><?=getMonthNum($today,$vo['baby_birthday'])?></td>
 						<td><?=$vo['course_count']?></td>
 						<td><?=$vo['act_time']?></td>
-						<td><?=$vo['classname']?></td>
-						<td><?=$vo['school_name']?></td>
+						<td class="hidden-480"><?=$vo['classname']?></td>
+						<td class="hidden-480"><?=$vo['school_name']?></td>
 						<td>
                             <a href="<?=U('index',array('order_id'=>$vo['order_id']))?>">耗课历史</a> |
                             <a href="<?=U('edit',array('id'=>$vo['id']))?>">修改</a> |
