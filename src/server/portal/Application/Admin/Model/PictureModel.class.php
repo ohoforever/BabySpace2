@@ -142,7 +142,6 @@ class PictureModel extends Model{
 	 * @param $data
 	 */
 	public function removeTrash($data){
-        var_dump($data);
 		$this->where(array('id'=>$data['id'],))->delete();
 	}
 
