@@ -58,6 +58,7 @@ public class CustomerDevServiceImpl implements CustomerDevService {
 		Appointment appointment=new Appointment();
 		appointment.setBabyName(body.getBabyName());
 		appointment.setBabySex(body.getBabySex());
+		
 		appointment.setCity(body.getCity());
 		appointment.setDistrict(body.getDistrict());
 		appointment.setMobileNum(body.getMobileNum());
@@ -157,13 +158,21 @@ public class CustomerDevServiceImpl implements CustomerDevService {
 	/**
 	 * 设置候选人等级
 	 */
+	@Override
 	public void autoSetCandidateLevel(){
-		
+		if (log.isDebugEnabled()) {
+			log.debug(String.format("设置候选人等级开始"));
+		}
+		cdDao.change2z();
+		if (log.isDebugEnabled()) {
+			log.debug(String.format("设置候选人等级完成"));
+		}
 	}
 	
 	/**
 	 * 设置新业务员的业务发展数
 	 */
+	@Override
 	public void autosetNewAssistantDevelopCount(){
 		if (log.isDebugEnabled()) {
 			log.debug(String.format("设置新业务员的业务发展数"));

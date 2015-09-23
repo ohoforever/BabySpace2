@@ -44,5 +44,7 @@ public interface CustomerDevService {
 	 * @param body
 	 */
 	public List<Appointment> queryAppointments(String unionId)throws BusinessException;
+	void autosetNewAssistantDevelopCount();
+	void autoSetCandidateLevel();
 	
 }

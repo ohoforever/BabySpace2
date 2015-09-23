@@ -43,4 +43,10 @@ public interface CandidateDevelopMapper {
 	 * @return
 	 */
 	List<Assistant> selectIdleAssistant(Candidate candidate);
+	
+	/**
+	 * 把满8次评价为C的客户改变其等级为Z
+	 * @return
+	 */
+	int change2z();
 }

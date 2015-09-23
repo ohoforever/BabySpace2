@@ -2,7 +2,7 @@ package com.hummingbird.babyspace.vo;
 
 public class UserRegBodyVO {
 	/*"body": {
-	    "openId":"oITR0uAkXSsTgY2YaU2ItDN2kh7g",
+	    "openid":"oITR0uAkXSsTgY2YaU2ItDN2kh7g",
 	    "nickname":"大师你懂吗",
 	    "sex":"1",
 	    "language":"zh_CN",
@@ -11,14 +11,14 @@ public class UserRegBodyVO {
 	    "country":"中国",      
 	    "headimgurl":"http://wx.qlogo.cn/mmopen/PiajxSqBRaEInIaAHHYN9ia0CF5rUljZlhDMHniaoft7MXwXDtLTHuACWyWTePqpvVc2qL6aGZchEUBg5X0RZsxyQ/0",
 	    "subscribe_time":"1440076007",
-	    "unionId":"olbkKt-8vkqpPod-N7i1SzSxddIo",
+	    "unionid":"olbkKt-8vkqpPod-N7i1SzSxddIo",
 	    "remark":"",
 	    "subscribe":"1",
 	    "groupid":"0",
 	    "privilege":""
 	
 	},*/
-	private String openId;
+	private String openid;
 	private String nickname;
 	private String sex;
 	private String language;
@@ -26,18 +26,13 @@ public class UserRegBodyVO {
 	private String province;
 	private String country;
 	private String headimgurl;
-	private String unionId;
+	private String unionid;
 	private String remark;
 	private String subscribe;
 	private String groupid;
 	private String subscribe_time;
 	private String privilege;
-	public String getOpenId() {
-		return openId;
-	}
-	public void setOpenId(String openId) {
-		this.openId = openId;
-	}
+	
 	public String getNickname() {
 		return nickname;
 	}
@@ -81,11 +76,18 @@ public class UserRegBodyVO {
 		this.headimgurl = headimgurl;
 	}
 	
-	public String getUnionId() {
-		return unionId;
+	
+	public String getOpenid() {
+		return openid;
 	}
-	public void setUnionId(String unionId) {
-		this.unionId = unionId;
+	public void setOpenid(String openid) {
+		this.openid = openid;
+	}
+	public String getUnionid() {
+		return unionid;
+	}
+	public void setUnionid(String unionid) {
+		this.unionid = unionid;
 	}
 	public String getRemark() {
 		return remark;

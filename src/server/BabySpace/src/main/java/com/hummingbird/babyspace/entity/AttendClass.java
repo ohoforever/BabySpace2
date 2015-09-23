@@ -47,14 +47,19 @@ public class AttendClass {
     private String status;
 
     /**
-     * 录入人
+     * 录入人id
      */
-    private String operator;
+    private Integer operator;
 
     /**
      * 消耗报课的订单号
      */
     private String orderId;
+
+    /**
+     * 剩下课时
+     */
+    private Integer leftCourseCount;
 
     /**
      * @return 记录id
@@ -177,18 +182,18 @@ public class AttendClass {
     }
 
     /**
-     * @return 录入人
+     * @return 录入人id
      */
-    public String getOperator() {
+    public Integer getOperator() {
         return operator;
     }
 
     /**
      * @param operator 
-	 *            录入人
+	 *            录入人id
      */
-    public void setOperator(String operator) {
-        this.operator = operator == null ? null : operator.trim();
+    public void setOperator(Integer operator) {
+        this.operator = operator;
     }
 
     /**
@@ -204,5 +209,20 @@ public class AttendClass {
      */
     public void setOrderId(String orderId) {
         this.orderId = orderId == null ? null : orderId.trim();
+    }
+
+    /**
+     * @return 剩下课时
+     */
+    public Integer getLeftCourseCount() {
+        return leftCourseCount;
+    }
+
+    /**
+     * @param leftCourseCount 
+	 *            剩下课时
+     */
+    public void setLeftCourseCount(Integer leftCourseCount) {
+        this.leftCourseCount = leftCourseCount;
     }
 }

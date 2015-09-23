@@ -9,7 +9,7 @@
     <result column="insert_time" property="insertTime" jdbcType="TIMESTAMP" />
     <result column="update_time" property="updateTime" jdbcType="TIMESTAMP" />
     <result column="status" property="status" jdbcType="VARCHAR" />
-    <result column="operator" property="operator" jdbcType="VARCHAR" />
+    <result column="operator" property="operator" jdbcType="INTEGER" />
     <result column="description" property="description" jdbcType="VARCHAR" />
   </resultMap>
   <resultMap id="ResultMapWithBLOBs" type="com.hummingbird.babyspace.entity.Encyclopedia" extends="BaseResultMap" >
@@ -40,7 +40,7 @@
       content)
     values (#{id,jdbcType=INTEGER}, #{channel,jdbcType=INTEGER}, #{title,jdbcType=VARCHAR}, 
       #{tag,jdbcType=VARCHAR}, #{insertTime,jdbcType=TIMESTAMP}, #{updateTime,jdbcType=TIMESTAMP}, 
-      #{status,jdbcType=VARCHAR}, #{operator,jdbcType=VARCHAR}, #{description,jdbcType=VARCHAR}, 
+      #{status,jdbcType=VARCHAR}, #{operator,jdbcType=INTEGER}, #{description,jdbcType=VARCHAR}, 
       #{content,jdbcType=LONGVARCHAR})
   </insert>
   <insert id="insertSelective" parameterType="com.hummingbird.babyspace.entity.Encyclopedia" >
@@ -100,7 +100,7 @@
         #{status,jdbcType=VARCHAR},
       </if>
       <if test="operator != null" >
-        #{operator,jdbcType=VARCHAR},
+        #{operator,jdbcType=INTEGER},
       </if>
       <if test="description != null" >
         #{description,jdbcType=VARCHAR},
@@ -132,7 +132,7 @@
         status = #{status,jdbcType=VARCHAR},
       </if>
       <if test="operator != null" >
-        operator = #{operator,jdbcType=VARCHAR},
+        operator = #{operator,jdbcType=INTEGER},
       </if>
       <if test="description != null" >
         description = #{description,jdbcType=VARCHAR},
@@ -151,7 +151,7 @@
       insert_time = #{insertTime,jdbcType=TIMESTAMP},
       update_time = #{updateTime,jdbcType=TIMESTAMP},
       status = #{status,jdbcType=VARCHAR},
-      operator = #{operator,jdbcType=VARCHAR},
+      operator = #{operator,jdbcType=INTEGER},
       description = #{description,jdbcType=VARCHAR},
       content = #{content,jdbcType=LONGVARCHAR}
     where id = #{id,jdbcType=INTEGER}
@@ -164,7 +164,7 @@
       insert_time = #{insertTime,jdbcType=TIMESTAMP},
       update_time = #{updateTime,jdbcType=TIMESTAMP},
       status = #{status,jdbcType=VARCHAR},
-      operator = #{operator,jdbcType=VARCHAR},
+      operator = #{operator,jdbcType=INTEGER},
       description = #{description,jdbcType=VARCHAR}
     where id = #{id,jdbcType=INTEGER}
   </update>
