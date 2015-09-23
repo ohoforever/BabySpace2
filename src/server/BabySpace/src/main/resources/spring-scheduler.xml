@@ -13,6 +13,8 @@
             <list>  
                  <!-- 指定到业务员开发 -->  
                 <ref bean="assignCancidate2assistantTask" />  
+                <ref bean="adjustCustomLeveltask" />  
+                <ref bean="newCancidateInitTask" />  
             </list>  
         </property>  
     </bean> 
@@ -23,13 +25,44 @@
 			<ref bean="assignCancidate2assistantJob" />
 		</property>
 		<property name="cronExpression">
-			<value>*/30 * * * * ?</value>
+			<value>0 */11 * * * ?</value>
 		</property>
 	</bean>
 	<!-- 指定到业务员开发 -->
 	<bean id="assignCancidate2assistantJob" class="org.springframework.scheduling.quartz.MethodInvokingJobDetailFactoryBean">
 		<property name="targetObject"><ref bean="CustomerDevService" /></property>
 		<property name="targetMethod" value="assignCancidate2assistant" />
+		<property name="concurrent" value="false"/> 
+	</bean>
+	
+	<!-- 新业务员初始化设置 -->
+	<bean id="newCancidateInitTask" class="org.springframework.scheduling.quartz.CronTriggerFactoryBean">
+		<property name="jobDetail">
+			<ref bean="newCancidateInitJob" />
+		</property>
+		<property name="cronExpression">
+ 			<value>0 */15 * * * ?</value> 
+		</property>
+	</bean>
+	<!-- 新业务员初始化设置 -->
+	<bean id="newCancidateInitJob" class="org.springframework.scheduling.quartz.MethodInvokingJobDetailFactoryBean">
+		<property name="targetObject"><ref bean="CustomerDevService" /></property>
+		<property name="targetMethod" value="autosetNewAssistantDevelopCount" />
+		<property name="concurrent" value="false"/> 
+	</bean>
+	<!-- 评级调整 -->
+	<bean id="adjustCustomLeveltask" class="org.springframework.scheduling.quartz.CronTriggerFactoryBean">
+		<property name="jobDetail">
+			<ref bean="adjustCustomLevelJob" />
+		</property>
+		<property name="cronExpression">
+			<value>0 9,13,21 * * * ?</value>
+		</property>
+	</bean>
+	<!-- 评级调整 -->
+	<bean id="adjustCustomLevelJob" class="org.springframework.scheduling.quartz.MethodInvokingJobDetailFactoryBean">
+		<property name="targetObject"><ref bean="CustomerDevService" /></property>
+		<property name="targetMethod" value="autoSetCandidateLevel" />
 		<property name="concurrent" value="false"/> 
 	</bean>
 	

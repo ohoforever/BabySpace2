@@ -62,8 +62,6 @@
     set c.level='Z',update_time = now()
     where c.level='C'
     and c.status = 'CRT' 
-   
-   
   </update>
   <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
     delete from t_khkf_candidate_develop

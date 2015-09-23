@@ -86,7 +86,7 @@ public class BabyMatureController extends BaseController {
 	@RequestMapping(value="/queryBabyMatureList",method=RequestMethod.POST)
 	@AccessRequered(methodName = "查询成长时光列表")
 	// 框架的日志处理
-	public @ResponseBody ResultModel getAdvertisementList(HttpServletRequest request,
+	public @ResponseBody ResultModel queryBabyMatureList(HttpServletRequest request,
 			HttpServletResponse response) {
 		String messagebase = "查询成长时光列表";
 		int basecode = 270100;
@@ -137,7 +137,8 @@ public class BabyMatureController extends BaseController {
 							
 							String picurl = ObjectUtils.toString(PropertyUtils.getProperty(ori, "image"+i));
 							if(StringUtils.isNotBlank(picurl)){
-								piclist.add(picurl+"?imageView2/2/w/"+smallpicwidth);
+//								piclist.add(picurl+"?imageView2/2/w/"+smallpicwidth);
+								piclist.add(picurl);
 							}
 							i++;
 						}
@@ -204,7 +205,7 @@ public class BabyMatureController extends BaseController {
 	@RequestMapping(value="/getBabyMature",method=RequestMethod.POST)
 	@AccessRequered(methodName = "查看成长时光详情")
 	// 框架的日志处理
-	public @ResponseBody ResultModel getAdvertisementDetail(HttpServletRequest request,
+	public @ResponseBody ResultModel getBabyMature(HttpServletRequest request,
 			HttpServletResponse response) {
 		String messagebase = "查看成长时光详情";
 		int basecode = 270200;
