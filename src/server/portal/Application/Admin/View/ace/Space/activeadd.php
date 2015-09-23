@@ -51,13 +51,13 @@ echo '<option value="'.$i.'" '.($i==$item['redflower_count']?'selected':'').'>'.
 			</div>
 			<span class="help-block col-xs-12 col-sm-5 inline">（输入老师评语）</span>
 		</div>
-<?php for($i=0;$i<2;$i++){
+<?php for($i=1;$i<10;$i++){
 ?>
                     <div class="form-group cf">
                         <label class="col-xs-12 col-sm-2 control-label no-padding-right">上传照片</label>
                         <div class="col-xs-12 col-sm-6">
                             <div class="controls">
-                                <input type="hidden" value="" id="cover_id_{$i}" name="{$i+1}">
+                                <input type="hidden" value="" id="cover_id_{$i}" name="image{$i}">
 				<input type="file" id="upload_picture_{$i}" >
                                 <div class="upload-img-box">
 				 </div>

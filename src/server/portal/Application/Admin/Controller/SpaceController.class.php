@@ -143,7 +143,7 @@ class SpaceController extends AdminController {
 		$this->meta_title ="查看宝宝动态";
 		$this->display();
 	}
-	public function activedel($id=0)
+	public function activedel($id=0,$cid=0)
 	{
 		empty($id) && $this->error('参数错误！');
 		$model =  M('bbkj_baby_mature');
@@ -152,9 +152,90 @@ class SpaceController extends AdminController {
 		$res = $model->delete($id);
 		if($res !== false){
 			    $model->commit();
-			    $this->success('删除成功！',U('space/index'));
+			    $this->success('删除成功！',U('space/activelist?id='.$cid));
 		}
 		$model->rollback();
 		$this->error('删除失败！');
 	}
+	public function commentdel($id=0,$mid=0)
+	{
+		empty($id) && $this->error('参数错误！');
+		$model =  M('bbkj_baby_mature_comment');
+		$model->startTrans(); 
+		$res = $model->delete($id);
+		$ret = $model->where('reply_to='.$id)->delete();
+		if($res !== false&&$ret !== false){
+			    $model->commit();
+			    $this->success('删除成功！',U('space/commentlist?id='.$mid));
+		}
+		$model->rollback();
+		$this->error('删除失败！');
+	}
+	function commentreply()
+	{
+		$mature_id = I('mid');
+		$reply_to = I('id');
+		$prefix = C('DB_PREFIX');
+		$model = M()->table($prefix.'bbkj_baby_mature_comment a');
+		$list = $model->find($reply_to);
+		$users = M('user')->select();
+		$tech= M('ucenter_member')->select();
+		$username = [];
+		foreach($users as $v)
+		{
+			$username[$v['id']] = $v['user_name'];
+		}
+		$techs= [];
+		foreach($tech as $v)
+		{
+			$techs[$v['id']] = $v['username'];
+		}
+		$this->assign('item', $list);
+		$this->assign('users', $username);
+		$this->assign('tech', $techs);
+		$this->meta_title = '回复评论';
+		$this->display();
+	}
+	function commentlist()
+	{
+		$mature_id = I('id');
+		$map['mature_id']=$mature_id;
+		$prefix = C('DB_PREFIX');
+		$model = M()->table($prefix.'bbkj_baby_mature_comment a');
+		$list = $model->where($map)->select();
+		$users = M('user')->select();
+		$tech= M('ucenter_member')->select();
+		$username = [];
+		foreach($users as $v)
+		{
+			$username[$v['id']] = $v['user_name'];
+		}
+		$techs= [];
+		foreach($tech as $v)
+		{
+			$techs[$v['id']] = $v['username'];
+		}
+		$this->assign('_list', $list);
+		$this->assign('users', $username);
+		$this->assign('tech', $techs);
+		$this->meta_title = '评论列表';
+		$this->display();
+	}
+	function commentsave()
+	{
+		$data['content'] = I('post.content');
+		empty($data['content']) && $this->error('回复内容不能为空');
+		$data['insert_time'] = time_format();
+		$data['reply_to'] = I('post.reply_to');
+		$data['mature_id'] = I('post.mature_id');
+		$data['sender_id'] =$this->_uid;
+		$data['sender_type'] = 'TECH';
+		$ret = M('bbkj_baby_mature_comment')->add($data);
+		if($ret)
+		{
+			$this->success('保存成功！',U('space/activelist?id='.$cid));
+		}
+		$this->error('保存失败！');
+	}
+
 }
