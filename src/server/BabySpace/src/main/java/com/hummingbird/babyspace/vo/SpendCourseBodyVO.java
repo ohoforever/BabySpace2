@@ -6,9 +6,11 @@ public class SpendCourseBodyVO {
 	"courseName":"音律",
 	"courseNum":2,
 	"orderId":"43647",
+	"operator":1
 	}*/
 	private String courseName;
 	private String orderId;
+	private Integer operator;
 	private Integer childId;
 	private Integer courseNum;
 	public String getCourseName() {
@@ -35,4 +37,13 @@ public class SpendCourseBodyVO {
 	public void setCourseNum(Integer courseNum) {
 		this.courseNum = courseNum;
 	}
+	public Integer getOperator() {
+		return operator;
+	}
+	public void setOperator(Integer operator) {
+		this.operator = operator;
+	}
+	
+	
+	
 }

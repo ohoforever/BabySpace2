@@ -58,6 +58,7 @@ public class CustomerDevServiceImpl implements CustomerDevService {
 		Appointment appointment=new Appointment();
 		appointment.setBabyName(body.getBabyName());
 		appointment.setBabySex(body.getBabySex());
+		
 		appointment.setCity(body.getCity());
 		appointment.setDistrict(body.getDistrict());
 		appointment.setMobileNum(body.getMobileNum());

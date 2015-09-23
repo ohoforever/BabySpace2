@@ -1,16 +1,23 @@
 package com.hummingbird.babyspace.services.impl;
 
+import java.util.Date;
+
 import org.apache.commons.lang.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Propagation;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.hummingbird.babyspace.entity.Member;
 import com.hummingbird.babyspace.entity.User;
 import com.hummingbird.babyspace.entity.WechatUser;
+import com.hummingbird.babyspace.entity.WxBindingHistory;
 import com.hummingbird.babyspace.mapper.MemberMapper;
 import com.hummingbird.babyspace.mapper.UserMapper;
 import com.hummingbird.babyspace.mapper.WechatUserMapper;
+import com.hummingbird.babyspace.mapper.WxBindingHistoryMapper;
 import com.hummingbird.babyspace.services.UserService;
+import com.hummingbird.babyspace.vo.UserBindBodyVO;
 import com.hummingbird.babyspace.vo.UserQueryBodyVO;
 import com.hummingbird.babyspace.vo.UserQueryReturnVO;
 import com.hummingbird.babyspace.vo.UserQueryUserInfoVO;
@@ -23,6 +30,8 @@ public class UserServiceImpl implements UserService{
 	WechatUserMapper wxUserDao;
 	@Autowired
 	UserMapper userDao;
+	@Autowired
+	WxBindingHistoryMapper bindHistoryDao;
 	@Autowired
 	MemberMapper memberDao;
 	org.apache.commons.logging.Log log = org.apache.commons.logging.LogFactory.getLog(this.getClass());
@@ -103,6 +112,20 @@ public class UserServiceImpl implements UserService{
 		}
 		
 		return null;
+	}
+
+	@Override
+	@Transactional(propagation=Propagation.REQUIRED,rollbackFor=Exception.class,value="txManager")
+	public void Binding(User user, UserBindBodyVO body) {
+		user.setUnionId(body.getUnionId());
+		user.setUpdateTime(new Date());
+		userDao.updateByPrimaryKey(user);
+		WxBindingHistory history=new WxBindingHistory();
+		history.setUnionId(body.getUnionId());
+		history.setInsertTime(new Date());
+		history.setMobileNum(user.getMobileNum());
+		history.setType("ADD");
+		bindHistoryDao.insert(history);
 	}
 
 }

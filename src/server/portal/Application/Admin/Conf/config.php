@@ -17,7 +17,7 @@ return array(
         'appKey'=>'1234567890',
     ),
     'APIURI'               =>[
-                                'mall'=>'http://127.0.0.1:9508/'
+                                'baby'=>'http://120.25.62.186:8094/if/'
                             ],
     'URL_CASE_INSENSITIVE' => true, //默认false 表示URL区分大小写 true则表示不区分大小写
     

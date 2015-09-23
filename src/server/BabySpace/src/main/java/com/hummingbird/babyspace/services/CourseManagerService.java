@@ -42,7 +42,7 @@ public interface CourseManagerService {
 	 * 耗课
 	 * @param body
 	 */
-	public void spendCourse(SpendCourseBodyVO body);
+	public void spendCourse(SpendCourseBodyVO body) throws BusinessException;
 	
 	public void subUserCourse(Integer CourseCount,Integer childId)throws BusinessException;
 }
