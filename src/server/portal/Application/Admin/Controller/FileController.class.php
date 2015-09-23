@@ -71,25 +71,10 @@ class FileController extends AdminController {
             C('PICTURE_UPLOAD_DRIVER'),
             C("UPLOAD_{$pic_driver}_CONFIG")
         ); //TODO:上传到远程服务器
-        
+
         $thumbs = I('post.thumb');
         
         $filename = basename($info['download']['path']);
-        if(!empty($thumbs) && is_array($thumbs)){
-            
-            $image = new \Think\Image(\Think\Image::IMAGE_IMAGICK); 
-            foreach ($thumbs as $param){
-                $image->open($info['download']['path']);
-                list($width,$height) = explode(',', $param);
-                
-                $dir = dirname($info['download']['path']).DS.$width.'x'.$height;
-                if(!is_dir($dir)){
-                    mkdir($dir, 0777, true);
-                }
-                
-                $image->thumb($width, $height,\Think\Image::IMAGE_THUMB_FILLED)->save($dir.DS.$filename);
-            }
-        }
         /* 记录图片信息 */
         if($info){
             $return['status'] = 1;
