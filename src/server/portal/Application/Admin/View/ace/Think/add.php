@@ -5,7 +5,7 @@
 <!-- 标签页导航 -->
 <div class="tabbable">
     <ul class="nav nav-tabs padding-18">
-        
+
         <volist name=":parse_config_attr($model['field_group'])" id="group">
         <li <eq name="key" value="1">class="active"</eq>><a data-toggle="tab" href="#tab{$key}">{$group}</a></li>
         </volist>
@@ -69,7 +69,7 @@
                                 <volist name=":parse_field_attr($field['extra'])" id="vo">
                                 	<label>
 										<input type="checkbox" class="ace" name="{$field.name}[]" value="{$key}">
-										<span class="lbl"> {$vo}&nbsp;</span> 
+										<span class="lbl"> {$vo}&nbsp;</span>
 									</label>
                                 </volist>
                             </case>
@@ -85,7 +85,7 @@
 									</div>
 								</div>
 								<script type="text/javascript">
-								<?php 
+								<?php
 								    $thumb = array();
 								    foreach (explode("\r\n", $field['extra']) as $k=>$v){
                                         if(empty($v) && !intval($v)){
@@ -116,7 +116,7 @@
 							    	var src = '';
 							        if(data.status){
 							        	src = data.url || '__ROOT__' + data.path;
-                                        $("#cover_id_{$field.name}").val(<eq name="field.extra" value="src">data.id<else/>src</eq>);
+                                        $("#cover_id_{$field.name}").val(<eq name="field.extra" value="src">src<else/>data.id</eq>);
                                         $("#cover_id_{$field.name}").parent().find('.upload-img-box').html(
 							        		'<div class="upload-pre-item"><img width="120" src="' + src + '"/></div>'
 							        	);
