@@ -243,7 +243,7 @@ class ThinkController extends AdminController {
                 $auto[] =   array($attr['name'],'arr2str',3,'function');
             }elseif('date' == $attr['type']){ // 日期型
                 $auto[] =   array($attr['name'],'strtotime',3,'function');
-            }elseif('datetime' == $attr['type']){ // 时间型
+            }elseif('datetime' == $attr['type'] && strpos($attr['field'],'int') !== false){ // 时间型
                 $auto[] =   array($attr['name'],'strtotime',3,'function');
             }
         }
