@@ -145,11 +145,13 @@ public class BabyMatureController extends BaseController {
 						row.put("images", piclist);
 						row.put("shareTitle", ori.getShareTitle());
 						row.put("shareContent", ori.getShareContent());
-						String sharePic=null;
-						if(ori.getShareImgIndex()!=null&&ori.getShareImgIndex()!=0){
-							sharePic=piclist.get(ori.getShareImgIndex()>piclist.size()?1:ori.getShareImgIndex());
+						Integer sharepicindex = ori.getShareImgIndex()!=null?(ori.getShareImgIndex()>piclist.size()?null:ori.getShareImgIndex()<=0?null:ori.getShareImgIndex()):null;
+						if(sharepicindex==null){
+							row.put("sharePic", null);
 						}
-						row.put("sharePic",sharePic );
+						else{
+							row.put("sharePic", piclist.get(sharepicindex-1));
+						}
 						//加载评论
 						List<BabyMatureComment> comments = babyMatureCommentDao.selectComments(ori.getId());
 						if(comments!=null){
