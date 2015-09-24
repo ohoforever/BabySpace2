@@ -171,7 +171,7 @@
   <select id="selectTotalCountByUnionId" resultType="int"  >
     select 
     count(*)
-    from t_bbjc_baby_wonderful
+    from t_zsgl_encyclopedia
     where channel=#{channelId}
     and ( title like "%"#{searchKeyword}"%"  or  content like "%"#{searchKeyword}"%"   )  
     and status='OK#'
@@ -179,7 +179,7 @@
   <select id="selectByUnionId" resultMap="BaseResultMap"  >
     select 
     id, channel, title, tag, insert_time, update_time, status, operator, description
-    from t_bbjc_baby_wonderful
+    from t_zsgl_encyclopedia
     where channel=#{channelId}
      and ( title like "%"#{searchKeyword}"%"  or  content like "%"#{searchKeyword}"%"   )  
     and status='OK#'
