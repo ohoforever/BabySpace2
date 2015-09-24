@@ -79,7 +79,7 @@
                             <td><?=$vo['insert_time']?></td>
                             <td>
                                 <a href="<?=U('edit',array('order_id'=>$vo['order_id']))?>">修改</a>
-                                <a href="<?=U('delete',array('order_id'=>$vo['order_id']))?>">删除</a>
+                                <a class="ajax-get confirm" href="<?=U('delete',array('order_id'=>$vo['order_id']))?>">删除</a>
                             </td>
                         </tr>
                     </volist>

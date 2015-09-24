@@ -65,7 +65,7 @@
 						<td>{$vo.share_title}</td>
 						<td>
 						<a href="{:U('space/activeedit?id='.$vo['id'])}">编辑</a>
-						<a href="{:U('space/activedel?id='.$vo['id']).'&cid='.$vo['child_id']}" class="ajax-get"  >删除</a>
+						<a href="{:U('space/activedel?id='.$vo['id']).'&cid='.$vo['child_id']}" class="ajax-get  confirm"  >删除</a>
 						<a href="{:U('space/activeshow?id='.$vo['id'])}">查看详细</a>
 						<a href="{:U('space/commentlist?id='.$vo['id'])}">查看评论</a>
 						</td>

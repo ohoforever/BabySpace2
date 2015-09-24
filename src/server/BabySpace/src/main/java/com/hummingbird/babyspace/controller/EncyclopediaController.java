@@ -96,7 +96,8 @@ public class EncyclopediaController extends BaseController {
 		rnr.setMethod("/knowledgeManager/encyclopedia/queryEncyclopediaList");
 		try {
 			com.hummingbird.common.face.Pagingnation page = transorder.getBody().toPagingnation();
-			List<Encyclopedia> objectlist = encyclopediaSrv.getEncyclopediaByPage(transorder.getBody().getUnionId(), transorder.getBody().getChannelId(), transorder.getBody().getSearchKeyword(), page);
+			Integer channelId=transorder.getBody().getChannelId()==null?0:transorder.getBody().getChannelId();
+			List<Encyclopedia> objectlist = encyclopediaSrv.getEncyclopediaByPage(transorder.getBody().getUnionId(), channelId, transorder.getBody().getSearchKeyword(), page);
 			List<Map> advs = CollectionTools.convertCollection(objectlist, Map.class, new CollectionTools.CollectionElementConvertor<Encyclopedia, Map>() {
 
 				@Override

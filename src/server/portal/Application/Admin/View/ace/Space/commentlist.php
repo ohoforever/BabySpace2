@@ -10,7 +10,7 @@
 <?php if($item['sender_type']=='USER'){?>
 	  <a  href="<?php echo  U('space/commentreply?id='.$item['id'].'&mid='.$item['mature_id']);?>" ><i class="icon-reply"></i></a>
 <?php }?>
-	  <a  href="<?php echo U('space/commentdel?id='.$item['id'].'&mid='.$item['mature_id'])?>" class="ajax-get"><i class="icon-remove"></i></a>
+	  <a  href="<?php echo U('space/commentdel?id='.$item['id'].'&mid='.$item['mature_id'])?>" class="ajax-get confirm"><i class="icon-remove"></i></a>
 	</div>
 	  </div>
 <div class="widget-body">
