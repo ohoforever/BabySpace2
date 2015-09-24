@@ -75,7 +75,7 @@ public class BabyCourseController extends BaseController{
 			}
 			List<QueryBabySpendCourseDetailReturnVO> list=new ArrayList<QueryBabySpendCourseDetailReturnVO>();
 			//把这个微信的所有宝宝查出来 babyname
-			List<Child> childs=babySer.queryBabyByUnionId(body.getUnionId(),body.getMobileNum());
+			List<Child> childs=babySer.queryBabyByUnionId(body.getUnionId(),null);
 			//根据宝宝Id查报课信息courseName orderId 
 			QueryBabySpendCourseDetailReturnVO detail;
 			for(Child child:childs){
