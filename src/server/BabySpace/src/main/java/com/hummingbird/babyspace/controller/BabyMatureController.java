@@ -253,6 +253,7 @@ public class BabyMatureController extends BaseController {
 			row.put("images", piclist);
 			row.put("shareTitle", ori.getShareTitle());
 			row.put("shareContent", ori.getShareContent());
+			row.put("determine", ori.getDetermine());
 			String sharePic=null;
 			if(ori.getShareImgIndex()!=null&&ori.getShareImgIndex()!=0){
 				sharePic=piclist.get(ori.getShareImgIndex()>piclist.size()?1:ori.getShareImgIndex());
