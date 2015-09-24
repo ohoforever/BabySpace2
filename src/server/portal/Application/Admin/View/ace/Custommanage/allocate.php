@@ -74,8 +74,8 @@ $baby_sex  = I('baby_sex');
 						<td>{$vo.star}</td>
 						<td>
 						<a href="{:U('Custommanage/allocateinfo?id='.$vo['id'])}" >调配</a>
-						<a href="{:U('Custommanage/setStatus?type=F&id='.$vo['id'])}" class="ajax-get" >开发失败</a>
-						<a href="{:U('Custommanage/setStatus?type=S&id='.$vo['id'])}" class="ajax-get" >开发完成</a>
+						<a href="{:U('Custommanage/setStatus?type=F&id='.$vo['id'])}" class="ajax-get confirm " >开发失败</a>
+						<a href="{:U('Custommanage/setStatus?type=S&id='.$vo['id'])}" class="ajax-get confirm" >开发完成</a>
 						</td>
 					</tr>
 					</volist>

@@ -25,36 +25,98 @@ class  ReportController extends AdminController {
 		parent:: _initialize();
 	}
 	public function candidate(){
-		$day = date('Y-m-01');
-		//$list   =   M('tjfx_candidate_add_daily')->where(['stat_date'=>['EGT',$day]])->select();
-		$list =$this->lists('tjfx_candidate_add_daily',['stat_date'=>['EGT',$day]] ,'stat_date desc group by stat_date');
+		$map = [];
+		$edate = '';
+		if(empty(I('sdate')))
+		{
+			$sdate = date('Y-m-01');
+			$map['stat_date'] = ['EGT',$sdate];
+		}else{
+			$sdate = I('sdate'); 
+			$map['stat_date'] = ['EGT',$sdate];
+		}
+		if(!empty(I('edate')))
+		{
+			$edate = I('edate'); 
+			$map['stat_date'] = ['ELT',$edate];
+		}
+		$list =$this->lists('tjfx_candidate_add_daily',$map ,'stat_date desc');
 		$this->assign('_list', $list);
+		$this->assign('sdate', $sdate);
+		$this->assign('edate', $edate);
 		$this->meta_title = '新增线上非会员统计';
 		$this->display();
 	}
 	public function share(){
-		$day = date('Y-m-01');
+		$map = [];
+		$edate = '';
+		if(empty(I('sdate')))
+		{
+			$sdate = date('Y-m-01');
+			$map['stat_date'] = ['EGT',$sdate];
+		}else{
+			$sdate = I('sdate'); 
+			$map['stat_date'] = ['EGT',$sdate];
+		}
+		if(!empty(I('edate')))
+		{
+			$edate = I('edate'); 
+			$map['stat_date'] = ['ELT',$edate];
+		}
 		$m  = M('tjfx_share_stat_hourly')->group('stat_date');
-		$list =$this->lists($m ,['stat_date'=>['EGT',$day]],'stat_date desc',"sum(baby_wonderful_share_count) as baby_wonderful_share_count,sum(baby_mature_share_count) as baby_mature_share_count,sum(baby_appointment_share_count) as baby_appointment_share_count,stat_date");
+		$list =$this->lists($m ,$map,'stat_date desc',"sum(baby_wonderful_share_count) as baby_wonderful_share_count,sum(baby_mature_share_count) as baby_mature_share_count,sum(baby_appointment_share_count) as baby_appointment_share_count,stat_date");
 		$this->assign('_list', $list);
-		$this->meta_title = '分享统计';
-		$this->display();
-	}
-	public function course(){
-		$day = date('Y-m-01');
-		//$list   =   M('t_tjfx_course_spend_stat_daily')->where(['stat_date'=>['EGT',$day]])->select();
-		$list =$this->lists('tjfx_course_spend_stat_daily' ,['stat_date'=>['EGT',$day]],' stat_date desc');
-		$this->assign('data', $list);
+		$this->assign('sdate', $sdate);
+		$this->assign('edate', $edate);
 		$this->meta_title = '分享统计';
 		$this->display();
 	}
 	function interlocution()
 	{
-		$day = date('Y-m-01');
+		$map = [];
+		$edate = '';
+		if(empty(I('sdate')))
+		{
+			$sdate = date('Y-m-01');
+			$map['stat_date'] = ['EGT',$sdate];
+		}else{
+			$sdate = I('sdate'); 
+			$map['stat_date'] = ['EGT',$sdate];
+		}
+		if(!empty(I('edate')))
+		{
+			$edate = I('edate'); 
+			$map['stat_date'] = ['ELT',$edate];
+		}
+
 		$m  = M('tjfx_interlocution_hourly')->group('stat_date');
-		$list =$this->lists($m ,['stat_date'=>['EGT',$day]],'stat_date desc',"sum(question_count) as question_count,sum(answer_count) as answer_count ,stat_date");
+		$list =$this->lists($m ,$map,'stat_date desc',"sum(question_count) as question_count,sum(answer_count) as answer_count ,stat_date");
 		$this->assign('_list', $list);
+		$this->assign('sdate', $sdate);
+		$this->assign('edate', $edate);
 		$this->meta_title = '宝宝问答访问统计';
+		$this->display();
+	}
+	function courseSpend()
+	{
+		if(empty(I('stat_year')))
+		{
+			$year= date('Y');
+		}else{
+			$year= I('stat_year');
+		}
+		if(empty(I('stat_month')))
+		{
+			$month= date('m');
+		}else{
+			$month= I('stat_month');;
+		}
+		$m  = M('tjfx_course_spend_stat_monthly');
+		$list =$this->lists($m ,['stat_year'=>$year,'stat_month'=>$month],'order_id');
+		$this->assign('_list', $list);
+		$this->meta_title = '耗课统计';
+		$this->assign('stat_year', $year);
+		$this->assign('stat_month', $month);
 		$this->display();
 	}
 }
