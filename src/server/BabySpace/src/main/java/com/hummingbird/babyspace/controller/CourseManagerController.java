@@ -82,7 +82,7 @@ public class CourseManagerController extends BaseController{
 		    log.debug("检验通过，获取请求");
 		   }
 		   //把这个微信的所有宝宝查出来 babyname
-		   List<Child> childs=babySer.queryBabyByUnionId(body.getUnionId());
+		   List<Child> childs=babySer.queryBabyByUnionId(body.getUnionId(),null);
 		   List<QueryCourseReturnVO> list=new ArrayList<QueryCourseReturnVO>();
 		   QueryCourseReturnVO detail;
 		   for(Child child:childs){

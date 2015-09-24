@@ -10,5 +10,5 @@ public interface BabyService {
  * @param unionId
  * @return
  */
- public List<Child> queryBabyByUnionId(String unionId);
+ public List<Child> queryBabyByUnionId(String unionId,String mobileNum);
 }
