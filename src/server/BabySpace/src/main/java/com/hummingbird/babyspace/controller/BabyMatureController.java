@@ -125,7 +125,7 @@ public class BabyMatureController extends BaseController {
 						Map row= new HashMap();
 						row.put("matrueDate", DateUtil.formatCommonDateorNull(ori.getActTime()));
 						row.put("title", ori.getTitle());
-						row.put("matrueId", ori.getId());
+						row.put("matureId", ori.getId());
 						row.put("childId", ori.getChildId());
 						row.put("redflower", ori.getRedflowerCount());
 						row.put("determine",ori.getDetermine());
@@ -145,7 +145,11 @@ public class BabyMatureController extends BaseController {
 						row.put("images", piclist);
 						row.put("shareTitle", ori.getShareTitle());
 						row.put("shareContent", ori.getShareContent());
-						row.put("sharePic", piclist.get(ori.getShareImgIndex()!=null?(ori.getShareImgIndex()>piclist.size()?0:ori.getShareImgIndex()):0));
+						String sharePic=null;
+						if(ori.getShareImgIndex()!=null&&ori.getShareImgIndex()!=0){
+							sharePic=piclist.get(ori.getShareImgIndex()>piclist.size()?1:ori.getShareImgIndex());
+						}
+						row.put("sharePic",sharePic );
 						//加载评论
 						List<BabyMatureComment> comments = babyMatureCommentDao.selectComments(ori.getId());
 						if(comments!=null){
@@ -231,7 +235,7 @@ public class BabyMatureController extends BaseController {
 		rnr.setAppid(transorder.getApp().getAppId());
 		rnr.setRequest(ObjectUtils.toString(request.getAttribute("rawjson")));
 		rnr.setInserttime(new Date());
-		rnr.setMethod("/babyMature/queryBabyMatureList");
+		rnr.setMethod("/babyMature/getBabyMature");
 		
 		try {
 			BabyMature ori = babyMatureDao.selectByPrimaryKey(transorder.getBody().getMatureId());
@@ -247,6 +251,13 @@ public class BabyMatureController extends BaseController {
 				i++;
 			}
 			row.put("images", piclist);
+			row.put("shareTitle", ori.getShareTitle());
+			row.put("shareContent", ori.getShareContent());
+			String sharePic=null;
+			if(ori.getShareImgIndex()!=null&&ori.getShareImgIndex()!=0){
+				sharePic=piclist.get(ori.getShareImgIndex()>piclist.size()?1:ori.getShareImgIndex());
+			}
+			row.put("sharePic",sharePic );
 			row.put("matrueId", ori.getId());
 			rm.put("result", row);
 		}catch (Exception e1) {
