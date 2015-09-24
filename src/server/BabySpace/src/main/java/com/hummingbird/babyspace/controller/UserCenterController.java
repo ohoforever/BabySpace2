@@ -4,6 +4,7 @@ import java.util.Date;
 
 import javax.servlet.http.HttpServletRequest;
 
+import org.apache.commons.lang.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -207,12 +208,17 @@ public class UserCenterController extends BaseController{
 				log.error(String.format("根据unionId[%s]查不到微信记录", body.getUnionId()));
 				throw new BusinessException(BusinessException.ERRCODE_REQUEST,"微信用户不存在");
 			}else{
-				User user=userDao.selectByUnionId(body.getUnionId());
+				User user=userDao.selectByMobileNum(body.getMobileNum());
 				if(user==null){
 					log.error("用户不存在");
 					throw new BusinessException(BusinessException.ERRCODE_REQUEST,"用户不存在");
 				}else{
-					userSer.Binding(user, body);
+					if(StringUtils.isBlank(user.getUnionId())){
+						userSer.Binding(user, body);
+					}else{
+						log.error("用户已绑定");
+						throw new BusinessException(BusinessException.ERRCODE_REQUEST,"用户已绑定手机号");
+					}
 				}
 			}
 			
