@@ -159,6 +159,7 @@ public class BabyMatureController extends BaseController {
 
 								@Override
 								public Map convert(BabyMatureComment ori) {
+									
 									Map com= new HashMap();
 									com.put("content", ori.getContent());
 									com.put("sendTime",DateUtil.formatCommonDateorNull(ori.getInsertTime()));
@@ -167,7 +168,11 @@ public class BabyMatureController extends BaseController {
 									com.put("content", ori.getContent());
 									com.put("senderType", ori.getSenderType());
 									com.put("replyTo", ori.getReplyTo());
-//									com.put("sender", ori.getSender());
+									if(StringUtils.equals(ori.getSenderType(), "TECH")){
+										com.put("sender", "老师");
+									}else{
+										com.put("sender", "家长");
+									}
 									return com;
 								}});
 							row.put("comment", commentoutput);

@@ -1,7 +1,7 @@
 <extend name="Public/base" />
 
 <block name="body">
-    <form class="form-horizontal" method="post" action="/admin.php?s=/knowledge/edit/model/22.html" id="form">
+    <form class="form-horizontal" method="post" action="<?=U('')?>" id="form">
         <div class="tab-content no-border padding-24">
             <!-- 基础文档模型 -->
             <div class="tab-pane active tab1" id="tab1">
@@ -35,7 +35,7 @@
             </div>
             <div class="clearfix form-actions">
                 <div class="col-xs-12 center">
-                    <input type="hidden" value="1" name="id">
+                    <input type="hidden" value="{$data['id']}" name="id">
                     <button id="sub-btn" class="btn btn-success ajax-post no-refresh" target-form="form-horizontal" type="submit">
                         <i class="icon-ok bigger-110"></i> 确认保存
                     </button>
