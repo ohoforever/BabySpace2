@@ -9,12 +9,20 @@ public class UserQueryWxInfoVO {
 	    "unionId":"olbkKt-8vkqpPod-N7i1SzSxddIo",
 	    "subscribe":"1"
     }*/
+	private Integer wxId;
 	private String openid;
 	private String nickname;
 	private String sex;
 	private String headimgurl;
 	private String unionId;
 	private String subscribe;
+	
+	public Integer getWxId() {
+		return wxId;
+	}
+	public void setWxId(Integer wxId) {
+		this.wxId = wxId;
+	}
 	public String getOpenid() {
 		return openid;
 	}
