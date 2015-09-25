@@ -173,7 +173,9 @@
     count(*)
     from t_zsgl_encyclopedia
     where channel=#{channelId}
+    <if test="searchKeyword != null" >
     and ( title like "%"#{searchKeyword}"%"  or  content like "%"#{searchKeyword}"%"   )  
+      </if>
     and status='OK#'
   </select>
   <select id="selectByUnionId" resultMap="BaseResultMap"  >
@@ -181,7 +183,9 @@
     id, channel, title, tag, insert_time, update_time, status, operator, description
     from t_zsgl_encyclopedia
     where channel=#{channelId}
-     and ( title like "%"#{searchKeyword}"%"  or  content like "%"#{searchKeyword}"%"   )  
+    <if test="searchKeyword != null" >
+    and ( title like "%"#{searchKeyword}"%"  or  content like "%"#{searchKeyword}"%"   )  
+      </if>
     and status='OK#'
     order by insert_time desc
     <if test="page != null" >

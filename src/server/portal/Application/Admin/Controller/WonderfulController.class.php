@@ -26,14 +26,14 @@ class WonderfulController extends ThinkController {
     public function add(){
         $_POST['insert_time'] = time_format();
         $_POST['update_time'] = time_format();
-        $_POST['reply_operator'] = is_login();
+        $_POST['operator'] = is_login();
         $this->assign('active_menu','wonderful/wonderfullist');
         parent::add(24,'wonderful/wonderfullist');
     }
 
     public function edit($id = 0){
         $_POST['update_time'] = time_format();
-        $_POST['reply_operator'] = is_login();
+        $_POST['operator'] = is_login();
         $this->assign('active_menu','wonderful/wonderfullist');
         parent::edit(24,$id,'wonderful/wonderfullist');
     }

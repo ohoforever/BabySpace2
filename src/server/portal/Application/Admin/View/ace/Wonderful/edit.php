@@ -43,7 +43,7 @@
                     <div class="form-group cf">
                         <label class="col-xs-12 col-sm-2 control-label no-padding-right">活动时间</label>
                         <div class="col-xs-12 col-sm-6">
-                            <input type="text" placeholder="请选择时间" value="1970-01-01 08:00" class="width-100 time" name="act_time">
+                            <input type="text" placeholder="请选择时间" value="" class="width-100 time" name="act_time">
                         </div>
                         <div class="help-block col-xs-12 col-sm-reset inline">
                         </div>

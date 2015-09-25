@@ -125,7 +125,7 @@ public class BabyMatureController extends BaseController {
 						Map row= new HashMap();
 						row.put("matrueDate", DateUtil.formatCommonDateorNull(ori.getActTime()));
 						row.put("title", ori.getTitle());
-						row.put("matrueId", ori.getId());
+						row.put("matureId", ori.getId());
 						row.put("childId", ori.getChildId());
 						row.put("redflower", ori.getRedflowerCount());
 						row.put("determine",ori.getDetermine());
@@ -145,7 +145,13 @@ public class BabyMatureController extends BaseController {
 						row.put("images", piclist);
 						row.put("shareTitle", ori.getShareTitle());
 						row.put("shareContent", ori.getShareContent());
-						row.put("sharePic", piclist.get(ori.getShareImgIndex()!=null?(ori.getShareImgIndex()>piclist.size()?0:ori.getShareImgIndex()):0));
+						Integer sharepicindex = ori.getShareImgIndex()!=null?(ori.getShareImgIndex()>piclist.size()?null:ori.getShareImgIndex()<=0?null:ori.getShareImgIndex()):null;
+						if(sharepicindex==null){
+							row.put("sharePic", null);
+						}
+						else{
+							row.put("sharePic", piclist.get(sharepicindex-1));
+						}
 						//加载评论
 						List<BabyMatureComment> comments = babyMatureCommentDao.selectComments(ori.getId());
 						if(comments!=null){
@@ -153,6 +159,7 @@ public class BabyMatureController extends BaseController {
 
 								@Override
 								public Map convert(BabyMatureComment ori) {
+									
 									Map com= new HashMap();
 									com.put("content", ori.getContent());
 									com.put("sendTime",DateUtil.formatCommonDateorNull(ori.getInsertTime()));
@@ -161,7 +168,11 @@ public class BabyMatureController extends BaseController {
 									com.put("content", ori.getContent());
 									com.put("senderType", ori.getSenderType());
 									com.put("replyTo", ori.getReplyTo());
-//									com.put("sender", ori.getSender());
+									if(StringUtils.equals(ori.getSenderType(), "TECH")){
+										com.put("sender", "老师");
+									}else{
+										com.put("sender", "家长");
+									}
 									return com;
 								}});
 							row.put("comment", commentoutput);
@@ -231,7 +242,7 @@ public class BabyMatureController extends BaseController {
 		rnr.setAppid(transorder.getApp().getAppId());
 		rnr.setRequest(ObjectUtils.toString(request.getAttribute("rawjson")));
 		rnr.setInserttime(new Date());
-		rnr.setMethod("/babyMature/queryBabyMatureList");
+		rnr.setMethod("/babyMature/getBabyMature");
 		
 		try {
 			BabyMature ori = babyMatureDao.selectByPrimaryKey(transorder.getBody().getMatureId());
@@ -247,6 +258,14 @@ public class BabyMatureController extends BaseController {
 				i++;
 			}
 			row.put("images", piclist);
+			row.put("shareTitle", ori.getShareTitle());
+			row.put("shareContent", ori.getShareContent());
+			row.put("determine", ori.getDetermine());
+			String sharePic=null;
+			if(ori.getShareImgIndex()!=null&&ori.getShareImgIndex()!=0){
+				sharePic=piclist.get(ori.getShareImgIndex()>piclist.size()?1:ori.getShareImgIndex());
+			}
+			row.put("sharePic",sharePic );
 			row.put("matrueId", ori.getId());
 			rm.put("result", row);
 		}catch (Exception e1) {

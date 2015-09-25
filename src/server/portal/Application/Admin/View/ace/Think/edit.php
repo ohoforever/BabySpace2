@@ -33,10 +33,18 @@
                                 <textarea name="{$field.name}" class="form-control">{$data[$field['name']]}</textarea>
                             </case>
                             <case value="date">
-                                <input type="text" name="{$field.name}" class="width-100 date" value="{$data[$field['name']]|date='Y-m-d',###}" placeholder="请选择日期" />
+                                <?php if(strpos($data['field'],'int') !== false):?>
+                                    <input type="text" name="{$field.name}" class="width-100 date" value="{$data[$field['name']]|date='Y-m-d',###}" placeholder="请选择日期" />
+                                <?php else:?>
+                                    <input type="text" name="{$field.name}" class="width-100 time" value="{$data[$field['name']]}" placeholder="请选择时间" />
+                                <?php endif;?>
                             </case>
                             <case value="datetime">
-                                <input type="text" name="{$field.name}" class="width-100 time" value="{$data[$field['name']]|date='Y-m-d H:i',###}" placeholder="请选择时间" />
+                                <?php if(strpos($data['field'],'int') !== false):?>
+                                    <input type="text" name="{$field.name}" class="width-100 time" value="{$data[$field['name']]|date='Y-m-d H:i',###}" placeholder="请选择时间" />
+                                <?php else:?>
+                                    <input type="text" name="{$field.name}" class="width-100 time" value="{$data[$field['name']]}" placeholder="请选择时间" />
+                                <?php endif;?>
                             </case>
                             <case value="bool">
                                 <select name="{$field.name}">

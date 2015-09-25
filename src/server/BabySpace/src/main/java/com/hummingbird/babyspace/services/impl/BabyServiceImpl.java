@@ -2,6 +2,7 @@ package com.hummingbird.babyspace.services.impl;
 
 import java.util.List;
 
+import org.apache.commons.lang.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -17,8 +18,13 @@ ChildMapper childDao;
 @Autowired
 UserMapper userDao;
 	@Override
-	public List<Child> queryBabyByUnionId(String unionId) {
-		User user=userDao.selectByUnionId(unionId);
+	public List<Child> queryBabyByUnionId(String unionId,String mobileNum) {
+		User user=null;
+		if(StringUtils.isNotBlank(unionId)){
+			user=userDao.selectByUnionId(unionId);
+		}else if(StringUtils.isNotBlank(mobileNum)){
+			user=userDao.selectByMobileNum(mobileNum);
+		}
 		if(user!=null){
 			List<Child> childs=childDao.selectByUserId(user.getId());
 			return childs;
