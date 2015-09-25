@@ -2,15 +2,6 @@
 
 <block name="body">
     <!-- 标题栏 -->
-    <div class="page-header">
-        <h1>
-            列表
-            <small>
-                <i class="icon-double-angle-right"></i>
-                 {$model['title']}
-            </small>
-        </h1>
-    </div>
     <!-- 数据列表 -->
     <div class="table-responsive">
         <div class="dataTables_wrapper">
@@ -80,6 +71,7 @@
                             <td>
                                 <a href="<?=U('edit',array('order_id'=>$vo['order_id']))?>">修改</a>
                                 <a class="ajax-get confirm" href="<?=U('delete',array('order_id'=>$vo['order_id']))?>">删除</a>
+                                <a href="<?=U('reject',array('order_id'=>$vo['order_id']))?>">退课</a>
                             </td>
                         </tr>
                     </volist>

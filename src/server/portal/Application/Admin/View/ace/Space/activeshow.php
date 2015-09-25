@@ -77,7 +77,11 @@ echo '<img src="'.$item['image'.$i].'" style="width:80%;margin-bottom:0.3em;"/>'
 		</tr>
 		<tr>
 			<td colspan="2"><span style="color:#999;padding-right:8px;">分享图片:</span>
-			<div style="margin-left:5em;" ><img src="<?php echo $item['image'.$item['share_img_index']];?>" style="width:80%" /></div>
+			<div style="margin-left:5em;" >
+<?php if(!empty($item['share_img_index'])){?>
+	<img src="<?php echo $item['image'.$item['share_img_index']];?>" style="width:80%" />
+<?php }?>
+			</div>
 			</td>
 		</tr>
 	 </tbody>

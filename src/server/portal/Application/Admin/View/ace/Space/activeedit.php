@@ -124,6 +124,7 @@ echo '<option value="'.$i.'" '.($i==$item['redflower_count']?'selected':'').'>'.
 			<label class="col-xs-12 col-sm-2 control-label no-padding-right">分享的图片</label>
 			<div class="col-xs-12 col-sm-5">
 				<select name="share_img_index">
+					<option value="" >请选择</option>
 					<option value="1" <?php echo $item['share_img_index']==1?'selected':''?> >第1张</option>
 					<option value="2" <?php echo $item['share_img_index']==2?'selected':''?> >第2张</option>
 					<option value="3" <?php echo $item['share_img_index']==3?'selected':''?> >第3张</option>

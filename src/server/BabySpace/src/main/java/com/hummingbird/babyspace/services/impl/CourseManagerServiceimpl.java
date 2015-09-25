@@ -74,6 +74,7 @@ public class CourseManagerServiceimpl implements CourseManagerService{
 		List<QueryBabyCourseHistoryDetailReturnVO> list=new ArrayList<QueryBabyCourseHistoryDetailReturnVO>();
 		QueryBabyCourseHistoryDetailReturnVO history;
 		page.setTotalCount(attendClassDao.queryAddCourseOrderTotal(body.getOrderId()));
+		page.calculatePageCount();
 		List<AttendClass> attends=attendClassDao.queryAddCourseOrder(body.getOrderId(),page);
 		for(AttendClass attend:attends){
 			history=new QueryBabyCourseHistoryDetailReturnVO();

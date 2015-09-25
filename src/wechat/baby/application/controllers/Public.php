@@ -12,7 +12,7 @@ class PublicController extends MallController {
         $this->layout->meta_title = '绑定账号';
         $this->layout->title = '绑定账号';
 
-        $this->success('绑定成功，点击<a href="/"> 返回首页 </a>');
+        $this->success('绑定成功，点击<a href="/"> 这里 返回首页</a>');
     }
     /**
      * 绑定家长账号
@@ -33,7 +33,7 @@ class PublicController extends MallController {
                 //将新的用户信息放入会话中
                 session('user_auth',$this->user);
 
-                $this->success('绑定成功！','/public/bindSuccess.html');
+                $this->success('绑定成功！','/index/bindSuccess.html');
             }else{
                 $this->error($resp['errmsg']);
             }
@@ -82,7 +82,35 @@ class PublicController extends MallController {
     }
 
     public function createWxMenuAction(){
-        $base_url = 'http://mm.mi360.me/';
+        $base_url = 'http://ttjy.mi360.me/';
+
+        $newmenu =  [
+                        "button"=>[
+                                        [
+                                            'name'=>'加油商城',
+                                            'type'=>'view',
+                                            'url'=>$this->wechat->getOauthRedirect($base_url.'callback/wxmenu','hot'),
+                                        ],
+                                        [
+                                            'name'=>'开店赚钱',
+                                            'sub_button'=>[
+                                                ['type'=>'view','name'=>'开店指南','url'=>'http://mp.weixin.qq.com/s?__biz=MzI3NjAxNzE3OA==&mid=208969664&idx=1&sn=2786b9892004f9471a2a0d7220936152&scene=5#rd'],
+                                                ['type'=>'view','name'=>'我要开店','url'=>$this->wechat->getOauthRedirect($base_url.'callback/wxmenu','kaidian')],
+                                                ['type'=>'view','name'=>'店铺推广海报','url'=>$this->wechat->getOauthRedirect($base_url.'callback/wxmenu','haibao')],
+                                                ['type'=>'view','name'=>'店铺推广链接','url'=>$this->wechat->getOauthRedirect($base_url.'callback/wxmenu','tglink')],
+                                            ]
+                                        ],
+                                        [
+                                            'name'=>'我的',
+                                            'sub_button'=>[
+                                                ['type'=>'view','name'=>'我的店铺','url'=>$this->wechat->getOauthRedirect($base_url.'callback/wxmenu','profit')],
+                                                ['type'=>'view','name'=>'我的订单','url'=>$this->wechat->getOauthRedirect($base_url.'callback/wxmenu','myorder')],
+                                                ['type'=>'view','name'=>'我的卡券','url'=>$this->wechat->getOauthRedirect($base_url.'callback/wxmenu','mycard')],
+                                                ['type'=>'view','name'=>'油站导航','url'=>$this->wechat->getOauthRedirect($base_url.'callback/wxmenu','near')],
+                                            ]
+                                        ],
+		                         ]
+                	];
 
         $newmenu =  [
                         "button"=>[
@@ -100,14 +128,9 @@ class PublicController extends MallController {
                                             'name'=>'宝宝问答',
                                             'type'=>'view',
                                             'url'=>$this->wechat->getOauthRedirect($base_url.'callback/wxmenu','faq'),
-                                        ],
-                                        [
-                                            'name'=>'全优加',
-                                            'type'=>'view',
-                                            'url'=>$this->wechat->getOauthRedirect($base_url.'callback/wxmenu','index'),
                                         ]
-		                         ]
-                	];
+                                    ]
+                    ];
         $result = $this->wechat->createMenu($newmenu);
         var_dump($result);die;
     }

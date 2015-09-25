@@ -52,7 +52,7 @@
 
 <div class="free"><a href="/index/bespeak.html" ><img src="/images/free.png" class="img"></a></div>
 <footer class="footer clear">
-    <a href="#">
+    <a href="/">
         <i class="ico footnav1"></i>
         <p>首 页</p>
     </a>

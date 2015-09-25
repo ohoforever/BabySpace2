@@ -193,20 +193,18 @@ class AttendController extends AdminController {
         $list = [];
         if(!empty($mobile)){
             $union_id = M('user')->where(['mobile_num'=>$mobile])->getField('union_id');
-            if(!empty($union_id)){
-                $api = new ApiService();
-                $resp = $api->setApiUrl(C('APIURI.baby'))
-                    ->setData(['unionId'=>$union_id,'courseNum'=>0,'courseName'=>''])
-                    ->send('courseManager/course/query');
-                if(!empty($resp) && $resp['errcode'] == '0'){
-                    $list = $resp['list'];
-                }
-            }
-        }
+	    $api = new ApiService();
+	    $resp = $api->setApiUrl(C('APIURI.baby'))
+		    ->setData(['unionId'=>$union_id,'courseNum'=>0,'courseName'=>'','mobileNum'=>$mobile])
+		    ->send('courseManager/course/query');
+	    if(!empty($resp) && $resp['errcode'] == '0'){
+		    $list = $resp['list'];
+	    }
+	}
 
-        $this->meta_title = '新增耗课';
-        $this->assign('mobile',$mobile);
-        $this->assign('list',$list);
-        $this->display();
+	$this->meta_title = '新增耗课';
+	$this->assign('mobile',$mobile);
+	$this->assign('list',$list);
+	$this->display();
     }
 }

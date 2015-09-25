@@ -1,26 +1,43 @@
 <!--main-->
 <section class="main hei100">
-    <div class="timeline padt40">
-        <div class="table his-box">
-            <div class="cell date-cont"><span class="date">8.20</span></div>
-            <div class="cell history">
-                <p>卓越探索课程（19~48个月）</p>
-                <p class="blue">耗课2节</p>
-            </div>
-        </div>
-        <div class="table his-box">
-            <div class="cell date-cont"><span class="date">7.20</span></div>
-            <div class="cell history">
-                <p>卓越探索课程（19~48个月）</p>
-                <p class="blue">耗课2节</p>
-            </div>
-        </div>
-        <div class="table">
-            <div class="cell date-cont"><span class="date">7.19</span></div>
-            <div class="cell history">
-                <p>卓越探索课程（19~48个月）</p>
-                <p class="blue">耗课2节</p>
-            </div>
-        </div>
+    <div class="timeline padt40" id="item-wrap">
+        <?php
+        require_once 'ajaxCourse.php';
+        ?>
     </div>
+    <input type="hidden" id="page" value="<?=$pageIndex?>" />
+    <input type="hidden" id="surplus" value="<?=$total-count($list)?>" />
 </section>
+<block name="script">
+    <script>
+        var is_loading = false;
+        var surplus = $('#surplus');
+        $(window).scroll(function(){
+            if ($(document).height() - $(this).scrollTop() - $(this).height()<50){
+                if(surplus.val() == 0 || is_loading){
+                    return false;
+                }
+
+                var page = $('#page').val();
+                is_loading = true;
+                $.post(
+                    window.location+'?'+Math.random(),
+                    {page:page},
+                    function(res){
+
+                        if(res.status == '0'){
+                            surplus.val(parseInt(surplus.val())-res.list_total);
+                            $("#item-wrap").append(res.html);
+                            $('#page').val(res.page);
+                        } else {
+                            surplus.val(0);
+                        }
+                    },
+                    'json'
+                ).always(function () {
+                    is_loading = false;
+                });
+            }
+        });
+    </script>
+</block>

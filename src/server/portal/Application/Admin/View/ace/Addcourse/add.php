@@ -183,6 +183,14 @@
                             </div>
                             <div class="row">
                                 <div class="col-xs-4">
+                                    <label style="padding-top: 4px;">课程价格：</label>
+                                </div>
+                                <div class="col-xs-8">
+                                    <input type="text" name="course_price" value="" id="course_price" class="width-100" />
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-xs-4">
                                     <label style="padding-top: 4px;">购买课时：</label>
                                 </div>
                                 <div class="col-xs-8">

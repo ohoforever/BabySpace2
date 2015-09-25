@@ -26,7 +26,7 @@ class IndexController extends MallController {
             return false;
         }
         $curl = new Curl();
-        $resp = $curl->setData(['unionId'=>$this->user['unionId'],'pageIndex'=>0,'pageSize'=>$this->config->application->pagenum])
+        $resp = $curl->setData(['unionId'=>$this->user['unionId'],'pageIndex'=>1,'pageSize'=>$this->config->application->pagenum])
                     ->send('advertisement/getAdvertisementList');
         
         $banners = [];
@@ -34,7 +34,7 @@ class IndexController extends MallController {
             $banners = $resp['list'];
         }
 
-        $resp = $curl->setData(['unionId'=>$this->user['unionId'],'pageIndex'=>0,'pageSize'=>$this->config->application->pagenum])
+        $resp = $curl->setData(['unionId'=>$this->user['unionId'],'pageIndex'=>1,'pageSize'=>$this->config->application->pagenum])
                     ->send('babyWonderful/babyWonderfulList');
 
         $wonderfulLs = [];

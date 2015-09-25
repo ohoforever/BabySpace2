@@ -26,8 +26,11 @@ class FaqController extends MallController {
         $this->layout->meta_title = '在线问答';
         $this->layout->title = '在线问答';
 
+        $page = intval($this->getRequest()->getQuery('page'));
+        $page = $page < 1 ? 1 : $page;
+
         $curl = new Curl();
-        $resp = $curl->setData(['unionId'=>$this->user['unionId'],'pageIndex'=>0,'pageSize'=>$this->config->application->pagenum])
+        $resp = $curl->setData(['unionId'=>$this->user['unionId'],'pageIndex'=>$page,'pageSize'=>$this->config->application->pagenum])
                     ->send('knowledgeManager/babyInterlocution/questionList');
 
         $list = [];
