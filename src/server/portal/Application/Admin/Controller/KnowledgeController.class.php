@@ -40,11 +40,11 @@ class KnowledgeController extends ThinkController {
 
         $this->lists('zsgl_interlocution',$p,$map);
     }
-
     public function answer($id = 0){
         $_POST['reply_time'] = time_format();
         $_POST['reply_operator'] = is_login();
-        $this->assign('active_menu','wonderful/wonderfullist');
+        $this->assign('active_menu','knowledge/bbwdlist');
+
         parent::edit(22,$id,'knowledge/bbwdlist');
     }
 }

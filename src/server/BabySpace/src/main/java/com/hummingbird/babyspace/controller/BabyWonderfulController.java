@@ -220,7 +220,15 @@ public class BabyWonderfulController extends BaseController {
 			}
 			row.put("shareTitle", ori.getShareTitle());
 			row.put("shareContent", ori.getShareContent());
-			row.put("sharePic", piclist.get(ori.getShareImgIndex()!=null?(ori.getShareImgIndex()>piclist.size()?0:ori.getShareImgIndex()):0));
+			Integer sharepicindex = ori.getShareImgIndex()!=null?(ori.getShareImgIndex()>piclist.size()?null:ori.getShareImgIndex()<=0?null:ori.getShareImgIndex()):null;
+			if(sharepicindex==null){
+				row.put("sharePic", null);
+				
+			}
+			else{
+				row.put("sharePic", piclist.get(sharepicindex-1));
+				
+			}
 			row.put("content", ori.getContent());
 			row.put("pic", piclist);
 			row.put("title", ori.getTitle());

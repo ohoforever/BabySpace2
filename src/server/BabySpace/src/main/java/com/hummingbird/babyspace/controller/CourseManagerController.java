@@ -75,14 +75,17 @@ public class CourseManagerController extends BaseController{
 		   //备注字段必填
 		   PropertiesUtil pu = new PropertiesUtil();
 		   //校验
-		   ValidateUtil.assertEmpty(transorder.getBody().getUnionId(), "微信Id不能为空");
-		   QueryCourseBodyVO body=transorder.getBody();
+		  // ValidateUtil.assertEmpty(transorder.getBody().getUnionId(), "微信Id不能为空");
 		   
+		   QueryCourseBodyVO body=transorder.getBody();
+		   if(StringUtils.isBlank(body.getMobileNum())&&StringUtils.isBlank(body.getUnionId())){
+			   throw ValidateException.ERROR_PARAM_NULL.cloneAndAppend(null, "微信Id和手机号不能都为空");
+		   }
 		   if(log.isDebugEnabled()){
 		    log.debug("检验通过，获取请求");
 		   }
 		   //把这个微信的所有宝宝查出来 babyname
-		   List<Child> childs=babySer.queryBabyByUnionId(body.getUnionId());
+		   List<Child> childs=babySer.queryBabyByUnionId(body.getUnionId(),body.getMobileNum());
 		   List<QueryCourseReturnVO> list=new ArrayList<QueryCourseReturnVO>();
 		   QueryCourseReturnVO detail;
 		   for(Child child:childs){

@@ -4,9 +4,17 @@ import com.hummingbird.babyspace.face.Pagingnation;
 
 public class QueryBabySpendCourseListBodyVO {
 	private String unionId;
+	private String mobileNum;
 	
 	protected Integer pageSize;
 	protected Integer pageIndex;
+	
+	public String getMobileNum() {
+		return mobileNum;
+	}
+	public void setMobileNum(String mobileNum) {
+		this.mobileNum = mobileNum;
+	}
 	public String getUnionId() {
 		return unionId;
 	}

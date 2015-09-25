@@ -36,4 +36,5 @@ public interface UserMapper {
      * 根据unionId查询记录
      */
     User selectByUnionId(String unionId);
+    User selectByMobileNum(String mobileNum);
 }
