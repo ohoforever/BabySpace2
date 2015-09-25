@@ -103,7 +103,7 @@ class SpaceController extends AdminController {
 		$data['share_content'] = I('post.share_content');
 		empty($data['share_content']) && $this->error('请输入分享内容');
 		$data['share_img_index'] = I('post.share_img_index');
-		empty(I('image'.$data['share_img_index'])) && $this->error('选择分享的图片不能为空');
+		empty(I('image'.$data['share_img_index']))&&!empty($data['share_img_index']) && $this->error('选择分享的图片不能为空');
 		$data['update_time'] = time_format();
 		$data['tag'] = I('post.tag');
 		for($i=1;$i<10;$i++)

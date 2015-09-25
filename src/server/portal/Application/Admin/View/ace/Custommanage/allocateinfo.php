@@ -8,6 +8,8 @@
 <div class="widget-header " style="color:#999;">
           <h5 class="bigger lighter"> 客户信息</h5>        
 </div>
+
+    <form id="form" action="{:U('allocatesave?id='.$item['id'])}" method="post" class="form-horizontal">
 <div class="widget-body">
 <div class=""> 
        <table class="table table-bordered " style="margin-bottom:0px;">
@@ -30,7 +32,16 @@
 		</tr>
 		<tr>
 			<td colspan="1"><span style="color:#999;padding-right:8px;">客户评级:</span>{$item.level}</td>
-			<td></td>
+			<td><span style="color:#999;padding-right:8px;">客户评级:</span>
+			<select name ="">
+			<option value="">请选择</option>
+			<?php foreach($assi as $v){
+				$select = $v['id']==$item['current_assistant_id']?"selected":"";
+			?>
+				<option value="<?php echo $v['id']?>" <?php echo $select;?> ><?php echo $v['username']?></option>
+			<?php }?>
+			</select>
+			</td>
 		</tr>
 	 </tbody>
 	</table>
@@ -44,6 +55,7 @@
 	               <i class="icon-reply"></i>返回上一页
 	            </a>  
             </div>
+    </form>
         </div>
 </block>
 

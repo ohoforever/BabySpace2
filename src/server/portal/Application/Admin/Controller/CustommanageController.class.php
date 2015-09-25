@@ -97,8 +97,9 @@ class CustommanageController extends AdminController {
 	    {
 		    $map['baby_name']= array('like', '%'.I('baby_name').'%');
 	    }
-	    $map['status']    =   'CRT';
-	    $list   =   $this->lists('khkf_candidate', $map);
+	    $map['c.status']    =   'CRT';
+	    $model = M('khkf_candidate c')->join('t_ucenter_member m on current_assistant_id=m.id')->field('c.*,m.username');
+	    $list   =   $this->lists($model, $map,'update_time desc','c.*,m.username');
 	    $this->assign('_list', $list);
 	    $this->meta_title = '调配客户列表';
 	    $this->display();
@@ -106,7 +107,7 @@ class CustommanageController extends AdminController {
     public function allocatesave()
     {
 	    $current_assistant_id = I('post.current_assistant_id');
-	    $id = I('post.id');
+	    $id = I('get.id');
 	    empty($id) && $this->error('参数错误');
 	    $model = M('khkf_candidate');
 	    $model->startTrans(); 
@@ -118,12 +119,9 @@ class CustommanageController extends AdminController {
 			    $model->commit();
 			    $this->success('保存成功！',U('custommanage/allocate'));
 		    }
-		    $model->rollback(); 
-		    $this->error('保存失败！');
-	    }else {
-		    $model->rollback(); 
-		    $this->error('保存失败！');
 	    }
+	    $model->rollback(); 
+	    $this->error('保存失败！');
     }
     public function allocateinfo($id=0)
     {

@@ -38,7 +38,7 @@
                                     <label style="padding-top: 4px;">用户姓名：</label>
                                 </div>
                                 <div class="col-xs-8">
-                                    <input type="text" name="user_name" id="user_name" value="{$user.user_name}" class="width-100" />
+                                    {$user.user_name}
                                 </div>
                             </div>
                             <div class="row">
@@ -46,7 +46,7 @@
                                     <label style="padding-top: 4px;">所在城市：</label>
                                 </div>
                                 <div class="col-xs-8">
-                                    <input type="text" name="city" id="city" value="{$user.city}" class="width-100" />
+                                    {$user.city}
                                 </div>
                             </div>
                             <div class="row">
@@ -54,7 +54,7 @@
                                     <label style="padding-top: 4px;">所在地区：</label>
                                 </div>
                                 <div class="col-xs-8">
-                                    <input type="text" name="district" id="district" value="{$user.district}" class="width-100" />
+                                    {$user.district}
                                 </div>
                             </div>
                             <div class="row">
@@ -62,7 +62,7 @@
                                     <label style="padding-top: 4px;">QQ：</label>
                                 </div>
                                 <div class="col-xs-8">
-                                    <input type="text" name="qq" value="{$user.qq}" id="qq" class="width-100" />
+                                    {$user.qq} 
                                 </div>
                             </div>
                             <div class="row">
@@ -70,7 +70,7 @@
                                     <label style="padding-top: 4px;">Email：</label>
                                 </div>
                                 <div class="col-xs-8">
-                                    <input type="text" name="email" id="email" value="{$user.email}" class="width-100" />
+                                    {$user.email}
                                 </div>
                             </div>
                         </div>
@@ -96,8 +96,7 @@
                                     <label style="padding-top: 4px;">宝贝姓名：</label>
                                 </div>
                                 <div class="col-xs-8" id="selectBaby">
-
-                                   <input type="text" name="baby_name" value="{$baby.baby_name}" class="width-100" />
+                                   {$baby.baby_name}
                                 </div>
                             </div>
                             <div class="row">
@@ -106,13 +105,7 @@
                                 </div>
                                 <div class="col-xs-8">
                                     <label>
-                                        <input type="radio" <?php echo $baby['baby_sex']=='MALE###'?'checked':'' ?>   name="baby_sex" value="MALE###" class="ace">
-                                        <span class="lbl">&nbsp;&nbsp;&nbsp;&nbsp;小王子&nbsp;</span>
-                                    </label>
-                                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                                    <label>
-                                        <input type="radio" name="baby_sex" <?php echo $baby['baby_sex']=='FEMALE#'?'checked':'' ?>  value="FEMALE#" class="ace">
-                                        <span class="lbl">&nbsp;&nbsp;&nbsp;&nbsp;小公主&nbsp;</span>
+                                        <?php echo $baby['baby_sex']=='MALE###'?'小王子':'小公主';?>  
                                     </label>
 
                                 </div>
@@ -122,8 +115,7 @@
                                     <label style="padding-top: 4px;">宝宝生日：</label>
                                 </div>
                                 <div class="col-xs-8">
-                                    <input class="width-100 time" id="baby_birthday" type="text" placeholder="请选择时间" value="{$baby.baby_birthday}" name="baby_birthday">
-
+                                    {$baby.baby_birthday}
                                 </div>
                             </div>
                             <div class="row" style="margin-bottom: 90px;"></div>
@@ -141,7 +133,7 @@
         <div class="col-xs-12 col-sm-6 widget-container-span ui-sortable" >
             <div class="widget-box">
                 <div class="widget-header">
-                    <h5>课程信息</h5>
+                    <h5>退课课程信息</h5>
 
                 </div>
 
@@ -167,42 +159,18 @@
                             </div>
                             <div class="row">
                                 <div class="col-xs-4">
-                                    <label style="padding-top: 4px;">课程课时：</label>
+                                    <label style="padding-top: 4px;">退课课时：</label>
                                 </div>
                                 <div class="col-xs-8">
-                                    <input type="text" name="course_total" id="course_total" value="{$order.course_total}" class="width-100" />
+                                    <input type="text" name="course_count" id="course_count" value="{$course_left}" class="width-100" />
                                 </div>
                             </div>
                             <div class="row">
                                 <div class="col-xs-4">
-                                    <label style="padding-top: 4px;">买课费用(元)：</label>
+                                    <label style="padding-top: 4px;">退课费用(元)：</label>
                                 </div>
                                 <div class="col-xs-8">
-                                    <input type="text" name="course_amount" value="<?php echo round($order['course_amount']/100,2);?>" id="course_amount" class="width-100" />
-                                </div>
-                            </div>
-                            <div class="row">
-                                <div class="col-xs-4">
-                                    <label style="padding-top: 4px;">课程价格：</label>
-                                </div>
-                                <div class="col-xs-8">
-                                    <input type="text" name="course_price" value="<?php echo round($order['course_amount']/100,2);?>" id="course_price" class="width-100" />
-                                </div>
-                            </div>
-                            <div class="row">
-                                <div class="col-xs-4">
-                                    <label style="padding-top: 4px;">购买课时：</label>
-                                </div>
-                                <div class="col-xs-8">
-                                    <input type="text" name="course_count" value="{$order.course_count}" id="course_count" class="width-100" />
-                                </div>
-                            </div>
-                            <div class="row">
-                                <div class="col-xs-4">
-                                    <label style="padding-top: 4px;">赠送课时：</label>
-                                </div>
-                                <div class="col-xs-8">
-                                    <input type="text" name="given_count" value="{$order.given_count}" id="given_count" class="width-100" />
+                                    <input type="text" name="course_amount" value="" id="course_amount" class="width-100" />
                                 </div>
                             </div>
                         </div>

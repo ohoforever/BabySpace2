@@ -48,6 +48,7 @@ $baby_sex  = I('baby_sex');
 					<th class="">所在区域</th>
 					<th class="">用户级别</th>
 					<th class="">候选人星数</th>
+					<th class="">跟单人</th>
 					<th class="">操作</th>
 					</tr>
 			    </thead>
@@ -72,6 +73,7 @@ $baby_sex  = I('baby_sex');
 						<td>{$vo.district}</td>
 						<td>{$vo.level}</td>
 						<td>{$vo.star}</td>
+						<td>{$vo.username}</td>
 						<td>
 						<a href="{:U('Custommanage/allocateinfo?id='.$vo['id'])}" >调配</a>
 						<a href="{:U('Custommanage/setStatus?type=F&id='.$vo['id'])}" class="ajax-get confirm " >开发失败</a>
@@ -80,7 +82,7 @@ $baby_sex  = I('baby_sex');
 					</tr>
 					</volist>
 					<else/>
-					<td colspan="10" class="text-center"> aOh! 暂时还没有内容! </td>
+					<td colspan="11" class="text-center"> aOh! 暂时还没有内容! </td>
 					</notempty>
 				</tbody>
             </table>

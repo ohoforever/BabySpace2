@@ -81,6 +81,92 @@ class AddcourseController extends AdminController {
 		$this->assign('active_menu','addcourse/add');
 		$this->display();
 	}
+	public function reject( ){
+		$orderid = I('order_id');
+		empty($orderid)  &&  $this->error('参数错误');
+		if(IS_POST){
+			$this->rejectSave();
+		}
+		$order = M('kcgl_add_course_order')->where("order_id='$orderid'")->find();
+		$baby = M('yhgl_child')->where("id='{$order['child_id']}'")->find();
+		$user = M('user')->where("id='{$baby['user_id']}'")->find();
+		$course= M('kcgl_user_courses')->field('course_left')->where("user_id='{$baby['user_id']}'")->find();
+		$this->meta_title = '退课';
+		$this->assign('user',$user);
+		$this->assign('course_left',$course['course_left']);
+		$this->assign('baby',$baby);
+		$this->assign('order',$order);
+		$this->display();
+	}
+	public function rejectSave()
+	{
+		M()->startTrans();
+		$order =M("kcgl_add_course_order")->where("order_id='".I('order_id')."'")->find();
+		if(empty($order))
+		{
+			M()->rollback();
+			$this->error('订单信息不存在！');
+		}
+		$child =M('yhgl_child')->where(['id'=>$order['child_id']])->find();
+		$user =M('user')->where(['id'=>$child['user_id']])->find();
+		$userCourseleft = $this->saveUserCourses($user['id'] ,$order);
+		if($userCourseleft===false)
+		{
+			M()->rollback();
+			$this->error('用户课程信息保存失败！');
+		}
+		$usercourse = M("kcgl_user_courses")->where(['order_id'=>$order['order_id']])->find();
+		$memberid = $this->getMemberId($order['order_id']);
+		$histroy = ['member_id'=>$memberid,'member_course_count'=>$userCourseleft,'type'=>'REJ','parent_name'=>$user['user_name']];
+		$histroy = $user+$child+$usercourse+$order +$histroy;
+		$rejorder = $this->saveROrder($histroy);
+		if($rejorder ===false)
+		{
+			M()->rollback();
+			$this->error('退订信息保存失败！');
+		}
+		$histroy['order_id'] = $rejorder;
+		$histroy['add_order_id'] = $order['order_id'];
+		$courseid = $this->saveHistroy($histroy);
+		if($courseid===false)
+		{
+			M()->rollback();
+			$this->error('历史信息保存失败！');
+		}
+		M()->commit();
+		$this->success('退课成功！',U('addcourse/addcourselist'));
+	}
+	public function delete()
+	{
+		M()->startTrans();
+		$order =M("kcgl_add_course_order")->where("order_id='".I('order_id')."'")->find();
+		if(empty($order))
+		{
+			M()->rollback();
+			$this->error('订单信息不存在！');
+		}
+		$child =M('yhgl_child')->where(['id'=>$order['child_id']])->find();
+		$user =M('user')->where(['id'=>$child['user_id']])->find();
+		$userCourseleft = $this->saveUserCourses($user['id'] ,$order);
+		if($userCourseleft===false)
+		{
+			M()->rollback();
+			$this->error('用户课程信息保存失败！');
+		}
+		M("kcgl_add_course_order")->where(['order_id'=>$order['order_id']])->save(['status'=>'FLS']);
+		$usercourse = M("kcgl_user_courses")->where(['order_id'=>$order['order_id']])->find();
+		$memberid = $this->getMemberId($order['order_id']);
+		$histroy = ['member_id'=>$memberid,'member_course_count'=>$userCourseleft,'type'=>'DEL','parent_name'=>$user['user_name']];
+		$histroy = $user+$child+$usercourse+$order +$histroy;
+		$courseid = $this->saveHistroy($histroy);
+		if($courseid===false)
+		{
+			M()->rollback();
+			$this->error('历史信息保存失败！');
+		}
+		M()->commit();
+		$this->success('删除成功！',U('addcourse/addcourselist'));
+	}
 	public function edit($id = 0){
 		$orderid = I('order_id');
 		empty($orderid)  &&  $this->error('参数错误');
@@ -130,7 +216,11 @@ class AddcourseController extends AdminController {
 			$this->error('用户课程信息保存失败！');
 		}
 		$memberid = $this->getMemberId($courseid);
-		$courseid = $this->saveHistroy(['child_id'=>$babyid,'order_id'=>$courseid,'member_id'=>$memberid,'member_course_count'=>$userCourseleft,'type'=>'UPT']);
+		$histroy = ['child_id'=>$babyid,'order_id'=>$courseid,'member_id'=>$memberid,'member_course_count'=>$userCourseleft,'type'=>'UPT'];
+		$histroy = $histroy +I('post.');
+		$histroy['course_amount']=$histroy['course_amount']*100;
+		$histroy['course_price']=$histroy['course_price']*100;
+		$courseid = $this->saveHistroy($histroy);
 		if($courseid===false)
 		{
 			M()->rollback();
@@ -276,7 +366,7 @@ class AddcourseController extends AdminController {
 			$addcourseId=$kcglAddCourseOrder->add($addCourse);
 		}
 		if($addcourseId){
-			return $addcourseId;
+			return $addCourse['order_id'];
 		}
 		return false;
 	}
@@ -285,8 +375,8 @@ class AddcourseController extends AdminController {
 		$kcglUserCourses=M("kcgl_user_courses");
 		$addCourse=[];
 		$userCoursesData =$kcglUserCourses->where(['user_id'=>$userId])->find();
-		$course_count = I('post.course_count');
-		$given_count = I('post.given_count');
+		$course_count = intval(I('post.course_count'));
+		$given_count = intval(I('post.given_count'));
 		$addCourse['update_time'] = time_format();
 		if(!empty($userCoursesData)){
 			if(empty($order))
@@ -316,25 +406,25 @@ class AddcourseController extends AdminController {
 		}
 		return false;
 	}
-	private function saveHistroy($data )
+	private function saveHistroy($data)
 	{
 		$addCourseHistory=[];
 		$addCourseHistory['order_id'] = $data['order_id'];
 		$addCourseHistory['member_id'] = $data['member_id'];
 		$addCourseHistory['child_id'] = $data['child_id'];
-		$addCourseHistory['school_name'] = I('post.school_name');
-		$addCourseHistory['course_name'] = I('post.course_name');
-		$addCourseHistory['course_total'] = I('post.course_total');
-		$addCourseHistory['course_amount'] = I('post.course_amount')*100;
-		$addCourseHistory['course_price'] = I('post.course_price')*100;
-		$addCourseHistory['course_count'] = I('post.course_count');
-		$addCourseHistory['given_course_count'] = I('post.given_count');
+		$addCourseHistory['school_name'] = $data['school_name'];
+		$addCourseHistory['course_name'] = $data['course_name'];
+		$addCourseHistory['course_total'] = $data['course_total'];
+		$addCourseHistory['course_amount'] = $data['course_amount'];
+		$addCourseHistory['course_price'] = $data['course_price'];
+		$addCourseHistory['course_count'] = $data['course_count'];
+		$addCourseHistory['given_course_count'] = $data['given_count'];
 		$addCourseHistory['insert_time'] = time_format();
-		$addCourseHistory['parent_name'] = I('post.user_name');
-		$addCourseHistory['mobile_num'] = I('post.mobile_num');
-		$addCourseHistory['baby_name'] = I('post.baby_name');
-		$addCourseHistory['baby_sex'] = I('post.baby_sex');
-		$addCourseHistory['baby_birthday'] = I('post.baby_birthday');
+		$addCourseHistory['parent_name'] = $data['user_name'];
+		$addCourseHistory['mobile_num'] = $data['mobile_num'];
+		$addCourseHistory['baby_name'] = $data['baby_name'];
+		$addCourseHistory['baby_sex'] = $data['baby_sex'];
+		$addCourseHistory['baby_birthday'] = $data['baby_birthday'];
 		$addCourseHistory['member_course_count'] =$data['member_course_count'];
 		$addCourseHistory['type'] = isset($data['type'])?$data['type']:'ADD';
 		$addCourseHistory['operator'] = is_login();
@@ -377,6 +467,11 @@ class AddcourseController extends AdminController {
 			M()->rollback();
 			$this->error('用户课程信息保存失败！');
 		}
+		$histroy = ['child_id'=>$babyid,'order_id'=>$courseid,'member_id'=>$memberid,'member_course_count'=>$userCourseleft,'type'=>'ADD'];
+		$histroy = $histroy +I('post.');
+
+		$histroy['course_amount']=$histroy['course_amount']*100;
+		$histroy['course_price']=$histroy['course_price']*100;
 		$courseid = $this->saveHistroy(['child_id'=>$babyid,'order_id'=>$courseid,'member_id'=>$memberid,'member_course_count'=>$userCourseleft]);
 		if($courseid===false)
 		{
@@ -386,9 +481,9 @@ class AddcourseController extends AdminController {
 		M()->commit();
 		$this->success('报课成功！',U('addcourse/addcourselist'));
 	}
-	private function gen_order_no()
+	private function gen_order_no($type='AC00')
 	{
-		$orderid = 'AC00'.date('YmdHis').rand(1000,9999);
+		$orderid = $type.date('YmdHis').rand(1000,9999);
 		return $orderid;
 	}
 	private function getMemberId($userid)
@@ -396,5 +491,27 @@ class AddcourseController extends AdminController {
 		$order =M("hygl_member")->where("user_id='$userid'")->find();
 
 		return isset($order['id'])?$order['id']:0;
+	}
+	private function saveROrder($data)
+	{
+		$addCourse=[];
+		$addCourse['school_name'] = $data['school_name'];
+		$addCourse['course_name'] = $data['course_name'];
+		$addCourse['course_amount'] = $data['post.course_amount'];
+		$addCourse['course_count'] = $data['post.course_count'];
+		$addCourse['add_order_id'] = $data['post.order_id'];
+		$addCourse['update_time'] = time_format();
+		$addCourse['operator'] = is_login();
+		$addCourse['insert_time'] = time_format();
+		$addCourse['child_id']=$data['child_id'];
+		$addCourse['add_order_id']=$data['order_id'];
+		$addCourse['status']='OK#';
+		$addCourse['order_id'] = $this->gen_order_no('RC00');
+		$kcglAddCourseOrder=M("kcgl_reject_course_order");
+		$addcourseId=$kcglAddCourseOrder->add($addCourse);
+		if($addcourseId){
+			return $addCourse['order_id'];
+		}
+		return false;
 	}
 }
