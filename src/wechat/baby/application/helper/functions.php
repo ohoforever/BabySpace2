@@ -12,33 +12,6 @@
  */
 
 /**
- * @param $wechet
- * @param $info
- * @return mixed
- */
-function get_wx_qrcode($wechet,$info){
-
-    if(empty($info['qr_create_time'])){
-        $resp = $wechet->getQRCode($info['userid'],1);
-        if(!empty($resp)){
-            M('t_wx_user')->update([
-                'qr_ticket'=>$resp['ticket'],
-                'qr_expire_seconds'=>$resp['expire_seconds']-100,
-                'qr_create_time'=>time(),
-            ],
-                ['userid'=>$info['userid']]
-            );
-
-            $info['qr_ticket'] = $resp['ticket'];
-        }else{
-            return false;
-        }
-    }
-
-    return $wechet->getQRUrl($info['qr_ticket']);
-}
-
-/**
  * 获取配置中的app信息
  * @return array
  */
@@ -72,7 +45,7 @@ function is_login(){
     if (empty($user)) {
         return 0;
     } else {
-        return isset($user['userid']) ? $user['userid'] : 0;
+        return isset($user['unionId']) ? $user['unionId'] : 0;
     }
 }
 

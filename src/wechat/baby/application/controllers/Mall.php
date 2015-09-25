@@ -15,12 +15,12 @@ class MallController extends Yaf\Controller_Abstract {
     protected $waitSecond = 3;
 
     public function init(){
-        $userid = is_login();
+        $unionId = is_login();
 
         $this->config = Yaf\Registry::get('config');
         $this->wechat = new Wechat($this->config->wechat->toArray());
 
-        if(!is_not_wx() && empty($userid)){
+        if(!is_not_wx() && empty($unionId)){
             //如果当前浏览器是微信浏览器,并且当前为未登录状态
             //重定向至微信,采用网页授权获取用户基本信息接口获取code
 
@@ -31,18 +31,21 @@ class MallController extends Yaf\Controller_Abstract {
         }
 
         $this->user = session('user_auth');
-        if($userid && intval($this->user['subscribe']) < 1){
+        if($unionId && intval($this->user['subscribe']) < 1){
             //如果该用户还未关注公众号,每次都去数据库中读取一次看看是否已经关注了
-            $field = [
-                'openid',
-                'userid',
-                'nickname',
-                'headimgurl',
-                'unionid',
-                'subscribe',
-            ];
-            $this->user = M('t_wx_user')->get($field,['unionid'=>$this->user['unionid']]);
-            session('user_auth',$this->user);
+            $curl = new Curl();
+            $resp = $curl->setData(['openId'=>$this->user['openid']])->send('userCenter/user/query');
+
+            if(!empty($resp) && $resp['errcode'] == 0 && !empty($resp['result'])){
+
+                $user_info = $resp['result']['wxInfo'];
+                $user_info['isMember'] = $resp['result']['isMember'];
+                if(is_array($resp['result']['userInfo'])){
+                    $this->user = array_merge($user_info,$resp['result']['userInfo']);
+
+                    session('user_auth',$this->user);
+                }
+            }
         }
 
         $js_ticket = $this->wechat->getJsTicket();
