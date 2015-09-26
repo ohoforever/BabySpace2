@@ -48,6 +48,7 @@ public class UserServiceImpl implements UserService{
 		if(StringUtils.isNotBlank(body.getOpenId())){
 			wxUser=wxUserDao.selectByOpenId(body.getOpenId());
 			if(wxUser!=null){
+				wxInfo.setSex(wxUser.getSex());
 				wxInfo.setWxId(wxUser.getUserid());
 				wxInfo.setNickname(wxUser.getNickname());
 				wxInfo.setOpenid(wxUser.getOpenid());

@@ -2,7 +2,7 @@
 
 <block name="body">
     <!-- 标题栏 -->
-    <div class="page-header">
+    <!--<div class="page-header">
         <h1>
             列表
             <small>
@@ -10,7 +10,7 @@
                  {$model['title']}
             </small>
         </h1>
-    </div>
+    </div>-->
     <!-- 数据列表 -->
     <div class="table-responsive">
         <div class="dataTables_wrapper">  

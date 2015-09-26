@@ -5,7 +5,7 @@
     <id column="userid" property="userid" jdbcType="INTEGER" />
     <result column="openid" property="openid" jdbcType="CHAR" />
     <result column="nickname" property="nickname" jdbcType="VARCHAR" />
-    <result column="sex" property="sex" jdbcType="TINYINT" />
+    <result column="sex" property="sex" jdbcType="VARCHAR" />
     <result column="language" property="language" jdbcType="CHAR" />
     <result column="city" property="city" jdbcType="VARCHAR" />
     <result column="province" property="province" jdbcType="VARCHAR" />
@@ -70,7 +70,7 @@
       qr_ticket, qr_expire_seconds, qr_create_time, 
       privilege)
     values (#{userid,jdbcType=INTEGER}, #{openid,jdbcType=CHAR}, #{nickname,jdbcType=VARCHAR}, 
-      #{sex,jdbcType=TINYINT}, #{language,jdbcType=CHAR}, #{city,jdbcType=VARCHAR}, #{province,jdbcType=VARCHAR}, 
+      #{sex,jdbcType=VARCHAR}, #{language,jdbcType=CHAR}, #{city,jdbcType=VARCHAR}, #{province,jdbcType=VARCHAR}, 
       #{country,jdbcType=VARCHAR}, #{headimgurl,jdbcType=VARCHAR}, #{subscribeTime,jdbcType=INTEGER}, 
       #{unionid,jdbcType=CHAR}, #{remark,jdbcType=VARCHAR}, #{subscribe,jdbcType=TINYINT}, 
       #{groupid,jdbcType=INTEGER}, #{addTime,jdbcType=TIMESTAMP}, #{updateTime,jdbcType=TIMESTAMP}, 
@@ -152,7 +152,7 @@
         #{nickname,jdbcType=VARCHAR},
       </if>
       <if test="sex != null" >
-        #{sex,jdbcType=TINYINT},
+        #{sex,jdbcType=VARCHAR},
       </if>
       <if test="language != null" >
         #{language,jdbcType=CHAR},
@@ -214,7 +214,7 @@
         nickname = #{nickname,jdbcType=VARCHAR},
       </if>
       <if test="sex != null" >
-        sex = #{sex,jdbcType=TINYINT},
+        sex = #{sex,jdbcType=VARCHAR},
       </if>
       <if test="language != null" >
         language = #{language,jdbcType=CHAR},
@@ -271,7 +271,7 @@
     update t_wx_user
     set openid = #{openid,jdbcType=CHAR},
       nickname = #{nickname,jdbcType=VARCHAR},
-      sex = #{sex,jdbcType=TINYINT},
+      sex = #{sex,jdbcType=VARCHAR},
       language = #{language,jdbcType=CHAR},
       city = #{city,jdbcType=VARCHAR},
       province = #{province,jdbcType=VARCHAR},
@@ -294,7 +294,7 @@
     update t_wx_user
     set openid = #{openid,jdbcType=CHAR},
       nickname = #{nickname,jdbcType=VARCHAR},
-      sex = #{sex,jdbcType=TINYINT},
+      sex = #{sex,jdbcType=VARCHAR},
       language = #{language,jdbcType=CHAR},
       city = #{city,jdbcType=VARCHAR},
       province = #{province,jdbcType=VARCHAR},

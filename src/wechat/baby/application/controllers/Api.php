@@ -103,15 +103,10 @@ class ApiController extends Yaf\Controller_Abstract  {
             case Wechat::EVENT_UNSUBSCRIBE:
                 //取消关注
                 $openId = $this->wechat->getRevFrom();
-                $curl = new Curl();
-                //开始自动完成用户注册
-                $resp = $curl
-                            ->setData(['subscribe'=>0,'openid'=>$openId])
-                            ->send('userCenter/info/save');
 
-                if(empty($resp) || $resp['errcode'] != '0'){
-
-                    SeasLog::error('取消关注的用户信息没保存成功!');
+                $model = new Model('t_wx_user');
+                if(!$model->update(['subscribe'=>0],['openid'=>$openId])){
+                    SeasLog::error('取消关注的用户信息保存失败!');
                 }
                 break;
         }

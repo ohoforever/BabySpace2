@@ -35,8 +35,19 @@ public class Appointment {
      * 宝宝出生年月
      */
     private Date babyBirthday;
+    
+    private Date insertTime;
+    
 
-    /**
+    public Date getInsertTime() {
+		return insertTime;
+	}
+
+	public void setInsertTime(Date insertTime) {
+		this.insertTime = insertTime;
+	}
+
+	/**
      * 家庭所有城市
      */
     private String city;

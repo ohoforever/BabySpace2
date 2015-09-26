@@ -78,7 +78,7 @@ public class CourseManagerServiceimpl implements CourseManagerService{
 		List<AttendClass> attends=attendClassDao.queryAddCourseOrder(body.getOrderId(),page);
 		for(AttendClass attend:attends){
 			history=new QueryBabyCourseHistoryDetailReturnVO();
-			history.setAttendTime(DateUtil.formatCommonDateorNull(attend.getInsertTime()));
+			history.setAttendTime(DateUtil.formatCommonDateorNull(attend.getActTime()));
 			history.setBabyName(body.getBabyName());
 			history.setClassName(attend.getClassname());
 			history.setCourseCount(attend.getCourseCount());

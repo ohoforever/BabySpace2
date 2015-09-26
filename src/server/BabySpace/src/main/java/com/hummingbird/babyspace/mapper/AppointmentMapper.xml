@@ -11,10 +11,11 @@
     <result column="city" property="city" jdbcType="VARCHAR" />
     <result column="district" property="district" jdbcType="VARCHAR" />
     <result column="union_id" property="unionId" jdbcType="INTEGER" />
+    <result column="insert_time" property="insertTime" jdbcType="DATE" />
   </resultMap>
   <sql id="Base_Column_List" >
     id, mobile_num, parent_name, baby_name, baby_sex, baby_birthday, city, district, 
-    union_id
+    union_id,insert_time
   </sql>
   <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
     select 
@@ -44,11 +45,11 @@
   <insert id="insert" parameterType="com.hummingbird.babyspace.entity.Appointment" >
     insert into t_khkf_appointment (id, mobile_num, parent_name, 
       baby_name, baby_sex, baby_birthday, 
-      city, district, union_id
+      city, district, union_id,insert_time
       )
     values (#{id,jdbcType=INTEGER}, #{mobileNum,jdbcType=VARCHAR}, #{parentName,jdbcType=VARCHAR}, 
       #{babyName,jdbcType=VARCHAR}, #{babySex,jdbcType=VARCHAR}, #{babyBirthday,jdbcType=DATE}, 
-      #{city,jdbcType=VARCHAR}, #{district,jdbcType=VARCHAR}, #{unionId,jdbcType=INTEGER}
+      #{city,jdbcType=VARCHAR}, #{district,jdbcType=VARCHAR}, #{unionId,jdbcType=INTEGER},#{insert_time,jdbcType=DATE}
       )
   </insert>
   <insert id="insertSelective" parameterType="com.hummingbird.babyspace.entity.Appointment" >
@@ -81,6 +82,9 @@
       <if test="unionId != null" >
         union_id,
       </if>
+      <if test="insert_time != null" >
+        insert_time,
+      </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides="," >
       <if test="id != null" >
@@ -109,6 +113,9 @@
       </if>
       <if test="unionId != null" >
         #{unionId,jdbcType=INTEGER},
+      </if>
+      <if test="insertTime != null" >
+        #{insertTime,jdbcType=DATE},
       </if>
     </trim>
   </insert>
@@ -139,6 +146,9 @@
       <if test="unionId != null" >
         union_id = #{unionId,jdbcType=INTEGER},
       </if>
+      <if test="insertTime != null" >
+        union_id = #{insertTime,jdbcType=DATE},
+      </if>
     </set>
     where id = #{id,jdbcType=INTEGER}
   </update>
@@ -152,6 +162,7 @@
       city = #{city,jdbcType=VARCHAR},
       district = #{district,jdbcType=VARCHAR},
       union_id = #{unionId,jdbcType=INTEGER}
+      insert_time = #{unionId,jdbcType=DATE}
     where id = #{id,jdbcType=INTEGER}
   </update>
 </mapper>
