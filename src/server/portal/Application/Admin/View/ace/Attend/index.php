@@ -82,7 +82,7 @@
 						<td>
                             <a href="<?=U('index',array('order_id'=>$vo['order_id']))?>">耗课历史</a> |
                             <a href="<?=U('edit',array('id'=>$vo['id']))?>">修改</a> |
-                            <a class="ajax-get confirm" href="<?=U('delete',array('id'=>$vo['id']))?>">删除</a>
+                            <a class="ajax-get confirm" href="<?=U('drop',array('id'=>$vo['id']))?>">删除</a>
 	                   </td>
 					</tr>
 					</volist>

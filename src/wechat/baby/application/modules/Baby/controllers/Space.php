@@ -25,6 +25,8 @@ class SpaceController extends MemberController {
         $this->layout->title = '成长时光';
 
         $page = intval($this->getRequest()->getQuery('page'));
+        $page = $page < 1 ? 1 : $page;
+
         $curl = new Curl();
         $resp = $curl->setData(['unionId'=>$this->user['unionId'],'pageIndex'=>$page,'pageSize'=>$this->config->application->pagenum])
             ->send('babyMature/queryBabyMatureList');
@@ -74,44 +76,54 @@ class SpaceController extends MemberController {
             ->send('babyCourse/course/queryBabyCourseList');
 
         $list = [];
-        $total = 0;
         if(!empty($resp) && $resp['errcode'] == '0'){
             $list = $resp['list'];
-            $total = $resp['total'];
         }
 
         $this->getView()->assign('list',$list);
-        $this->getView()->assign('total',$total);
     }
 
     /**
      * 课程详情
-     * @param int $id
+     * @param int $order_id
      */
-    public function courseDetailAction($id=0){
+    public function courseDetailAction($order_id=0){
 
-        $this->layout->meta_title = '成长时光';
-        $this->layout->title = '成长时光';
+        $this->layout->meta_title = '耗课历史';
+        $this->layout->title = '耗课历史';
 
-        if(empty($id)){
-            $this->error("ID不能为空！");
+        if(empty($order_id)){
+            $this->error("订单ID不能为空！");
         }
-        $page = intval($this->getRequest()->getQuery('page'));
+        $page = intval($this->getRequest()->getPost('page',0))+1;
 
         $data = [];
-        $data['schoolName'] = '全优加龙华校区';
-        $data['babyName'] = '王子';
-        $data['orderId'] = 'AC00201509241529098667';
+        $data['schoolName'] = '';
+        $data['babyName'] = '';
+        $data['orderId'] = $order_id;
         $data['pageIndex'] = $page;
-        $data['pageSize'] = $this->config->application->pagenum;
+        $data['pageSize'] = 6;
         $curl = new Curl();
         $resp = $curl->setData($data)
             ->send('babyCourse/queryBabyCourseHistoryList');
 
+        if(IS_AJAX){
+            if(empty($resp) || $resp['errcode'] != 0){
+                $this->error('数据列表为空!');
+            }
+            $html = $this->render('ajaxCourse',['list'=>$resp['list']]);
+
+            $this->ajaxReturn(['status'=>0,'html'=>$html,'list_total'=>count($resp['list']),'page'=>$page]);
+        }
+
         if(empty($resp) || $resp['errcode'] != '0'){
             $this->error('哎呀,出错了,数据没找到！');
-        }else{
-            $this->getView()->assign('item',$resp['result']);
         }
+
+
+        $this->getView()->assign('list',$resp['list']);
+        $this->getView()->assign('total',$resp['total']);
+        $this->getView()->assign('pageIndex',$page);
     }
+
 }

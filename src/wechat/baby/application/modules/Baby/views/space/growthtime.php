@@ -11,11 +11,10 @@
             <div class="cell date-cont">
                 <span class="date">
                     <?php
-                        $time = strtotime($item['matrueDate']);
                         if(date('Y') == $year){
-                            echo date('m-d',strtotime($item['matrueDate']));
+                            echo date('m.d',strtotime($item['matrueDate']));
                         }else{
-                            echo date('Y-m-d',strtotime($item['matrueDate']));
+                            echo date('Y.m.d',strtotime($item['matrueDate']));
                         }
                     ?>
                 </span>
@@ -70,7 +69,7 @@
                     <div class="comments-cont" id="comment-cont<?=$item['matureId']?>">
                         <?php foreach($item['comment'] as $comment):?>
                         <p senderId="<?=$comment['senderId']?>" item_id="<?=$item['matureId']?>" reply_to="<?=$item['senderId']?>" sender="<?=$comment['sender']?>">
-                            <strong class="color1"><?php //$comment['sender'];?></strong>：<?=$comment['content']?>
+                            <strong class="color1"><?=$comment['sender']?></strong>：<?=$comment['content']?>
                         </p>
                         <?php endforeach;?>
                     </div>
@@ -85,7 +84,7 @@
 </section>
 <div class="reply">
     <div class="table">
-        <div class="cell"><input type="text" id="comment-content" placeholder="回复" class="input2"></div>
+        <div class="cell"><input type="text" id="comment-content" placeholder="评论" class="input2"></div>
         <div class="cell reply-btncont">
             <input type="hidden" name="item_id" id="item_id" />
             <input type="hidden" name="reply_to" id="reply_to" />
@@ -98,6 +97,10 @@
         //comment
         $(document).on("click", '[data-toggle="comment"],.comments-cont p', function() {
             $("#item_id").val($(this).attr('item_id'));
+            var sender = $(this).attr('sender');
+            if(sender != null){
+                $("#comment-content").attr('placeholder','回复'+sender);
+            }
             $(".reply").show();
             $(".reply .input2").focus();
         });

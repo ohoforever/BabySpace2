@@ -12,7 +12,7 @@ class PublicController extends MallController {
         $this->layout->meta_title = '绑定账号';
         $this->layout->title = '绑定账号';
 
-        $this->success('绑定成功，点击<a href="/"> 返回首页 </a>');
+        $this->success('绑定成功，点击<a href="/"> 这里 返回首页</a>');
     }
     /**
      * 绑定家长账号
@@ -33,7 +33,7 @@ class PublicController extends MallController {
                 //将新的用户信息放入会话中
                 session('user_auth',$this->user);
 
-                $this->success('绑定成功！','/public/bindSuccess.html');
+                $this->success('绑定成功！','/index/bindSuccess.html');
             }else{
                 $this->error($resp['errmsg']);
             }
@@ -83,7 +83,6 @@ class PublicController extends MallController {
 
     public function createWxMenuAction(){
         $base_url = 'http://mm.mi360.me/';
-
         $newmenu =  [
                         "button"=>[
                                         [
@@ -100,14 +99,9 @@ class PublicController extends MallController {
                                             'name'=>'宝宝问答',
                                             'type'=>'view',
                                             'url'=>$this->wechat->getOauthRedirect($base_url.'callback/wxmenu','faq'),
-                                        ],
-                                        [
-                                            'name'=>'全优加',
-                                            'type'=>'view',
-                                            'url'=>$this->wechat->getOauthRedirect($base_url.'callback/wxmenu','index'),
                                         ]
-		                         ]
-                	];
+                                    ]
+                    ];
         $result = $this->wechat->createMenu($newmenu);
         var_dump($result);die;
     }
