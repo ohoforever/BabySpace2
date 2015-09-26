@@ -80,8 +80,11 @@ class AddcourseController extends AdminController {
             if(!is_numeric($data['mobile_num'])){
                 $this->error('请输入正确的手机号码');
             }
-            $data['baby_name'] = I('post.baby_name');
-            empty($data['baby_name']) && $this->error('请输入宝宝姓名');
+            $data['childId'] = I('post.childId');
+            if(empty($data['childId'])){
+                $data['baby_name'] = I('post.baby_name');
+                empty($data['baby_name']) && $this->error('请输入宝宝姓名');
+            }
             $data['baby_birthday'] = I('post.baby_birthday');
             empty($data['baby_birthday']) && $this->error('请输入宝宝生日');
 
@@ -374,7 +377,7 @@ class AddcourseController extends AdminController {
 	private function saveBaby($userid)
 	{
 		$child=[];
-		$child['baby_name'] = I('post.baby_name');
+
 		$child['baby_sex'] = I('post.baby_sex');
 		$child['baby_birthday'] = I('post.baby_birthday');
 		$childId = I('post.childId');
@@ -390,6 +393,7 @@ class AddcourseController extends AdminController {
 				$childId =false;
 			}
 		}else{
+            $child['baby_name'] = I('post.baby_name');
 			$child['user_id'] = $userid;
 			$childId=$yhglChild->add($child);
 		}

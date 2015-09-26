@@ -251,6 +251,7 @@ $(function(){
         autoclose:true
     });
 
+
 $('#reset-btn').click(function (){
                        $("#selectBaby").html('<input type="text" name="baby_name" value="" class="width-100" />');
                        $("input[type='text']").val('');
@@ -286,9 +287,16 @@ $('#reset-btn').click(function (){
                            _html+='<option value="'+child.id+'">'+child.baby_name+'</option>';
                        })
 
-                       _html+='</select>';
+                       _html+='</select>&nbsp;&nbsp;<span title="" data-placement="bottom" data-rel="tooltip" class="btn btn-info btn-xs tooltip-info" data-original-title="Bottm Info" id="addChild">+</span>';
+
+
+
                        //console.info(childInfo);
                        $("#selectBaby").html(_html);
+                       $('#addChild').click(function (){
+                           var _html='<input type="text" name="baby_name" value="" class="width-100" />';
+                           $("#selectBaby").html(_html);
+                       });
                        $('#childId').change(function(){
                            var obj = childInfo[this.value];
                            $("#baby_birthday").val(obj.baby_birthday);
@@ -318,6 +326,8 @@ $('#reset-btn').click(function (){
                 },
                 'json');
     });
+
+
 
 });
 </script>
