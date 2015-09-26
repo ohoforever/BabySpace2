@@ -12,6 +12,30 @@
  */
 
 /**
+ * @param $mobile
+ * @param $sms_code
+ * @return array
+ */
+function test_mobile_sms($mobile,$sms_code){
+
+    $return = '';
+
+    $my_code = session('MobileSmsCode');
+
+    if(empty($my_code) || !is_array($my_code)){
+        $return = '您还未获取短信验证码！';
+    }elseif($mobile != $my_code['mobile'] || $sms_code != $my_code['code']){
+        $return = '验证码不匹配！';
+    }elseif(time()-$my_code['time'] > 600){
+        $return = '验证码已过期！';
+    }
+    if(empty($return)){
+        session('MobileSmsCode',null);
+    }
+    return $return;
+}
+
+/**
  * 获取配置中的app信息
  * @return array
  */

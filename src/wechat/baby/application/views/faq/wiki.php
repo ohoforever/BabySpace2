@@ -14,18 +14,14 @@
             </form>
         </div>
         <div class="ask-list">
-            <ul>
-                <?php foreach($list as $item):?>
-                <li>
-                    <a href="/faq/wikiDetail/id/<?=$item['id']?>.html">
-                        <div class="ask-date blue"><?=$item['title']?></div>
-                        <div class="ask-cont">
-                            <?=$item['describe']?>
-                        </div>
-                    </a>
-                </li>
-                <?php endforeach;?>
+            <ul id="item-wrap">
+                <?php require_once 'ajaxWiki.php';?>
             </ul>
+            <input type="hidden" id="page" value="<?=$pageIndex?>" />
+            <input type="hidden" id="surplus" value="<?=$total-count($list)?>" />
         </div>
     </div>
 </section>
+<block name="script">
+    <script src="/js/scroll.page.js"></script>
+</block>

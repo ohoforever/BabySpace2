@@ -17,6 +17,10 @@ class IndexController extends MallController {
     * 对于如下的例子, 当访问http://yourhost/y/index/index/index/name/yantze 的时候, 你就会发现不同
     */
     public function indexAction(){
+        if(IS_AJAX){
+            $this->_getWonderfulList();
+        }
+
         //读取缓存
         $cache_name = ROOT_PATH.'/runtime/cache/'.md5($this->getMCA()).'.php';
         $this->layout->meta_title = '';
@@ -25,6 +29,7 @@ class IndexController extends MallController {
             $this->getResponse()->setBody(file_get_contents($cache_name));
             return false;
         }
+
         $curl = new Curl();
         $resp = $curl->setData(['unionId'=>$this->user['unionId'],'pageIndex'=>1,'pageSize'=>$this->config->application->pagenum])
                     ->send('advertisement/getAdvertisementList');
@@ -34,21 +39,48 @@ class IndexController extends MallController {
             $banners = $resp['list'];
         }
 
-        $resp = $curl->setData(['unionId'=>$this->user['unionId'],'pageIndex'=>1,'pageSize'=>$this->config->application->pagenum])
-                    ->send('babyWonderful/babyWonderfulList');
-
-        $wonderfulLs = [];
-        if(!empty($resp) && $resp['errcode'] == 0){
-            $wonderfulLs = $resp['list'];
-        }
+        $this->_getWonderfulList();
 
         $this->getView()->assign('banners',$banners);
-        $this->getView()->assign('wonderfulLs',$wonderfulLs);
 
         //生成缓存文件
         file_put_contents($cache_name,$this->render($this->getAction()));
     }
 
+    private function _getWonderfulList(){
+
+        $page = intval($this->getRequest()->getPost('page',0))+1;
+        $curl = new Curl();
+        $resp = $curl->setData(['unionId'=>$this->user['unionId'],'pageIndex'=>$page,'pageSize'=>$this->config->application->pagenum])
+                    ->send('babyWonderful/babyWonderfulList');
+
+        $list = [];
+        if(!empty($resp) && $resp['errcode'] == 0){
+            $list = $resp['list'];
+        }
+
+        if(IS_AJAX){
+            if(empty($list)){
+                $this->error('数据列表为空!');
+            }
+            $html = $this->render('ajaxWonderfull',['wonderfulLs'=>$list]);
+            $this->ajaxReturn(['status'=>0,'html'=>$html,'list_total'=>count($list),'page'=>$page]);
+        }
+
+        $this->getView()->assign('wonderfulLs',$list);
+        $this->getView()->assign('total',intval($resp['total']));
+        $this->getView()->assign('pageIndex',$page);
+    }
+
+    public function joinAction(){
+
+        $this->layout->meta_title = '现场扫码';
+        $this->layout->title = '现场扫码';
+
+        $this->getView()->assign('btn_text','注册参加');
+        $this->getResponse()->setBody($this->getView()->render('index/bespeak.php'));
+        return false;
+    }
     /**
      * 预约动作
      */
@@ -58,6 +90,13 @@ class IndexController extends MallController {
 
             //TODO 先验证手机验证码
             $data['mobileNum']  = trim($this->getRequest()->getPost('mobile'));
+
+            $smsCode = trim($this->getRequest()->getPost('sms_code'));
+
+            $msg = test_mobile_sms($data['mobileNum'],$smsCode);
+            if(!empty($msg)){
+                $this->error($msg);
+            }
 
             $data['babyName']   = trim($this->getRequest()->getPost('baby_name'));
             $tmp                = explode(':',trim($this->getRequest()->getPost('city')));
