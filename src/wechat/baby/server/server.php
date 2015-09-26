@@ -207,13 +207,13 @@ class HttpServer
             if(extension_loaded('Zend OPcache')){
                 opcache_reset();
             }
-            cli_set_process_title("swoole_mall:main");
+            cli_set_process_title("baby_swoole:main");
         });
 
         self::$server->on('WorkerStart' , array($this,'onWorkerStart'));
         
         self::$server->on('ManagerStart', function($serv) {
-            cli_set_process_title("swoole_mall:manager");
+            cli_set_process_title("baby_swoole:manager");
         });
         
         self::$server->on('Shutdown', function($serv) {
@@ -235,9 +235,9 @@ class HttpServer
 	        opcache_reset();
         }
 	    if ($worker_id >= $serv->setting['worker_num']) {
-	        cli_set_process_title("swoole_mall:task_worker");
+	        cli_set_process_title("baby_swoole:task_worker");
 	    } else {
-	        cli_set_process_title("swoole_mall:worker");
+	        cli_set_process_title("baby_swoole:worker");
 	    }
 	    //$serv->addtimer(300000);
 	}
