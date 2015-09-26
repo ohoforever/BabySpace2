@@ -3,6 +3,7 @@
 <block name="body">
 <?php $sex = ['MALE###'=>'男宝宝','FEMALE#'=>'女宝宝','UNKNOWN'=>'不详'];
 $baby_sex  = I('baby_sex');
+$status= ['CRT'=>'待开发','FLS'=>'开发失败','OK#'=>'开发完成'];
 ?>
      <div class="table-responsive">
         <div class="dataTables_wrapper">  
@@ -44,10 +45,11 @@ $baby_sex  = I('baby_sex');
 					<th class="">宝宝名称</th>
 					<th class="hidden-480">宝宝性别</th>
 					<th class="hidden-480">宝宝生日</th>
-					<th class="">所在城市</th>
+					<th class="hidden-480">所在城市</th>
 					<th class="">所在区域</th>
 					<th class="">用户级别</th>
 					<th class="hidden-480">候选人星数</th>
+					<th class="">开发状态</th>
 					<th class="">跟单人</th>
 					<th class="">操作</th>
 					</tr>
@@ -69,10 +71,11 @@ $baby_sex  = I('baby_sex');
 						<td>{$vo.baby_name}</td>
 						<td class="hidden-480"><?php echo $sex[$vo['baby_sex']];?></td>
 						<td class="hidden-480">{$vo.baby_birthday}</td>
-						<td>{$vo.city}</td>
+						<td class="hidden-480">{$vo.city}</td>
 						<td>{$vo.district}</td>
 						<td>{$vo.level}</td>
 						<td class="hidden-480">{$vo.star}</td>
+						<td><?php echo  $status[$vo['status']];?></td>
 						<td>{$vo.username}</td>
 						<td>
 						<a href="{:U('Custommanage/allocateinfo?id='.$vo['id'])}" >调配</a>
