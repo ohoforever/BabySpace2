@@ -45,7 +45,7 @@ $(function(){
     highlight_subnav('<?=U($active_menu)?>');
     <?php else:?>
     highlight_subnav('{:U('Model/index')}');
-
+    <?php endif;?>
 })
 </script>
 </block>

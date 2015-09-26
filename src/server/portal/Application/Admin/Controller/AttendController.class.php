@@ -16,6 +16,31 @@ use User\Api\UserApi;
  */
 class AttendController extends AdminController {
 
+    public function createqrcode(){
+
+        $course_count = I('get.course_count');
+        $class_name = I('get.class_name');
+        if(!empty($course_count) && !empty($class_name)){
+            Vendor('phpqrcode');
+//            $url = 'https://open.weixin.qq.com/connect/oauth2/authorize?appid=wxb88f2adbf549aa75&redirect_uri=%s&response_type=code&scope=snsapi_userinfo&state=index#wechat_redirect';
+            $api = new ApiService();
+            $redirect_url = "course_count=".$course_count.'&class_name='.$class_name;
+            $resp = $api->setApiUrl(C('APIURI.wechat'))
+                        ->setData(['params'=>$redirect_url])
+                        ->send('wechat/url/attend');
+
+            if(empty($resp) || $resp['errcode'] != '0'){
+                $this->error('哎呀，出错了，请重新再试或联系管理员！');
+            }
+
+            header('Content-type: application/png');
+            header('Content-Disposition: attachment; filename="test.png"');
+            echo \QRcode::png($resp['url'],false,QR_ECLEVEL_L,15,2);
+        }
+        $this->meta_title = '耗课列表查询';
+        $this->display();
+    }
+
     public function index($order_id = ''){
 
         $where = [];
@@ -64,7 +89,7 @@ class AttendController extends AdminController {
         $this->display();
     }
 
-    function delete($id=0){
+    function drop($id=0){
 
         if(empty($id)){
             $this->error('ID不能为空！');

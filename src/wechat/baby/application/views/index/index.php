@@ -28,7 +28,7 @@
                     <a href="javascript:;" class="right zan <?=$item['isUserLike'] ? 'on' : ''?>" item_id="<?=$item['recordId']?>"><i class="ico i-heart"></i> <span class="num"><?=$item['likeNum']?></span></a>
                 </div>
                 <div class="lesson-pic">
-                    <a href="/wonderfulL/detail/id/<?=$item['recordId']?>.html">
+                    <a href="/wonderfull/detail/id/<?=$item['recordId']?>.html">
                         <div class=" table">
                             <div class="cell lesson-img">
                                 <img src="<?=imageView2($item['pic'][0],235,235)?>" class="img">
