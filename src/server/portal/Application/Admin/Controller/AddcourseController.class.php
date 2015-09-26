@@ -75,6 +75,32 @@ class AddcourseController extends AdminController {
 
 	public function add($id = 0){
 		if(IS_POST){
+            $data['mobile_num'] = I('post.mobile_num');
+            empty($data['mobile_num']) && $this->error('请输入手机号码');
+            if(!is_numeric($data['mobile_num'])){
+                $this->error('请输入正确的手机号码');
+            }
+            $data['baby_name'] = I('post.baby_name');
+            empty($data['baby_name']) && $this->error('请输入宝宝姓名');
+            $data['baby_birthday'] = I('post.baby_birthday');
+            empty($data['baby_birthday']) && $this->error('请输入宝宝生日');
+
+            $data['school_name'] = I('post.school_name');
+            empty($data['school_name']) && $this->error('请输入学校名称');
+            $data['course_name'] = I('post.course_name');
+            empty($data['baby_birthday']) && $this->error('请输入课程名称');
+
+            $data['course_total'] = I('post.course_total');
+            empty($data['course_total']) && $this->error('请输入课程课时');
+            $data['course_amount'] = I('post.course_amount');
+            empty($data['course_amount']) && $this->error('请输入买课费用');
+
+            $data['course_price'] = I('post.course_price');
+            empty($data['course_price']) && $this->error('请输入课程单价');
+            $data['course_count'] = I('post.course_count');
+            empty($data['course_count']) && $this->error('请输入购买课时');
+            $data['given_count'] = I('post.given_count');
+            empty($data['given_count']) && $this->error('请输入赠送课时');
 			$this->_addCourse();
 		}
 		$this->meta_title = '报课';
@@ -85,6 +111,18 @@ class AddcourseController extends AdminController {
 		$orderid = I('order_id');
 		empty($orderid)  &&  $this->error('参数错误');
 		if(IS_POST){
+
+            $data['school_name'] = I('post.school_name');
+            empty($data['school_name']) && $this->error('请输入学校名称');
+            $data['course_name'] = I('post.course_name');
+            empty($data['baby_birthday']) && $this->error('请输入课程名称');
+
+            $data['course_count'] = I('post.course_count');
+            empty($data['course_count']) && $this->error('请输入退课课时');
+
+            $data['course_amount'] = I('post.course_amount');
+            empty($data['course_amount']) && $this->error('请输入退课费用');
+
 			$this->rejectSave();
 		}
 		$order = M('kcgl_add_course_order')->where("order_id='$orderid'")->find();
@@ -171,6 +209,33 @@ class AddcourseController extends AdminController {
 		$orderid = I('order_id');
 		empty($orderid)  &&  $this->error('参数错误');
 		if(IS_POST){
+
+            $data['mobile_num'] = I('post.mobile_num');
+            empty($data['mobile_num']) && $this->error('请输入手机号码');
+            if(!is_numeric($data['mobile_num'])){
+                $this->error('请输入正确的手机号码');
+            }
+            $data['baby_name'] = I('post.baby_name');
+            empty($data['baby_name']) && $this->error('请输入宝宝姓名');
+            $data['baby_birthday'] = I('post.baby_birthday');
+            empty($data['baby_birthday']) && $this->error('请输入宝宝生日');
+
+            $data['school_name'] = I('post.school_name');
+            empty($data['school_name']) && $this->error('请输入学校名称');
+            $data['course_name'] = I('post.course_name');
+            empty($data['baby_birthday']) && $this->error('请输入课程名称');
+
+            $data['course_total'] = I('post.course_total');
+            empty($data['course_total']) && $this->error('请输入课程课时');
+            $data['course_amount'] = I('post.course_amount');
+            empty($data['course_amount']) && $this->error('请输入买课费用');
+
+            $data['course_price'] = I('post.course_price');
+            empty($data['course_price']) && $this->error('请输入课程单价');
+            $data['course_count'] = I('post.course_count');
+            empty($data['course_count']) && $this->error('请输入购买课时');
+            $data['given_count'] = I('post.given_count');
+            empty($data['given_count']) && $this->error('请输入赠送课时');
 			$this->editSave();
 		}
 		$order = M('kcgl_add_course_order')->where("order_id='$orderid'")->find();
@@ -444,10 +509,10 @@ class AddcourseController extends AdminController {
 			$this->error('用户信息保存失败！');
 		}
 		$memberid = $this->saveMember($userid);
-		if($babyid===false)
+		if($memberid===false)
 		{
 			M()->rollback();
-			$this->error('宝宝信息保存失败！');
+			$this->error('会员信息保存失败！');
 		}
 		$babyid = $this->saveBaby($userid);
 		if($babyid===false)

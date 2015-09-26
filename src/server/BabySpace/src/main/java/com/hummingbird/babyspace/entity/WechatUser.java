@@ -18,7 +18,7 @@ public class WechatUser {
     /**
      * 性别
      */
-    private Byte sex;
+    private String sex;
 
     /**
      * 语言
@@ -138,7 +138,7 @@ public class WechatUser {
     /**
      * @return 性别
      */
-    public Byte getSex() {
+    public String getSex() {
         return sex;
     }
 
@@ -146,7 +146,7 @@ public class WechatUser {
      * @param sex 
 	 *            性别
      */
-    public void setSex(Byte sex) {
+    public void setSex(String sex) {
         this.sex = sex;
     }
 

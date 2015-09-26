@@ -128,33 +128,45 @@ public class UserCenterController extends BaseController{
 				wxUser=new WechatUser();
 				wxUser.setOpenid(body.getOpenid());
 				wxUser.setNickname(body.getNickname());
-				wxUser.setSex(Byte.valueOf(body.getSex()));
+				wxUser.setSex(body.getSex());
 				wxUser.setLanguage(body.getLanguage());
 				wxUser.setCity(body.getCity());
 				wxUser.setProvince(body.getProvince());
 				wxUser.setCountry(body.getCountry());
 				wxUser.setHeadimgurl(body.getHeadimgurl());
-				wxUser.setSubscribeTime(Integer.valueOf(body.getSubscribe_time()));
+				if(body.getSubscribe_time()!=null){
+					wxUser.setSubscribeTime(Integer.valueOf(body.getSubscribe_time()));
+				}
 				wxUser.setUnionid(body.getUnionid());
 				wxUser.setRemark(body.getRemark());
-				wxUser.setSubscribe(Byte.valueOf(body.getSubscribe()));
-				wxUser.setGroupid(Integer.valueOf(body.getGroupid()));
+				if(body.getSubscribe()!=null){
+					wxUser.setSubscribe(Byte.valueOf(body.getSubscribe()));
+				}
+				if(body.getGroupid()!=null){
+					wxUser.setGroupid(Integer.valueOf(body.getGroupid()));
+				}
 				wxUser.setPrivilege(body.getPrivilege());
 				wxUserDao.insert(wxUser);
 			}else{
 				wxUser.setOpenid(body.getOpenid());
 				wxUser.setNickname(body.getNickname());
-				wxUser.setSex(Byte.valueOf(body.getSex()));
+				wxUser.setSex(body.getSex());
 				wxUser.setLanguage(body.getLanguage());
 				wxUser.setCity(body.getCity());
 				wxUser.setProvince(body.getProvince());
 				wxUser.setCountry(body.getCountry());
 				wxUser.setHeadimgurl(body.getHeadimgurl());
-				wxUser.setSubscribeTime(Integer.valueOf(body.getSubscribe_time()));
+				if(body.getSubscribe_time()!=null){
+					wxUser.setSubscribeTime(Integer.valueOf(body.getSubscribe_time()));
+				}
 				wxUser.setUnionid(body.getUnionid());
 				wxUser.setRemark(body.getRemark());
-				wxUser.setSubscribe(Byte.valueOf(body.getSubscribe()));
-				wxUser.setGroupid(Integer.valueOf(body.getGroupid()));
+				if(body.getSubscribe()!=null){
+					wxUser.setSubscribe(Byte.valueOf(body.getSubscribe()));
+				}
+				if(body.getGroupid()!=null){
+					wxUser.setGroupid(Integer.valueOf(body.getGroupid()));
+				}
 				wxUser.setPrivilege(body.getPrivilege());
 				wxUserDao.updateByPrimaryKey(wxUser);
 			}

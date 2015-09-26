@@ -24,6 +24,10 @@ class WonderfulController extends ThinkController {
     }
 
     public function add(){
+        $data['title'] = I('post.title');
+        empty($data['title']) && $this->error('请输入活动标题');
+        $data['act_time'] = I('post.act_time');
+        empty($data['act_time']) && $this->error('请输入活动时间');
         $_POST['insert_time'] = time_format();
         $_POST['update_time'] = time_format();
         $_POST['operator'] = is_login();
@@ -32,6 +36,10 @@ class WonderfulController extends ThinkController {
     }
 
     public function edit($id = 0){
+        $data['title'] = I('post.title');
+        empty($data['title']) && $this->error('请输入活动标题');
+        $data['act_time'] = I('post.act_time');
+        empty($data['act_time']) && $this->error('请输入活动时间');
         $_POST['update_time'] = time_format();
         $_POST['operator'] = is_login();
         $this->assign('active_menu','wonderful/wonderfullist');
