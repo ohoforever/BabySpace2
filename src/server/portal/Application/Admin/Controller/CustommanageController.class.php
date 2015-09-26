@@ -45,6 +45,14 @@ class CustommanageController extends AdminController {
         $this->meta_title = '编辑客户信息';
         $this->display();
     }
+
+    public function info($id = 0){
+        empty($id) && $this->error('参数错误！');
+        $info = M('khkf_candidate')->field(true)->find($id);
+        $this->assign('item', $info);
+        $this->meta_title = '查看客户信息';
+        $this->display();
+    }
     public function add(){
         $this->meta_title = '添加客户信息';
         $this->display();

@@ -1,34 +1,19 @@
 <extend name="Public/base" />
 
 <block name="body">
-<?php $sex = ['MALE###'=>'男宝宝','FEMALE#'=>'女宝宝','UNKNOWN'=>'不详'];
-$baby_sex  = I('baby_sex');
-?>
      <div class="table-responsive">
         <div class="dataTables_wrapper">  
-            
             <div class="row">
                 <div class="col-sm-12">
                     <div class="search-form">
-	                    <label>
-	                        <a class="btn btn-sm btn-primary" href="{:U('add')}"><i class="icon-plus"></i>新增</a>
-	                    </label>
-	                    <label>
-	                        <a class="btn btn-sm btn-primary" href="{:U('batchadd')}"><i class="icon-plus"></i>批量导入</a>
-	                    </label>
-                        <label>家长名称
-                            <input type="text" class="search-input" name="parent_name" value="{:I('parent_name')}" placeholder="请输入家长名称">
+                        <label>年份
+                            <input type="text" class="search-input" name="stat_year" value="{$stat_year}" placeholder="请输入查询的年份">
                         </label>
-                        <label>宝宝性别
-				<select name="baby_sex" class="search-input" >
-					<option value="" >请选择</option>
-					<option value="MALE###" <?php echo $baby_sex=='MALE###'?'selected':''?> >男宝宝</option>
-					<option value="FEMALE#" <?php echo $baby_sex=='FEMALE#'?'selected':''?> >女宝宝</option>
-					<option value="UNKNOWN" <?php echo $baby_sex=='UNKNOWN'?'selected':''?> >不详</option>
-				</select>
+                        <label>月份
+                            <input type="text" class="search-input" name="stat_month" value="{$stat_month}" placeholder="请输入查询的月份">
                         </label>
                         <label>
-                            <button class="btn btn-sm btn-primary" type="button" id="search" url="{:U('index')}">
+                            <button class="btn btn-sm btn-primary" type="button" id="search" url="{:U('report/coursespend')}">
                                <i class="icon-search"></i>搜索
                             </button>
                         </label>
@@ -47,22 +32,35 @@ $baby_sex  = I('baby_sex');
                        </label>
                     </th>
 -->
-					<th class="">家长姓名</th>
-					<th class="">家长电话</th>
-					<th class="">宝宝名称</th>
-					<th class="hidden-480">宝宝性别</th>
-					<th class="hidden-480">宝宝生日</th>
-					<th class="">所在城市</th>
-					<th class="">所在区域</th>
-					<th class="hidden-480">用户级别</th>
-					<th class="hidden-480">候选人星数</th>
-					<th class="">操作</th>
-					</tr>
+					<th class="center" rowspan="3">月份</th>
+					<th class="center" rowspan="3">宝宝姓名</th>
+					<th class="center" rowspan="3">报课时间</th>
+					<th class="center" rowspan="3">报课节数</th>
+					<th class="center" rowspan="3">赠送节数</th>
+					<th class="center" rowspan="3">报课金额</th>
+					<th class="center" colspan="4">本月耗课</th>
+					<th class="center" colspan="4">未耗课</th>
+			        <tr>
+					<th class="center" colspan="2" >历史报课</th>
+					<th class="center" colspan="2">本月报课</th>
+					<th class="center" colspan="2" >历史报课</th>
+					<th class="center" colspan="2">本月报课</th>
+				</tr>
+			        <tr class="center">
+					<th class="center">节数</th>
+					<th class="center">金额</th>
+					<th class="center">节数</th>
+					<th class="center">金额</th>
+					<th class="center">节数</th>
+					<th class="center">金额</th>
+					<th class="center">节数</th>
+					<th class="center">金额</th>
+				</tr>
 			    </thead>
 			    <tbody>
 					<notempty name="_list">
 					<volist name="_list" id="vo">
-					<tr>
+					<tr class="center">
 <!--
                         <td class="center">
                             <label>
@@ -71,18 +69,20 @@ $baby_sex  = I('baby_sex');
                             </label>
                         </td>
 -->
-						<td><a href="{:U('Custommanage/info?id='.$vo['id'])}" >{$vo.parent_name} </a></td>
-						<td>{$vo.mobile_num}</td>
+						<td>{$vo.stat_year}年{$vo.stat_month}月</td>
 						<td>{$vo.baby_name}</td>
-						<td class="hidden-480"><?php echo $sex[$vo['baby_sex']];?></td>
-						<td class="hidden-480">{$vo.baby_birthday}</td>
-						<td>{$vo.city}</td>
-						<td>{$vo.district}</td>
-						<td class="hidden-480">{$vo.level}</td>
-						<td class="hidden-480">{$vo.star}</td>
-						<td>
-						<a href="{:U('Custommanage/edit?id='.$vo['id'])}" >编辑</a>
-						</td>
+						<td>{$vo.course_add_time}</td>
+						<td>{$vo.course_count}</td>
+						<td>{$vo.given_count}</td>
+						<td>{$vo.course_amount}</td>
+						<td>{$vo.before_course_count}</td>
+						<td>{$vo.before_course_amount}</td>
+						<td>{$vo.current_course_count}</td>
+						<td>{$vo.current_course_amount}</td>
+						<td>{$vo.before_course_left_count}</td>
+						<td>{$vo.before_course_left_amount}</td>
+						<td>{$vo.current_course_left_count}</td>
+						<td>{$vo.current_course_left_amount}</td>
 					</tr>
 					</volist>
 					<else/>
@@ -97,13 +97,11 @@ $baby_sex  = I('baby_sex');
 
 <block name="script">
 	<script src="__STATIC__/thinkbox/jquery.thinkbox.js"></script>
-
 	<script type="text/javascript">
 	//搜索功能
 	$("#search").click(function(){
 		var url = $(this).attr('url');
         var query  = $('.search-form').find('input').serialize();
-         query  += '&'+$('.search-form').find('select').serialize();
         query = query.replace(/(&|^)(\w*?\d*?\-*?_*?)*?=?((?=&)|(?=$))/g,'');
         query = query.replace(/^&/g,'');
         if( url.indexOf('?')>0 ){
@@ -122,6 +120,5 @@ $baby_sex  = I('baby_sex');
 		}
 	});
     //导航高亮
-    highlight_subnav('{:U('custommanage/index')}');
 	</script>
 </block>
