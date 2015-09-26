@@ -12,7 +12,7 @@ class PublicController extends MallController {
         $this->layout->meta_title = '绑定账号';
         $this->layout->title = '绑定账号';
 
-        $this->success('绑定成功，点击<a href="/"> 这里 返回首页</a>');
+        $this->success('<a href="/">绑定成功，点击这里返回首页</a>');
     }
     /**
      * 绑定家长账号
@@ -24,6 +24,11 @@ class PublicController extends MallController {
             $data['mobileNum'] = trim($this->getRequest()->getPost('mobile'));
             $smsCode = trim($this->getRequest()->getPost('sms_code'));
 
+            $msg = test_mobile_sms($data['mobileNum'],$smsCode);
+            if(!empty($msg)){
+                $this->error($msg);
+            }
+
             $data['unionId'] = $this->user['unionId'];
 
             $curl = new Curl();
@@ -33,7 +38,7 @@ class PublicController extends MallController {
                 //将新的用户信息放入会话中
                 session('user_auth',$this->user);
 
-                $this->success('绑定成功！','/index/bindSuccess.html');
+                $this->success('绑定成功！','/public/bindSuccess.html');
             }else{
                 $this->error($resp['errmsg']);
             }
@@ -65,14 +70,14 @@ class PublicController extends MallController {
         $data['mobileNum']  = $mobileNum;
         $data['content']    = sprintf($data['content'],$code);
 
-//        $curl = new Curl();
-//        $resp = $curl->setApiUrl($url)->setData2($data,false)->send('');
+        $curl = new Curl();
+        $resp = $curl->setApiUrl($url)->setData2($data,false)->send('');
 
-        $resp = ['errcode'=>0];
+//        $resp = ['errcode'=>0];
         if($resp['errcode'] == 0){
 
             //将短信验证码、手机、创建时间保存至会话中
-            session('bindSmsCode',['code'=>$code,'time'=>time(),'mobile'=>$mobileNum]);
+            session('MobileSmsCode',['code'=>$code,'time'=>time(),'mobile'=>$mobileNum]);
             SeasLog::debug('短信验证码:'.var_export($code,true));
 
             $this->success('验证码发送成功！');

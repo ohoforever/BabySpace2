@@ -4,8 +4,8 @@
     <meta name="viewport" content="user-scalable=no, initial-scale=1.0, maximum-scale=1.0, width=device-width">
     <meta name="format-detection" content="telephone=no"/>
     <title>全优加<?=empty($meta_title) ? '' : '|' ?><?=$meta_title?></title>
-    <link rel="stylesheet" type="text/css" href="/css/reset.css"/>
-    <link rel="stylesheet" type="text/css" href="/css/main.css"/>
+    <link rel="stylesheet" type="text/css" href="/css/reset.css?<?=md5_file('css/reset.css')?>"/>
+    <link rel="stylesheet" type="text/css" href="/css/main.css?<?=md5_file('css/main.css')?>"/>
     <?php if(isset($block['style'])) echo $block['style']; ?>
 </head>
 
@@ -28,8 +28,8 @@
     </div>
 </div>
 <!--脚本加载-->
-<script type="text/javascript" src="/js/jquery.js"></script>
-<script type="text/javascript" src="/js/common.js"></script>
+<script type="text/javascript" src="/js/jquery.js?<?=md5_file('js/jquery.js')?>"></script>
+<script type="text/javascript" src="/js/common.js?<?=md5_file('js/common.js')?>"></script>
 <?php if(isset($block['script'])) echo $block['script']; ?>
 </body>
 </html>

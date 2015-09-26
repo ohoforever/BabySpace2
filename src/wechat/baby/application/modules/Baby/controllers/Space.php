@@ -122,7 +122,7 @@ class SpaceController extends MemberController {
 
 
         $this->getView()->assign('list',$resp['list']);
-        $this->getView()->assign('total',$resp['total']);
+        $this->getView()->assign('total',intval($resp['total']));
         $this->getView()->assign('pageIndex',$page);
     }
 

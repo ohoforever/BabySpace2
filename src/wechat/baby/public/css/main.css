@@ -186,10 +186,10 @@ header a{color:#808080;}
 /*7a*/
 .bg1{background:#ffcc33 url(../images/bg1.png) no-repeat center bottom;background-size: cover;}
 .class-sure-tit{background: #fff;border-radius: 0.25rem;color: #45b0e6;font-size: 0.7rem;line-height: 1.85rem;padding-left: 0.6rem;margin-bottom: 0.1rem;}
-.class-sure-txt{background: #fff;border-radius: 0.25rem;color: #808080;line-height: 1.25rem;font-size: 0.65rem;padding:0.4rem 0.6rem;margin-bottom: 1rem;}
-.class-sure-btn{display: table;width: 100%;}
+.class-sure-txt{background: #fff;border-radius: 0.25rem;color: #808080;line-height: 1.25rem;font-size: 0.65rem;padding:0.4rem 0.6rem;margin-bottom: 0.15rem;}
+.class-sure-btn{display: table;width: 100%; margin-bottom: 0.6rem;}
 .class-sure-btn .btn {padding-right: 1.25rem;}
-.class-sure-btn .btn:last-child{padding-right: 0;padding-left: 1.25rem;}
+.class-sure-btn .btn:last-child{padding-right: 0; margin-bottom: 0.5rem;}
 .btn2{background: #c4c4c4;color: #fff;border-radius: 0.25rem;font-size: 0.8rem;height:1.9rem;line-height: 1.9rem;border: none;width: 100%;display: block;}
 .btn3{background: #45b0e6;color: #fff;border-radius: 0.25rem;font-size: 0.8rem;height:1.9rem;line-height: 1.9rem;border: none;width: 100%;display: block;}
 .baby-list li{margin-bottom: 0.55rem;font-size: 0.7rem;line-height: 2.15rem;}

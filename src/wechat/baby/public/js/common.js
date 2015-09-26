@@ -1,8 +1,8 @@
 function show_error(msg,title){
-    show_box(msg,title,'#45b0e6')
+    show_box(msg,title,'#45b0e6');
 }
 function show_success(msg,title){
-    show_box(msg,title,'#62fc65')
+    show_box(msg,title,'#90ee7e');
 }
 function show_box(msg,title,color){
     $("#alert-content").html(msg);
@@ -90,7 +90,6 @@ $(function() {
         var item_id = $this.attr('item_id');
 		if (!$(this).hasClass('on')) {
             $.post('/wonderfull/praise.html',{item_id:item_id}, function (resp) {
-                console.info(resp);
                 if(resp.status == '0'){
                     $this.addClass('on');
                     $this.find('.num').html(Number(num) + 1)
