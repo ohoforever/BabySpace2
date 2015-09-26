@@ -106,7 +106,7 @@ class ApiController extends Yaf\Controller_Abstract  {
                 $curl = new Curl();
                 //开始自动完成用户注册
                 $resp = $curl
-                            ->setData(['subscribe'=>0,'openid'=>$openId,'update_time'=>time_format()])
+                            ->setData(['subscribe'=>0,'openid'=>$openId])
                             ->send('userCenter/info/save');
 
                 if(empty($resp) || $resp['errcode'] != '0'){

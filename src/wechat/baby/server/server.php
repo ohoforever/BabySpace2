@@ -112,7 +112,7 @@ class HttpServer
                 'open_tcp_keepalive'    => $config->open_tcp_keepalive, //启用tcp keepalive
                 'tcp_defer_accept'      => $config->tcp_defer_accept,   //当一个TCP连接有数据发送时才触发accept
                 'open_tcp_nodelay'      => $config->open_tcp_nodelay,   //开启后TCP连接发送数据时会无关闭Nagle合并算法，立即发往客户端连接。在某些场景下，如http服务器，可以提升响应速度。 
-                'log_file'              => ROOT_PATH . '/runtime/log/server_mall.log', //日志文件路径
+                'log_file'              => ROOT_PATH . '/runtime/log/baby_server.log', //日志文件路径
                 //'task_tmpdir'         => APP_PATH . '/data/task',
 			)
 		);

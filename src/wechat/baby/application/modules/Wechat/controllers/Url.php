@@ -31,7 +31,15 @@ class UrlController extends Yaf\Controller_Abstract  {
 
     public function attendAction(){
 
-        $forward = urlencode(DOMAIN.'/index/doAttend.html?'.$this->raw_data['params']);
+        $forward = urlencode(DOMAIN.'/scan/attend.html?'.$this->raw_data['params']);
+        $url = DOMAIN.'/callback/spread.html?forward='.$forward;
+
+        echo json_encode(['errcode'=>0,'errmsg'=>'成功！','url'=>$this->wechat->getShortUrl($this->wechat->getOauthRedirect($url,'','snsapi_base'))]);
+    }
+
+    public function bespeakAction(){
+
+        $forward = urlencode(DOMAIN.'/scan/bespeak.html');
         $url = DOMAIN.'/callback/spread.html?forward='.$forward;
 
         echo json_encode(['errcode'=>0,'errmsg'=>'成功！','url'=>$this->wechat->getShortUrl($this->wechat->getOauthRedirect($url,'','snsapi_base'))]);
