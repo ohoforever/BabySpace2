@@ -102,7 +102,7 @@ class SpaceController extends MemberController {
         $data['babyName'] = '';
         $data['orderId'] = $order_id;
         $data['pageIndex'] = $page;
-        $data['pageSize'] = $this->config->application->pagenum;
+        $data['pageSize'] = 6;
         $curl = new Curl();
         $resp = $curl->setData($data)
             ->send('babyCourse/queryBabyCourseHistoryList');

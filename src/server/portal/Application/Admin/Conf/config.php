@@ -17,7 +17,8 @@ return array(
         'appKey'=>'1234567890',
     ),
     'APIURI'               =>[
-                                'baby'=>'http://120.25.62.186:8094/if/'
+                                'baby'=>'http://120.25.62.186:8094/if/',
+                                'wechat'=>'http://115.29.7.155:9521/'
                             ],
     'URL_CASE_INSENSITIVE' => true, //默认false 表示URL区分大小写 true则表示不区分大小写
     

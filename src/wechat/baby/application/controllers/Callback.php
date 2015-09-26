@@ -104,7 +104,8 @@ class CallbackController extends Yaf\Controller_Abstract  {
                             'openid'=>$user_token['openid'],
 			                'nickname'=>'',
                             'sex'=>0,
-                            'unionid'=>$user_token['unionid'],
+                            'headimgurl'=>'',
+                            'unionId'=>$user_token['unionid'],
                             'subscribe' => -1
                         ];
         }

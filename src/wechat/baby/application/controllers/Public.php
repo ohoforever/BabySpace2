@@ -82,36 +82,7 @@ class PublicController extends MallController {
     }
 
     public function createWxMenuAction(){
-        $base_url = 'http://ttjy.mi360.me/';
-
-        $newmenu =  [
-                        "button"=>[
-                                        [
-                                            'name'=>'加油商城',
-                                            'type'=>'view',
-                                            'url'=>$this->wechat->getOauthRedirect($base_url.'callback/wxmenu','hot'),
-                                        ],
-                                        [
-                                            'name'=>'开店赚钱',
-                                            'sub_button'=>[
-                                                ['type'=>'view','name'=>'开店指南','url'=>'http://mp.weixin.qq.com/s?__biz=MzI3NjAxNzE3OA==&mid=208969664&idx=1&sn=2786b9892004f9471a2a0d7220936152&scene=5#rd'],
-                                                ['type'=>'view','name'=>'我要开店','url'=>$this->wechat->getOauthRedirect($base_url.'callback/wxmenu','kaidian')],
-                                                ['type'=>'view','name'=>'店铺推广海报','url'=>$this->wechat->getOauthRedirect($base_url.'callback/wxmenu','haibao')],
-                                                ['type'=>'view','name'=>'店铺推广链接','url'=>$this->wechat->getOauthRedirect($base_url.'callback/wxmenu','tglink')],
-                                            ]
-                                        ],
-                                        [
-                                            'name'=>'我的',
-                                            'sub_button'=>[
-                                                ['type'=>'view','name'=>'我的店铺','url'=>$this->wechat->getOauthRedirect($base_url.'callback/wxmenu','profit')],
-                                                ['type'=>'view','name'=>'我的订单','url'=>$this->wechat->getOauthRedirect($base_url.'callback/wxmenu','myorder')],
-                                                ['type'=>'view','name'=>'我的卡券','url'=>$this->wechat->getOauthRedirect($base_url.'callback/wxmenu','mycard')],
-                                                ['type'=>'view','name'=>'油站导航','url'=>$this->wechat->getOauthRedirect($base_url.'callback/wxmenu','near')],
-                                            ]
-                                        ],
-		                         ]
-                	];
-
+        $base_url = 'http://mm.mi360.me/';
         $newmenu =  [
                         "button"=>[
                                         [
