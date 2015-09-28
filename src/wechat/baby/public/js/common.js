@@ -10,6 +10,14 @@ function show_box(msg,title,color){
     $(".error-body").css('border-color',color);
     $("#error-box").fadeIn();
 }
+
+function goback(){
+    if(document.referrer == ''){
+        window.location = '/';
+    }else{
+        history.back();
+    }
+}
 $(function() {
     $(".ajax-form").submit(function(){
 
