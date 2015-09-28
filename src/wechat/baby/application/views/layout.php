@@ -13,7 +13,7 @@
 <?php if(isset($title)):?>
 <!--header-->
 <header>
-    <a href="javascript:history.go(-1);" class="head-left padm15"><i class="ico i-arr-left"></i> 返回</a>
+    <a href="<?=(isset($back_url) ? $back_url : 'javascript:history.go(-1);')?>" class="head-left padm15"><i class="ico i-arr-left"></i> 返回</a>
     <p class="head-txt"><?=$title?></p>
 </header>
 <?php endif;?>

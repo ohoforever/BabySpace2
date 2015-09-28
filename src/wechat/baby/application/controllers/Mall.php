@@ -62,6 +62,11 @@ class MallController extends Yaf\Controller_Abstract {
         $js_sign = $this->wechat->getJsSign($url);
 
         $this->layout->js_sign = $js_sign;
+        if(isset($_SERVER['HTTP_REFERER'])){
+            $this->layout->back_url = $_SERVER['HTTP_REFERER'];
+        }else{
+            $this->layout->back_url = '/';
+        }
     }
 
     protected function getMCA(){
