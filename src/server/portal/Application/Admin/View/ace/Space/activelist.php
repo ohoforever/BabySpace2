@@ -61,7 +61,7 @@
 						<td>{$vo.tag}</td>
 						<td>{$vo.act_time}</td>
 						<td>{$vo.insert_time}</td>
-						<td>{$vo.operator}</td>
+						<td>{$vo.username}</td>
 						<td>{$vo.share_title}</td>
 						<td>
 						<a href="{:U('space/activeedit?id='.$vo['id'])}">编辑</a>
