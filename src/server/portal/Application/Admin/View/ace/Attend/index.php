@@ -71,7 +71,7 @@
 					<notempty name="_list">
 					<volist name="_list" id="vo">
 					<tr>
-						<td class="hidden-480"><a href="<?=U('index',array('order_id'=>$vo['order_id']))?>"><?=$vo['order_id']?> </td>
+						<td class="hidden-480"><a href="<?=U('historylist',array('order_id'=>$vo['order_id']))?>"><?=$vo['order_id']?> </td>
 						<td><?=$vo['baby_name']?></td>
 						<td class="hidden-480"><?=getMonthNum($today,$vo['baby_birthday'])?></td>
 						<td><?=$vo['course_count']?></td>
@@ -80,7 +80,7 @@
 						<td class="hidden-480"><?=$vo['classname']?></td>
 						<td class="hidden-480"><?=$vo['school_name']?></td>
 						<td>
-                            <a href="<?=U('index',array('order_id'=>$vo['order_id']))?>">耗课历史</a> |
+                            <a href="<?=U('historylist',array('order_id'=>$vo['order_id']))?>">耗课历史</a> |
                             <a href="<?=U('edit',array('id'=>$vo['id']))?>">修改</a> |
                             <a class="ajax-get confirm" href="<?=U('drop',array('id'=>$vo['id']))?>">删除</a>
 	                   </td>
