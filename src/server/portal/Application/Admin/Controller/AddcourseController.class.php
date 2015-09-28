@@ -43,6 +43,7 @@ class AddcourseController extends AdminController {
 			$where['a.order_id'] = $order_id;
 		}
 
+		$where ['a.status']='OK#';
 		$prefix = C('DB_PREFIX');
 		$model = M()->table($prefix.'kcgl_add_course_order a')
 			->join($prefix.'yhgl_child c on a.child_id = c.id')
@@ -95,15 +96,20 @@ class AddcourseController extends AdminController {
 
 			$data['course_total'] = I('post.course_total');
 			empty($data['course_total']) && $this->error('请输入课程课时');
+			!is_numeric($data['course_total']) && $this->error('课程课时应为数字');
 			$data['course_amount'] = I('post.course_amount');
 			empty($data['course_amount']) && $this->error('请输入买课费用');
+			!is_numeric($data['course_amount']) && $this->error('课程费用应为数字');
 
 			$data['course_price'] = I('post.course_price');
 			empty($data['course_price']) && $this->error('请输入课程单价');
+			!is_numeric($data['course_price']) && $this->error('课程单价应为数字');
 			$data['course_count'] = I('post.course_count');
 			empty($data['course_count']) && $this->error('请输入购买课时');
+			!is_numeric($data['course_count']) && $this->error('购买课时应为数字');
 			$data['given_count'] = I('post.given_count');
-			empty($data['given_count']) && $this->error('请输入赠送课时');
+			(empty($data['given_count'])&& $data['given_count']==0) && $this->error('请输入赠送课时');
+			!is_numeric($data['given_count']) && $this->error('赠送课时应为数字');
 			$this->_addCourse();
 		}
 		$this->meta_title = '报课';
@@ -527,8 +533,10 @@ class AddcourseController extends AdminController {
 			$this->error('用户课程信息保存失败！');
 		}
 		$histroy = ['child_id'=>$babyid,'order_id'=>$courseid,'member_id'=>$memberid,'member_course_count'=>$userCourseleft,'type'=>'ADD'];
+		$yhglChild = M("yhgl_child");
+		$childData =$yhglChild->where(['id'=>$babyid])->find();
 		$histroy = $histroy +I('post.');
-
+		$histroy['course_amount']= $childData['baby_name'];
 		$histroy['course_amount']=$histroy['course_amount']*100;
 		$histroy['course_price']=$histroy['course_price']*100;
 		$courseid = $this->saveHistroy($histroy);

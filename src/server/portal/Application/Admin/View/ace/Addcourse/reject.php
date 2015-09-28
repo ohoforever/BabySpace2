@@ -8,7 +8,7 @@
 <div class="tabbable">
 
     <!-- 表单 -->
-    <form id="form" action="{:U('edit?id='.$order['order_id'])}" method="post" class="form-horizontal">
+    <form id="form" action="{:U('rejectSave?id='.$order['order_id'])}" method="post" class="form-horizontal">
     <div class="tab-content no-border padding-24">
         <!-- 基础文档模型 -->
 
