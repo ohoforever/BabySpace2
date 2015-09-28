@@ -1,3 +1,6 @@
+<div class="free">
+    <a href="/index/bespeak.html"><img class="img" src="/images/free.png"></a>
+</div>
 <!--main-->
 <section class="main padb110">
     <div class="swiper-container ppic">

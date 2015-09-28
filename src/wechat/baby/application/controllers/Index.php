@@ -157,6 +157,7 @@ class IndexController extends MallController {
             $this->layout->back_url = $_SERVER['HTTP_REFERER'];
         }else{
             $this->layout->back_url = '/';
+            $this->getView()->assign('show_yuyue',true);
         }
 
         if(empty($id)){
@@ -171,6 +172,7 @@ class IndexController extends MallController {
             $this->error('哎呀,出错了,数据没找到！');
         }else{
             $this->getView()->assign('item',$resp['result']);
+            $this->getView()->assign('user',$this->user);
         }
     }
 }

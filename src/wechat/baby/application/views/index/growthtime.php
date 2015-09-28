@@ -1,3 +1,9 @@
+<?php if(isset($show_yuyue) || intval($user['subscribe']) < 1):?>
+    <div class="free" style="bottom: 0;">
+        <a href="/index/bespeak.html"><img class="img" src="/images/free.png"></a>
+    </div>
+<?php endif;?>
+
 <!--main-->
 <section class="main">
 

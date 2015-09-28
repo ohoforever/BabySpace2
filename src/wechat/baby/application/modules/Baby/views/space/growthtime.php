@@ -119,7 +119,9 @@
             var reply_to = $("#reply_to").val();
             $.post('/baby/space/comment.html',{item_id:item_id,content:content,reply_to:reply_to},function(resp){
                 if(resp.status == '0'){
-
+                    show_success('评论成功！');
+                }else{
+                    show_error(resp.msg);
                 }
             })
             $(".reply").hide();
