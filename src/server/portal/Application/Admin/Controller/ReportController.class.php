@@ -30,17 +30,20 @@ class  ReportController extends AdminController {
 		if(empty(I('sdate')))
 		{
 			$sdate = date('Y-m-01');
-			$map['stat_date'] = ['EGT',$sdate];
+			//$map['stat_date'] = ['EGT',$sdate];
+			$where = "stat_date >='$sdate' ";
 		}else{
 			$sdate = I('sdate'); 
-			$map['stat_date'] = ['EGT',$sdate];
+			//$map['stat_date'] = ['EGT',$sdate];
+			$where = " stat_date >='$sdate' ";
 		}
 		if(!empty(I('edate')))
 		{
 			$edate = I('edate'); 
-			$map['etat_date'] = ['ELT',$edate];
+			$where .= " and stat_date <='$edate' ";
+			//$map['stat_date'] = ['ELT',$edate];
 		}
-		$list =$this->lists('tjfx_candidate_add_daily',$map ,'stat_date desc');
+		$list =$this->lists('tjfx_candidate_add_daily',$where,'stat_date desc');
 		$this->assign('_list', $list);
 		$this->assign('sdate', $sdate);
 		$this->assign('edate', $edate);
@@ -53,18 +56,21 @@ class  ReportController extends AdminController {
 		if(empty(I('sdate')))
 		{
 			$sdate = date('Y-m-01');
-			$map['stat_date'] = ['EGT',$sdate];
+			$where = " stat_date >='$sdate' ";
+			//$map['stat_date'] = ['EGT',$sdate];
 		}else{
 			$sdate = I('sdate'); 
-			$map['stat_date'] = ['EGT',$sdate];
+			$where = " stat_date >='$sdate' ";
+			//$map['stat_date'] = ['EGT',$sdate];
 		}
 		if(!empty(I('edate')))
 		{
 			$edate = I('edate'); 
-			$map['etat_date'] = ['ELT',$edate];
+			//$map['etat_date'] = ['ELT',$edate];
+			$where .= " and  stat_date <='$edate' ";
 		}
 		$m  = M('tjfx_share_stat_hourly')->group('stat_date');
-		$list =$this->lists($m ,$map,'stat_date desc',"sum(baby_wonderful_share_count) as baby_wonderful_share_count,sum(baby_mature_share_count) as baby_mature_share_count,sum(baby_appointment_share_count) as baby_appointment_share_count,stat_date");
+		$list =$this->lists($m ,$where,'stat_date desc',"sum(baby_wonderful_share_count) as baby_wonderful_share_count,sum(baby_mature_share_count) as baby_mature_share_count,sum(baby_appointment_share_count) as baby_appointment_share_count,stat_date");
 		$this->assign('_list', $list);
 		$this->assign('sdate', $sdate);
 		$this->assign('edate', $edate);
@@ -78,19 +84,22 @@ class  ReportController extends AdminController {
 		if(empty(I('sdate')))
 		{
 			$sdate = date('Y-m-01');
-			$map['stat_date'] = ['EGT',$sdate];
+			$where = " stat_date >='$sdate' ";
+			//$map['stat_date'] = ['EGT',$sdate];
 		}else{
 			$sdate = I('sdate'); 
-			$map['stat_date'] = ['EGT',$sdate];
+			//$map['stat_date'] = ['EGT',$sdate];
+			$where = " stat_date >='$sdate' ";
 		}
 		if(!empty(I('edate')))
 		{
 			$edate = I('edate'); 
-			$map['etat_date'] = ['ELT',$edate];
+			$where .= " and stat_date <='$edate' ";
+			//$map['etat_date'] = ['ELT',$edate];
 		}
 
 		$m  = M('tjfx_interlocution_hourly')->group('stat_date');
-		$list =$this->lists($m ,$map,'stat_date desc',"sum(question_count) as question_count,sum(answer_count) as answer_count ,stat_date");
+		$list =$this->lists($m ,$where,'stat_date desc',"sum(question_count) as question_count,sum(answer_count) as answer_count ,stat_date");
 		$this->assign('_list', $list);
 		$this->assign('sdate', $sdate);
 		$this->assign('edate', $edate);
