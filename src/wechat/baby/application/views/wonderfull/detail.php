@@ -41,8 +41,8 @@
             shareData = {
                 title: '<?=$item['shareTitle']?>',
                 desc: '<?=$item['shareContent']?>',
-                link: window.location,
-                imgUrl: '<?=empty($item['sharePic']) ? '/images/logo.jpg' : $item['sharePic']?>',
+                link: window.location.href,
+                imgUrl: '<?=(empty($item['sharePic']) ? DOMAIN.'/images/logo.jpg' : $item['sharePic'])?>',
                 fail: function (res) {
                     alert(JSON.stringify(res));
                 }
@@ -50,8 +50,8 @@
 
             shareTimeLineData = {
                 title: '<?=$item['shareContent']?>',
-                link: window.location,
-                imgUrl: '<?=empty($item['sharePic']) ? '/images/logo.jpg' : $item['sharePic']?>',
+                link: window.location.href,
+                imgUrl: '<?=(empty($item['sharePic']) ? DOMAIN.'/images/logo.jpg' : $item['sharePic'])?>',
                 fail: function (res) {
                     alert(JSON.stringify(res));
                 }

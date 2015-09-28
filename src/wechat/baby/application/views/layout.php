@@ -49,8 +49,8 @@
     var shareData = {
         title: '全优加',
         desc: '专注0-3岁的宝宝潜能开发，引领中国早期教育行业专业标准',
-        link: window.location,
-        imgUrl: '/images/logo.jpg',
+        link: window.location.href,
+        imgUrl: '<?=DOMAIN?>/images/logo.jpg',
         fail: function (res) {
             alert(JSON.stringify(res));
         }
@@ -58,8 +58,8 @@
 
     var shareTimeLineData = {
         title: '专注0-3岁的宝宝潜能开发，引领中国早期教育行业专业标准',
-        link: window.location,
-        imgUrl: '/images/logo.jpg',
+        link: window.location.href,
+        imgUrl: '<?=DOMAIN?>/images/logo.jpg',
         fail: function (res) {
             alert(JSON.stringify(res));
         }
