@@ -43,8 +43,8 @@
 			        <tr>
 					<th class="center" colspan="2" >历史报课</th>
 					<th class="center" colspan="2">本月报课</th>
-					<th class="center" colspan="2" >历史报课</th>
-					<th class="center" colspan="2">本月报课</th>
+					<th class="center" colspan="2" >历史耗课</th>
+					<th class="center" colspan="2">本月耗课</th>
 				</tr>
 			        <tr class="center">
 					<th class="center">节数</th>
@@ -74,15 +74,15 @@
 						<td>{$vo.course_add_time}</td>
 						<td>{$vo.course_count}</td>
 						<td>{$vo.given_count}</td>
-						<td>{$vo.course_amount}</td>
+						<td>{$vo.course_amount|price_format}</td>
 						<td>{$vo.before_course_count}</td>
-						<td>{$vo.before_course_amount}</td>
+						<td>{$vo.before_course_amount|price_format}</td>
 						<td>{$vo.current_course_count}</td>
-						<td>{$vo.current_course_amount}</td>
+						<td>{$vo.current_course_amount|price_format}</td>
 						<td>{$vo.before_course_left_count}</td>
-						<td>{$vo.before_course_left_amount}</td>
+						<td>{$vo.before_course_left_amount|price_format}</td>
 						<td>{$vo.current_course_left_count}</td>
-						<td>{$vo.current_course_left_amount}</td>
+						<td>{$vo.current_course_left_amount|price_format}</td>
 					</tr>
 					</volist>
 					<else/>
