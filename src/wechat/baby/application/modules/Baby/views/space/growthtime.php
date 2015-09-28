@@ -1,7 +1,15 @@
 <!--main-->
+<?php if(empty($list)):?>
+<section class="main">
+    <div class="padm54 padt40 padb90">
+        <div class="class-sure-tit">老师还没有为您的宝宝添加成长时光！</div>
+    </div>
+</section>
+<?php else:?>
 <section class="scroll">
     <!--lesson-->
     <div class="timeline padt40">
+
         <?php
             $year = date('Y');
             $class_list = ['bg-red','bg-blue'];
@@ -151,3 +159,4 @@
         });
     </script>
 </block>
+<?php endif;?>
