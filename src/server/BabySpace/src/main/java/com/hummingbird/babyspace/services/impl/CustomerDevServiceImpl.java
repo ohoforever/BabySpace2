@@ -88,10 +88,15 @@ public class CustomerDevServiceImpl implements CustomerDevService {
 	public void addCandidate(CandidateAddBodyVO body) throws BusinessException {
 		Candidate ca=new Candidate();
 		ca.setBabySex(body.getBabySex());
+		ca.setBabyName(body.getBabyName());
 		ca.setCity(body.getCity());
 		ca.setDistrict(body.getDistrict());
 		ca.setMobileNum(body.getMobileNum());
 		ca.setParentName(body.getUserName());
+		ca.setStar(1);
+		ca.setStatus("CRT");
+		ca.setInsertTime(new Date());
+		
 		if(StringUtils.isNotBlank(body.getBabyBirthday())){
 			try {
 				ca.setBabyBirthday(DateUtil.parse(body.getBabyBirthday()).getTime());
