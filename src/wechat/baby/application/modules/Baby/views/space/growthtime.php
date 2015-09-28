@@ -57,7 +57,7 @@
 								<i class="ico i-flower <?=($item['redflower'] > 4) ? 'on' : ''?>"></i>
 							</span>
                         <div class="right">
-                            <a href="javascript:;" data-toggle="share-btn"><i class="ico i-share"></i></a>
+                            <a href="javascript:;" data-toggle="share-btn" item_id="<?=$item['matureId']?>"><i class="ico i-share"></i></a>
                             <a href="javascript:;" data-toggle="comment" item_id="<?=$item['matureId']?>"><i class="ico i-comments"></i> <?=count($item['comment'])?></a>
                         </div>
                     </div>
@@ -105,6 +105,9 @@
             $(".reply .input2").focus();
         });
 
+
+        var data_list = <?php echo json_encode($list);?>;
+
         $(document).on("click", '[data-toggle="close-reply"]', function() {
 
             var content = $.trim($("#comment-content").val());
@@ -120,6 +123,25 @@
                 }
             })
             $(".reply").hide();
+        });
+
+        $(document).ready(function(){
+            $(".share_btn").click(function(){
+                var item_id = $(this).attr('item_id');
+                $.each(data_list,function(k,item){
+                    if(item.matureId == item_id){
+                        shareData.title = item.shareTitle;
+                        shareData.link = '<?=DOMAIN?>/index/index/growthtime/id/'+item_id+'.html'
+                        shareData.desc = item.shareContent;
+                        shareData.imgUrl = item.sharePic || '<?=DOMAIN?>/images/logo.jpg';
+
+                        shareTimeLineData.link = shareData.link;
+                        shareTimeLineData.title = shareData.desc;
+                        shareTimeLineData.imgUrl = shareData.imgUrl;
+                    }
+                })
+            })
+            $('.J_closeOrder').css('margin-right','10px');
         });
     </script>
 </block>

@@ -196,8 +196,7 @@ header a{color:#808080;}
 .baby-list li a{display: block;padding:0 1.125rem;background: #f0f0f0;color: #808080;height: auto;overflow: hidden;}
 .i-arr-right{width: 0.6rem;height: 0.85rem;background-position: -1.25rem 0;}
 .baby-list li .i-arr-right{margin-top: 0.75rem;}
-.share{background: rgba(0,0,0,.4);display: none;z-index: 4;position: fixed;left: 0;top:0;bottom: 0;right: 0;color: #fff;font-size: 0.7rem;line-height: 0.95rem;padding-top: 3.9rem;}
-.share .txt{position: absolute;left: 50%;white-space: nowrap;-webkit-transform: translate(-40%,0);transform: translate(-40%,0); font-size:20px;}
+.share{background: rgba(0,0,0,.4);display: none;z-index: 4;position: fixed;left: 0;top:0;bottom: 0;right: 0;padding: 1rem 8%;}
 
 /*lib*/
 .hei100{height: 100%;}

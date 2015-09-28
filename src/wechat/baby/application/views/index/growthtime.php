@@ -27,6 +27,25 @@
                 pagination: '.swiper-pagination',
                 paginationClickable: true
             });
+            
+            shareData = {
+                title: '<?=$item['shareTitle']?>',
+                desc: '<?=$item['shareContent']?>',
+                link: window.location.href,
+                imgUrl: '<?=(empty($item['sharePic']) ? DOMAIN.'/images/logo.jpg' : $item['sharePic'])?>',
+                fail: function (res) {
+                    alert(JSON.stringify(res));
+                }
+            };
+
+            shareTimeLineData = {
+                title: '<?=$item['shareContent']?>',
+                link: window.location.href,
+                imgUrl: '<?=(empty($item['sharePic']) ? DOMAIN.'/images/logo.jpg' : $item['sharePic'])?>',
+                fail: function (res) {
+                    alert(JSON.stringify(res));
+                }
+            };
         })
     </script>
 </block>

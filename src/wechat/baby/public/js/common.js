@@ -68,10 +68,7 @@ $(function() {
 	//share click
 	$(document).on("click", '[data-toggle="share-btn"]', function() {
 		var html = '<div class="share">\
-		<p class="txt">方法一：点击右上角┆图标<br>\
-		然后发送给朋友<br>\
-		或分享到朋友圈\
-		</p>\
+		<img src="/images/share.png" width="100%"/>\
 		</div>'
 		$(html).appendTo('.main,.scroll')
 		$(".share").fadeIn();
