@@ -1,16 +1,7 @@
 <extend name="Public/base"/>
 
 <block name="body">
-    <!-- 标题栏 -->
-    <div class="page-header">
-        <h1>
-            列表
-            <small>
-                <i class="icon-double-angle-right"></i>
-                 {$model['title']}
-            </small>
-        </h1>
-    </div>
+
     <!-- 数据列表 -->
     <div class="table-responsive">
         <div class="dataTables_wrapper">  
@@ -51,11 +42,7 @@
 $(function(){
 
     //导航高亮
-    <?php if(isset($active_menu)):?>
-    highlight_subnav('<?=U($active_menu)?>');
-    <?php else:?>
-    highlight_subnav('{:U('Model/index')}');
-    <?php endif;?>
+    highlight_subnav('{:U('encyclopedia/encyclopedialist')}');
 })
 </script>
 </block>

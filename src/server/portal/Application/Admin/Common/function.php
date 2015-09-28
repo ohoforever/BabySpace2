@@ -168,6 +168,7 @@ function get_list_field($data, $grid){
 
     // 获取当前字段数据
     foreach($grid['field'] as $field){
+        //var_dump($field);
         $array  =   explode('|',$field);
         $temp  =    $data[$array[0]];
         // 函数支持

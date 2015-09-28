@@ -105,7 +105,7 @@ public class CourseManagerServiceimpl implements CourseManagerService{
 		}
 		AddCourseOrder order= addCourOrderDao.selectByPrimaryKey(body.getOrderId());
 		//当前剩余课时数
-		Integer courseCount=order.getCourseTotal()-queryCourseCount(order.getOrderId());
+		Integer courseCount=order.getCourseCount()+order.getGivenCount()-queryCourseCount(order.getOrderId())-body.getCourseNum();
 		
 		AttendClass attend=new AttendClass();
 		attend.setActTime(new Date());
