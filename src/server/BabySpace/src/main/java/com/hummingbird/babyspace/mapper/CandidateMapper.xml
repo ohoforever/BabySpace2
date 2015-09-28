@@ -32,7 +32,7 @@
     from t_khkf_candidate
     where status='CRT'
     and current_assistant_id is null
-    and level in ('A','B','C')
+    and (level is null  or  level in ('A','B','C'))
   </select>
    <select id="selectByMobileNum" resultMap="BaseResultMap" parameterType="java.lang.String" >
     select 
