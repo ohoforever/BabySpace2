@@ -108,7 +108,7 @@ class AddcourseController extends AdminController {
 			empty($data['course_count']) && $this->error('请输入购买课时');
 			!is_numeric($data['course_count']) && $this->error('购买课时应为数字');
 			$data['given_count'] = I('post.given_count');
-			(empty($data['given_count'])&& $data['given_count']==0) && $this->error('请输入赠送课时');
+			(empty($data['given_count'])&& $data['given_count']!=0) && $this->error('请输入赠送课时');
 			!is_numeric($data['given_count']) && $this->error('赠送课时应为数字');
 			$this->_addCourse();
 		}
@@ -129,9 +129,11 @@ class AddcourseController extends AdminController {
 			$data['course_count'] = I('post.course_count');
 			empty($data['course_count']) && $this->error('请输入退课课时');
 
+            !is_numeric($data['course_count']) && $this->error('课时应为数字');
 			$data['course_amount'] = I('post.course_amount');
 			empty($data['course_amount']) && $this->error('请输入退课费用');
 
+            !is_numeric($data['course_amount']) && $this->error('退课费用应为数字');
 			$this->rejectSave();
 		}
 		$order = M('kcgl_add_course_order')->where("order_id='$orderid'")->find();
@@ -236,15 +238,21 @@ class AddcourseController extends AdminController {
 
 			$data['course_total'] = I('post.course_total');
 			empty($data['course_total']) && $this->error('请输入课程课时');
+            !is_numeric($data['course_total']) && $this->error('课程课时应为数字');
+
 			$data['course_amount'] = I('post.course_amount');
 			empty($data['course_amount']) && $this->error('请输入买课费用');
 
+            !is_numeric($data['course_amount']) && $this->error('买课费用应为数字');
 			$data['course_price'] = I('post.course_price');
 			empty($data['course_price']) && $this->error('请输入课程单价');
+            !is_numeric($data['course_price']) && $this->error('课程单价应为数字');
 			$data['course_count'] = I('post.course_count');
 			empty($data['course_count']) && $this->error('请输入购买课时');
+            !is_numeric($data['course_count']) && $this->error('课时应为数字');
 			$data['given_count'] = I('post.given_count');
 			empty($data['given_count']) && $this->error('请输入赠送课时');
+            !is_numeric($data['given_count']) && $this->error('赠送课时应为数字');
 			$this->editSave();
 		}
 		$order = M('kcgl_add_course_order')->where("order_id='$orderid'")->find();
