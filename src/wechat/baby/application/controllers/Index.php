@@ -173,6 +173,7 @@ class IndexController extends MallController {
             $this->layout->back_url = $_SERVER['HTTP_REFERER'];
         }else{
             $this->layout->back_url = '/';
+            $this->getView()->assign('show_yuyue',true);
         }
 
         if(empty($id)){

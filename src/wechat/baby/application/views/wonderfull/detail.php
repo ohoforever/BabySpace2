@@ -1,6 +1,3 @@
-<div class="free">
-    <a href="/index/bespeak.html"><img class="img" src="/images/free.png"></a>
-</div>
 <!--main-->
 <section class="main padb110">
     <div class="swiper-container ppic">
@@ -16,11 +13,14 @@
     </div>
 </section>
 <div class="footbar clear">
-    <a href="javascript:" class="zan <?=$item['isUserLike'] ? 'on' : ''?>" item_id="<?=$item['recordId']?>">
+    <a <?php if(isset($show_yuyue)) echo 'style="width: 33.3333%;"';?> href="javascript:" class="zan <?=$item['isUserLike'] ? 'on' : ''?>" item_id="<?=$item['recordId']?>">
         <i class="ico i-heart2"></i>
         <span class="num"><?=$item['likeNum']?></span>
     </a>
-    <a href="javascript:;" data-toggle="share-btn" ><i class="ico i-share2"></i></a>
+    <?php if(isset($show_yuyue)):?>
+    <a href="/index/bespeak.html" style="width: 33.3333%;">预约</a>
+    <?php endif;?>
+    <a <?php if(isset($show_yuyue)) echo 'style="width: 33.3333%;"';?> href="javascript:;" data-toggle="share-btn" ><i class="ico i-share2"></i></a>
 </div>
 
 <block name="script">

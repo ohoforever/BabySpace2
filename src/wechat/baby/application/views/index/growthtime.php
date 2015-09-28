@@ -14,8 +14,10 @@
             <?=$item['determine']?>
         </p>
         <div class="share-btn" style="width: 80%">
-            <a href="/index/bespeak.html" class="btn1" style="width: 45%; float: left;">免费预约</a>
-            <a href="javascript:;" class="btn1" data-toggle="share-btn" style="width: 45%; float: right;">分享</a>
+            <a href="javascript:;" class="btn1" data-toggle="share-btn" <?php if(isset($show_yuyue)) echo 'style="width: 45%; float: left;"';?>>分享</a>
+            <?php if(isset($show_yuyue)):?>
+            <a href="/index/bespeak.html" class="btn1" style="width: 45%; float: right;">免费预约</a>
+            <?php endif;?>
             <div style="clear: both;"></div>
         </div>
     </div>
