@@ -1,9 +1,3 @@
-<?php if(isset($show_yuyue) || intval($user['subscribe']) < 1):?>
-    <div class="free" style="bottom: 0;">
-        <a href="/index/bespeak.html"><img class="img" src="/images/free.png"></a>
-    </div>
-<?php endif;?>
-
 <!--main-->
 <section class="main">
 
@@ -19,7 +13,11 @@
         <p class="share-txt">
             <?=$item['determine']?>
         </p>
-        <div class="share-btn"><a href="javascript:;" class="btn1" data-toggle="share-btn">分享</a></div>
+        <div class="share-btn" style="width: 80%">
+            <a href="/index/bespeak.html" class="btn1" style="width: 45%; float: left;">免费预约</a>
+            <a href="javascript:;" class="btn1" data-toggle="share-btn" style="width: 45%; float: right;">分享</a>
+            <div style="clear: both;"></div>
+        </div>
     </div>
 </section>
 <block name="script">
