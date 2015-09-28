@@ -7,10 +7,26 @@
 */
 class IndexController extends MallController {
 
-    public function init(){
-        parent::init();
-    }
+    public function bannerAction($id=0){
 
+        $this->layout->meta_title = '广告';
+        $this->layout->title = '广告';
+
+        if(empty($id)){
+            $this->error("ID不能为空！");
+        }
+
+        $curl = new Curl();
+        $resp = $curl->setData(['advertisementId'=>intval($id)])
+            ->send('advertisement/getAdvertisementDetail');
+
+        if(empty($resp) || $resp['errcode'] != '0'){
+            $this->error('哎呀,出错了,数据没找到！');
+        }else{
+            $this->getView()->assign('item',$resp['result']);
+        }
+
+    }
     /**
     * 默认动作，首页
     * Yaf支持直接把Yaf\Request_Abstract::getParam()得到的同名参数作为Action的形参
@@ -157,6 +173,7 @@ class IndexController extends MallController {
             $this->layout->back_url = $_SERVER['HTTP_REFERER'];
         }else{
             $this->layout->back_url = '/';
+            $this->getView()->assign('show_yuyue',true);
         }
 
         if(empty($id)){

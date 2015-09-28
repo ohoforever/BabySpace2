@@ -4,7 +4,7 @@
         <div class="swiper-wrapper">
             <?php foreach($banners as $banner):?>
             <div class="swiper-slide">
-                <a href="<?=empty($banner['url']) ? '/banner/detail/id/'.$banner['id'].'.html' : $banner['url']?>">
+                <a href="<?=empty($banner['url']) ? '/index/index/banner/id/'.$banner['id'].'.html' : $banner['url']?>">
                     <img class="img" src="<?=imageView2($banner['pic'],640,291)?>">
                 </a>
             </div>
