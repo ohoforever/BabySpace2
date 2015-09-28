@@ -10,6 +10,7 @@
                         <div class="ask-date"><?=$item['questionTime']?></div>
                         <div class="ask-cont">
                             <p class="blue">问：<?=$item['title']?></p>
+                            <div class="desc"><?=$item['desc']?></div>
                             <div class="clear">
                                 <div class="left wid60">答：</div>
                                 <div class="auto"><?=$item['answer']?></div>

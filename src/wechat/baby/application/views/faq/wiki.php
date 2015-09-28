@@ -13,15 +13,19 @@
             </div>
             </form>
         </div>
+        <?php if(empty($list)):?>
+        <div class="class-sure-tit">没有找到与“<?=$keyword?>”相匹配的数据！</div>
+        <?php else:?>
         <div class="ask-list">
             <ul id="item-wrap">
                 <?php require_once 'ajaxWiki.php';?>
             </ul>
             <input type="hidden" id="page" value="<?=$pageIndex?>" />
             <input type="hidden" id="surplus" value="<?=$total-count($list)?>" />
+            <block name="script">
+                <script src="/js/scroll.page.js"></script>
+            </block>
         </div>
+        <?php endif;?>
     </div>
 </section>
-<block name="script">
-    <script src="/js/scroll.page.js"></script>
-</block>

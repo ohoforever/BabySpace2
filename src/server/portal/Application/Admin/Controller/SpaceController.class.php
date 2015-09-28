@@ -63,7 +63,8 @@ class SpaceController extends AdminController {
 			$map['insert_time']= array('<=', I('etime').' 23:59:59');
 		}
 		$map['child_id'] = $cid;
-		$list   =   $this->lists('bbkj_baby_mature', $map);
+		$mature = M("bbkj_baby_mature a")->join('t_ucenter_member t on a.operator=t.id');
+		$list   =   $this->lists($mature, $map,'insert_time desc ','a.*,t.username');
 		$this->assign('_list', $list);
 		$this->assign('cid', $cid);
 		$this->meta_title = '宝宝动态列表';

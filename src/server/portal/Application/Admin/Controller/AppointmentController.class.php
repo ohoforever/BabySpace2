@@ -8,6 +8,8 @@
 // +----------------------------------------------------------------------
 
 namespace Admin\Controller;
+use Admin\Service\ApiService;
+use User\Api\UserApi;
 
 /**
  * 行为控制器
@@ -55,11 +57,27 @@ class AppointmentController extends AdminController {
 		$this->meta_title = '生成预约二维码';
 		$this->display();
 	}
-	public function createQRfile(){
-		Vendor('phpqrcode');
-		$url = "http://baidu.com";
+	public function createQRfile($redo=''){
+		$qrfile = TEMP_PATH.'qrcode.png';
+		if(!file_exists($qrfile)||$redo=='true')
+		{
+			$api = new ApiService();
+			$resp = $api->setApiUrl(C('APIURI.wechat'))->setData(new \stdClass())->send('wechat/url/bespeak');
+			if(!empty($resp) && $resp['errcode'] == '0')
+			{
+				Vendor('phpqrcode');
+				$filecontent =  \QRcode::png($resp['url'],$qrfile,QR_ECLEVEL_L,9,true);
+				$filecontent =  @readfile($qrfile);
+			}else{
+				$filecontent = '';
+			}
+		}else{
+			$filecontent =  @readfile($qrfile);
+		}
+
 		header('Content-type: application/png'); 
 		header('Content-Disposition: attachment; filename="test.png"'); 
-		echo \QRcode::png($url,false,QR_ECLEVEL_L,9);
+
+		echo $filecontent;
 	}
 }

@@ -14,6 +14,7 @@ class SpaceController extends MemberController {
 
         $this->layout->meta_title = '宝宝空间';
         $this->layout->title = '宝宝空间';
+        $this->layout->back_url = '/';
     }
 
     /**
@@ -24,8 +25,7 @@ class SpaceController extends MemberController {
         $this->layout->meta_title = '成长时光';
         $this->layout->title = '成长时光';
 
-        $page = intval($this->getRequest()->getQuery('page'));
-        $page = $page < 1 ? 1 : $page;
+        $page = intval($this->getRequest()->getPost('page',0))+1;
 
         $curl = new Curl();
         $resp = $curl->setData(['unionId'=>$this->user['unionId'],'pageIndex'=>$page,'pageSize'=>$this->config->application->pagenum])
@@ -43,10 +43,10 @@ class SpaceController extends MemberController {
     }
 
     public function commentAction(){
-        $data = ['unionId'=>$this->user['unionId']];
-        $data['matureId'] = intval($this->getRequest()->getPost('item_id'));
-        $data['comment'] = trim(htmlspecialchars($this->getRequest()->getPost('content')));
-        $data['replyTo'] = $this->getRequest()->getPost('reply_to');
+        $data               = ['unionId'=>$this->user['unionId']];
+        $data['matureId']   = intval($this->getRequest()->getPost('item_id'));
+        $data['comment']    = trim(htmlspecialchars($this->getRequest()->getPost('content')));
+        $data['replyTo']    = $this->getRequest()->getPost('reply_to');
         if($data['comment'] == ''){
             $this->error('评论内容不能为空！');
         }
@@ -68,8 +68,8 @@ class SpaceController extends MemberController {
      */
     public function courseAction(){
 
-        $this->layout->meta_title = '宝宝课程';
-        $this->layout->title = '宝宝课程';
+        $this->layout->meta_title   = '宝宝课程';
+        $this->layout->title        = '宝宝课程';
 
         $curl = new Curl();
         $resp = $curl->setData(['unionId'=>$this->user['unionId']])
@@ -89,8 +89,8 @@ class SpaceController extends MemberController {
      */
     public function courseDetailAction($order_id=0){
 
-        $this->layout->meta_title = '耗课历史';
-        $this->layout->title = '耗课历史';
+        $this->layout->meta_title   = '耗课历史';
+        $this->layout->title        = '耗课历史';
 
         if(empty($order_id)){
             $this->error("订单ID不能为空！");
@@ -119,7 +119,6 @@ class SpaceController extends MemberController {
         if(empty($resp) || $resp['errcode'] != '0'){
             $this->error('哎呀,出错了,数据没找到！');
         }
-
 
         $this->getView()->assign('list',$resp['list']);
         $this->getView()->assign('total',intval($resp['total']));

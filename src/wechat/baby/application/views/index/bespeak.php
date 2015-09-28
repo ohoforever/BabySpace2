@@ -25,7 +25,7 @@
                             <label class="trigger" for="radio_1_1"><span>男</span></label>
                         </div>
                         <div class="radio-li">
-                            <input type="radio" name="baby_sex" class="radio" id="radio_1_2" value="FEMAIL#">
+                            <input type="radio" name="baby_sex" class="radio" id="radio_1_2" value="FEMALE#">
                             <label class="trigger" for="radio_1_2"> <span>女</span></label>
                         </div>
                     </div>

@@ -16,6 +16,7 @@ class FaqController extends MallController {
 
         $this->layout->meta_title = '宝宝问答';
         $this->layout->title = '宝宝问答';
+        $this->layout->back_url = '/';
     }
 
     /**
@@ -25,6 +26,7 @@ class FaqController extends MallController {
 
         $this->layout->meta_title = '在线问答';
         $this->layout->title = '在线问答';
+        $this->layout->back_url = '/faq/index.html';
 
         $page = intval($this->getRequest()->getQuery('page'));
         $page = $page < 1 ? 1 : $page;
@@ -76,8 +78,10 @@ class FaqController extends MallController {
     public function askSuccessAction(){
         $this->layout->meta_title = '在线问答';
         $this->layout->title = '提问成功';
+        $this->layout->back_url = '/faq/list.html';
 
         $this->getView()->assign('message','提问成功，我们会尽快答复您，感谢您的参与！');
+
         $this->getView()->display(APP_PATH.'views/success.php');
         return false;
     }

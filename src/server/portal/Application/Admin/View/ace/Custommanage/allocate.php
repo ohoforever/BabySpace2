@@ -3,6 +3,7 @@
 <block name="body">
 <?php $sex = ['MALE###'=>'男宝宝','FEMALE#'=>'女宝宝','UNKNOWN'=>'不详'];
 $baby_sex  = I('baby_sex');
+$status= ['CRT'=>'待开发','FLS'=>'开发失败','OK#'=>'开发完成'];
 ?>
      <div class="table-responsive">
         <div class="dataTables_wrapper">  
@@ -18,6 +19,14 @@ $baby_sex  = I('baby_sex');
                         </label>
                         <label>宝宝名称
                             <input type="text" class="search-input" name="baby_name" value="{:I('baby_name')}" placeholder="请输入宝宝名称">
+                        </label>
+                        <label>开发状态
+				<select name="status" class="search-input" >
+					<option value="" >请选择</option>
+					<option value="OK#" <?php echo $status=='OK##'?'selected':''?> >开发完成</option>
+					<option value="FLS" <?php echo $status=='FLS'?'selected':''?> >开发失败</option>
+					<option value="CRT" <?php echo $status=='CRT'?'selected':''?> >待开发</option>
+				</select>
                         </label>
                         <label>
                             <button class="btn btn-sm btn-primary" type="button" id="search" url="{:U('allocate')}">
@@ -44,10 +53,11 @@ $baby_sex  = I('baby_sex');
 					<th class="">宝宝名称</th>
 					<th class="hidden-480">宝宝性别</th>
 					<th class="hidden-480">宝宝生日</th>
-					<th class="">所在城市</th>
+					<th class="hidden-480">所在城市</th>
 					<th class="">所在区域</th>
 					<th class="">用户级别</th>
 					<th class="hidden-480">候选人星数</th>
+					<th class="">开发状态</th>
 					<th class="">跟单人</th>
 					<th class="">操作</th>
 					</tr>
@@ -65,14 +75,15 @@ $baby_sex  = I('baby_sex');
                         </td>
 -->
 						<td>{$vo.parent_name} </td>
-						<td>{$vo.mobile_num}</td>
+						<td><a href="{:U('Custommanage/allocateinfo?id='.$vo['id'])}">{$vo.mobile_num}</a></td>
 						<td>{$vo.baby_name}</td>
 						<td class="hidden-480"><?php echo $sex[$vo['baby_sex']];?></td>
 						<td class="hidden-480">{$vo.baby_birthday}</td>
-						<td>{$vo.city}</td>
+						<td class="hidden-480">{$vo.city}</td>
 						<td>{$vo.district}</td>
 						<td>{$vo.level}</td>
 						<td class="hidden-480">{$vo.star}</td>
+						<td><?php echo  $status[$vo['status']];?></td>
 						<td>{$vo.username}</td>
 						<td>
 						<a href="{:U('Custommanage/allocateinfo?id='.$vo['id'])}" >调配</a>
@@ -99,6 +110,7 @@ $baby_sex  = I('baby_sex');
 	$("#search").click(function(){
 		var url = $(this).attr('url');
         var query  = $('.search-form').find('input').serialize();
+         query  += '&'+$('.search-form').find('select').serialize();
         query = query.replace(/(&|^)(\w*?\d*?\-*?_*?)*?=?((?=&)|(?=$))/g,'');
         query = query.replace(/^&/g,'');
         if( url.indexOf('?')>0 ){

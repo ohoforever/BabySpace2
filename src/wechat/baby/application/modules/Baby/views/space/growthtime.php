@@ -1,7 +1,15 @@
 <!--main-->
+<?php if(empty($list)):?>
+<section class="main">
+    <div class="padm54 padt40 padb90">
+        <div class="class-sure-tit">老师还没有为您的宝宝添加成长时光！</div>
+    </div>
+</section>
+<?php else:?>
 <section class="scroll">
     <!--lesson-->
     <div class="timeline padt40">
+
         <?php
             $year = date('Y');
             $class_list = ['bg-red','bg-blue'];
@@ -57,7 +65,7 @@
 								<i class="ico i-flower <?=($item['redflower'] > 4) ? 'on' : ''?>"></i>
 							</span>
                         <div class="right">
-                            <a href="javascript:;" data-toggle="share-btn"><i class="ico i-share"></i></a>
+                            <a href="javascript:;" data-toggle="share-btn" item_id="<?=$item['matureId']?>"><i class="ico i-share"></i></a>
                             <a href="javascript:;" data-toggle="comment" item_id="<?=$item['matureId']?>"><i class="ico i-comments"></i> <?=count($item['comment'])?></a>
                         </div>
                     </div>
@@ -105,6 +113,9 @@
             $(".reply .input2").focus();
         });
 
+
+        var data_list = <?php echo json_encode($list);?>;
+
         $(document).on("click", '[data-toggle="close-reply"]', function() {
 
             var content = $.trim($("#comment-content").val());
@@ -116,10 +127,36 @@
             var reply_to = $("#reply_to").val();
             $.post('/baby/space/comment.html',{item_id:item_id,content:content,reply_to:reply_to},function(resp){
                 if(resp.status == '0'){
-
+                    show_success('评论成功！')
+                    setTimeout(function () {
+                        window.location = window.location;
+                    },1000)
+                }else{
+                    show_error(resp.msg);
                 }
             })
             $(".reply").hide();
         });
+
+        $(document).ready(function(){
+
+            $(document).on("click", '[data-toggle="share-btn"]', function() {
+                var item_id = $(this).attr('item_id');
+                $.each(data_list,function(k,item){
+                    if(item.matureId == item_id){
+                        shareData.title = item.shareTitle;
+                        shareData.link = '<?=DOMAIN?>/index/index/growthtime/id/'+item_id+'.html'
+                        shareData.desc = item.shareContent;
+                        shareData.imgUrl = item.sharePic || '<?=DOMAIN?>/images/logo.jpg';
+
+                        shareTimeLineData.link = shareData.link;
+                        shareTimeLineData.title = shareData.desc;
+                        shareTimeLineData.imgUrl = shareData.imgUrl;
+                    }
+                })
+            })
+            $('.J_closeOrder').css('margin-right','10px');
+        });
     </script>
 </block>
+<?php endif;?>

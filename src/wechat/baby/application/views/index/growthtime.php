@@ -13,7 +13,13 @@
         <p class="share-txt">
             <?=$item['determine']?>
         </p>
-        <div class="share-btn"><a href="javascript:;" class="btn1" data-toggle="share-btn">分享</a></div>
+        <div class="share-btn" style="width: 80%">
+            <a href="javascript:;" class="btn1" data-toggle="share-btn" <?php if(isset($show_yuyue)) echo 'style="width: 45%; float: left;"';?>>分享</a>
+            <?php if(isset($show_yuyue)):?>
+            <a href="/index/bespeak.html" class="btn1" style="width: 45%; float: right;">免费预约</a>
+            <?php endif;?>
+            <div style="clear: both;"></div>
+        </div>
     </div>
 </section>
 <block name="script">
@@ -27,6 +33,25 @@
                 pagination: '.swiper-pagination',
                 paginationClickable: true
             });
+            
+            shareData = {
+                title: '<?=$item['shareTitle']?>',
+                desc: '<?=$item['shareContent']?>',
+                link: window.location.href,
+                imgUrl: '<?=(empty($item['sharePic']) ? DOMAIN.'/images/logo.jpg' : $item['sharePic'])?>',
+                fail: function (res) {
+                    alert(JSON.stringify(res));
+                }
+            };
+
+            shareTimeLineData = {
+                title: '<?=$item['shareContent']?>',
+                link: window.location.href,
+                imgUrl: '<?=(empty($item['sharePic']) ? DOMAIN.'/images/logo.jpg' : $item['sharePic'])?>',
+                fail: function (res) {
+                    alert(JSON.stringify(res));
+                }
+            };
         })
     </script>
 </block>

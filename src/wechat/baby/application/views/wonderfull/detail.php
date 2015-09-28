@@ -17,6 +17,7 @@
         <i class="ico i-heart2"></i>
         <span class="num"><?=$item['likeNum']?></span>
     </a>
+    <a href="/index/bespeak.html">预约</a>
     <a href="javascript:;" data-toggle="share-btn" ><i class="ico i-share2"></i></a>
 </div>
 
@@ -37,6 +38,25 @@
                     for (var c = 0; c < a.slides.length; c++) es = a.slides[c].style, es.webkitTransitionDuration = es.MsTransitionDuration = es.msTransitionDuration = es.MozTransitionDuration = es.OTransitionDuration = es.transitionDuration = b + "ms"
                 }
             });
+
+            shareData = {
+                title: '<?=$item['shareTitle']?>',
+                desc: '<?=$item['shareContent']?>',
+                link: window.location.href,
+                imgUrl: '<?=(empty($item['sharePic']) ? DOMAIN.'/images/logo.jpg' : $item['sharePic'])?>',
+                fail: function (res) {
+                    alert(JSON.stringify(res));
+                }
+            };
+
+            shareTimeLineData = {
+                title: '<?=$item['shareContent']?>',
+                link: window.location.href,
+                imgUrl: '<?=(empty($item['sharePic']) ? DOMAIN.'/images/logo.jpg' : $item['sharePic'])?>',
+                fail: function (res) {
+                    alert(JSON.stringify(res));
+                }
+            };
         })
     </script>
 </block>
