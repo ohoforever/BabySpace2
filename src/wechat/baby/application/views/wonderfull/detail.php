@@ -37,6 +37,25 @@
                     for (var c = 0; c < a.slides.length; c++) es = a.slides[c].style, es.webkitTransitionDuration = es.MsTransitionDuration = es.msTransitionDuration = es.MozTransitionDuration = es.OTransitionDuration = es.transitionDuration = b + "ms"
                 }
             });
+
+            shareData = {
+                title: '<?=$item['shareTitle']?>',
+                desc: '<?=$item['shareContent']?>',
+                link: window.location,
+                imgUrl: '<?=empty($item['sharePic']) ? '/images/logo.jpg' : $item['sharePic']?>',
+                fail: function (res) {
+                    alert(JSON.stringify(res));
+                }
+            };
+
+            shareTimeLineData = {
+                title: '<?=$item['shareContent']?>',
+                link: window.location,
+                imgUrl: '<?=empty($item['sharePic']) ? '/images/logo.jpg' : $item['sharePic']?>',
+                fail: function (res) {
+                    alert(JSON.stringify(res));
+                }
+            };
         })
     </script>
 </block>
