@@ -14,6 +14,11 @@ class FaqController extends MallController {
     */
     public function indexAction(){
 
+        if(isset($_SERVER['HTTP_REFERER'])){
+            $this->layout->back_url = $_SERVER['HTTP_REFERER'];
+        }else{
+            $this->layout->back_url = '/';
+        }
         $this->layout->meta_title = '宝宝问答';
         $this->layout->title = '宝宝问答';
     }
@@ -86,26 +91,39 @@ class FaqController extends MallController {
      */
     public function wikiAction(){
 
-        $this->layout->meta_title = '知识宝库';
-        $this->layout->title = '知识宝库';
-
         $keyword = htmlspecialchars(trim($this->getRequest()->getQuery('keyword')));
-        if(!empty($keyword)){
-            $this->layout->meta_title = '搜索结果';
-            $this->layout->title = '搜索结果';
-        }
+
+        $page = intval($this->getRequest()->getPost('page',0))+1;
 
         $curl = new Curl();
-        $resp = $curl->setData(['pageIndex'=>0,'pageSize'=>$this->config->application->pagenum,'searchKeyword'=>$keyword])
+        $resp = $curl->setData(['pageIndex'=>$page,'pageSize'=>8,'searchKeyword'=>$keyword])
             ->send('knowledgeManager/encyclopedia/queryEncyclopediaList');
+
+        if(IS_AJAX){
+            if(empty($resp) || $resp['errcode'] != 0){
+                $this->error('数据列表为空!');
+            }
+            $html = $this->render('ajaxWiki',['list'=>$resp['list']]);
+
+            $this->ajaxReturn(['status'=>0,'html'=>$html,'list_total'=>count($resp['list']),'page'=>$page]);
+        }
 
         $list = [];
         if(!empty($resp) && $resp['errcode'] == '0'){
             $list = $resp['list'];
         }
 
+        $this->layout->meta_title = '知识宝库';
+        $this->layout->title = '知识宝库';
+        if(!empty($keyword)){
+            $this->layout->meta_title = '搜索结果';
+            $this->layout->title = '搜索结果';
+        }
+
         $this->getView()->assign('keyword',$keyword);
         $this->getView()->assign('list',$list);
+        $this->getView()->assign('total',intval($resp['total']));
+        $this->getView()->assign('pageIndex',$page);
     }
 
     /**

@@ -49,7 +49,7 @@
       )
     values (#{id,jdbcType=INTEGER}, #{mobileNum,jdbcType=VARCHAR}, #{parentName,jdbcType=VARCHAR}, 
       #{babyName,jdbcType=VARCHAR}, #{babySex,jdbcType=VARCHAR}, #{babyBirthday,jdbcType=DATE}, 
-      #{city,jdbcType=VARCHAR}, #{district,jdbcType=VARCHAR}, #{unionId,jdbcType=INTEGER},#{insert_time,jdbcType=DATE}
+      #{city,jdbcType=VARCHAR}, #{district,jdbcType=VARCHAR}, #{unionId,jdbcType=INTEGER},#{insertTime,jdbcType=DATE}
       )
   </insert>
   <insert id="insertSelective" parameterType="com.hummingbird.babyspace.entity.Appointment" >

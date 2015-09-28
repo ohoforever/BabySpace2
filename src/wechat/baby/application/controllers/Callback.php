@@ -33,7 +33,7 @@ class CallbackController extends Yaf\Controller_Abstract  {
         //本地调试用
 //        $user_token['openid'] = 'oITR0uAkXSsTgY2YaU2ItDN2kh7g';
 //        $user_token['unionid'] = 'olbkKt-8vkqpPod-N7i1SzSxddIo';
-        $user_token['scope'] = 'snsapi_userinfo';
+//        $user_token['scope'] = 'snsapi_base';
 
         if(empty($user_token) || !isset($user_token['openid'])){
             $this->redirect('/?status=get_user_token_faild');
@@ -100,9 +100,11 @@ class CallbackController extends Yaf\Controller_Abstract  {
             }
         }elseif(empty($user_info) && $user_token['scope'] == 'snsapi_base'){
             //未关注公众号的用户,也执行注册流程,只保存openid和unionid,其他内容置为默认项
+//            $this->redirect('');
             $user_info = [
                             'openid'=>$user_token['openid'],
 			                'nickname'=>'',
+                            'isMember'=>false,
                             'sex'=>0,
                             'headimgurl'=>'',
                             'unionId'=>$user_token['unionid'],

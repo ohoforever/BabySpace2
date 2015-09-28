@@ -1,7 +1,7 @@
 <!--main-->
 <section class="main">
     <div class="padm54 padt60">
-        <form id="FormDate" class="login-form ajax-form" action="" method="post">
+        <form id="FormDate" class="login-form ajax-form" action="/index/bespeak.html" method="post">
             <ul>
                 <li>
                     <input type="tel" name="mobile" id="mobile" class="input1" placeholder="输入手机号码">
@@ -69,7 +69,7 @@
                 </li>
 
                 <li class="padt30">
-                    <button type="submit" class="btn1">提交预约</button>
+                    <button type="submit" class="btn1"><?=isset($btn_text) ? $btn_text : '提交预约'?></button>
                 </li>
             </ul>
         </form>
@@ -80,7 +80,7 @@
     <script type="text/javascript">
         var area_list = [];
         $(function(){
-            $.getJSON('/public/district',function(data){
+            $.getJSON('/public/district.html',function(data){
                 //28是广东的代号
                 $.each(data[28],function(k,city){
                     addOption(FormDate.city,city[1],city[0]+':'+city[1]);

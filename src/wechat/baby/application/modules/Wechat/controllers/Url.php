@@ -22,7 +22,7 @@ class UrlController extends Yaf\Controller_Abstract  {
 
         $this->raw_data = json_to_array($this->getRequest()->getParam('raw_data'));
 
-        if(!isset($this->raw_data['body']) || empty($this->raw_data['body'])){
+        if(!isset($this->raw_data['body'])){
             throw new \Exception('{"errcode":10000,"errmsg":"body节点不能为空"}',10000);
         }
         $this->raw_data = $this->raw_data['body'];
