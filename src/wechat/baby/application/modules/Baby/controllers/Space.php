@@ -12,6 +12,12 @@ class SpaceController extends MemberController {
      */
     public function indexAction(){
 
+        if(isset($_SERVER['HTTP_REFERER'])){
+            $this->layout->back_url = $_SERVER['HTTP_REFERER'];
+        }else{
+            $this->layout->back_url = '/';
+        }
+
         $this->layout->meta_title = '宝宝空间';
         $this->layout->title = '宝宝空间';
     }

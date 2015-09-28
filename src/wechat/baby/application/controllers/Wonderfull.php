@@ -15,6 +15,11 @@ class WonderfullController extends MallController {
 
         $this->layout->meta_title = '宝贝精彩';
         $this->layout->title = '宝贝精彩';
+        if(isset($_SERVER['HTTP_REFERER'])){
+            $this->layout->back_url = $_SERVER['HTTP_REFERER'];
+        }else{
+            $this->layout->back_url = '/';
+        }
 
         if(empty($id)){
             $this->error("ID不能为空");

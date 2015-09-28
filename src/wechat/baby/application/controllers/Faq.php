@@ -14,6 +14,11 @@ class FaqController extends MallController {
     */
     public function indexAction(){
 
+        if(isset($_SERVER['HTTP_REFERER'])){
+            $this->layout->back_url = $_SERVER['HTTP_REFERER'];
+        }else{
+            $this->layout->back_url = '/';
+        }
         $this->layout->meta_title = '宝宝问答';
         $this->layout->title = '宝宝问答';
     }
