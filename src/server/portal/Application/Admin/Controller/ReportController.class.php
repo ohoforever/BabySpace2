@@ -38,7 +38,7 @@ class  ReportController extends AdminController {
 		if(!empty(I('edate')))
 		{
 			$edate = I('edate'); 
-			$map['stat_date'] = ['ELT',$edate];
+			$map['etat_date'] = ['ELT',$edate];
 		}
 		$list =$this->lists('tjfx_candidate_add_daily',$map ,'stat_date desc');
 		$this->assign('_list', $list);
@@ -61,7 +61,7 @@ class  ReportController extends AdminController {
 		if(!empty(I('edate')))
 		{
 			$edate = I('edate'); 
-			$map['stat_date'] = ['ELT',$edate];
+			$map['etat_date'] = ['ELT',$edate];
 		}
 		$m  = M('tjfx_share_stat_hourly')->group('stat_date');
 		$list =$this->lists($m ,$map,'stat_date desc',"sum(baby_wonderful_share_count) as baby_wonderful_share_count,sum(baby_mature_share_count) as baby_mature_share_count,sum(baby_appointment_share_count) as baby_appointment_share_count,stat_date");
@@ -86,7 +86,7 @@ class  ReportController extends AdminController {
 		if(!empty(I('edate')))
 		{
 			$edate = I('edate'); 
-			$map['stat_date'] = ['ELT',$edate];
+			$map['etat_date'] = ['ELT',$edate];
 		}
 
 		$m  = M('tjfx_interlocution_hourly')->group('stat_date');
