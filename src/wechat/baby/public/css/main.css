@@ -196,7 +196,7 @@ header a{color:#808080;}
 .baby-list li a{display: block;padding:0 1.125rem;background: #f0f0f0;color: #808080;height: auto;overflow: hidden;}
 .i-arr-right{width: 0.6rem;height: 0.85rem;background-position: -1.25rem 0;}
 .baby-list li .i-arr-right{margin-top: 0.75rem;}
-.share{background: rgba(0,0,0,.4);display: none;z-index: 4;position: fixed;left: 0;top:0;bottom: 0;right: 0;padding: 1rem 8%;}
+.share{background: rgba(0,0,0,.7);display: none;z-index: 4;position: fixed;left: 0;top:0;bottom: 0;right: 0;padding: 0 8%;}
 
 /*lib*/
 .hei100{height: 100%;}
