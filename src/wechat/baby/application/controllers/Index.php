@@ -159,6 +159,7 @@ class IndexController extends MallController {
     public function bespeakSuccessAction(){
         $this->layout->meta_title = '在线预约';
         $this->layout->title = '我要预约';
+        $this->layout->back_url = '/';
     }
 
     /**

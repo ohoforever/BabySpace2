@@ -11,6 +11,7 @@ class PublicController extends MallController {
 
         $this->layout->meta_title = '绑定账号';
         $this->layout->title = '绑定账号';
+        $this->layout->back_url = '/';
 
         $this->success('<a href="/">绑定成功，点击这里返回首页</a>');
     }
