@@ -12,7 +12,7 @@
         $options = array(
             'label_text'=>'课程名称',
         );
-        echo ace_input_m($options ,'class_name');
+        echo ace_input($options ,'class_name');
 
         echo ace_dropdown(['label_text'=>'请选择图片尺寸'],'img_size',[20=>'超大图',4=>小图,8=>'中图',14=>'大图']);
     ?>

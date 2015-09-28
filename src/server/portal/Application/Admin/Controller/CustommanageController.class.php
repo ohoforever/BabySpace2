@@ -105,10 +105,15 @@ class CustommanageController extends AdminController {
 	    {
 		    $map['baby_name']= array('like', '%'.I('baby_name').'%');
 	    }
-	    $map['c.status']    =   'CRT';
-	    $model = M('khkf_candidate c')->join('t_ucenter_member m on current_assistant_id=m.id')->field('c.*,m.username');
+	    if(!empty(I('status')))
+	    {
+		    $map['c.status']= I('status');
+	    }
+//	    $map['c.status']    =   'CRT';
+	    $model = M('khkf_candidate c')->join('t_ucenter_member m on current_assistant_id=m.id','left')->field('c.*,m.username');
 	    $list   =   $this->lists($model, $map,'update_time desc','c.*,m.username');
 	    $this->assign('_list', $list);
+	    $this->assign('status', I('status'));
 	    $this->meta_title = '调配客户列表';
 	    $this->display();
     }

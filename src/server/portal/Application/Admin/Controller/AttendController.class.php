@@ -20,7 +20,7 @@ class AttendController extends AdminController {
 
         $course_count = I('get.course_count');
         $class_name = I('get.class_name');
-        if(!empty($course_count) && !empty($class_name)){
+        if(!empty($course_count)){
             Vendor('phpqrcode');
 //            $url = 'https://open.weixin.qq.com/connect/oauth2/authorize?appid=wxb88f2adbf549aa75&redirect_uri=%s&response_type=code&scope=snsapi_userinfo&state=index#wechat_redirect';
             $api = new ApiService();
@@ -218,6 +218,7 @@ class AttendController extends AdminController {
             $data['childId']    = I('post.childId');
             $data['courseName'] = I('post.courseName');
             $data['courseNum']  = I('post.courseNum');
+	    (!is_numeric( $data['courseNum']) || $data['courseNum'] <0)&& $this->error('耗课节数应该大于零！');
             $data['orderId']    = I('post.orderId');
             $data['operator']   = is_login();
 

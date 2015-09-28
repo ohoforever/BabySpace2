@@ -23,7 +23,8 @@ class KnowledgeController extends ThinkController {
             if($status == '1'){
                 $map= 'answer is not null';
             }else{
-                $map['answer'] = null;
+                $map= 'answer is null';
+                //$map['answer'] = null;
             }
         }
         $model = M('zsgl_interlocution');

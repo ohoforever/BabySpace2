@@ -20,6 +20,14 @@ $status= ['CRT'=>'待开发','FLS'=>'开发失败','OK#'=>'开发完成'];
                         <label>宝宝名称
                             <input type="text" class="search-input" name="baby_name" value="{:I('baby_name')}" placeholder="请输入宝宝名称">
                         </label>
+                        <label>开发状态
+				<select name="status" class="search-input" >
+					<option value="" >请选择</option>
+					<option value="OK#" <?php echo $status=='OK##'?'selected':''?> >开发完成</option>
+					<option value="FLS" <?php echo $status=='FLS'?'selected':''?> >开发失败</option>
+					<option value="CRT" <?php echo $status=='CRT'?'selected':''?> >待开发</option>
+				</select>
+                        </label>
                         <label>
                             <button class="btn btn-sm btn-primary" type="button" id="search" url="{:U('allocate')}">
                                <i class="icon-search"></i>搜索
@@ -67,7 +75,7 @@ $status= ['CRT'=>'待开发','FLS'=>'开发失败','OK#'=>'开发完成'];
                         </td>
 -->
 						<td>{$vo.parent_name} </td>
-						<td>{$vo.mobile_num}</td>
+						<td><a href="{:U('Custommanage/allocateinfo?id='.$vo['id'])}">{$vo.mobile_num}</a></td>
 						<td>{$vo.baby_name}</td>
 						<td class="hidden-480"><?php echo $sex[$vo['baby_sex']];?></td>
 						<td class="hidden-480">{$vo.baby_birthday}</td>
@@ -102,6 +110,7 @@ $status= ['CRT'=>'待开发','FLS'=>'开发失败','OK#'=>'开发完成'];
 	$("#search").click(function(){
 		var url = $(this).attr('url');
         var query  = $('.search-form').find('input').serialize();
+         query  += '&'+$('.search-form').find('select').serialize();
         query = query.replace(/(&|^)(\w*?\d*?\-*?_*?)*?=?((?=&)|(?=$))/g,'');
         query = query.replace(/^&/g,'');
         if( url.indexOf('?')>0 ){
