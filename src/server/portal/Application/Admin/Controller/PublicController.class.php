@@ -85,18 +85,27 @@ class PublicController extends \Think\Controller {
      * 设置微信用户到会话中
      * @param int $wx_id
      */
-    public function setwxuser($wx_id=0){
+    public function autologin($wx_id=0){
         if(empty($wx_id)){
-            $this->error('ID不能为空','',true);
+            echo "jsonpCallback('ID不能为空')";
         }
         $wx_user = M('assistant_user')->where(['userid'=>$wx_id])->find();
-
+	
+        $domain = 'http://'.$_SERVER['HTTP_HOST'];
         if(!empty($wx_user)){
-            session('wx_user_info',$wx_user);
-            $this->success('成功','',true);
+            
+	    $user = M('ucenter_member')->where(['unionid'=>$wx_user['unionid']])->find();
+            if(!empty($user)){
+                //已经有绑定过用户,自动完成登录动作
+                echo "jsonpCallback(0,'".$domain.U('index/index')."')";
+            }else{
+                session('wx_user_info',$wx_user);
+                echo "jsonpCallback(0,'".$domain.U('public/bind')."')";
+            }
         }else{
-            $this->error('用户信息为空','',true);
+            echo "jsonpCallback(1,'')";
         }
+        die;
     }
 
     /**
