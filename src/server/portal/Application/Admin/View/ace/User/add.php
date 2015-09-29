@@ -11,6 +11,13 @@
         echo ace_input_m($options ,array('name'=>'username','class'=>'width-100'),'');
 
         $options = array(
+            'label_text'=>'手机号码',
+            'help'=>'用于找回密码和微信端绑定账号用',
+            'icon'=>'icon-mobile-phone'
+        );
+        echo ace_input_m($options ,array('name'=>'mobile','class'=>'width-100'),'');
+
+        $options = array(
             'label_text'=>'昵称',
             'help'=>'',
         );
