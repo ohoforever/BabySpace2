@@ -64,9 +64,13 @@ class AttendController extends AdminController {
             $where_string[] = "DATE_FORMAT(baby_birthday,'%Y-%m') = '".date('Y-m',strtotime("-$baby_age month"))."'";
         }
 
-        $month = I('month');
-        if(!empty($month)){
-            $where_string[] = "DATE_FORMAT(act_time,'%Y-%m') = '".date('Y-')."$month'";
+        $sdate = I('sdate');
+        if(!empty($sdate)){
+            $where_string[] = "act_time >= '$sdate'";
+        }
+        $edate = I('edate');
+        if(!empty($edate)){
+            $where_string[] = "act_time <= '$edate'";
         }
 
         if(!empty($where_string)){
