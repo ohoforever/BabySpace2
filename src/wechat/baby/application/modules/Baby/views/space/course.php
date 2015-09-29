@@ -5,7 +5,10 @@
             <ul>
                 <?php foreach($list as $item):?>
                 <li>
-                    <div class="ask-date"><span class="right"><?=date('Y-m-d',strtotime($item['updateTime']))?></span><?=$item['orderId']?></div>
+                    <div class="ask-date">
+                        <div><?=date('Y-m-d',strtotime($item['updateTime']))?></div>
+                        <div><?=$item['orderId']?></div>
+                    </div>
                     <div class="ask-cont">
                         <p class="txt1"><?=$item['courseName']?></p>
                         <p class="blue txt2">剩余<?=$item['courseCount']?>节课</p>

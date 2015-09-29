@@ -106,7 +106,10 @@ public class CourseManagerServiceimpl implements CourseManagerService{
 		AddCourseOrder order= addCourOrderDao.selectByPrimaryKey(body.getOrderId());
 		//当前剩余课时数
 		Integer courseCount=order.getCourseCount()+order.getGivenCount()-queryCourseCount(order.getOrderId())-body.getCourseNum();
-		
+		if(courseCount<0){
+			log.error("课程数不够");
+			throw new BusinessException(BusinessException.ERRCODE_REQUEST,"课程数不够,耗课失败");
+		}
 		AttendClass attend=new AttendClass();
 		attend.setActTime(new Date());
 		attend.setChildId(body.getChildId());
