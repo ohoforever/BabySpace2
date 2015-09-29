@@ -156,7 +156,10 @@ class PublicController extends \Think\Controller {
         }
 
         if(M('ucenter_member')->where(['id'=>$item['id']])->save(['unionid'=>$wx_user['unionid']])){
-            $this->success('绑定成功！');
+
+            $Member = D('Member');
+            $Member->login($item['id']);
+            $this->success('绑定成功！',U('index/index'));
         }else{
             $this->error('绑定失败，请重新再试或联系管理员！');
         }
