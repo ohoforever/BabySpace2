@@ -6,7 +6,16 @@
     <title>全优加</title>
 </head>
 <body>
-
-<script src="<?=$host?>admin.php?s=/public/setwxuser/wx_id/<?=$wx_user['userid']?>.html"></script>
+<script>
+    function jsonpCallback(status,url){
+        if(status == 0){
+            //alert(url);
+            window.location.href = url;
+        }else{
+            alert('登录失败，请返回重新再试！');
+        }
+    }
+</script>
+<script src="http://120.25.62.186:8089/admin.php?s=/public/autologin/wx_id/<?=$wx_user['userid']?>.html"></script>
 </body>
 </html>

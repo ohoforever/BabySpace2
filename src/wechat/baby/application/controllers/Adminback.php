@@ -24,11 +24,11 @@ class AdminbackController extends Yaf\Controller_Abstract  {
             die;
         }
 
-//        $user_token = $this->wechat->getOauthAccessToken($code);
+        $user_token = $this->wechat->getOauthAccessToken($code);
         //本地调试用
-        $user_token['openid'] = 'ozCgxuF_WRqY8RvETwnnc2y4Lf5g';
-        $user_token['unionid'] = 'olbkKt-8vkqpPod-N7i1SzSxddIo';
-        $user_token['scope'] = 'snsapi_base';
+//        $user_token['openid'] = 'ozCgxuF_WRqY8RvETwnnc2y4Lf5g';
+//        $user_token['unionid'] = 'olbkKt-8vkqpPod-N7i1SzSxddIo';
+//        $user_token['scope'] = 'snsapi_base';
 
         if(empty($user_token) || !isset($user_token['openid'])){
             $this->redirect('/?status=get_user_token_faild');
@@ -40,25 +40,8 @@ class AdminbackController extends Yaf\Controller_Abstract  {
 
     public function wxMenuAction(){
 
-        $host = 'http://babyadmin.lc.com/';
         $wx_user = $this->_wxAutoLogin();
         $this->getView()->assign('wx_user',$wx_user);
-        $this->getView()->assign('host',$host);
-
-        if(M('t_ucenter_member')->get('id',['unionid'])){
-
-            $state = $this->getRequest()->getQuery('state');
-
-            //根据state的值跳转到相应的页面
-            switch($state){
-
-                default:
-                    $this->getView()->assign('admin.php?s=/index/index.html');
-                    break;
-            }
-        }else{
-            $this->getView()->assign('admin.php?s=/public/bind.html');
-        }
 
         $this->getView()->display('adminback/wxmenu.php');
         die;
@@ -165,10 +148,15 @@ class AdminbackController extends Yaf\Controller_Abstract  {
                 //首先获取微信用户的详细信息
                 $userinfo = $this->wechat->getUserInfo($openId);
 
+                $model = M('t_assistant_user');
                 if(empty($userinfo)){
                     SeasLog::debug('靠,获取用户失败,此种情况应该不会出现,除非与微信通信失败了!');
-                }elseif(!M('t_assistant_user')->insert($userinfo)){
-                    Seaslog::error('出大事了，微信用户没有保存成功！');
+                }else{
+                    if($model->get('userid',['openid'=>$openId])){
+                        $model->update(['subscribe'=>1,'update_time'=>time_format()]);
+                    }elseif($model->insert($userinfo)){
+                        Seaslog::error('出大事了，微信用户没有保存成功！');
+                    }
                 }
                 
                 $this->wechat->text('欢迎关注！')->reply();

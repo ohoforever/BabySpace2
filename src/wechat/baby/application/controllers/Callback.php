@@ -29,11 +29,11 @@ class CallbackController extends Yaf\Controller_Abstract  {
             die;
         }
 
-      $user_token = $this->wechat->getOauthAccessToken($code);
+        $user_token = $this->wechat->getOauthAccessToken($code);
         //本地调试用
-        $user_token['openid'] = 'oITR0uAkXSsTgY2YaU2ItDN2kh7g';
-        $user_token['unionid'] = 'olbkKt-8vkqpPod-N7i1SzSxddIo';
-        $user_token['scope'] = 'snsapi_base';
+//        $user_token['openid'] = 'oITR0uAkXSsTgY2YaU2ItDN2kh7g';
+//        $user_token['unionid'] = 'olbkKt-8vkqpPod-N7i1SzSxddIo';
+//        $user_token['scope'] = 'snsapi_base';
 
         if(empty($user_token) || !isset($user_token['openid'])){
             $this->redirect('/?status=get_user_token_faild');
