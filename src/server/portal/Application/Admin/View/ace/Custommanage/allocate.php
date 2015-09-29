@@ -86,9 +86,11 @@ $status= ['CRT'=>'待开发','FLS'=>'开发失败','OK#'=>'开发完成'];
 						<td><?php echo  $status[$vo['status']];?></td>
 						<td>{$vo.username}</td>
 						<td>
+						<?php if($vo['status']=='CRT'){?>
 						<a href="{:U('Custommanage/allocateinfo?id='.$vo['id'])}" >调配</a>
 						<a href="{:U('Custommanage/setStatus?type=F&id='.$vo['id'])}" class="ajax-get confirm " >开发失败</a>
 						<a href="{:U('Custommanage/setStatus?type=S&id='.$vo['id'])}" class="ajax-get confirm" >开发完成</a>
+						<?php }?>
 						</td>
 					</tr>
 					</volist>
