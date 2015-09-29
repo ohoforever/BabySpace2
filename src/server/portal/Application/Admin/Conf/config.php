@@ -20,6 +20,16 @@ return array(
                                 'baby'=>'http://120.25.62.186:8094/if/',
                                 'wechat'=>'http://115.29.7.155:9521/'
                             ],
+    'SMS_EXPIRE'           => 600, // 短信验证码过期时间
+    'SMS_API'              => array(
+                                    'url'=>'http://115.29.211.3:8094/SMSSenderGateway/sms/send',
+//                                     'url'=>'http://api.lc.com/sms/send',
+                                    'user'=>'imap',
+                                    'password'=>'imapsmsgd',
+                                    'content'=>'您的短信验证是%s，有效期10分钟！',
+				    "gatewayId"=>"GUODU",
+                                ), //SMS接口地址和账号信息
+
     'URL_CASE_INSENSITIVE' => true, //默认false 表示URL区分大小写 true则表示不区分大小写
     
     /* 数据缓存设置 */

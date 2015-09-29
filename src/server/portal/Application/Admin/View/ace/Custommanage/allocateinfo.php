@@ -32,8 +32,8 @@
 		</tr>
 		<tr>
 			<td colspan="1"><span style="color:#999;padding-right:8px;">客户评级:</span>{$item.level}</td>
-			<td><span style="color:#999;padding-right:8px;">客户评级:</span>
-			<select name ="">
+			<td><span style="color:#999;padding-right:8px;">业务员:</span>
+			<select name ="current_assistant_id">
 			<option value="">请选择</option>
 			<?php foreach($assi as $v){
 				$select = $v['id']==$item['current_assistant_id']?"selected":"";
