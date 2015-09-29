@@ -11,19 +11,17 @@
 <block name="script">
     <script type="text/javascript" src="/js/swiper.min.js"></script>
     <script type="text/javascript">
-        $(function(){
-            var shareData = {
+            shareData = {
                 title: '全优加',
                 desc: '专注0-3岁的宝宝潜能开发，引领中国早期教育行业专业标准',
                 link: '<?=DOMAIN?>',
                 imgUrl: '<?=DOMAIN?>/images/logo.jpg',
             };
 
-            var shareTimeLineData = {
+            shareTimeLineData = {
                 title: '专注0-3岁的宝宝潜能开发，引领中国早期教育行业专业标准',
                 link: '<?=DOMAIN?>',
                 imgUrl: '<?=DOMAIN?>/images/logo.jpg',
             };
-        })
     </script>
 </block>
