@@ -1255,7 +1255,7 @@ class Wechat
 		    return $this->access_token;
 		}
         $rs = M('t_wechat')->get(['access_token','token_ctime','expires_in'],['appid'=>$appid]);
-        if ($rs && time()-$rs['token_ctime'] < $rs['expires_in']-100)  {
+        if ($rs && time()-$rs['token_ctime'] < $rs['expires_in']-300)  {
             $this->access_token = $rs['access_token'];
             return $rs['access_token'];
         }

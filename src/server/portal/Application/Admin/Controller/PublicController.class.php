@@ -80,66 +80,89 @@ class PublicController extends \Think\Controller {
         $verify = new \Think\Verify();
         $verify->entry(1);
     }
-   
-    public function setWxuser($wx_id=0){
-        if(!empty($wx_id)){
-	    $this->error('ID不能为空');
-	}
-	
-	$wx_user = M('assistant_develop_count')->find($wx_id);
-	
-	if(!empty($wx_user)){
-	    session('wx_user_info',$wx_user);
-	}
-    }
-    public function bind(){
-	$wx_user = session('wx_user_info');
 
-	if(empty($wx_user) || !is_array($wx_user)){
-	    $this->error('请问您是从哪里过来的？',U('public/login'));
-	}
+    /**
+     * 设置微信用户到会话中
+     * @param int $wx_id
+     */
+    public function autologin($wx_id=0){
+        if(empty($wx_id)){
+            echo "jsonpCallback('ID不能为空')";
+        }
+        $wx_user = M('assistant_user')->where(['userid'=>$wx_id])->find();
+	
+        $domain = 'http://'.$_SERVER['HTTP_HOST'];
+        if(!empty($wx_user)){
+            
+	    $user = M('ucenter_member')->where(['unionid'=>$wx_user['unionid']])->find();
+            if(!empty($user)){
+                //已经有绑定过用户,自动完成登录动作
+                echo "jsonpCallback(0,'".$domain.U('index/index')."')";
+            }else{
+                session('wx_user_info',$wx_user);
+                echo "jsonpCallback(0,'".$domain.U('public/bind')."')";
+            }
+        }else{
+            echo "jsonpCallback(1,'')";
+        }
+        die;
+    }
+
+    /**
+     * 账号绑定
+     * @return bool
+     */
+    public function bind(){
+        $wx_user = session('wx_user_info');
+        if(empty($wx_user) || !is_array($wx_user)){
+            $this->error('请问您是从哪里过来的？',U('public/login'));
+        }
         if(!IS_POST){
             $this->display();
-	    return false;
+	        return false;
         }	
 
-	$mobile = I('post.username');
-	$sms_code = I('post.verify');
-	
-	if(empty($mobile)){
-	    $this->error('手机号码不能为空！');
+        $mobile = I('post.username');
+        $sms_code = I('post.verify');
+
+        if(empty($mobile)){
+	        $this->error('手机号码不能为空！');
         }	
 
-	if(empty($sms_code)){
-	    $this->error('短信验证码不能为空！');
-	}
+        if(empty($sms_code)){
+            $this->error('短信验证码不能为空！');
+        }
 	
-	$my_code = session('sms-autu-info');
-	if(empty($my_code)){
+        $my_code = session('sms-autu-info');
+        if(empty($my_code)){
             $this->error('您还没有发送短信验证码！');
         }elseif($mobile != $my_code['mobile'] || $sms_code != $my_code['code']){
             $this->error('验证码不匹配！');
         }elseif(time()-$my_code['time'] > 600){
             $this->error('验证码已过期！');
         }
-	//删除已经验证的验证码信息
-	session('sms-auth-info',null);
+        //删除已经验证的验证码信息
+        session('sms-auth-info',null);
 
-	$item = M('ucenter_member')->where(['mobile'=>$mobile])->find();
-	if(empty($item)){
-	    $this->error('该手机号码不在系统中存在！');
-	}
-	if(!empty($item['unionid'])){
-	    $this->error('此手机号码已经绑定了业务员账号！');
-	}
+        $item = M('ucenter_member')->where(['mobile'=>$mobile])->find();
+        if(empty($item)){
+            $this->error('该手机号码不在系统中存在！');
+        }
+        if(!empty($item['unionid'])){
+            $this->error('此手机号码已经绑定了业务员账号！');
+        }
 
-	if(M('ucenter_member')->where(['id'=>$item['id']])->save(['unionid'=>$wx_user['unionid']])){
-	    $this->succuss('绑定成功！');
-	}else{
-	    $this->error('绑定失败，请重新再试或联系管理员！');
-	}
+        if(M('ucenter_member')->where(['id'=>$item['id']])->save(['unionid'=>$wx_user['unionid']])){
+            $this->succuss('绑定成功！');
+        }else{
+            $this->error('绑定失败，请重新再试或联系管理员！');
+        }
 	
     }
+
+    /**
+     * 获取验证码
+     */
     public function getAuthCode(){
         $mobileNum = I('post.mobile');
         if(!preg_match("/^1[0-9]{10}$/",$mobileNum)){
@@ -164,4 +187,5 @@ class PublicController extends \Think\Controller {
             $this->error($api->errmsg);
         }
     }
+
 }
