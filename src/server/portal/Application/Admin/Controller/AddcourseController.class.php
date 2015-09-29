@@ -547,7 +547,7 @@ class AddcourseController extends AdminController {
 		$yhglChild = M("yhgl_child");
 		$childData =$yhglChild->where(['id'=>$babyid])->find();
 		$histroy = $histroy +I('post.');
-		$histroy['course_amount']= $childData['baby_name'];
+		$histroy['baby_name']= $childData['baby_name'];
 		$histroy['course_amount']=$histroy['course_amount']*100;
 		$histroy['course_price']=$histroy['course_price']*100;
 		$courseid = $this->saveHistroy($histroy);
