@@ -5,7 +5,7 @@ $.getJSON('<?php echo addons_url("XbDistrict://XbDistrict/getData");?>',$.proxy(
     delete(json);
     XBW.linkagesel.init(
             {
-                root:0,
+		root:'<?=isset($param['root']) ? $param['root'] : 0?>',
                 url:json,
                 <?php if(!empty($param['district'])):?>
                 district:'<?=$param['district']?>',

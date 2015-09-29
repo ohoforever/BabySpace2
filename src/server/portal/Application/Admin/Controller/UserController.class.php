@@ -309,6 +309,8 @@ class UserController extends AdminController {
                 $this->error($this->showRegError($uid));
             }
         } else {
+	    $group = M('auth_group')->field('title,id')->where("module='admin'")->select();
+            $this->assign('group',$group);
             $this->meta_title = '新增用户';
             $this->display();
         }

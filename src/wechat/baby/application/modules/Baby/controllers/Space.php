@@ -24,6 +24,7 @@ class SpaceController extends MemberController {
 
         $this->layout->meta_title = '成长时光';
         $this->layout->title = '成长时光';
+        $this->layout->back_url = '/baby/space/index.html';
 
         $page = intval($this->getRequest()->getPost('page',0))+1;
 
