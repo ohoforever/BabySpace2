@@ -168,6 +168,8 @@ class AddcourseController extends AdminController {
 		$memberid = $this->getMemberId($order['order_id']);
 		$histroy = ['member_id'=>$memberid,'member_course_count'=>$userCourseleft,'type'=>'REJ','parent_name'=>$user['user_name']];
 		$histroy = $user+$child+$usercourse+$order +$histroy;
+		$histroy['course_count'] = intval(I('post.course_count'));
+		$histroy['course_amount'] = intval(I('post.course_amount'));
 		$rejorder = $this->saveROrder($histroy);
 		if($rejorder ===false)
 		{
@@ -177,6 +179,7 @@ class AddcourseController extends AdminController {
 		$histroy['order_id'] = $rejorder;
 		$histroy['add_order_id'] = $order['order_id'];
 		$courseid = $this->saveHistroy($histroy);
+		$order =M("kcgl_add_course_order")->where("order_id='".I('order_id')."'")->save(['status'=>'END']);
 		if($courseid===false)
 		{
 			M()->rollback();
@@ -206,7 +209,7 @@ class AddcourseController extends AdminController {
 		$usercourse = M("kcgl_user_courses")->where(['order_id'=>$order['order_id']])->find();
 		$memberid = $this->getMemberId($order['order_id']);
 		$histroy = ['member_id'=>$memberid,'member_course_count'=>$userCourseleft,'type'=>'DEL','parent_name'=>$user['user_name']];
-		$histroy = $user+$child+$usercourse+$order +$histroy;
+		$histroy = $user+$child+$order+$usercourse +$histroy;
 		$courseid = $this->saveHistroy($histroy);
 		if($courseid===false)
 		{
@@ -572,9 +575,8 @@ class AddcourseController extends AdminController {
 		$addCourse=[];
 		$addCourse['school_name'] = $data['school_name'];
 		$addCourse['course_name'] = $data['course_name'];
-		$addCourse['course_amount'] = $data['post.course_amount'];
-		$addCourse['course_count'] = $data['post.course_count'];
-		$addCourse['add_order_id'] = $data['post.order_id'];
+		$addCourse['course_amount'] = $data['course_amount'];
+		$addCourse['course_count'] = $data['course_count'];
 		$addCourse['update_time'] = time_format();
 		$addCourse['operator'] = is_login();
 		$addCourse['insert_time'] = time_format();
