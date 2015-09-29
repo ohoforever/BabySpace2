@@ -97,6 +97,8 @@ class PublicController extends \Think\Controller {
 	    $user = M('ucenter_member')->where(['unionid'=>$wx_user['unionid']])->find();
             if(!empty($user)){
                 //已经有绑定过用户,自动完成登录动作
+                $Member = D('Member');
+                $Member->login($user['id']);
                 echo "jsonpCallback(0,'".$domain.U('index/index')."')";
             }else{
                 session('wx_user_info',$wx_user);
@@ -113,6 +115,7 @@ class PublicController extends \Think\Controller {
      * @return bool
      */
     public function bind(){
+
         $wx_user = session('wx_user_info');
         if(empty($wx_user) || !is_array($wx_user)){
             $this->error('请问您是从哪里过来的？',U('public/login'));
@@ -142,7 +145,7 @@ class PublicController extends \Think\Controller {
             $this->error('验证码已过期！');
         }
         //删除已经验证的验证码信息
-        session('sms-auth-info',null);
+//        session('sms-auth-info',null);
 
         $item = M('ucenter_member')->where(['mobile'=>$mobile])->find();
         if(empty($item)){
@@ -153,7 +156,7 @@ class PublicController extends \Think\Controller {
         }
 
         if(M('ucenter_member')->where(['id'=>$item['id']])->save(['unionid'=>$wx_user['unionid']])){
-            $this->succuss('绑定成功！');
+            $this->success('绑定成功！');
         }else{
             $this->error('绑定失败，请重新再试或联系管理员！');
         }
