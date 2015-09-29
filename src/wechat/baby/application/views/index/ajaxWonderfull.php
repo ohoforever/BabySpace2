@@ -4,7 +4,7 @@ foreach($wonderfulLs as $key=>$item):
     ?>
     <li class="<?=$class_list[$key%2]?>">
         <div class="class-list-tit clear">
-            <span class="left"><?=$item['title']?></span>
+            <span class="left"><?=subtext($item['title'],12)?></span>
             <a href="javascript:;" class="right zan <?=$item['isUserLike'] ? 'on' : ''?>" item_id="<?=$item['recordId']?>"><i class="ico i-heart"></i> <span class="num"><?=$item['likeNum']?></span></a>
         </div>
         <div class="lesson-pic">
