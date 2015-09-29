@@ -218,7 +218,7 @@ class AttendController extends AdminController {
             $data['childId']    = I('post.childId');
             $data['courseName'] = I('post.courseName');
             $data['courseNum']  = I('post.courseNum');
-	    (!is_numeric( $data['courseNum']) || $data['courseNum'] <0)&& $this->error('耗课节数应该大于零！');
+	    (!is_numeric( $data['courseNum']) || $data['courseNum'] <=0)&& $this->error('耗课节数应该大于零！');
             $data['orderId']    = I('post.orderId');
             $data['operator']   = is_login();
 
