@@ -54,7 +54,7 @@ public class CourseOrderHistory {
     /**
      * 家长手机号
      */
-    private Integer mobileNum;
+    private String mobileNum;
 
     /**
      * 家长名称
@@ -234,7 +234,7 @@ public class CourseOrderHistory {
     /**
      * @return 家长手机号
      */
-    public Integer getMobileNum() {
+    public String getMobileNum() {
         return mobileNum;
     }
 
@@ -242,7 +242,7 @@ public class CourseOrderHistory {
      * @param mobileNum 
 	 *            家长手机号
      */
-    public void setMobileNum(Integer mobileNum) {
+    public void setMobileNum(String mobileNum) {
         this.mobileNum = mobileNum;
     }
 
