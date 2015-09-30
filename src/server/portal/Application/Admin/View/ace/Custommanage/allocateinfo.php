@@ -3,7 +3,10 @@
 <block name="body">
 	<!-- 表单 -->
 
-<?php $sex = ['MALE###'=>'男宝宝','FEMALE#'=>'女宝宝','UNKNOWN'=>'不详'];?>
+<?php
+$sex = ['MALE###'=>'男宝宝','FEMALE#'=>'女宝宝','UNKNOWN'=>'不详'];
+$status= ['CRT'=>'待开发','FLS'=>'开发失败','OK#'=>'开发完成'];
+?>
 <div class="widget-box" style="opacity: 1; z-index: 0;margin-bottom:1em;">
 <div class="widget-header " style="color:#999;">
           <h5 class="bigger lighter"> 客户信息</h5>        
@@ -31,16 +34,15 @@
 			<td><span style="color:#999;padding-right:8px;">候选人星数:</span>{$item.star}星</td>
 		</tr>
 		<tr>
+			<td><span style="color:#999;padding-right:8px;">状态:</span><?=$status[$item['status']];?></td>
+			<td><span style="color:#999;padding-right:8px;">跟单人:</span><?=array_key_exists($item['current_assistant_id'],$assi) ? $assi[$item['current_assistant_id']] : ''?></td>
+		</tr>
+		<tr>
 			<td colspan="1"><span style="color:#999;padding-right:8px;">客户评级:</span>{$item.level}</td>
 			<td><span style="color:#999;padding-right:8px;">业务员:</span>
-			<select name ="current_assistant_id">
-			<option value="">请选择</option>
-			<?php foreach($assi as $v){
-				$select = $v['id']==$item['current_assistant_id']?"selected":"";
-			?>
-				<option value="<?php echo $v['id']?>" <?php echo $select;?> ><?php echo $v['username']?></option>
-			<?php }?>
-			</select>
+            <?php
+            echo form_dropdown('current_assistant_id',[''=>'请选择']+$assi,$item['current_assistant_id']);
+            ?>
 			</td>
 		</tr>
 	 </tbody>

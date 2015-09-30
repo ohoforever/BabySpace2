@@ -29,7 +29,7 @@ class CustommanageController extends AdminController {
 		    $map['baby_sex']= I('baby_sex');
 	    }
         $map['status']    =   'CRT';
-        $list   =   $this->lists('khkf_candidate', $map);
+        $list   =   $this->lists('khkf_candidate', $map,'update_time desc');
         $this->assign('_list', $list);
         $this->meta_title = '开发客户列表';
         $this->display();
@@ -139,9 +139,9 @@ class CustommanageController extends AdminController {
     public function allocateinfo($id=0)
     {
         empty($id) && $this->error('参数错误！');
-        $info = M('khkf_candidate')->field(true)->find($id);
+        $info = M('khkf_candidate')->find($id);
         $this->assign('item', $info);
-        $assi = M('ucenter_member')->field('id,username')->where("user_type='ASST'")->select();
+        $assi = M('ucenter_member')->where("user_type='ASST'")->getField('id,username');
         $this->assign('assi', $assi);
         $this->meta_title = '客户信息详情';
         $this->display();
