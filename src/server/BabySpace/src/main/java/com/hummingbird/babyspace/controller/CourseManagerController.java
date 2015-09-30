@@ -204,7 +204,7 @@ public class CourseManagerController extends BaseController{
 			List<Appointment> appointments=cusSer.queryAppointments(body.getUnionId());
 			//插入记录表
 			Integer candidateId=appointments.get(0)==null?null:appointments.get(0).getId();
-			courManSer.addAttendAppointment(body, candidateId);
+			courManSer.addAttendAppointment(body.getCourseName(), candidateId);
 			
 		} catch (Exception e1) {
 			log.error(String.format(messagebase+"失败"),e1);

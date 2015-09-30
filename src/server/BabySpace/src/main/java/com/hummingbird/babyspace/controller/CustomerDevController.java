@@ -14,9 +14,11 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import com.hummingbird.babyspace.entity.Appointment;
 import com.hummingbird.babyspace.entity.Candidate;
 import com.hummingbird.babyspace.services.CommonService;
+import com.hummingbird.babyspace.services.CourseManagerService;
 import com.hummingbird.babyspace.services.CustomerDevService;
 import com.hummingbird.babyspace.vo.CandidateAddBodyVO;
 import com.hummingbird.babyspace.vo.CandidateAddVO;
+import com.hummingbird.babyspace.vo.JudgeAppointmentBodyVO;
 import com.hummingbird.babyspace.vo.JudgeAppointmentVO;
 import com.hummingbird.babyspace.vo.ShareBodyVO;
 import com.hummingbird.babyspace.vo.ShareVO;
@@ -34,6 +36,8 @@ public class CustomerDevController extends BaseController{
 	CustomerDevService cusSer;
 	@Autowired
 	CommonService commonSer;
+	@Autowired
+	CourseManagerService courManSer;
 	
 	@RequestMapping(value = "/candidate/add", method = RequestMethod.POST)
 	public @ResponseBody Object addCandidate(HttpServletRequest request) {
@@ -76,8 +80,8 @@ public class CustomerDevController extends BaseController{
 			Integer recordId=cusSer.addAppointment(body);
 			rm.put("recordId", recordId);
 			//查询待开发客户表是否存在相关记录
-			Candidate ca=cusSer.queryCandidate(body.getMobileNum());
-			if(ca==null){
+			List<Candidate> ca=cusSer.queryCandidate(body.getMobileNum());
+			if(ca.size()==0){
 				cusSer.addCandidate(body);
 			}
 			
@@ -121,11 +125,15 @@ public class CustomerDevController extends BaseController{
 			if(log.isDebugEnabled()){
 				log.debug("检验通过，获取请求");
 			}
+			JudgeAppointmentBodyVO body=transorder.getBody();
 			//查询预约表
-			List<Appointment> appdintments=cusSer.queryAppointments(transorder.getBody().getUnionId());
+			List<Appointment> appdintments=cusSer.queryAppointments(body.getUnionId());
 			if(appdintments.size()==0){
 				rm.put("isAppointment", false);
 			}else{
+				//插入记录表
+				Integer candidateId=appdintments.get(0).getId();
+				courManSer.addAttendAppointment(null, candidateId);
 				rm.put("isAppointment", true);
 			}
 			
