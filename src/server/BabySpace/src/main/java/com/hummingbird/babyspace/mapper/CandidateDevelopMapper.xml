@@ -58,8 +58,20 @@
   <update id="change2z" >
   <!-- 查询该业务员没有开发过,开发的客户个数小于400个,业务员城市与客户城市一致的数据 -->
     update t_khkf_candidate c
-    INNER JOIN (select candidate_id , count(*) assistantcount  from t_khkf_candidate_develop group by candidate_id) d ON c.id = d.candidate_id and d.assistantcount>=8
-    set c.level='Z',update_time = now()
+    INNER JOIN (SELECT
+		d.candidate_id,
+		count(*) assistantcount
+	FROM
+		t_khkf_candidate_develop d,
+		t_khkf_candidate_evaluation e
+  where d.assistant_id = e.assistant_id
+	AND d.candidate_id = e.candidate_id
+  and e.`level`='C'
+	GROUP BY
+		d.candidate_id
+		
+		) d ON c.id = d.candidate_id and d.assistantcount>=8
+    set c.level='Z',update_time = now(),current_assistant_id = null
     where c.level='C'
     and c.status = 'CRT' 
   </update>
