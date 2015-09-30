@@ -32,6 +32,7 @@ import com.hummingbird.babyspace.vo.QueryCourseVO;
 import com.hummingbird.babyspace.vo.SpendCourseBodyVO;
 import com.hummingbird.babyspace.vo.SpendCourseVO;
 import com.hummingbird.common.controller.BaseController;
+import com.hummingbird.common.exception.BusinessException;
 import com.hummingbird.common.exception.ValidateException;
 import com.hummingbird.common.util.PropertiesUtil;
 import com.hummingbird.common.util.RequestUtil;
@@ -151,11 +152,12 @@ public class CourseManagerController extends BaseController{
 		    log.debug("检验通过，获取请求");
 		   }
 		   //减去会员课数表的课,记录信息
-		  
+		  if(body.getCourseNum()<=0){
+			  log.error(String.format("耗课课时【%d】不允许为负数", body.getCourseNum()));
+				throw new BusinessException(BusinessException.ERRCODE_REQUEST,String.format("耗课课时【%d】不允许为负数", body.getCourseNum()));
+		  }
 		   courManSer.spendCourse(body);
 		   
-		    
-		    
 		   
 		  } catch (Exception e1) {
 		   log.error(String.format(messagebase+"失败"),e1);
