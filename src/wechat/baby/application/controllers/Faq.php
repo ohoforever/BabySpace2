@@ -90,10 +90,7 @@ class FaqController extends MallController {
         $this->layout->title = '提问成功';
         $this->layout->back_url = '/faq/list.html';
 
-        $this->getView()->assign('message','提问成功，我们会尽快答复您，感谢您的参与！');
-
-        $this->getView()->display(APP_PATH.'views/success.php');
-        return false;
+        $this->success('提问成功，我们会尽快答复您，感谢您的参与！');
     }
     /**
      * 知识宝库
