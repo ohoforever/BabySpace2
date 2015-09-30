@@ -11,7 +11,7 @@
     <result column="course_count" property="courseCount" jdbcType="INTEGER" />
     <result column="course_amount" property="courseAmount" jdbcType="INTEGER" />
     <result column="insert_time" property="insertTime" jdbcType="TIMESTAMP" />
-    <result column="mobile_num" property="mobileNum" jdbcType="INTEGER" />
+    <result column="mobile_num" property="mobileNum" jdbcType="VARCHAR" />
     <result column="parent_name" property="parentName" jdbcType="VARCHAR" />
     <result column="baby_name" property="babyName" jdbcType="VARCHAR" />
     <result column="baby_sex" property="babySex" jdbcType="VARCHAR" />
@@ -47,7 +47,7 @@
     values (#{id,jdbcType=INTEGER}, #{orderId,jdbcType=VARCHAR}, #{memberId,jdbcType=INTEGER}, 
       #{childId,jdbcType=INTEGER}, #{schoolName,jdbcType=VARCHAR}, #{courseName,jdbcType=VARCHAR}, 
       #{courseCount,jdbcType=INTEGER}, #{courseAmount,jdbcType=INTEGER}, #{insertTime,jdbcType=TIMESTAMP}, 
-      #{mobileNum,jdbcType=INTEGER}, #{parentName,jdbcType=VARCHAR}, #{babyName,jdbcType=VARCHAR}, 
+      #{mobileNum}, #{parentName,jdbcType=VARCHAR}, #{babyName,jdbcType=VARCHAR}, 
       #{babySex,jdbcType=VARCHAR}, #{babyBirthday,jdbcType=DATE}, #{memberCourseCount,jdbcType=INTEGER}, 
       #{type,jdbcType=VARCHAR}, #{operator,jdbcType=INTEGER}, #{courseTotal,jdbcType=INTEGER}
       )
@@ -139,7 +139,7 @@
         #{insertTime,jdbcType=TIMESTAMP},
       </if>
       <if test="mobileNum != null" >
-        #{mobileNum,jdbcType=INTEGER},
+        #{mobileNum},
       </if>
       <if test="parentName != null" >
         #{parentName,jdbcType=VARCHAR},
@@ -195,7 +195,7 @@
         insert_time = #{insertTime,jdbcType=TIMESTAMP},
       </if>
       <if test="mobileNum != null" >
-        mobile_num = #{mobileNum,jdbcType=INTEGER},
+        mobile_num = #{mobileNum},
       </if>
       <if test="parentName != null" >
         parent_name = #{parentName,jdbcType=VARCHAR},
@@ -234,7 +234,7 @@
       course_count = #{courseCount,jdbcType=INTEGER},
       course_amount = #{courseAmount,jdbcType=INTEGER},
       insert_time = #{insertTime,jdbcType=TIMESTAMP},
-      mobile_num = #{mobileNum,jdbcType=INTEGER},
+      mobile_num = #{mobileNum},
       parent_name = #{parentName,jdbcType=VARCHAR},
       baby_name = #{babyName,jdbcType=VARCHAR},
       baby_sex = #{babySex,jdbcType=VARCHAR},
