@@ -67,8 +67,10 @@
 						<td class="hidden-480"><?=$vo['school_name']?></td>
 						<td>
                             <a href="<?=U('historylist',array('order_id'=>$vo['order_id']))?>">耗课历史</a> |
+			    <!--
                             <a href="<?=U('edit',array('id'=>$vo['id']))?>">修改</a> |
                             <a class="ajax-get confirm" href="<?=U('drop',array('id'=>$vo['id']))?>">删除</a>
+			    -->
 	                   </td>
 					</tr>
 					</volist>

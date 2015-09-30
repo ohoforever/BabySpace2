@@ -168,12 +168,7 @@ class AddcourseController extends AdminController {
 		$histroy = ['member_id'=>$memberid,'member_course_count'=>$userCourseleft,'type'=>'REJ','parent_name'=>$user['user_name']];
 		$histroy = $user+$child+$usercourse+$order +$histroy;
 		$attend = M("bbkj_baby_attend_class")->field('sum(course_count) as course_count')->where(['order_id'=>$order['order_id']])->find();
-		if(!empty($attend))
-		{
-			$histroy['course_count'] = $order['course_count']-$attend['course_count'];
-		}else{
-			$histroy['course_count'] = $order['course_count'];
-		}
+		$histroy['course_count'] = I('course_count');
 		$histroy['course_amount'] = intval(I('post.course_amount'));
 		$histroy['course_price'] = $order['course_price']/100;
 		$rejorder = $this->saveROrder($histroy);
