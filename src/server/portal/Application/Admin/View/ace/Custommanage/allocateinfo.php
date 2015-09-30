@@ -41,7 +41,7 @@ $status= ['CRT'=>'待开发','FLS'=>'开发失败','OK#'=>'开发完成'];
 			<td colspan="1"><span style="color:#999;padding-right:8px;">客户评级:</span>{$item.level}</td>
 			<td><span style="color:#999;padding-right:8px;">业务员:</span>
             <?php
-            echo form_dropdown('current_assistant_id',[''=>'请选择']+$assi,$item['current_assistant_id']);
+            echo form_dropdown('current_assistant_id',[''=>'请选择']+$assi,$item['current_assistant_id'],'class="chosen-select"');
             ?>
 			</td>
 		</tr>
@@ -69,9 +69,11 @@ $status= ['CRT'=>'待开发','FLS'=>'开发失败','OK#'=>'开发完成'];
     highlight_subnav('{:U('custommanage/allocate')}');
 </script>
     <script src="__ACE__/js/date-time/bootstrap-datepicker.min.js"></script>
+    <script src="__ACE__/js/chosen.jquery.min.js"></script>
     <script type="text/javascript">
             $(function(){
-                    $('input.day-input').datepicker({autoclose:true}).next().on(ace.click_event, function(){
+                $(".chosen-select").chosen();
+                $('input.day-input').datepicker({autoclose:true}).next().on(ace.click_event, function(){
                         $(this).prev().focus();
                     });
                 });
@@ -79,4 +81,5 @@ $status= ['CRT'=>'待开发','FLS'=>'开发失败','OK#'=>'开发完成'];
 </block>
 <block name="style">
 <link rel="stylesheet" href="__ACE__/css/datepicker.css" />
+<link rel="stylesheet" href="__ACE__/css/chosen.css" />
 </block>
