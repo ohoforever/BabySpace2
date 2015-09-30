@@ -56,7 +56,8 @@
 			<ref bean="adjustCustomLevelJob" />
 		</property>
 		<property name="cronExpression">
-			<value>0 9,13,21 * * * ?</value>
+			<!-- <value>0 9,13,21 * * * ?</value> -->
+			<value>0 */15 * * * ?</value> 
 		</property>
 	</bean>
 	<!-- 评级调整 -->
