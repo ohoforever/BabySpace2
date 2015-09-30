@@ -142,6 +142,8 @@ class CustommanageController extends AdminController {
         $info = M('khkf_candidate')->find($id);
         $this->assign('item', $info);
         $assi = M('ucenter_member')->where("user_type='ASST'")->getField('id,username');
+	$list = M('khkf_candidate_evaluation')->field(true)->where("candidate_id='$id'")->select();
+	$this->assign('list',$list);
         $this->assign('assi', $assi);
         $this->meta_title = '客户信息详情';
         $this->display();
@@ -186,6 +188,9 @@ class CustommanageController extends AdminController {
 		    foreach ($Spreadsheet as $Key => $Row)
 		    {
 			    if($Key < 2){
+				    continue;
+			    }
+			    if(empty($Row[0])||!is_numeric($Row[0])){
 				    continue;
 			    }
 			    if ($Row && is_array($Row) && count($Row) > 3)
