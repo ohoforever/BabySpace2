@@ -121,19 +121,17 @@ class AddcourseController extends AdminController {
 		empty($orderid)  &&  $this->error('参数错误');
 		if(IS_POST){
 
-			$data['school_name'] = I('post.school_name');
-			empty($data['school_name']) && $this->error('请输入学校名称');
-			$data['course_name'] = I('post.course_name');
-			empty($data['baby_birthday']) && $this->error('请输入课程名称');
+			//$data['school_name'] = I('post.school_name');
+			//empty($data['school_name']) && $this->error('请输入学校名称');
+			//$data['course_name'] = I('post.course_name');
+			//empty($data['baby_birthday']) && $this->error('请输入课程名称');
 
 			$data['course_count'] = I('post.course_count');
-			empty($data['course_count']) && $this->error('请输入退课课时');
+			(empty($data['course_count'])||$data['course_count']<=0) && $this->error('课时为零的订单不能退课');
 
-			(!is_numeric($data['course_count'])||$data['course_count'] <=0) && $this->error('课时应为数字');
 			$data['course_amount'] = I('post.course_amount');
 			empty($data['course_amount']) && $this->error('请输入退课费用');
-
-			(!is_numeric($data['course_amount'])||$data['course_amount'] <=0) && $this->error('退课费用应为数字');
+			(!is_numeric($data['course_amount'])||$data['course_amount']<=0) && $this->error('退课金额必须为正数');
 			$this->rejectSave();
 		}
 		$order = M('kcgl_add_course_order')->where("order_id='$orderid'")->find();
@@ -142,7 +140,8 @@ class AddcourseController extends AdminController {
 		$course= M('bbkj_baby_attend_class')->field('sum(course_count) as c')->where("order_id='{$orderid}'")->find();
 		$this->meta_title = '退课';
 		$this->assign('user',$user);
-		$this->assign('course_left',$order['course_count']-$course['c']);
+		$this->assign('course_left',$order['course_total']-$course['c']);
+		$this->assign('course_amount',($order['course_count']-$course['c'])*$order['course_price']);
 		$this->assign('baby',$baby);
 		$this->assign('order',$order);
 		$this->display();
@@ -165,10 +164,16 @@ class AddcourseController extends AdminController {
 			$this->error('用户课程信息保存失败！');
 		}
 		$usercourse = M("kcgl_user_courses")->where(['order_id'=>$order['order_id']])->find();
-		$memberid = $this->getMemberId($order['order_id']);
+		$memberid = $this->getMemberId($child['user_id']);
 		$histroy = ['member_id'=>$memberid,'member_course_count'=>$userCourseleft,'type'=>'REJ','parent_name'=>$user['user_name']];
 		$histroy = $user+$child+$usercourse+$order +$histroy;
-		$histroy['course_count'] = intval(I('post.course_count'));
+		$attend = M("bbkj_baby_attend_class")->field('sum(course_count) as course_count')->where(['order_id'=>$order['order_id']])->find();
+		if(!empty($attend))
+		{
+			$histroy['course_count'] = $order['course_count']-$attend['course_count'];
+		}else{
+			$histroy['course_count'] = $order['course_count'];
+		}
 		$histroy['course_amount'] = intval(I('post.course_amount'));
 		$rejorder = $this->saveROrder($histroy);
 		if($rejorder ===false)
@@ -207,7 +212,7 @@ class AddcourseController extends AdminController {
 		}
 		M("kcgl_add_course_order")->where(['order_id'=>$order['order_id']])->save(['status'=>'FLS']);
 		$usercourse = M("kcgl_user_courses")->where(['order_id'=>$order['order_id']])->find();
-		$memberid = $this->getMemberId($order['order_id']);
+		$memberid = $this->getMemberId($child['user_id']);
 		$histroy = ['member_id'=>$memberid,'member_course_count'=>$userCourseleft,'type'=>'DEL','parent_name'=>$user['user_name']];
 		$histroy = $user+$child+$order+$usercourse +$histroy;
 		$courseid = $this->saveHistroy($histroy);
@@ -300,7 +305,7 @@ class AddcourseController extends AdminController {
 			M()->rollback();
 			$this->error('用户课程信息保存失败！');
 		}
-		$memberid = $this->getMemberId($courseid);
+		$memberid = $this->getMemberId($userid);
 		$histroy = ['child_id'=>$babyid,'order_id'=>$courseid,'member_id'=>$memberid,'member_course_count'=>$userCourseleft,'type'=>'UPT'];
 		$histroy = $histroy +I('post.');
 		$histroy['course_amount']=$histroy['course_amount']*100;
@@ -446,7 +451,7 @@ class AddcourseController extends AdminController {
 		}
 		return false;
 	}
-	private function saveUserCourses($userId,$order = array())
+	private function saveUserCourses($userId,$order)
 	{
 		$kcglUserCourses=M("kcgl_user_courses");
 		$addCourse=[];
@@ -461,13 +466,20 @@ class AddcourseController extends AdminController {
 				$addCourse['course_left'] = $userCoursesData['course_left']+$course_count+$given_count;
 
 			}else{
-				$addCourse['course_count'] =$userCoursesData['course_count']
+				$counts = $userCoursesData['course_count']
 					+$course_count+$given_count
 					-$order['given_count']-$order['course_count'];
+				$addCourse['course_count'] =$counts;
 				$addCourse['course_left'] =$userCoursesData['course_left']
-					+$course_count+$given_count
-					-$order['given_count']-$order['course_count'];
+					-$order['given_count']-$order['course_count'] +$course_count+$given_count;
+				$attend = M("bbkj_baby_attend_class")->field('sum(course_count) as course_count')->where(['order_id'=>$order['order_id']])->find();
+				if(!empty($attend))
+				{
+					$addCourse['course_count'] =$addCourse['course_count'] +$attend['course_count'];
+					$addCourse['course_left'] =$addCourse['course_left'] +$attend['course_count']; 
+				}
 			}
+			$addCourse['update_time'] = time_format();
 			$ret = $kcglUserCourses->where(['user_id'=>$userId])->save($addCourse);
 		}else{
 			$addCourse['user_id'] = $userId;
@@ -488,6 +500,7 @@ class AddcourseController extends AdminController {
 		$addCourseHistory['order_id'] = $data['order_id'];
 		$addCourseHistory['member_id'] = $data['member_id'];
 		$addCourseHistory['child_id'] = $data['child_id'];
+		$addCourseHistory['add_order_id'] = $data['add_order_id'];
 		$addCourseHistory['school_name'] = $data['school_name'];
 		$addCourseHistory['course_name'] = $data['course_name'];
 		$addCourseHistory['course_total'] = $data['course_total'];
