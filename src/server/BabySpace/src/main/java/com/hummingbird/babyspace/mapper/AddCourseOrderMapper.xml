@@ -177,6 +177,6 @@
   
    <select id="selectByChildId" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
     SELECT b.* from t_yhgl_child as a,t_kcgl_add_course_order as b 
- WHERE a.id=b.child_id and b.child_id=#{childId,jdbcType=INTEGER}
+ WHERE a.id=b.child_id and b.child_id=#{childId,jdbcType=INTEGER} and status='OK#'
   </select>
 </mapper>
