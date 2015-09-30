@@ -293,10 +293,11 @@ class UserController extends AdminController {
             if($password != $repassword){
                 $this->error('密码和重复密码不一致！');
             }
-
+		
+	    $mobile = I('post.mobile');
             /* 调用注册接口注册用户 */
             $User   =   new UserApi;
-            $uid    =   $User->register($username, $password, $email);
+            $uid    =   $User->register($username, $password, $email,$mobile);
             if(0 < $uid){ //注册成功
                 $user = array('uid' => $uid, 'nickname' => I('nickname'), 'status' => 1);
                 if(!M('Member')->add($user)){
@@ -308,6 +309,8 @@ class UserController extends AdminController {
                 $this->error($this->showRegError($uid));
             }
         } else {
+	    $group = M('auth_group')->field('title,id')->where("module='admin'")->select();
+            $this->assign('group',$group);
             $this->meta_title = '新增用户';
             $this->display();
         }

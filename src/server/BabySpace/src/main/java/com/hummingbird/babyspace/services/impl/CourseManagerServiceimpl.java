@@ -50,10 +50,10 @@ public class CourseManagerServiceimpl implements CourseManagerService{
 	ChildMapper childDao;
 	
 	@Override
-	public void addAttendAppointment(CourseRecordBodyVO body,Integer candidateId) {
+	public void addAttendAppointment(String courseName,Integer candidateId) {
 		AttendAppointment attend=new AttendAppointment();
 		attend.setCandidateId(candidateId);
-		attend.setCourseName(body.getCourseName());
+		attend.setCourseName(courseName);
 		attend.setInsertTime(new Date());
 		attendDao.insert(attend);
 	}
@@ -104,9 +104,20 @@ public class CourseManagerServiceimpl implements CourseManagerService{
 			throw new BusinessException(BusinessException.ERRCODE_REQUEST,e.getMessage());
 		}
 		AddCourseOrder order= addCourOrderDao.selectByPrimaryKey(body.getOrderId());
+		if(order==null){
+			log.error(String.format("订单【%s】不存在", body.getOrderId()));
+			throw new BusinessException(BusinessException.ERRCODE_REQUEST,String.format("订单【%s】不存在", body.getOrderId()));
+		}
 		//当前剩余课时数
 		Integer courseCount=order.getCourseCount()+order.getGivenCount()-queryCourseCount(order.getOrderId())-body.getCourseNum();
-		
+		if(courseCount<0){
+			log.error("课程数不够");
+			throw new BusinessException(BusinessException.ERRCODE_REQUEST,"课程数不够,耗课失败");
+		}
+		if(0==courseCount){
+			order.setStatus("END");
+			addCourOrderDao.updateByPrimaryKey(order);
+		}
 		AttendClass attend=new AttendClass();
 		attend.setActTime(new Date());
 		attend.setChildId(body.getChildId());
@@ -143,7 +154,7 @@ public class CourseManagerServiceimpl implements CourseManagerService{
 		// TODO Auto-generated method stub
 		
 		UserCourses userCourses=userCoursesDao.selectByPrimaryKey(userId);
-		if((userCourses.getCourseLeft()-CourseCount)<=0){
+		if((userCourses.getCourseLeft()-CourseCount)<0){
 			log.error("剩余课时不足，耗课失败");
 			throw new BusinessException(BusinessException.ERRCODE_REQUEST,"剩余课时不足，耗课失败");
 		}

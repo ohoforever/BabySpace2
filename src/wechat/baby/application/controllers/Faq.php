@@ -28,12 +28,20 @@ class FaqController extends MallController {
         $this->layout->title = '在线问答';
         $this->layout->back_url = '/faq/index.html';
 
-        $page = intval($this->getRequest()->getQuery('page'));
-        $page = $page < 1 ? 1 : $page;
+        $page = intval($this->getRequest()->getPost('page',0))+1;
 
         $curl = new Curl();
         $resp = $curl->setData(['unionId'=>$this->user['unionId'],'pageIndex'=>$page,'pageSize'=>$this->config->application->pagenum])
                     ->send('knowledgeManager/babyInterlocution/questionList');
+
+        if(IS_AJAX){
+            if(empty($resp) || $resp['errcode'] != 0){
+                $this->error('数据列表为空!');
+            }
+            $html = $this->render('ajaxFaq',['list'=>$resp['list']]);
+
+            $this->ajaxReturn(['status'=>0,'html'=>$html,'list_total'=>count($resp['list']),'page'=>$page]);
+        }
 
         $list = [];
         if(!empty($resp) && $resp['errcode'] == '0'){
@@ -41,6 +49,8 @@ class FaqController extends MallController {
         }
 
         $this->getView()->assign('list',$list);
+        $this->getView()->assign('total',intval($resp['total']));
+        $this->getView()->assign('pageIndex',$page);
     }
 
     /**
@@ -80,10 +90,7 @@ class FaqController extends MallController {
         $this->layout->title = '提问成功';
         $this->layout->back_url = '/faq/list.html';
 
-        $this->getView()->assign('message','提问成功，我们会尽快答复您，感谢您的参与！');
-
-        $this->getView()->display(APP_PATH.'views/success.php');
-        return false;
+        $this->success('提问成功，我们会尽快答复您，感谢您的参与！');
     }
     /**
      * 知识宝库

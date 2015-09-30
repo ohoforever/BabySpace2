@@ -64,9 +64,13 @@ class AttendController extends AdminController {
             $where_string[] = "DATE_FORMAT(baby_birthday,'%Y-%m') = '".date('Y-m',strtotime("-$baby_age month"))."'";
         }
 
-        $month = I('month');
-        if(!empty($month)){
-            $where_string[] = "DATE_FORMAT(act_time,'%Y-%m') = '".date('Y-')."$month'";
+        $sdate = I('sdate');
+        if(!empty($sdate)){
+            $where_string[] = "act_time >= '$sdate'";
+        }
+        $edate = I('edate');
+        if(!empty($edate)){
+            $where_string[] = "act_time <= '$edate'";
         }
 
         if(!empty($where_string)){
@@ -218,7 +222,7 @@ class AttendController extends AdminController {
             $data['childId']    = I('post.childId');
             $data['courseName'] = I('post.courseName');
             $data['courseNum']  = I('post.courseNum');
-	    (!is_numeric( $data['courseNum']) || $data['courseNum'] <0)&& $this->error('耗课节数应该大于零！');
+	    (!is_numeric( $data['courseNum']) || $data['courseNum'] <=0)&& $this->error('耗课节数应该大于零！');
             $data['orderId']    = I('post.orderId');
             $data['operator']   = is_login();
 

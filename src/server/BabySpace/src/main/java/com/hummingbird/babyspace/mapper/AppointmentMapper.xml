@@ -35,7 +35,7 @@
     from t_khkf_appointment
     where union_id = #{unionId,jdbcType=VARCHAR}
     and id not in (
-	SELECT id from t_khkf_attend_appointment WHERE union_id=#{unionId,jdbcType=VARCHAR}
+	SELECT candidate_id from t_khkf_attend_appointment
 	)
   </select>
   <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >

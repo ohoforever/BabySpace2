@@ -167,22 +167,6 @@
                             </div>
                             <div class="row">
                                 <div class="col-xs-4">
-                                    <label style="padding-top: 4px;">课程课时：</label>
-                                </div>
-                                <div class="col-xs-8">
-                                    <input type="text" name="course_total" id="course_total" value="" class="width-100" />
-                                </div>
-                            </div>
-                            <div class="row">
-                                <div class="col-xs-4">
-                                    <label style="padding-top: 4px;">买课费用(元)：</label>
-                                </div>
-                                <div class="col-xs-8">
-                                    <input type="text" name="course_amount" value="" id="course_amount" class="width-100" />
-                                </div>
-                            </div>
-                            <div class="row">
-                                <div class="col-xs-4">
                                     <label style="padding-top: 4px;">课程单价：</label>
                                 </div>
                                 <div class="col-xs-8">
@@ -203,6 +187,22 @@
                                 </div>
                                 <div class="col-xs-8">
                                     <input type="text" name="given_count" value="" id="given_count" class="width-100" />
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-xs-4">
+                                    <label style="padding-top: 4px;">课程课时：</label>
+                                </div>
+                                <div class="col-xs-8">
+                                    <input type="text" name="course_total" id="course_total" value="" class="width-100" readonly/>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-xs-4">
+                                    <label style="padding-top: 4px;">买课费用(元)：</label>
+                                </div>
+                                <div class="col-xs-8">
+                                    <input type="text" name="course_amount" value="" id="course_amount" class="width-100" readonly/>
                                 </div>
                             </div>
                         </div>
@@ -250,7 +250,35 @@ $(function(){
         minView:2,
         autoclose:true
     });
-
+$('#course_price').change(function (){
+	var price = parseInt($('#course_price').val()); 
+	var given_count = parseInt($('#given_count').val()); 
+	var course_count = parseInt($('#course_count').val()); 
+	price = isNaN(price)?0:price;
+	given_count = isNaN(given_count)?0:given_count;
+	course_count= isNaN(course_count)?0:course_count;
+	$('#course_amount').val(price*(course_count+given_count));
+	});
+$('#course_count').change(function (){
+	var price = parseInt($('#course_price').val()); 
+	var given_count = parseInt($('#given_count').val()); 
+	var course_count = parseInt($('#course_count').val()); 
+	price = isNaN(price)?0:price;
+	given_count = isNaN(given_count)?0:given_count;
+	course_count= isNaN(course_count)?0:course_count;
+	$('#course_amount').val(price*(course_count+given_count));
+	$('#course_total').val(course_count+given_count);
+	});
+$('#given_count').change(function (){
+	var price = parseInt($('#course_price').val()); 
+	var given_count = parseInt($('#given_count').val()); 
+	var course_count = parseInt($('#course_count').val()); 
+	price = isNaN(price)?0:price;
+	given_count = isNaN(given_count)?0:given_count;
+	course_count= isNaN(course_count)?0:course_count;
+	$('#course_amount').val(price*(course_count+given_count));
+	$('#course_total').val(course_count+given_count);
+	});
 
 $('#reset-btn').click(function (){
                        $("#selectBaby").html('<input type="text" name="baby_name" value="" class="width-100" />');

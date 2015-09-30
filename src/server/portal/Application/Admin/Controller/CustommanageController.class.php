@@ -29,7 +29,7 @@ class CustommanageController extends AdminController {
 		    $map['baby_sex']= I('baby_sex');
 	    }
         $map['status']    =   'CRT';
-        $list   =   $this->lists('khkf_candidate', $map);
+        $list   =   $this->lists('khkf_candidate', $map,'update_time desc');
         $this->assign('_list', $list);
         $this->meta_title = '开发客户列表';
         $this->display();
@@ -156,6 +156,64 @@ class CustommanageController extends AdminController {
 		    $this->success('设置完成！',U('custommanage/allocate'));
 	    }else {
 		    $this->error('保存失败！');
+	    }
+    }
+    function batchadd()
+    {
+        if(IS_POST){
+		$this->upload();
+	}
+        $this->meta_title = '批量导入';
+        $this->display();
+    }
+    function upload()
+    {
+	    $file_item = json_to_array(think_decrypt(I('post.file_id')));
+	    if (empty($file_item)) {
+		    $this->error('找不到上传文件!');
+	    }
+	    vendor('ExcelReader.excel_reader2');
+	    vendor('ExcelReader.SpreadsheetReader');
+
+	    $config = C('DOWNLOAD_UPLOAD');
+	    $Filepath = $config['rootPath'] . $file_item['savepath'] . $file_item['savename'];
+
+	    $Spreadsheet = new \SpreadsheetReader($Filepath);
+	    $Sheets = $Spreadsheet->Sheets();
+	    $candidate = [];
+	    $time = time_format();
+	    foreach ($Sheets as $Index => $Name){
+		    $Spreadsheet -> ChangeSheet($Index);
+		    foreach ($Spreadsheet as $Key => $Row)
+		    {
+			    if($Key < 2){
+				    continue;
+			    }
+			    if ($Row && is_array($Row) && count($Row) > 3)
+			    {
+				    $sex = $Row[3]=='男'?'MALE###':$Row[3]=='女'?'FEMALE#':'UNKNOWN';
+				    $time = strtotime($Row[4]);
+				    $day = date('Y-m-d',$time);
+				    $candidate[] = [
+					    'mobile_num'=>$Row[0],
+					    'parent_name'=>$Row[1],
+					    'baby_name'=>$Row[2],
+					    'baby_sex'=>$sex,
+					    'baby_birthday'=>$day,
+					    'city'=>$Row[5],
+					    'district'=>$Row[6],
+					    'status'=>'CRT',
+					    'insert_time'=>$time,
+					    'update_time'=>$time,
+					    ];
+			    }
+		    }
+	    }
+	    $res = M('khkf_candidate')->addAll($candidate);
+	    if($res !== false){
+		    $this->success('批量添加完成！');
+	    }else {
+		    $this->error('批量添加失败！');
 	    }
     }
 }

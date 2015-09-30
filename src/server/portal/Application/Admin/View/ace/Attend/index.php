@@ -14,33 +14,19 @@
                         <label>宝宝年龄
                             <input type="text" class="search-input" name="baby_age" value="<?=I('baby_age')?>" placeholder="单位：月">
                         </label>
-                    </div>
-                    <div class="col-sm-12">
                         <label>课程名称
                             <input type="text" class="search-input" name="classname" value="<?=I('classname')?>">
                         </label>
+                    </div>
+                    <div class="col-sm-12">
                         <label>学校名称
                             <input type="text" class="search-input" name="school_name" value="<?=I('school_name')?>">
                         </label>
-                        <label>耗课月份
-                            <?php
-                            $month_list = [
-                                0=>'--请选择月份--',
-                                '01'=>'一月',
-                                '02'=>'二月',
-                                '03'=>'三月',
-                                '04'=>'四月',
-                                '05'=>'五月',
-                                '06'=>'六月',
-                                '07'=>'七月',
-                                '08'=>'八月',
-                                '09'=>'九月',
-                                '10'=>'十月',
-                                '11'=>'十一月',
-                                '12'=>'十二月',
-                            ];
-                            echo form_dropdown('month',$month_list,I('month'));
-                            ?>
+                        <label>开始时间
+                            <input type="text" class="autosize-transition day-input search-input" name="sdate" value="<?=I('sdate')?>" placeholder="请选择查询起始日期">
+                        </label>
+                        <label>结束时间
+                            <input type="text" class="autosize-transition day-input search-input" name="edate" value="<?=I('edate')?>" placeholder="请选择查询结束日期">
                         </label>
                         <label>
                             <button class="btn btn-sm btn-primary" type="button" id="search-btn" url="<?=U('index')?>">
@@ -103,4 +89,12 @@
     //导航高亮
     highlight_subnav('{:U('attend/index')}');
 	</script>
+    <script src="__ACE__/js/date-time/bootstrap-datepicker.min.js"></script>
+    <script type="text/javascript">
+            $(function(){
+                    $('input.day-input').datepicker({autoclose:true}).next().on(ace.click_event, function(){
+                        $(this).prev().focus();
+                    });
+                });
+        </script>
 </block>

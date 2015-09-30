@@ -87,6 +87,35 @@ class PublicController extends MallController {
         }
     }
 
+    public function createWxMenu2Action(){
+
+        $this->config =  new Yaf\Config\Ini(CONF_PATH.'assistant.ini');
+        $this->wechat = new Wechat($this->config->wechat->toArray());
+
+        $base_url = 'http://mm.mi360.me/';
+        $newmenu =  [
+            "button"=>[
+                [
+                    'name'=>'访问后台',
+                    'type'=>'view',
+                    'url'=>$this->wechat->getOauthRedirect($base_url.'adminback/wxmenu','index'),
+                ],
+                [
+                    'name'=>'绑定账号',
+                    'type'=>'view',
+                    'url'=>$this->wechat->getOauthRedirect($base_url.'adminback/wxmenu','bind'),
+                ],
+                [
+                    'name'=>'我的',
+                    'type'=>'view',
+                    'url'=>$this->wechat->getOauthRedirect($base_url.'adminback/wxmenu','myinfo'),
+                ]
+            ]
+        ];
+        $result = $this->wechat->createMenu($newmenu);
+        var_dump($result);die;
+    }
+
     public function createWxMenuAction(){
         $base_url = 'http://mm.mi360.me/';
         $newmenu =  [

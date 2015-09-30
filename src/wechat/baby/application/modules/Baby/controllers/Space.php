@@ -24,6 +24,7 @@ class SpaceController extends MemberController {
 
         $this->layout->meta_title = '成长时光';
         $this->layout->title = '成长时光';
+        $this->layout->back_url = '/baby/space/index.html';
 
         $page = intval($this->getRequest()->getPost('page',0))+1;
 
@@ -31,15 +32,23 @@ class SpaceController extends MemberController {
         $resp = $curl->setData(['unionId'=>$this->user['unionId'],'pageIndex'=>$page,'pageSize'=>$this->config->application->pagenum])
             ->send('babyMature/queryBabyMatureList');
 
+        if(IS_AJAX){
+            if(empty($resp) || $resp['errcode'] != 0){
+                $this->error('数据列表为空!');
+            }
+            $html = $this->render('ajaxGrowthTime',['list'=>$resp['list']]);
+
+            $this->ajaxReturn(['status'=>0,'html'=>$html,'list_total'=>count($resp['list']),'page'=>$page]);
+        }
+
         $list = [];
-        $total = 0;
         if(!empty($resp) && $resp['errcode'] == '0'){
             $list = $resp['list'];
-            $total = $resp['total'];
         }
 
         $this->getView()->assign('list',$list);
-        $this->getView()->assign('total',$total);
+        $this->getView()->assign('total',intval($resp['total']));
+        $this->getView()->assign('pageIndex',$page);
     }
 
     public function commentAction(){

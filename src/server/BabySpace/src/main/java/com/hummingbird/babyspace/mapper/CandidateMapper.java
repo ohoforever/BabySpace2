@@ -44,5 +44,5 @@ public interface CandidateMapper {
 	  /**
      * 根据手机号查询记录
      */
-    Candidate selectByMobileNum(String mobileNum);
+    List<Candidate> selectByMobileNum(String mobileNum);
 }
