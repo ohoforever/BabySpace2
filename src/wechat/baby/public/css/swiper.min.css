@@ -33,7 +33,7 @@
 .swiper-pagination-black .swiper-pagination-bullet-active{background:#000}
 .swiper-container-vertical>.swiper-pagination{right:10px;top:50%;-webkit-transform:translate3d(0,-50%,0);-moz-transform:translate3d(0,-50%,0);-o-transform:translate(0,-50%);-ms-transform:translate3d(0,-50%,0);transform:translate3d(0,-50%,0)}
 .swiper-container-vertical>.swiper-pagination .swiper-pagination-bullet{margin:5px 0;display:block}
-.swiper-container-horizontal>.swiper-pagination{bottom:10px;left:0;width:100%}
+.swiper-container-horizontal>.swiper-pagination{bottom:0px;left:0;width:100%}
 .swiper-container-horizontal>.swiper-pagination .swiper-pagination-bullet{margin:0 5px}
 .swiper-container{width:100%;-webkit-perspective:1200px;-moz-perspective:1200px;-ms-perspective:1200px;perspective:1200px}
 
