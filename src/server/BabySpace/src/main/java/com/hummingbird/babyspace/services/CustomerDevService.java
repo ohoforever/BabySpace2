@@ -33,7 +33,7 @@ public interface CustomerDevService {
 	 * @param mobileNum
 	 * @return Candidate
 	 */
-	public Candidate queryCandidate(String mobileNum);
+	public List<Candidate> queryCandidate(String mobileNum);
 	/**
 	 * @Description: 新增待开发客户
 	 * @param body

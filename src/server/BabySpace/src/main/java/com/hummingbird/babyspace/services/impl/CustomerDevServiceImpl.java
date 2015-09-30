@@ -78,8 +78,8 @@ public class CustomerDevServiceImpl implements CustomerDevService {
 		return appointment2.getId();
 	}
 	@Override
-	public Candidate queryCandidate(String mobileNum) {
-		Candidate ca=candidateDao.selectByMobileNum(mobileNum);
+	public List<Candidate> queryCandidate(String mobileNum) {
+		List<Candidate> ca=candidateDao.selectByMobileNum(mobileNum);
 		
 		return ca;
 	}

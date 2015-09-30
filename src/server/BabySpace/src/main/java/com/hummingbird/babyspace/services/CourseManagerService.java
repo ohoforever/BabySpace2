@@ -17,7 +17,7 @@ public interface CourseManagerService {
 	 * @Description 添加试听记录
 	 * @param body
 	 */
-	public void addAttendAppointment(CourseRecordBodyVO body,Integer candidateId);
+	public void addAttendAppointment(String courseName,Integer candidateId);
 	/**
 	 * 根据宝宝查课程
 	 * @param childId
