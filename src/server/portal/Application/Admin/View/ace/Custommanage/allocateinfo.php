@@ -49,6 +49,27 @@ $status= ['CRT'=>'待开发','FLS'=>'开发失败','OK#'=>'开发完成'];
 	</table>
 </div>
 </div>
+<?php foreach($list as $v){?>
+<div class="widget-box" style="opacity: 1; z-index: 0;margin-bottom:1em;">
+<div class="widget-header" style="color:#999;">
+</div>
+<div class="widget-body">
+<div class=""> 
+       <table class="table table-striped table-bordered table-hover" style="margin-bottom:0px;">
+	<tbody>
+		<tr>
+			<td><span style="color:#999;padding-right:8px;">用户级别:</span><?php echo $v['level']?></td>
+			<td><span style="color:#999;padding-right:8px;">候选人星数:</span><?php echo $v['star']?></td>
+		</tr>
+		<tr>
+			<td colspan="2"><span style="color:#999;padding-right:8px;">内容:</span><?php echo $v['evaluation']?></td>
+		</tr>
+	 </tbody>
+	</table>
+</div>
+</div>
+</div>
+<?php }?>
             <div class="col-xs-12 center" style="margin-top:1em;">
                 <button type="submit" target-form="form-horizontal" class="btn btn-success ajax-post no-refresh" id="sub-btn">
                     <i class="icon-ok bigger-110"></i> 确认保存

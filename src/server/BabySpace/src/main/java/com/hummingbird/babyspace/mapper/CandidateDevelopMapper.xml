@@ -41,7 +41,9 @@
     from 
     t_ucenter_member m,t_khkf_candidate c,
     t_assistant_develop_count d,
-    t_base_setting s
+    t_base_setting s,
+    t_base_setting s2,
+    t_auth_group_access g
     where m.city=c.city
     and c.status='CRT'
     and c.current_assistant_id is null
@@ -51,6 +53,9 @@
     and c.id not in (
     	select candidate_id from t_khkf_candidate_develop where assistant_id=m.id
     )
+    and s2.key='assistantUserGroup'
+    and g.group_id = s2.value
+    and m.id = g.uid
     and c.id=#{id}
 	order by d.developing_count 
    
