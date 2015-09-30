@@ -140,8 +140,8 @@ class AddcourseController extends AdminController {
 		$course= M('bbkj_baby_attend_class')->field('sum(course_count) as c')->where("order_id='{$orderid}'")->find();
 		$this->meta_title = '退课';
 		$this->assign('user',$user);
-		$this->assign('course_left',$order['course_total']-$course['c']);
-		$this->assign('course_amount',($order['course_count']-$course['c'])*$order['course_price']);
+		$this->assign('course_left',$order['course_count']+$order['given_count']-$course['c']);
+		$this->assign('course_amount',($order['course_count']+$order['given_count']-$course['c'])*$order['course_price']);
 		$this->assign('baby',$baby);
 		$this->assign('order',$order);
 		$this->display();

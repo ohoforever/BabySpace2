@@ -167,6 +167,14 @@
                             </div>
                             <div class="row">
                                 <div class="col-xs-4">
+                                    <label style="padding-top: 4px;">课程课时：</label>
+                                </div>
+                                <div class="col-xs-8">
+                                    <input type="text" name="course_total" id="course_total" value="" class="width-100" />
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-xs-4">
                                     <label style="padding-top: 4px;">课程单价：</label>
                                 </div>
                                 <div class="col-xs-8">
@@ -187,14 +195,6 @@
                                 </div>
                                 <div class="col-xs-8">
                                     <input type="text" name="given_count" value="" id="given_count" class="width-100" />
-                                </div>
-                            </div>
-                            <div class="row">
-                                <div class="col-xs-4">
-                                    <label style="padding-top: 4px;">课程课时：</label>
-                                </div>
-                                <div class="col-xs-8">
-                                    <input type="text" name="course_total" id="course_total" value="" class="width-100" readonly/>
                                 </div>
                             </div>
                             <div class="row">
@@ -267,7 +267,6 @@ $('#course_count').change(function (){
 	given_count = isNaN(given_count)?0:given_count;
 	course_count= isNaN(course_count)?0:course_count;
 	$('#course_amount').val(price*(course_count+given_count));
-	$('#course_total').val(course_count+given_count);
 	});
 $('#given_count').change(function (){
 	var price = parseInt($('#course_price').val()); 
@@ -277,7 +276,6 @@ $('#given_count').change(function (){
 	given_count = isNaN(given_count)?0:given_count;
 	course_count= isNaN(course_count)?0:course_count;
 	$('#course_amount').val(price*(course_count+given_count));
-	$('#course_total').val(course_count+given_count);
 	});
 
 $('#reset-btn').click(function (){

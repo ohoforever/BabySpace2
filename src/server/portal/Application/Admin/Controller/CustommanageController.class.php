@@ -181,7 +181,6 @@ class CustommanageController extends AdminController {
 	    $Spreadsheet = new \SpreadsheetReader($Filepath);
 	    $Sheets = $Spreadsheet->Sheets();
 	    $candidate = [];
-	    $time = time_format();
 	    foreach ($Sheets as $Index => $Name){
 		    $Spreadsheet -> ChangeSheet($Index);
 		    foreach ($Spreadsheet as $Key => $Row)
@@ -191,9 +190,18 @@ class CustommanageController extends AdminController {
 			    }
 			    if ($Row && is_array($Row) && count($Row) > 3)
 			    {
-				    $sex = $Row[3]=='男'?'MALE###':$Row[3]=='女'?'FEMALE#':'UNKNOWN';
-				    $time = strtotime($Row[4]);
-				    $day = date('Y-m-d',$time);
+//				    $sex = $Row[3]=='男'?'MALE###':($Row[3]=='女'?'FEMALE#':'UNKNOWN');
+				    if($Row[3]=='男')
+				    {
+					    $sex="MALE###";
+				    }elseif($Row[3]=='女'){
+					    $sex='FEMALE#';
+				    }else{
+					    $sex='UNKNOWN';
+				    }
+				    $birthday= strtotime($Row[4]);
+				    $day = date('Y-m-d',$birthday);
+				    $time = date('Y-m-d H:i:s');
 				    $candidate[] = [
 					    'mobile_num'=>$Row[0],
 					    'parent_name'=>$Row[1],
