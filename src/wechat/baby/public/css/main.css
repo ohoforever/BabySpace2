@@ -126,7 +126,7 @@ header a{color:#808080;}
 .swiper-pagination-bullet-active{opacity: 1;}
 .img{max-width: 100%;}
 
-.share-txt{font-size: 0.65rem;color: #a98005;line-height: 0.85rem;text-align: center;}
+.share-txt{font-size: 0.65rem;color: #a98005;line-height: 0.85rem; padding: 0 10%;}
 .share-btn{width: 8rem;margin: 1.5rem auto; }
 
 /*5*/
