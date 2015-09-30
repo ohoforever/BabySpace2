@@ -87,7 +87,7 @@ public class BabyCourseController extends BaseController{
 					detail.setSchoolName(order.getSchoolName());
 					detail.setOrderId(order.getOrderId());
 					//根据报课Id查更新时间和剩余课程updateTime courseCount
-					detail.setUpdateTime(DateUtil.formatCommonDateorNull(new Date()));
+					detail.setUpdateTime(DateUtil.formatCommonDateorNull(order.getInsertTime()));
 					
 					//剩余课时数
 					Integer courseCount=order.getCourseTotal()-courseSer.queryCourseCount(order.getOrderId());
