@@ -51,7 +51,7 @@ class AssistController extends AdminController {
 	public function show($id = 0){
 		empty($id) && $this->error('参数错误！');
 		$map = ['id'=>$id,'current_assistant_id'=>$this->_uid,'status'=>'CRT'];
-		$info = M('khkf_candidate')->field(true)->find($map);
+		$info = M('khkf_candidate')->field(true)->where($map)->find();
 		empty($info) && $this->error('请求的数据不存在！');
 		$this->assign('item',$info);
 		$this->meta_title = '查看客户信息';
