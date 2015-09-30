@@ -51,14 +51,14 @@ $status= ['CRT'=>'待开发','FLS'=>'开发失败','OK#'=>'开发完成'];
 					<th class="">家长姓名</th>
 					<th class="">家长电话</th>
 					<th class="">宝宝名称</th>
-					<th class="hidden-480">宝宝性别</th>
-					<th class="hidden-480">宝宝生日</th>
-					<th class="hidden-480">所在城市</th>
-					<th class="">所在区域</th>
-					<th class="">用户级别</th>
-					<th class="hidden-480">候选人星数</th>
-					<th class="">开发状态</th>
-					<th class="">跟单人</th>
+					<th class="hidden-480 hidden-sm hidden-xs">宝宝性别</th>
+					<th class="hidden-480 hidden-sm hidden-xs">宝宝生日</th>
+					<th class="hidden-480 hidden-sm hidden-xs">所在城市</th>
+					<th class="hidden-sm hidden-xs">所在区域</th>
+					<th class="hidden-sm hidden-xs">用户级别</th>
+					<th class="hidden-480 hidden-sm hidden-xs">候选人星数</th>
+					<th class="hidden-sm hidden-xs"开发状态</th>
+					<th class="hidden-sm hidden-xs">跟单人</th>
 					<th class="">操作</th>
 					</tr>
 			    </thead>
@@ -77,20 +77,51 @@ $status= ['CRT'=>'待开发','FLS'=>'开发失败','OK#'=>'开发完成'];
 						<td>{$vo.parent_name} </td>
 						<td><a href="{:U('Custommanage/allocateinfo?id='.$vo['id'])}">{$vo.mobile_num}</a></td>
 						<td>{$vo.baby_name}</td>
-						<td class="hidden-480"><?php echo $sex[$vo['baby_sex']];?></td>
-						<td class="hidden-480">{$vo.baby_birthday}</td>
-						<td class="hidden-480">{$vo.city}</td>
-						<td>{$vo.district}</td>
-						<td>{$vo.level}</td>
-						<td class="hidden-480">{$vo.star}</td>
-						<td><?php echo  $status[$vo['status']];?></td>
-						<td>{$vo.username}</td>
+						<td class="hidden-480 hidden-sm hidden-xs"><?php echo $sex[$vo['baby_sex']];?></td>
+						<td class="hidden-480 hidden-sm hidden-xs">{$vo.baby_birthday}</td>
+						<td class="hidden-480 hidden-sm hidden-xs">{$vo.city}</td>
+						<td class="hidden-sm hidden-xs">{$vo.district}</td>
+						<td class="hidden-sm hidden-xs">{$vo.level}</td>
+						<td class="hidden-480 hidden-sm hidden-xs">{$vo.star}</td>
+						<td class="hidden-sm hidden-xs"><?php echo  $status[$vo['status']];?></td>
+						<td class="hidden-sm hidden-xs">{$vo.username}</td>
 						<td>
-						<?php if($vo['status']=='CRT'){?>
-						<a href="<?php echo U('Custommanage/allocateinfo?id='.$vo['id'])?>" >调配</a>
-						<a href="<?php echo U('Custommanage/setStatus?type=F&id='.$vo['id'])?>" class="ajax-get confirm " >开发失败</a>
-						<a href="<?php echo U('Custommanage/setStatus?type=S&id='.$vo['id'])?>" class="ajax-get confirm" >开发完成</a>
-						<?php }?>
+                            <?php if($vo['status']=='CRT'){?>
+                            <div class="visible-md visible-lg hidden-sm hidden-xs action-buttons">
+                                <a href="<?php echo U('Custommanage/allocateinfo?id='.$vo['id'])?>" >调配</a>
+                                |
+                                <a href="<?php echo U('Custommanage/setStatus?type=F&id='.$vo['id'])?>" class="ajax-get confirm " >
+                                    开发失败
+                                </a>
+                                |
+                                <a href="<?php echo U('Custommanage/setStatus?type=S&id='.$vo['id'])?>" class="ajax-get confirm" >
+                                    开发完成
+                                </a>
+                            </div>
+                            <div class="visible-xs visible-sm hidden-md hidden-lg">
+                                <div class="inline position-relative">
+                                    <button class="btn btn-minier btn-yellow dropdown-toggle" data-toggle="dropdown">
+                                        <i class="icon-caret-down icon-only bigger-120"></i>
+                                    </button>
+
+                                    <ul class="dropdown-menu dropdown-only-icon dropdown-yellow pull-right dropdown-caret dropdown-close">
+                                        <li>
+                                            <a href="<?php echo U('Custommanage/allocateinfo?id='.$vo['id'])?>" >调配</a>
+                                        </li>
+                                        <li>
+                                            <a href="<?php echo U('Custommanage/setStatus?type=F&id='.$vo['id'])?>" class="ajax-get confirm " >
+                                                开发失败
+                                            </a>
+                                        </li>
+                                        <li>
+                                            <a href="<?php echo U('Custommanage/setStatus?type=S&id='.$vo['id'])?>" class="ajax-get confirm" >
+                                                开发完成
+                                            </a>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
+                            <?php }?>
 						</td>
 					</tr>
 					</volist>

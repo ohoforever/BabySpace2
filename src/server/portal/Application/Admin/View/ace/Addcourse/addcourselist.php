@@ -16,7 +16,7 @@
                             <label>电话号码
                                 <input type="text" class="search-input" name="mobile_num" value="<?=I('mobile_num')?>">
                             </label>
-                            <label>订单号
+                            <label>订单号 &nbsp; &nbsp;
                                 <input type="text" class="search-input" name="order_id" value="<?=I('order_id')?>">
                             </label>
                         </div>
@@ -40,16 +40,16 @@
             <table class="table table-striped table-bordered table-hover dataTable">
                 <thead>
                 <tr>
-                    <th class="">订单号</th>
+                    <th class="hidden-480">订单号</th>
                     <th class="">宝宝姓名</th>
-                    <th class="">电话</th>
-                    <th class="">学校名称</th>
-                    <th class="">课程名称</th>                                                                                    </th>
+                    <th class="hidden-480">电话</th>
+                    <th class="hidden-480">学校名称</th>
+                    <th class="hidden-480">课程名称</th>                                                                                    </th>
                     <th class="">课程课时</th>
                     <th class="">购买费用</th>
                     <th class="">购买课时</th>
                     <th class="">赠送课时</th>
-                    <th class="">操作时间</th>
+                    <th class="hidden-480">操作时间</th>
                     <th class="">操作</th>
                 </tr>
                 </thead>
@@ -58,19 +58,21 @@
                 <notempty name="_list">
                     <volist name="_list" id="vo">
                         <tr>
-                            <td><a href="<?=U('addcourselist',array('order_id'=>$vo['order_id']))?>"><?=$vo['order_id']?> </td>
+                            <td class="hidden-480"><a href="<?=U('addcourselist',array('order_id'=>$vo['order_id']))?>"><?=$vo['order_id']?> </td>
                             <td><?=$vo['baby_name']?></td>
-                            <td><?=$vo['mobile_num']?></td>
-                            <td><?=$vo['school_name']?></td>
-                            <td><?=$vo['course_name']?></td>
+                            <td class="hidden-480"><?=$vo['mobile_num']?></td>
+                            <td class="hidden-480"><?=$vo['school_name']?></td>
+                            <td class="hidden-480"><?=$vo['course_name']?></td>
                             <td><?=$vo['course_total']?></td>
                             <td><?=$vo['course_amount']/100?></td>
                             <td><?=$vo['course_count']?></td>
                             <td><?=$vo['given_count']?></td>
-                            <td><?=$vo['insert_time']?></td>
+                            <td class="hidden-480"><?=$vo['insert_time']?></td>
                             <td>
                                 <a href="<?=U('edit',array('order_id'=>$vo['order_id']))?>">修改</a>
+                                |
                                 <a class="ajax-get confirm" href="<?=U('delete',array('order_id'=>$vo['order_id']))?>">删除</a>
+                                |
                                 <a href="<?=U('reject',array('order_id'=>$vo['order_id']))?>">退课</a>
                             </td>
                         </tr>
