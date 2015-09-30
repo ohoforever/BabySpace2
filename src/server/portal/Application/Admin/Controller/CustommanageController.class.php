@@ -29,7 +29,7 @@ class CustommanageController extends AdminController {
 		    $map['baby_sex']= I('baby_sex');
 	    }
         $map['status']    =   'CRT';
-        $list   =   $this->lists('khkf_candidate', $map);
+        $list   =   $this->lists('khkf_candidate', $map,'update_time desc');
         $this->assign('_list', $list);
         $this->meta_title = '开发客户列表';
         $this->display();
