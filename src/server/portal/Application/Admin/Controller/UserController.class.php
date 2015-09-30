@@ -78,7 +78,7 @@ class UserController extends AdminController {
         $prefix = C('DB_PREFIX');
         $model = M()->table($prefix.'member m')
                     ->join($prefix.'ucenter_member um on m.uid = um.id');
-        $list   = $this->lists($model, $map,'','m.*,um.username');
+        $list   = $this->lists($model, $map,'','m.*,um.username,um.city,um.district');
         int_to_string($list);
         $this->assign('_list', $list);
         $this->meta_title = '用户信息';
@@ -303,6 +303,19 @@ class UserController extends AdminController {
                 if(!M('Member')->add($user)){
                     $this->error('用户添加失败！');
                 } else {
+			if(I('group_id')=='5')
+			{
+				$type= 'ASST';
+			}
+			if(I('group_id')=='8')
+			{
+				$type= 'TECH';
+			}
+			if(I('group_id')=='10')
+			{
+				$type= 'ASST';
+			}
+			M('ucenter_member')->where(['id'=>$uid])->save(['user_type'=>$type]);
                     $this->success('用户添加成功！',U('index'));
                 }
             } else { //注册失败，显示错误信息

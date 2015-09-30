@@ -175,18 +175,10 @@
                             </div>
                             <div class="row">
                                 <div class="col-xs-4">
-                                    <label style="padding-top: 4px;">买课费用(元)：</label>
-                                </div>
-                                <div class="col-xs-8">
-                                    <input type="text" name="course_amount" value="<?php echo round($order['course_amount']/100,2);?>" id="course_amount" class="width-100" />
-                                </div>
-                            </div>
-                            <div class="row">
-                                <div class="col-xs-4">
                                     <label style="padding-top: 4px;">课程价格：</label>
                                 </div>
                                 <div class="col-xs-8">
-                                    <input type="text" name="course_price" value="<?php echo round($order['course_amount']/100,2);?>" id="course_price" class="width-100" />
+                                    <input type="text" name="course_price" value="<?php echo round($order['course_price']/100,2);?>" id="course_price" class="width-100" />
                                 </div>
                             </div>
                             <div class="row">
@@ -203,6 +195,14 @@
                                 </div>
                                 <div class="col-xs-8">
                                     <input type="text" name="given_count" value="{$order.given_count}" id="given_count" class="width-100" />
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-xs-4">
+                                    <label style="padding-top: 4px;">买课费用(元)：</label>
+                                </div>
+                                <div class="col-xs-8">
+                                    <input type="text" name="course_amount" value="<?php echo round($order['course_amount']/100,2);?>" id="course_amount" class="width-100" readonly/>
                                 </div>
                             </div>
                         </div>
@@ -252,6 +252,33 @@ $(function(){
     });
 
     highlight_subnav('{:U('Addcourse/edit')}');
+$('#course_price').change(function (){
+	var price = parseInt($('#course_price').val()); 
+	var given_count = parseInt($('#given_count').val()); 
+	var course_count = parseInt($('#course_count').val()); 
+	price = isNaN(price)?0:price;
+	given_count = isNaN(given_count)?0:given_count;
+	course_count= isNaN(course_count)?0:course_count;
+	$('#course_amount').val(price*(course_count+given_count));
+	});
+$('#course_count').change(function (){
+	var price = parseInt($('#course_price').val()); 
+	var given_count = parseInt($('#given_count').val()); 
+	var course_count = parseInt($('#course_count').val()); 
+	price = isNaN(price)?0:price;
+	given_count = isNaN(given_count)?0:given_count;
+	course_count= isNaN(course_count)?0:course_count;
+	$('#course_amount').val(price*(course_count+given_count));
+	});
+$('#given_count').change(function (){
+	var price = parseInt($('#course_price').val()); 
+	var given_count = parseInt($('#given_count').val()); 
+	var course_count = parseInt($('#course_count').val()); 
+	price = isNaN(price)?0:price;
+	given_count = isNaN(given_count)?0:given_count;
+	course_count= isNaN(course_count)?0:course_count;
+	$('#course_amount').val(price*(course_count+given_count));
+	});
 
 });
 </script>

@@ -23,6 +23,7 @@ class IndexController extends MallController {
         if(empty($resp) || $resp['errcode'] != '0'){
             $this->error('哎呀,出错了,数据没找到！');
         }else{
+            $this->layout->title = $resp['result']['title'];
             $this->getView()->assign('item',$resp['result']);
         }
 

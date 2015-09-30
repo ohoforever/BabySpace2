@@ -50,12 +50,12 @@ $baby_sex  = I('baby_sex');
 					<th class="">家长姓名</th>
 					<th class="">家长电话</th>
 					<th class="">宝宝名称</th>
-					<th class="hidden-480">宝宝性别</th>
-					<th class="hidden-480">宝宝生日</th>
+					<th class="hidden-sm hidden-xs">宝宝性别</th>
+					<th class="hidden-sm hidden-xs">宝宝生日</th>
 					<th class="">所在城市</th>
-					<th class="">所在区域</th>
-					<th class="hidden-480">用户级别</th>
-					<th class="hidden-480">候选人星数</th>
+					<th class="hidden-sm hidden-xs">所在区域</th>
+					<th class="hidden-sm hidden-xs">用户级别</th>
+					<th class="hidden-sm hidden-xs">候选人星数</th>
 					<th class="">操作</th>
 					</tr>
 			    </thead>
@@ -74,12 +74,12 @@ $baby_sex  = I('baby_sex');
 						<td><a href="{:U('Custommanage/info?id='.$vo['id'])}" >{$vo.parent_name} </a></td>
 						<td>{$vo.mobile_num}</td>
 						<td>{$vo.baby_name}</td>
-						<td class="hidden-480"><?php echo $sex[$vo['baby_sex']];?></td>
-						<td class="hidden-480">{$vo.baby_birthday}</td>
-						<td>{$vo.city}</td>
-						<td>{$vo.district}</td>
-						<td class="hidden-480">{$vo.level}</td>
-						<td class="hidden-480">{$vo.star}</td>
+						<td class="hidden-sm hidden-xs"><?php echo $sex[$vo['baby_sex']];?></td>
+						<td class="hidden-sm hidden-xs">{$vo.baby_birthday}</td>
+						<td class="">{$vo.city}</td>
+						<td class="hidden-sm hidden-xs">{$vo.district}</td>
+						<td class="hidden-sm hidden-xs">{$vo.level}</td>
+						<td class="hidden-sm hidden-xs">{$vo.star}</td>
 						<td>
 						<a href="{:U('Custommanage/edit?id='.$vo['id'])}" >编辑</a>
 						</td>

@@ -45,6 +45,10 @@ class ThinkController extends AdminController {
             // 支持多个字段显示
             $field   = explode(',', $val[0]);
             $value    = array('field' => $field, 'title' => $val[1]);
+            if(isset($val[3])){
+                // 链接信息
+                $value['class']	=	$val[3];
+            }
             if(isset($val[2])){
                 // 链接信息
                 $value['href']	=	$val[2];
@@ -133,7 +137,6 @@ class ThinkController extends AdminController {
             $page->setConfig('theme','%FIRST% %UP_PAGE% %LINK_PAGE% %DOWN_PAGE% %END% %HEADER%');
             $this->assign('_page', $page->show());
         }
-
         $data   =   $this->parseDocumentList($data,$model['id']);
         $this->assign('model', $model);
         $this->assign('list_grids', $grids);

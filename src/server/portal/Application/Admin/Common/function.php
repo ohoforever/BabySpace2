@@ -193,6 +193,7 @@ function get_list_field($data, $grid){
         foreach($links as $link){
             $array  =   explode('|',$link);
             $href   =   $array[0];
+            $class_str = isset($grid['class']) ? $grid['class'] : '';
             if(preg_match('/^\[([a-z_]+)\]$/',$href,$matches)){
                 $val[]  =   $data2[$matches[1]];
             }else{
@@ -208,7 +209,7 @@ function get_list_field($data, $grid){
                 // 替换数据变量
                 $href   =   preg_replace_callback('/\[([a-z_]+)\]/', function($match) use($data){return $data[$match[1]];}, $href);
 
-                $val[]  =   '<a href="'.U($href).'">'.$show.'</a>';
+                $val[]  =   '<a class="'.$class_str.'" href="'.U($href).'">'.$show.'</a>';
             }
         }
         $value  =   implode(' ',$val);

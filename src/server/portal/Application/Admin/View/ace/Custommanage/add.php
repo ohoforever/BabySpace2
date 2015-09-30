@@ -59,7 +59,13 @@
 		<div class="form-group">
 			<label class="col-xs-12 col-sm-2 control-label no-padding-right">候选人星数</label>
 			<div class="col-xs-12 col-sm-5">
-				<input name="star" class="autosize-transition span12 form-control" value="">
+				<select name="star">
+					<option value="1" >1星</option>
+					<option value="2" >2星</option>
+					<option value="3" >3星</option>
+					<option value="4" >4星</option>
+					<option value="5" >5星</option>
+				</select>
 			</div>
 			<span class="help-block col-xs-12 col-sm-5 inline">（输入候选人星数）</span>
 		</div>

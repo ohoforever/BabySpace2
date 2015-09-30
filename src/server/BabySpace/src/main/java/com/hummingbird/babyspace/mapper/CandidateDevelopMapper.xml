@@ -41,7 +41,9 @@
     from 
     t_ucenter_member m,t_khkf_candidate c,
     t_assistant_develop_count d,
-    t_base_setting s
+    t_base_setting s,
+    t_base_setting s2,
+    t_auth_group_access g
     where m.city=c.city
     and c.status='CRT'
     and c.current_assistant_id is null
@@ -51,6 +53,9 @@
     and c.id not in (
     	select candidate_id from t_khkf_candidate_develop where assistant_id=m.id
     )
+    and s2.key='assistantUserGroup'
+    and g.group_id = s2.value
+    and m.id = g.uid
     and c.id=#{id}
 	order by d.developing_count 
    
@@ -58,8 +63,20 @@
   <update id="change2z" >
   <!-- 查询该业务员没有开发过,开发的客户个数小于400个,业务员城市与客户城市一致的数据 -->
     update t_khkf_candidate c
-    INNER JOIN (select candidate_id , count(*) assistantcount  from t_khkf_candidate_develop group by candidate_id) d ON c.id = d.candidate_id and d.assistantcount>=8
-    set c.level='Z',update_time = now()
+    INNER JOIN (SELECT
+		d.candidate_id,
+		count(*) assistantcount
+	FROM
+		t_khkf_candidate_develop d,
+		t_khkf_candidate_evaluation e
+  where d.assistant_id = e.assistant_id
+	AND d.candidate_id = e.candidate_id
+  and e.`level`='C'
+	GROUP BY
+		d.candidate_id
+		
+		) d ON c.id = d.candidate_id and d.assistantcount>=8
+    set c.level='Z',update_time = now(),current_assistant_id = null
     where c.level='C'
     and c.status = 'CRT' 
   </update>

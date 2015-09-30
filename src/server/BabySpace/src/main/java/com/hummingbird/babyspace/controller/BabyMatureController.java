@@ -129,6 +129,7 @@ public class BabyMatureController extends BaseController {
 						row.put("childId", ori.getChildId());
 						row.put("redflower", ori.getRedflowerCount());
 						row.put("determine",ori.getDetermine());
+						row.put("content",ori.getContent());
 						row.put("matrueDate", DateUtil.formatCommonDateorNull(ori.getActTime()));
 						//处理图片
 						int i=1;

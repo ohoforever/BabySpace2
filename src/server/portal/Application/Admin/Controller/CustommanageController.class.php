@@ -29,7 +29,7 @@ class CustommanageController extends AdminController {
 		    $map['baby_sex']= I('baby_sex');
 	    }
         $map['status']    =   'CRT';
-        $list   =   $this->lists('khkf_candidate', $map);
+        $list   =   $this->lists('khkf_candidate', $map,'update_time desc');
         $this->assign('_list', $list);
         $this->meta_title = '开发客户列表';
         $this->display();
@@ -139,9 +139,11 @@ class CustommanageController extends AdminController {
     public function allocateinfo($id=0)
     {
         empty($id) && $this->error('参数错误！');
-        $info = M('khkf_candidate')->field(true)->find($id);
+        $info = M('khkf_candidate')->find($id);
         $this->assign('item', $info);
-        $assi = M('ucenter_member')->field('id,username')->where("user_type='ASST'")->select();
+        $assi = M('ucenter_member')->where("user_type='ASST'")->getField('id,username');
+	$list = M('khkf_candidate_evaluation')->field(true)->where("candidate_id='$id'")->select();
+	$this->assign('list',$list);
         $this->assign('assi', $assi);
         $this->meta_title = '客户信息详情';
         $this->display();
@@ -181,7 +183,6 @@ class CustommanageController extends AdminController {
 	    $Spreadsheet = new \SpreadsheetReader($Filepath);
 	    $Sheets = $Spreadsheet->Sheets();
 	    $candidate = [];
-	    $time = time_format();
 	    foreach ($Sheets as $Index => $Name){
 		    $Spreadsheet -> ChangeSheet($Index);
 		    foreach ($Spreadsheet as $Key => $Row)
@@ -189,11 +190,23 @@ class CustommanageController extends AdminController {
 			    if($Key < 2){
 				    continue;
 			    }
+			    if(empty($Row[0])||!is_numeric($Row[0])){
+				    continue;
+			    }
 			    if ($Row && is_array($Row) && count($Row) > 3)
 			    {
-				    $sex = $Row[3]=='男'?'MALE###':$Row[3]=='女'?'FEMALE#':'UNKNOWN';
-				    $time = strtotime($Row[4]);
-				    $day = date('Y-m-d',$time);
+//				    $sex = $Row[3]=='男'?'MALE###':($Row[3]=='女'?'FEMALE#':'UNKNOWN');
+				    if($Row[3]=='男')
+				    {
+					    $sex="MALE###";
+				    }elseif($Row[3]=='女'){
+					    $sex='FEMALE#';
+				    }else{
+					    $sex='UNKNOWN';
+				    }
+				    $birthday= strtotime($Row[4]);
+				    $day = date('Y-m-d',$birthday);
+				    $time = date('Y-m-d H:i:s');
 				    $candidate[] = [
 					    'mobile_num'=>$Row[0],
 					    'parent_name'=>$Row[1],

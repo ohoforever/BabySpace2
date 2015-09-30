@@ -57,6 +57,6 @@
 <script type="text/javascript" charset="utf-8">
 	Think.setValue('type',{$type|default=1});
     //导航高亮
-    highlight_subnav('{:U('assist/index')}');
+    highlight_subnav('{:U('custommanage/index')}');
 </script>
 </block>

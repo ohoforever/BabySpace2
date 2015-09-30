@@ -3,7 +3,10 @@
 <block name="body">
 	<!-- 表单 -->
 
-<?php $sex = ['MALE###'=>'男宝宝','FEMALE#'=>'女宝宝','UNKNOWN'=>'不详'];?>
+<?php
+$sex = ['MALE###'=>'男宝宝','FEMALE#'=>'女宝宝','UNKNOWN'=>'不详'];
+$status= ['CRT'=>'待开发','FLS'=>'开发失败','OK#'=>'开发完成'];
+?>
 <div class="widget-box" style="opacity: 1; z-index: 0;margin-bottom:1em;">
 <div class="widget-header " style="color:#999;">
           <h5 class="bigger lighter"> 客户信息</h5>        
@@ -31,22 +34,42 @@
 			<td><span style="color:#999;padding-right:8px;">候选人星数:</span>{$item.star}星</td>
 		</tr>
 		<tr>
+			<td><span style="color:#999;padding-right:8px;">状态:</span><?=$status[$item['status']];?></td>
+			<td><span style="color:#999;padding-right:8px;">跟单人:</span><?=array_key_exists($item['current_assistant_id'],$assi) ? $assi[$item['current_assistant_id']] : ''?></td>
+		</tr>
+		<tr>
 			<td colspan="1"><span style="color:#999;padding-right:8px;">客户评级:</span>{$item.level}</td>
 			<td><span style="color:#999;padding-right:8px;">业务员:</span>
-			<select name ="current_assistant_id">
-			<option value="">请选择</option>
-			<?php foreach($assi as $v){
-				$select = $v['id']==$item['current_assistant_id']?"selected":"";
-			?>
-				<option value="<?php echo $v['id']?>" <?php echo $select;?> ><?php echo $v['username']?></option>
-			<?php }?>
-			</select>
+            <?php
+            echo form_dropdown('current_assistant_id',[''=>'请选择']+$assi,$item['current_assistant_id'],'class="chosen-select"');
+            ?>
 			</td>
 		</tr>
 	 </tbody>
 	</table>
 </div>
 </div>
+<?php foreach($list as $v){?>
+<div class="widget-box" style="opacity: 1; z-index: 0;margin-bottom:1em;">
+<div class="widget-header" style="color:#999;">
+</div>
+<div class="widget-body">
+<div class=""> 
+       <table class="table table-striped table-bordered table-hover" style="margin-bottom:0px;">
+	<tbody>
+		<tr>
+			<td><span style="color:#999;padding-right:8px;">用户级别:</span><?php echo $v['level']?></td>
+			<td><span style="color:#999;padding-right:8px;">候选人星数:</span><?php echo $v['star']?></td>
+		</tr>
+		<tr>
+			<td colspan="2"><span style="color:#999;padding-right:8px;">内容:</span><?php echo $v['evaluation']?></td>
+		</tr>
+	 </tbody>
+	</table>
+</div>
+</div>
+</div>
+<?php }?>
             <div class="col-xs-12 center" style="margin-top:1em;">
                 <button type="submit" target-form="form-horizontal" class="btn btn-success ajax-post no-refresh" id="sub-btn">
                     <i class="icon-ok bigger-110"></i> 确认保存
@@ -67,9 +90,11 @@
     highlight_subnav('{:U('custommanage/allocate')}');
 </script>
     <script src="__ACE__/js/date-time/bootstrap-datepicker.min.js"></script>
+    <script src="__ACE__/js/chosen.jquery.min.js"></script>
     <script type="text/javascript">
             $(function(){
-                    $('input.day-input').datepicker({autoclose:true}).next().on(ace.click_event, function(){
+                $(".chosen-select").chosen();
+                $('input.day-input').datepicker({autoclose:true}).next().on(ace.click_event, function(){
                         $(this).prev().focus();
                     });
                 });
@@ -77,4 +102,5 @@
 </block>
 <block name="style">
 <link rel="stylesheet" href="__ACE__/css/datepicker.css" />
+<link rel="stylesheet" href="__ACE__/css/chosen.css" />
 </block>
