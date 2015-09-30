@@ -29,8 +29,7 @@ class SpaceController extends MemberController {
         $page = intval($this->getRequest()->getPost('page',0))+1;
 
         $curl = new Curl();
-//        $resp = $curl->setData(['unionId'=>$this->user['unionId'],'pageIndex'=>$page,'pageSize'=>$this->config->application->pagenum])
-        $resp = $curl->setData(['unionId'=>$this->user['unionId'],'pageIndex'=>$page,'pageSize'=>3])
+        $resp = $curl->setData(['unionId'=>$this->user['unionId'],'pageIndex'=>$page,'pageSize'=>$this->config->application->pagenum])
             ->send('babyMature/queryBabyMatureList');
 
         if(IS_AJAX){
