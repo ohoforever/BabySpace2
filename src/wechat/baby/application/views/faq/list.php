@@ -3,26 +3,14 @@
     <div class="padm54 padt40 padb90">
         <div class="ask-list">
             <?php if(is_array($list) && count($list) > 0):?>
-            <ul>
-                <?php foreach($list as $item):?>
-                <li>
-                    <a href="javascript:">
-                        <div class="ask-date"><?=$item['questionTime']?></div>
-                        <div class="ask-cont">
-
-                            <div class="blue desc" style="line-height: 23px;">
-                                <p>问：<?=$item['title']?></p>
-                                &nbsp; &nbsp; &nbsp; &nbsp;<?=$item['desc']?>
-                            </div>
-                            <div class="clear">
-                                <div class="left wid60">答：</div>
-                                <div class="auto"><?=$item['answer']?></div>
-                            </div>
-                        </div>
-                    </a>
-                </li>
-                <?php endforeach;?>
+            <ul id="item-wrap">
+                <?php require_once 'ajaxFaq.php';?>
             </ul>
+            <input type="hidden" id="page" value="<?=$pageIndex?>" />
+            <input type="hidden" id="surplus" value="<?=$total-count($list)?>" />
+            <block name="script">
+                <script src="/js/scroll.page.js"></script>
+            </block>
             <?php else:?>
                 <div class="class-sure-tit">您还没有问题，请点击下面的提问按钮进行提问！</div>
             <?php endif;?>
