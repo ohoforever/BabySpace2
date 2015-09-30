@@ -146,7 +146,7 @@
                                     <label style="padding-top: 4px;">学校名称：</label>
                                 </div>
                                 <div class="col-xs-8">
-                                    <input type="text" name="school_name" id="school_name" value="{$order.school_name}" class="width-100" />
+                                    {$order.school_name}
                                 </div>
                             </div>
                             <div class="row">
@@ -154,7 +154,7 @@
                                     <label style="padding-top: 4px;">课程名称：</label>
                                 </div>
                                 <div class="col-xs-8">
-                                    <input type="text" name="course_name" id="course_name" value="{$order.course_name}" class="width-100" />
+                                    {$order.course_name}
                                 </div>
                             </div>
                             <div class="row">
@@ -162,7 +162,7 @@
                                     <label style="padding-top: 4px;">退课课时：</label>
                                 </div>
                                 <div class="col-xs-8">
-                                    <input type="text" name="course_count" id="course_count" value="{$course_left}" class="width-100" />
+                                    {$course_left}
                                 </div>
                             </div>
                             <div class="row">
@@ -170,7 +170,7 @@
                                     <label style="padding-top: 4px;">退课费用(元)：</label>
                                 </div>
                                 <div class="col-xs-8">
-                                    <input type="text" name="course_amount" value="" id="course_amount" class="width-100" />
+				    <input type="text" name="course_amount"  class="width-100" value="<?php echo round($course_amount/100,2)?>"/>
                                 </div>
                             </div>
                         </div>
@@ -187,9 +187,7 @@
         <div class="clearfix form-actions">
             <div class="col-xs-12 center">
                 <button type="submit" target-form="form-horizontal" class="btn btn-success ajax-post no-refresh" id="sub-btn">
-                    <i class="icon-ok bigger-110"></i> 确认保存
-                </button> <button type="reset" class="btn" id="reset-btn">
-                    <i class="icon-undo bigger-110"></i> 重置
+                    <i class="icon-ok bigger-110"></i> 退课
                 </button>   <a onclick="history.go(-1)" class="btn btn-info" href="javascript:;">
                <i class="icon-reply"></i>返回上一页
             </a>  </div>
