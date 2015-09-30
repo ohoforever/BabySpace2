@@ -188,6 +188,9 @@ class CustommanageController extends AdminController {
 			    if($Key < 2){
 				    continue;
 			    }
+			    if(empty($Row[0])||!is_numeric($Row[0])){
+				    continue;
+			    }
 			    if ($Row && is_array($Row) && count($Row) > 3)
 			    {
 //				    $sex = $Row[3]=='男'?'MALE###':($Row[3]=='女'?'FEMALE#':'UNKNOWN');

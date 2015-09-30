@@ -175,6 +175,7 @@ class AddcourseController extends AdminController {
 			$histroy['course_count'] = $order['course_count'];
 		}
 		$histroy['course_amount'] = intval(I('post.course_amount'));
+		$histroy['course_price'] = $order['course_price']/100;
 		$rejorder = $this->saveROrder($histroy);
 		if($rejorder ===false)
 		{
@@ -308,8 +309,8 @@ class AddcourseController extends AdminController {
 		$memberid = $this->getMemberId($userid);
 		$histroy = ['child_id'=>$babyid,'order_id'=>$courseid,'member_id'=>$memberid,'member_course_count'=>$userCourseleft,'type'=>'UPT'];
 		$histroy = $histroy +I('post.');
-		$histroy['course_amount']=$histroy['course_amount']*100;
-		$histroy['course_price']=$histroy['course_price']*100;
+		$histroy['course_amount']=$histroy['course_amount'];
+		$histroy['course_price']=$histroy['course_price'];
 		$courseid = $this->saveHistroy($histroy);
 		if($courseid===false)
 		{
@@ -504,8 +505,8 @@ class AddcourseController extends AdminController {
 		$addCourseHistory['school_name'] = $data['school_name'];
 		$addCourseHistory['course_name'] = $data['course_name'];
 		$addCourseHistory['course_total'] = $data['course_total'];
-		$addCourseHistory['course_amount'] = $data['course_amount'];
-		$addCourseHistory['course_price'] = $data['course_price'];
+		$addCourseHistory['course_amount'] = $data['course_amount']*100;
+		$addCourseHistory['course_price'] = $data['course_price']*100;
 		$addCourseHistory['course_count'] = $data['course_count'];
 		$addCourseHistory['given_course_count'] = $data['given_count'];
 		$addCourseHistory['insert_time'] = time_format();
@@ -561,8 +562,8 @@ class AddcourseController extends AdminController {
 		$childData =$yhglChild->where(['id'=>$babyid])->find();
 		$histroy = $histroy +I('post.');
 		$histroy['baby_name']= $childData['baby_name'];
-		$histroy['course_amount']=$histroy['course_amount']*100;
-		$histroy['course_price']=$histroy['course_price']*100;
+		$histroy['course_amount']=$histroy['course_amount'];
+		$histroy['course_price']=$histroy['course_price'];
 		$courseid = $this->saveHistroy($histroy);
 		if($courseid===false)
 		{
@@ -588,7 +589,7 @@ class AddcourseController extends AdminController {
 		$addCourse=[];
 		$addCourse['school_name'] = $data['school_name'];
 		$addCourse['course_name'] = $data['course_name'];
-		$addCourse['course_amount'] = $data['course_amount'];
+		$addCourse['course_amount'] = $data['course_amount']*100;
 		$addCourse['course_count'] = $data['course_count'];
 		$addCourse['update_time'] = time_format();
 		$addCourse['operator'] = is_login();
