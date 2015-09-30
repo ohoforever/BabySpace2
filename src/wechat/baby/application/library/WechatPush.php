@@ -1,4 +1,5 @@
 <?php
+use Yaf\Dispatcher;
 /**
  * Created by PhpStorm.
  * User: xuebingwang

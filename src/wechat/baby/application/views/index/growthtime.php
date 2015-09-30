@@ -56,5 +56,5 @@
     </script>
 </block>
 <block name="style">
-    <link rel="stylesheet" type="text/css" href="/css/swiper.min.css"/>
+    <link rel="stylesheet" type="text/css" href="/css/swiper.min.css?<?=md5_file('css/swiper.min.css')?>"/>
 </block>
