@@ -135,7 +135,7 @@ public class CourseManagerController extends BaseController{
 		   return rm;
 		  }
 		  
-		  String messagebase = "耗课";
+		  String messagebase = "CZH".equals(transorder.getBody().getType())?"耗课冲正":"耗课";
 		  rm.setBaseErrorCode(29900);
 		  rm.setErrmsg(messagebase+"成功");
 		  try {
