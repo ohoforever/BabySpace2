@@ -69,6 +69,16 @@ public class AttendClassHistory {
     private Integer attendId;
 
     /**
+     * 耗课类别,SPD-耗课,CZH-冲正
+     */
+    private String attendType;
+
+    /**
+     * 备注
+     */
+    private String remark;
+
+    /**
      * @return 记录id
      */
     public Integer getId() {
@@ -254,5 +264,35 @@ public class AttendClassHistory {
      */
     public void setAttendId(Integer attendId) {
         this.attendId = attendId;
+    }
+
+    /**
+     * @return 耗课类别,SPD-耗课,CZH-冲正
+     */
+    public String getAttendType() {
+        return attendType;
+    }
+
+    /**
+     * @param attendType 
+	 *            耗课类别,SPD-耗课,CZH-冲正
+     */
+    public void setAttendType(String attendType) {
+        this.attendType = attendType == null ? null : attendType.trim();
+    }
+
+    /**
+     * @return 备注
+     */
+    public String getRemark() {
+        return remark;
+    }
+
+    /**
+     * @param remark 
+	 *            备注
+     */
+    public void setRemark(String remark) {
+        this.remark = remark == null ? null : remark.trim();
     }
 }

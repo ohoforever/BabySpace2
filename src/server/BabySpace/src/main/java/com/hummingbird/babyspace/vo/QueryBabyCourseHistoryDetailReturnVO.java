@@ -13,6 +13,15 @@ public class QueryBabyCourseHistoryDetailReturnVO {
 	private String babyName;
 	private Integer courseCount;
 	private String attendTime;
+	/**
+     * 类别,SPD-耗课,CZH-冲正
+     */
+    private String type;
+
+    /**
+     * 备注
+     */
+    private String remark;
 	public String getSchoolName() {
 		return schoolName;
 	}
@@ -43,6 +52,39 @@ public class QueryBabyCourseHistoryDetailReturnVO {
 	}
 	public void setAttendTime(String attendTime) {
 		this.attendTime = attendTime;
+	}
+	/* (non-Javadoc)
+	 * @see java.lang.Object#toString()
+	 */
+	@Override
+	public String toString() {
+		return "QueryBabyCourseHistoryDetailReturnVO [schoolName=" + schoolName + ", className=" + className
+				+ ", babyName=" + babyName + ", courseCount=" + courseCount + ", attendTime=" + attendTime + ", type="
+				+ type + ", remark=" + remark + "]";
+	}
+	/**
+	 * 类别SPD-耗课CZH-冲正 
+	 */
+	public String getType() {
+		return type;
+	}
+	/**
+	 * 类别SPD-耗课CZH-冲正 
+	 */
+	public void setType(String type) {
+		this.type = type;
+	}
+	/**
+	 * 备注 
+	 */
+	public String getRemark() {
+		return remark;
+	}
+	/**
+	 * 备注 
+	 */
+	public void setRemark(String remark) {
+		this.remark = remark;
 	}
 	
 }

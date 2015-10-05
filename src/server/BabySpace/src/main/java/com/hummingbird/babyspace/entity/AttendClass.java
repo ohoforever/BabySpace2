@@ -62,6 +62,16 @@ public class AttendClass {
     private Integer leftCourseCount;
 
     /**
+     * 类别,SPD-耗课,CZH-冲正
+     */
+    private String type;
+
+    /**
+     * 备注
+     */
+    private String remark;
+
+    /**
      * @return 记录id
      */
     public Integer getId() {
@@ -224,5 +234,35 @@ public class AttendClass {
      */
     public void setLeftCourseCount(Integer leftCourseCount) {
         this.leftCourseCount = leftCourseCount;
+    }
+
+    /**
+     * @return 类别,SPD-耗课,CZH-冲正
+     */
+    public String getType() {
+        return type;
+    }
+
+    /**
+     * @param type 
+	 *            类别,SPD-耗课,CZH-冲正
+     */
+    public void setType(String type) {
+        this.type = type == null ? null : type.trim();
+    }
+
+    /**
+     * @return 备注
+     */
+    public String getRemark() {
+        return remark;
+    }
+
+    /**
+     * @param remark 
+	 *            备注
+     */
+    public void setRemark(String remark) {
+        this.remark = remark == null ? null : remark.trim();
     }
 }

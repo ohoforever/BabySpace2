@@ -52,7 +52,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		<td><input type="button"  value="宝宝课程查询"  onclick='setbinding("/babyCourse/course/queryBabyCourseList","{\"app\":{\"appId\":\"ADP\",\"timeStamp\":\"TIMESTAMP\",  \"nonce\":\"NONCE\", \"signature\":\"SIGNATURE\"  },\"body\":{\"unionId\":\"olbkKt-8vkqpPod-N7i1SzSxddIo\"}}")'></td>
 		<td><input type="button"  value="宝宝耗课历史"  onclick='setbinding("/babyCourse/queryBabyCourseHistoryList","{\"app\":{\"appId\":\"ADP\",\"timeStamp\":\"TIMESTAMP\",  \"nonce\":\"NONCE\", \"signature\":\"SIGNATURE\"  },\"body\":{\"schoolName\":\"白云校区\",\"babyName\":\"蚯蚓\",\"orderId\":\"ZJ97898653\",\"pageIndex\":1,\"pageSize\":10}}")'></td>
 		<td><input type="button"  value="扫码上课确认"  onclick='setbinding("/courseManager/course/query","{\"app\":{\"appId\":\"ADP\",\"timeStamp\":\"TIMESTAMP\",  \"nonce\":\"NONCE\", \"signature\":\"SIGNATURE\"  },\"body\":{\"unionId\":\"olbkKt-8vkqpPod-N7i1SzSxddIo\",\"courseNum\":2,\"courseName\":\"3215\"}}")'></td>
-		<td><input type="button"  value="扫码上课"  onclick='setbinding("/courseManager/course/spend","{\"app\":{\"appId\":\"ADP\",\"timeStamp\":\"TIMESTAMP\",  \"nonce\":\"NONCE\", \"signature\":\"SIGNATURE\"  },\"body\":{\"childId\":543,\"courseName\":\"音律\",\"courseNum\":2,\"orderId\":\"ZJ97898653\"}}")'></td>
+		<td><input type="button"  value="扫码上课"  onclick='setbinding("/courseManager/course/spend","{\"app\":{\"appId\":\"ADP\",\"timeStamp\":\"TIMESTAMP\",  \"nonce\":\"NONCE\", \"signature\":\"SIGNATURE\"  },\"body\":{\"childId\":543,\"courseName\":\"音律\",\"courseNum\":2,\"orderId\":\"ZJ97898653\",\"type\":\"SPD\",\"remark\":\"正常上课\"}}")'></td>
 		
 	</tr>
 	<tr><td colspan="6">试听预约 </td></tr>
