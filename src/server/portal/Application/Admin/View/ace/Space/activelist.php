@@ -64,10 +64,29 @@
 						<td>{$vo.username}</td>
 						<td>{$vo.share_title}</td>
 						<td>
+						<div class="visible-md visible-lg hidden-sm hidden-xs action-buttons">
 						<a href="{:U('space/activeedit?id='.$vo['id'])}">编辑</a>
+|
 						<a href="{:U('space/activedel?id='.$vo['id']).'&cid='.$vo['child_id']}" class="ajax-get  confirm"  >删除</a>
+|
 						<a href="{:U('space/activeshow?id='.$vo['id'])}">查看详细</a>
+|
 						<a href="{:U('space/commentlist?id='.$vo['id'])}">查看评论</a>
+						</div>
+                            <div class="visible-xs visible-sm hidden-md hidden-lg">
+                                <div class="inline position-relative">
+                                    <button class="btn btn-minier btn-yellow dropdown-toggle" data-toggle="dropdown">
+                                        <i class="icon-caret-down icon-only bigger-120"></i>
+                                    </button>
+
+                                    <ul class="dropdown-menu dropdown-only-icon dropdown-yellow pull-right dropdown-caret dropdown-close">
+						<li><a href="{:U('space/activeedit?id='.$vo['id'])}">编辑</a></li>
+
+						<li><a href="{:U('space/activedel?id='.$vo['id']).'&cid='.$vo['child_id']}" class="ajax-get  confirm"  >删除</a></li>
+						<li><a href="{:U('space/activeshow?id='.$vo['id'])}">查看详细</a></li>
+						<li><a href="{:U('space/commentlist?id='.$vo['id'])}">查看评论</a></li>
+
+
 						</td>
 					</tr>
 					</volist>
