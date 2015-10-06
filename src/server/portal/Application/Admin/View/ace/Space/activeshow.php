@@ -63,7 +63,7 @@ echo '<img src="'.$item['image'.$i].'" style="width:80%;margin-bottom:0.3em;"/>'
 		</tr>
 		<tr>
 			<td><span style="color:#999;padding-right:8px;">红花数:</span>{$item.redflower_count}</td>
-			<td><span style="color:#999;padding-right:8px;">录入人:</span>{$item.operator}</td>
+			<td><span style="color:#999;padding-right:8px;">录入人:</span><?php echo $users[$item['operator']]?></td>
 		</tr>
 		<tr>
 			<td><span style="color:#999;padding-right:8px;">发布时间:</span>{$item.insert_time}</td>

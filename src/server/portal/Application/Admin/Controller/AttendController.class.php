@@ -224,6 +224,7 @@ class AttendController extends AdminController {
             $data['courseName'] = I('post.courseName');
             $data['courseNum']  = I('post.courseNum');
 	    (!is_numeric( $data['courseNum']) || $data['courseNum'] <=0)&& $this->error('耗课节数应该大于零！');
+	    empty($data['courseNum'])&& $this->error('课程名称不能为空！');
             $data['orderId']    = I('post.orderId');
             $data['operator']   = is_login();
 
@@ -251,6 +252,47 @@ class AttendController extends AdminController {
 	}
 
 	$this->meta_title = '新增耗课';
+	$this->assign('mobile',$mobile);
+	$this->assign('list',$list);
+	$this->display();
+    }
+
+    function correct(){
+        if(IS_POST){
+            $data = [];
+            $data['childId']    = I('post.childId');
+            $data['courseName'] = I('post.courseName');
+            $data['type'] = 'CZH';
+            $data['courseNum']  = I('post.courseNum');
+            $data['remark']  = I('post.remark');
+	    (!is_numeric( $data['courseNum']) || $data['courseNum'] <=0)&& $this->error('冲正节数应该大于零！');
+            $data['orderId']    = I('post.orderId');
+            $data['operator']   = is_login();
+
+            $api = new ApiService();
+            $resp = $api->setApiUrl(C('APIURI.baby'))
+                        ->setData($data)->send('courseManager/course/spend');
+            if(!empty($resp) && $resp['errcode'] == '0'){
+                $this->success('冲正成功');
+            }else{
+                $this->error($resp['errmsg']);
+            }
+        }
+
+        $mobile = I('get.mobile');
+        $list = [];
+        if(!empty($mobile)){
+            $union_id = M('user')->where(['mobile_num'=>$mobile])->getField('union_id');
+	    $api = new ApiService();
+	    $resp = $api->setApiUrl(C('APIURI.baby'))
+		    ->setData(['unionId'=>$union_id,'courseNum'=>0,'courseName'=>'','mobileNum'=>$mobile,'type'=>'CZH'])
+		    ->send('courseManager/course/query');
+	    if(!empty($resp) && $resp['errcode'] == '0'){
+		    $list = $resp['list'];
+	    }
+	}
+
+	$this->meta_title = '耗课冲正';
 	$this->assign('mobile',$mobile);
 	$this->assign('list',$list);
 	$this->display();

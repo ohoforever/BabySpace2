@@ -28,14 +28,14 @@ class AdvertisementController extends ThinkController {
     public function add(){
         $_POST['insert_time'] = time_format();
         $_POST['update_time'] = time_format();
-        $_POST['reply_operator'] = is_login();
+        $_POST['operator'] = is_login();
         $this->assign('active_menu','advertisement/advertisementlist');
         parent::add(25,'advertisement/advertisementlist');
     }
 
     public function edit($id = 0){
         $_POST['update_time'] = time_format();
-        $_POST['reply_operator'] = is_login();
+        $_POST['operator'] = is_login();
         $this->assign('active_menu','advertisement/advertisementlist');
         parent::edit(25,$id,'advertisement/advertisementlist');
     }

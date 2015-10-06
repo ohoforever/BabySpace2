@@ -13,6 +13,15 @@ private Integer childId;
 private String courseName;
 private String orderId;
 private Integer courseNum;
+/**
+ * 类别,SPD-耗课,CZH-冲正
+ */
+private String type;
+
+/**
+ * 备注
+ */
+private String remark;
 public String getBabyName() {
 	return babyName;
 }
@@ -42,6 +51,38 @@ public Integer getCourseNum() {
 }
 public void setCourseNum(Integer courseNum) {
 	this.courseNum = courseNum;
+}
+/**
+ * 类别SPD-耗课CZH-冲正 
+ */
+public String getType() {
+	return type;
+}
+/**
+ * 类别SPD-耗课CZH-冲正 
+ */
+public void setType(String type) {
+	this.type = type;
+}
+/**
+ * 备注 
+ */
+public String getRemark() {
+	return remark;
+}
+/**
+ * 备注 
+ */
+public void setRemark(String remark) {
+	this.remark = remark;
+}
+/* (non-Javadoc)
+ * @see java.lang.Object#toString()
+ */
+@Override
+public String toString() {
+	return "QueryCourseReturnVO [babyName=" + babyName + ", childId=" + childId + ", courseName=" + courseName
+			+ ", orderId=" + orderId + ", courseNum=" + courseNum + ", type=" + type + ", remark=" + remark + "]";
 }
 
 }

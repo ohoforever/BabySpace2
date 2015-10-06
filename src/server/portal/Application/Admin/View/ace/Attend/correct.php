@@ -7,11 +7,11 @@
             <div class="row">
                 <form class="search-form">
                     <div class="col-sm-12">
-                        <label>家长手机号码
+                        <label>手机号
                             <input type="text" class="search-input" name="mobile" value="<?=$mobile?>">
                         </label>
                         <label>
-                            <button class="btn btn-sm btn-primary" type="button" id="search-btn" url="<?=U('attend/add')?>">
+                            <button class="btn btn-sm btn-primary" type="button" id="search-btn" url="<?=U('attend/correct')?>">
                                 <i class="icon-search"></i>搜索
                             </button>
                         </label>
@@ -21,7 +21,7 @@
 
             <div class="row">
                 <?php if(!empty($mobile) && empty($list)){
-                    echo '<div class="alert alert-block alert-success">没有找到手机号码'.$mobile.'相关的数据! </div>';
+                    echo '<div class="alert alert-block alert-success">没有找到订单'.$mobile.'相关的数据! </div>';
                 }
                 ?>
                 <?php
@@ -52,7 +52,7 @@
                             <h5 class="bigger lighter"><?=$item['babyName']?></h5>
                         </div>
 
-                        <form class="widget_form<?=$key?>" action="<?=U('add',['mobile'=>$mobile])?>" method="post">
+                        <form class="widget_form<?=$key?>" action="<?=U('correct',['mobile'=>$mobile])?>" method="post">
                         <div class="widget-body">
                             <div class="widget-main">
                                 <hr>
@@ -68,7 +68,7 @@
                                     </li>
 
                                     <li>
-                                        <div class="row">
+                                        <div class="row" style="border-bottom:1px solid #DDD;">
                                             <div class="col-xs-5">
                                                 <label style="padding-top: 4px;">课时：</label>
                                             </div>
@@ -76,12 +76,20 @@
                                                 <input type="text" name="courseNum" value="1" class="width-100" />
                                             </div>
                                         </div>
-                                        <div class="row">
+                                        <div class="row" style="padding-bottom:12px;padding-top:12px;background-color:#eff3f8;">
                                             <div class="col-xs-5">
                                                 <label style="padding-top: 4px;">课程名：</label>
                                             </div>
                                             <div class="col-xs-7">
                                                 <input type="text" name="courseName" value="<?=$item['courseName']?>" class="width-100" />
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-xs-5">
+                                                <label style="padding-top: 4px;">备注：</label>
+                                            </div>
+                                            <div class="col-xs-7">
+                                                <textarea name="remark" style="height: 110px;" class="width-100"   ></textarea>
                                             </div>
                                         </div>
                                     </li>
@@ -91,7 +99,7 @@
                             <div>
                                 <button class="confirm btn btn-block <?=$btn_class_list[$key]?> ajax-post no-refresh" type="submit" target-form="widget_form<?=$key?>">
                                     <i class="icon-shopping-cart bigger-110"></i>
-                                    <span>确认耗课</span>
+                                    <span>确认冲正</span>
                                 </button>
                             </div>
                         </div>
@@ -111,6 +119,6 @@
 
     <script type="text/javascript">
         //导航高亮
-        highlight_subnav('{:U('User/index')}');
+ //       highlight_subnav('{:U('User/index')}');
     </script>
 </block>

@@ -51,7 +51,7 @@ $baby_sex  = I('baby_sex');
 					<th class="">所在城市</th>
 					<th class="hidden-sm hidden-xs">所在区域</th>
 					<th class="hidden-sm hidden-xs">用户级别</th>
-					<th class="hidden-sm hidden-xs">候选人星数</th>
+					<th class="hidden-sm hidden-xs">星数</th>
 					<th class="">操作</th>
 					</tr>
 			    </thead>

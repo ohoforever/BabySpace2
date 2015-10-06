@@ -13,6 +13,16 @@ public class SpendCourseBodyVO {
 	private Integer operator;
 	private Integer childId;
 	private Integer courseNum;
+	/**
+	 * 类别,SPD-耗课,CZH-冲正
+	 */
+	private String type;
+	
+	/**
+	 * 备注
+	 */
+	private String remark;
+	
 	public String getCourseName() {
 		return courseName;
 	}
@@ -42,6 +52,38 @@ public class SpendCourseBodyVO {
 	}
 	public void setOperator(Integer operator) {
 		this.operator = operator;
+	}
+	/**
+	 * 类别SPD-耗课CZH-冲正 
+	 */
+	public String getType() {
+		return type;
+	}
+	/**
+	 * 类别SPD-耗课CZH-冲正 
+	 */
+	public void setType(String type) {
+		this.type = type;
+	}
+	/* (non-Javadoc)
+	 * @see java.lang.Object#toString()
+	 */
+	@Override
+	public String toString() {
+		return "SpendCourseBodyVO [courseName=" + courseName + ", orderId=" + orderId + ", operator=" + operator
+				+ ", childId=" + childId + ", courseNum=" + courseNum + ", type=" + type + ", remark=" + remark + "]";
+	}
+	/**
+	 * 备注 
+	 */
+	public String getRemark() {
+		return remark;
+	}
+	/**
+	 * 备注 
+	 */
+	public void setRemark(String remark) {
+		this.remark = remark;
 	}
 	
 	

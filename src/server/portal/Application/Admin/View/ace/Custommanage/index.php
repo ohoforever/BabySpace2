@@ -16,8 +16,8 @@ $baby_sex  = I('baby_sex');
 	                    <label>
 	                        <a class="btn btn-sm btn-primary" href="{:U('batchadd')}"><i class="icon-plus"></i>批量导入</a>
 	                    </label>
-                        <label>家长名称
-                            <input type="text" class="search-input" name="parent_name" value="{:I('parent_name')}" placeholder="请输入家长名称">
+                        <label>家长电话
+                            <input type="text" class="search-input" name="mobile_num" value="{:I('mobile_num')}" placeholder="请输入家长电话">
                         </label>
                         <label>宝宝性别
 				<select name="baby_sex" class="search-input" >
@@ -55,7 +55,7 @@ $baby_sex  = I('baby_sex');
 					<th class="">所在城市</th>
 					<th class="hidden-sm hidden-xs">所在区域</th>
 					<th class="hidden-sm hidden-xs">用户级别</th>
-					<th class="hidden-sm hidden-xs">候选人星数</th>
+					<th class="hidden-sm hidden-xs">星数</th>
 					<th class="">操作</th>
 					</tr>
 			    </thead>
@@ -71,8 +71,8 @@ $baby_sex  = I('baby_sex');
                             </label>
                         </td>
 -->
-						<td><a href="{:U('Custommanage/info?id='.$vo['id'])}" >{$vo.parent_name} </a></td>
-						<td>{$vo.mobile_num}</td>
+						<td>{$vo.parent_name}</td>
+						<td><a href="{:U('Custommanage/info?id='.$vo['id'])}" >{$vo.mobile_num}</a></td>
 						<td>{$vo.baby_name}</td>
 						<td class="hidden-sm hidden-xs"><?php echo $sex[$vo['baby_sex']];?></td>
 						<td class="hidden-sm hidden-xs">{$vo.baby_birthday}</td>

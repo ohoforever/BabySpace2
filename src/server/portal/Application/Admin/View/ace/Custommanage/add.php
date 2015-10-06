@@ -42,6 +42,17 @@
 			</div>
 			<span class="help-block col-xs-12 col-sm-5 inline">（选择宝宝生日）</span>
 		</div>
+<div class="form-group">
+    <label class="col-xs-12 col-sm-2 control-label no-padding-right"><span class="red">*</span>选择所在城区</label>
+    <div class="col-xs-12 col-sm-5">
+    <div id="city_1"></div>
+    <script>
+    <?php echo hook('H_XbDistrict', array('id'=>'city_1','district'=>'district','root'=>'28'));?>
+    </script>
+    </div>
+    <div class="help-block col-xs-12 col-sm-reset inline"></div>
+    </div>
+<!--
 		<div class="form-group">
 			<label class="col-xs-12 col-sm-2 control-label no-padding-right">家庭所在城市</label>
 			<div class="col-xs-12 col-sm-5">
@@ -56,8 +67,9 @@
 			</div>
 			<span class="help-block col-xs-12 col-sm-5 inline">（输入家庭所在城市区域）</span>
 		</div>
+-->
 		<div class="form-group">
-			<label class="col-xs-12 col-sm-2 control-label no-padding-right">候选人星数</label>
+			<label class="col-xs-12 col-sm-2 control-label no-padding-right">星数</label>
 			<div class="col-xs-12 col-sm-5">
 				<select name="star">
 					<option value="1" >1星</option>
@@ -67,7 +79,7 @@
 					<option value="5" >5星</option>
 				</select>
 			</div>
-			<span class="help-block col-xs-12 col-sm-5 inline">（输入候选人星数）</span>
+			<span class="help-block col-xs-12 col-sm-5 inline">（输入星数）</span>
 		</div>
 		<div class="form-group">
 			<label class="col-xs-12 col-sm-2 control-label no-padding-right">客户评级</label>

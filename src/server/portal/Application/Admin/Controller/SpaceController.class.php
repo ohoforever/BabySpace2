@@ -139,8 +139,15 @@ class SpaceController extends AdminController {
 		$item =  M('bbkj_baby_mature')->field(true)->find($id);
 		empty($item) && $this->error('参数错误！');
 		$baby =  M('yhgl_child c')->join("t_user u on u.id=user_id")->field('*,user_name')->where('c.id='.$item['child_id'])->find();
+		$users = M('ucenter_member')->field('username,id')->select();
+		$tmp=[];
+		foreach($users as $v)
+		{
+			$tmp[$v['id']]=$v['username'];
+		}
 		$this->assign('item', $item);
 		$this->assign('baby', $baby);
+		$this->assign('users', $tmp);
 		$this->meta_title ="查看宝宝动态";
 		$this->display();
 	}

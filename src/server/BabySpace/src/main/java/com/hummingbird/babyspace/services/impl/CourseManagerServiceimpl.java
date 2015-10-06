@@ -83,6 +83,8 @@ public class CourseManagerServiceimpl implements CourseManagerService{
 			history.setClassName(attend.getClassname());
 			history.setCourseCount(attend.getCourseCount());
 			history.setSchoolName(body.getSchoolName());
+			history.setType(attend.getType());
+			history.setRemark(attend.getRemark());
 			list.add(history);
 		}
 		
@@ -98,37 +100,60 @@ public class CourseManagerServiceimpl implements CourseManagerService{
 			log.error(String.format("根据childId【%s】查询宝宝信息失败", body.getChildId()));
 			throw new BusinessException(BusinessException.ERRCODE_REQUEST,String.format("根据childId【%s】查询宝宝信息失败", body.getChildId()));
 		}
-		try {
-			subUserCourse(body.getCourseNum(),child.getUserId());
-		} catch (BusinessException e) {
-			throw new BusinessException(BusinessException.ERRCODE_REQUEST,e.getMessage());
-		}
+//		try {
+//			subUserCourse(body.getCourseNum(),child.getUserId());
+//		} catch (BusinessException e) {
+//			throw new BusinessException(BusinessException.ERRCODE_REQUEST,e.getMessage());
+//		}
 		AddCourseOrder order= addCourOrderDao.selectByPrimaryKey(body.getOrderId());
 		if(order==null){
 			log.error(String.format("订单【%s】不存在", body.getOrderId()));
 			throw new BusinessException(BusinessException.ERRCODE_REQUEST,String.format("订单【%s】不存在", body.getOrderId()));
 		}
-		//当前剩余课时数
-		Integer courseCount=order.getCourseCount()+order.getGivenCount()-queryCourseCount(order.getOrderId())-body.getCourseNum();
-		if(courseCount<0){
-			log.error("课程数不够");
-			throw new BusinessException(BusinessException.ERRCODE_REQUEST,"课程数不够,耗课失败");
+		String type = body.getType();
+		Integer courseCount;
+		int spendcoursecount = 0;
+		if("CZH".equalsIgnoreCase(type)){
+			//冲正,判断订单有没有上过课
+			int hadspent = queryCourseCount(order.getOrderId());
+			int leftcoursecount =order.getCourseCount()+order.getGivenCount()-hadspent;
+			if(hadspent<body.getCourseNum()){
+				if (log.isDebugEnabled()) {
+					log.debug(String.format("冲正课程大于耗课请程,无法冲正"));
+				}
+				throw new BusinessException(BusinessException.ERRCODE_REQUEST,"课程未耗课或冲正课时大于耗课课时,处理失败");
+			}
+			courseCount = leftcoursecount + Math.abs(body.getCourseNum());
+			subUserCourse(-1 * body.getCourseNum(),child.getUserId());
+			spendcoursecount =-1 *body.getCourseNum();
 		}
-		if(0==courseCount){
-			order.setStatus("END");
-			addCourOrderDao.updateByPrimaryKey(order);
+		else{
+			spendcoursecount =body.getCourseNum();
+			//当前剩余课时数
+			courseCount=order.getCourseCount()+order.getGivenCount()-queryCourseCount(order.getOrderId())-body.getCourseNum();
+			if(courseCount<0){
+				log.error("课程数不够");
+				throw new BusinessException(BusinessException.ERRCODE_REQUEST,"课程数不够,耗课失败");
+			}
+			if(0==courseCount){
+				order.setStatus("END");
+				addCourOrderDao.updateByPrimaryKey(order);
+			}
+			subUserCourse(body.getCourseNum(),child.getUserId());
 		}
 		AttendClass attend=new AttendClass();
 		attend.setActTime(new Date());
 		attend.setChildId(body.getChildId());
 		attend.setClassname(body.getCourseName());
-		attend.setCourseCount(body.getCourseNum());
+		attend.setCourseCount(spendcoursecount);
 		attend.setOperator(body.getOperator());
 		attend.setInsertTime(new Date());
 		attend.setLeftCourseCount(courseCount);
 		attend.setOrderId(body.getOrderId());
 		attend.setStatus("OK#");
 		attend.setUpdateTime(new Date());
+		attend.setType("CZH".equalsIgnoreCase(body.getType())?"CZH":"SPD");
+		attend.setRemark(body.getRemark());
 		//插入上课表并获取记录id
 		Integer attendId=attendClassDao.insertAndGetId(attend);
 		
@@ -146,6 +171,8 @@ public class CourseManagerServiceimpl implements CourseManagerService{
 		history.setOrderId(body.getOrderId());
 		history.setStatus("OK#");
 		history.setUpdateTime(new Date());
+		history.setAttendType(attend.getType());
+		history.setRemark(body.getRemark());
 		//插入历史表
 		attendClassHistoryDao.insert(history);
 	}

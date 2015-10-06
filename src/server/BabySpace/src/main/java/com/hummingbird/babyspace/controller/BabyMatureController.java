@@ -268,6 +268,7 @@ public class BabyMatureController extends BaseController {
 			}
 			row.put("sharePic",sharePic );
 			row.put("matrueId", ori.getId());
+			row.put("content", ori.getContent());
 			rm.put("result", row);
 		}catch (Exception e1) {
 			log.error(String.format(messagebase + "失败"), e1);

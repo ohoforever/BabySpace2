@@ -41,6 +41,8 @@ class CustommanageController extends AdminController {
     public function edit($id = 0){
         empty($id) && $this->error('参数错误！');
         $info = M('khkf_candidate')->field(true)->find($id);
+	$district = M('xbdistrict')->where(['name'=>$info['district']])->find();
+        $this->assign('selected', $district['id']);
         $this->assign('data', $info);
         $this->meta_title = '编辑客户信息';
         $this->display();
@@ -68,10 +70,15 @@ class CustommanageController extends AdminController {
         empty($data['baby_sex']) && $this->error('请输入宝贝性别');
         $data['star'] = I('post.star');
         $data['star'] =='' && $this->error('请输入候选人星数');
-        $data['district'] = I('post.district');
-        empty($data['district']) && $this->error('请输入家庭所在城市区域');
-        $data['city'] = I('post.city');
-        empty($data['city']) && $this->error('请输入家庭所有城市');
+        //$data['district'] = I('post.district');
+	$district = I('post.district');
+        empty($district) && $this->error('请输入家庭所在城市区域');
+        //$data['city'] = I('post.city');
+        //empty($data['city']) && $this->error('请输入家庭所有城市');
+	$district = M('xbdistrict')->where("id=$district")->find();
+	$city = M('xbdistrict')->where('id='.$district['pid'])->find();
+	$data['city']=$city['name'];
+	$data['district']=$district['name'];
         $data['baby_birthday']= I('post.baby_birthday');
         empty($data['baby_birthday']) && $this->error('请输入宝宝出生年月');
         $data['level']= I('post.level');

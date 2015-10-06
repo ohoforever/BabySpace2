@@ -54,6 +54,8 @@
 					<th class="">最后登录时间</th>
 					<th class="">最后登录IP</th>
 					<th class="">状态</th>
+					<th class="">城市</th>
+					<th class="">地区</th>
 					<th class="">操作</th>
 					</tr>
 			    </thead>
@@ -74,6 +76,8 @@
 						<td><span>{$vo.last_login_time|time_format}</span></td>
 						<td><span>{:long2ip($vo['last_login_ip'])}</span></td>
 						<td>{$vo.status_text}</td>
+						<td>{$vo.city}</td>
+						<td>{$vo.district}</td>
 						<td>
 					        <eq name="vo.status" value="1">
 							<a href="{:U('User/changeStatus?method=forbidUser&id='.$vo['uid'])}" class="ajax-get">禁用</a>

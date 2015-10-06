@@ -13,10 +13,12 @@
     <result column="operator" property="operator" jdbcType="INTEGER" />
     <result column="order_id" property="orderId" jdbcType="VARCHAR" />
     <result column="left_course_count" property="leftCourseCount" jdbcType="INTEGER" />
+    <result column="type" property="type" jdbcType="VARCHAR" />
+    <result column="remark" property="remark" jdbcType="VARCHAR" />
   </resultMap>
   <sql id="Base_Column_List" >
     id, child_id, classname, course_count, act_time, insert_time, update_time, status, 
-    operator, order_id, left_course_count
+    operator, order_id, left_course_count, type, remark
   </sql>
   <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
     select 
@@ -47,22 +49,24 @@
     insert into t_bbkj_baby_attend_class (id, child_id, classname, 
       course_count, act_time, insert_time, 
       update_time, status, operator, 
-      order_id, left_course_count)
+      order_id, left_course_count, type, 
+      remark)
     values (#{id,jdbcType=INTEGER}, #{childId,jdbcType=INTEGER}, #{classname,jdbcType=VARCHAR}, 
       #{courseCount,jdbcType=INTEGER}, #{actTime,jdbcType=TIMESTAMP}, #{insertTime,jdbcType=TIMESTAMP}, 
       #{updateTime,jdbcType=TIMESTAMP}, #{status,jdbcType=VARCHAR}, #{operator,jdbcType=INTEGER}, 
-      #{orderId,jdbcType=VARCHAR}, #{leftCourseCount,jdbcType=INTEGER})
+      #{orderId,jdbcType=VARCHAR}, #{leftCourseCount,jdbcType=INTEGER}, #{type,jdbcType=VARCHAR}, 
+      #{remark,jdbcType=VARCHAR})
   </insert>
   
    <insert id="insertAndGetId" parameterType="com.hummingbird.babyspace.entity.AttendClass" useGeneratedKeys="true" keyProperty="userId">
     insert into t_bbkj_baby_attend_class (id, child_id, classname, 
       course_count, act_time, insert_time, 
       update_time, status, operator, 
-      order_id, left_course_count)
+      order_id, left_course_count,type,remark)
     values (#{id,jdbcType=INTEGER}, #{childId,jdbcType=INTEGER}, #{classname,jdbcType=VARCHAR}, 
       #{courseCount,jdbcType=INTEGER}, #{actTime,jdbcType=TIMESTAMP}, #{insertTime,jdbcType=TIMESTAMP}, 
       #{updateTime,jdbcType=TIMESTAMP}, #{status,jdbcType=VARCHAR}, #{operator,jdbcType=INTEGER}, 
-      #{orderId,jdbcType=VARCHAR}, #{leftCourseCount,jdbcType=INTEGER})
+      #{orderId,jdbcType=VARCHAR}, #{leftCourseCount,jdbcType=INTEGER}, #{type,jdbcType=VARCHAR},#{remark,jdbcType=VARCHAR})
   </insert>
   
   <insert id="insertSelective" parameterType="com.hummingbird.babyspace.entity.AttendClass" >
@@ -101,6 +105,12 @@
       <if test="leftCourseCount != null" >
         left_course_count,
       </if>
+      <if test="type != null" >
+        type,
+      </if>
+      <if test="remark != null" >
+        remark,
+      </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides="," >
       <if test="id != null" >
@@ -135,6 +145,12 @@
       </if>
       <if test="leftCourseCount != null" >
         #{leftCourseCount,jdbcType=INTEGER},
+      </if>
+      <if test="type != null" >
+        #{type,jdbcType=VARCHAR},
+      </if>
+      <if test="remark != null" >
+        #{remark,jdbcType=VARCHAR},
       </if>
     </trim>
   </insert>
@@ -171,6 +187,12 @@
       <if test="leftCourseCount != null" >
         left_course_count = #{leftCourseCount,jdbcType=INTEGER},
       </if>
+      <if test="type != null" >
+        type = #{type,jdbcType=VARCHAR},
+      </if>
+      <if test="remark != null" >
+        remark = #{remark,jdbcType=VARCHAR},
+      </if>
     </set>
     where id = #{id,jdbcType=INTEGER}
   </update>
@@ -185,7 +207,9 @@
       status = #{status,jdbcType=VARCHAR},
       operator = #{operator,jdbcType=INTEGER},
       order_id = #{orderId,jdbcType=VARCHAR},
-      left_course_count = #{leftCourseCount,jdbcType=INTEGER}
+      left_course_count = #{leftCourseCount,jdbcType=INTEGER},
+      type = #{type,jdbcType=VARCHAR},
+      remark = #{remark,jdbcType=VARCHAR}
     where id = #{id,jdbcType=INTEGER}
   </update>
 </mapper>

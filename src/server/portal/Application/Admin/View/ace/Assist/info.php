@@ -43,7 +43,7 @@
 	<tbody>
 		<tr>
 			<td><span style="color:#999;padding-right:8px;">用户级别:</span><?php echo $v['level']?></td>
-			<td><span style="color:#999;padding-right:8px;">候选人星数:</span><?php echo $v['star']?></td>
+			<td><span style="color:#999;padding-right:8px;">星数:</span><?php echo $v['star']?></td>
 		</tr>
 		<tr>
 			<td colspan="2"><span style="color:#999;padding-right:8px;">内容:</span><?php echo $v['evaluation']?></td>
