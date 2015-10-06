@@ -36,8 +36,9 @@ class AttendController extends AdminController {
             header('Content-type: application/png');
             header('Content-Disposition: attachment; filename="'.urlencode('耗课'.$course_count.'节.png').'"');
             echo \QRcode::png($resp['url'],false,QR_ECLEVEL_L,15,2);
+            die;
         }
-        $this->meta_title = '耗课列表查询';
+        $this->meta_title = '耗课二维码生成';
         $this->display();
     }
 
