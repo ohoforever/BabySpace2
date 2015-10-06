@@ -56,8 +56,8 @@ $status= ['CRT'=>'待开发','FLS'=>'开发失败','OK#'=>'开发完成'];
 					<th class="hidden-480 hidden-sm hidden-xs">所在城市</th>
 					<th class="hidden-sm hidden-xs">所在区域</th>
 					<th class="hidden-sm hidden-xs">用户级别</th>
-					<th class="hidden-480 hidden-sm hidden-xs">候选人星数</th>
-					<th class="hidden-sm hidden-xs"开发状态</th>
+					<th class="hidden-480 hidden-sm hidden-xs">星数</th>
+					<th class="hidden-sm hidden-xs">开发状态</th>
 					<th class="hidden-sm hidden-xs">跟单人</th>
 					<th class="">操作</th>
 					</tr>

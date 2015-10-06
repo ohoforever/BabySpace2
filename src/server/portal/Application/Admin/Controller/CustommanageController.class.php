@@ -41,6 +41,8 @@ class CustommanageController extends AdminController {
     public function edit($id = 0){
         empty($id) && $this->error('参数错误！');
         $info = M('khkf_candidate')->field(true)->find($id);
+	$district = M('xbdistrict')->where(['name'=>$info['district']])->find();
+        $this->assign('selected', $district['id']);
         $this->assign('data', $info);
         $this->meta_title = '编辑客户信息';
         $this->display();
@@ -49,9 +51,7 @@ class CustommanageController extends AdminController {
     public function info($id = 0){
         empty($id) && $this->error('参数错误！');
         $info = M('khkf_candidate')->field(true)->find($id);
-	$district = M('xbdistrict')->where(['name'=>$info['district']])->find();
         $this->assign('item', $info);
-        $this->assign('selected', $district['id']);
         $this->meta_title = '查看客户信息';
         $this->display();
     }
