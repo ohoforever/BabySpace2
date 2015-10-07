@@ -47,7 +47,9 @@
     <div class="col-xs-12 col-sm-5">
     <div id="city_1"></div>
     <script>
-    <?php echo hook('H_XbDistrict', array('id'=>'city_1','district'=>'district','root'=>'28','selected'=>$selected));?>
+    $(document).ready(function() {
+        <?php echo hook('H_XbDistrict', array('id'=>'city_1','district'=>'district','root'=>'28','selected'=>$selected));?>
+    });
     </script>
     </div>
     <div class="help-block col-xs-12 col-sm-reset inline"></div>

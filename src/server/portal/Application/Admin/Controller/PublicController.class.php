@@ -77,7 +77,7 @@ class PublicController extends \Think\Controller {
     }
 
     public function verify(){
-        $verify = new \Think\Verify();
+        $verify = new \Think\Verify(['length'=>4]);
         $verify->entry(1);
     }
 
