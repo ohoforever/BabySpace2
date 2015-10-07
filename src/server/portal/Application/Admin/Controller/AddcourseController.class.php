@@ -109,7 +109,7 @@ class AddcourseController extends AdminController {
 			(!is_numeric($data['course_count'])||$data['course_count'] <=0) && $this->error('购买课时应为数字');
 			$data['given_count'] = I('post.given_count');
 			(empty($data['given_count'])&& $data['given_count']!=0) && $this->error('请输入赠送课时');
-			(!is_numeric($data['given_count'])||$data['given_count'] <=0) && $this->error('赠送课时应为数字');
+			(!is_numeric($data['given_count'])||$data['given_count'] <0) && $this->error('赠送课时应为数字');
 			$this->_addCourse();
 		}
 		$this->meta_title = '报课';

@@ -53,6 +53,13 @@ class AssistController extends AdminController {
 		$map = ['id'=>$id,'current_assistant_id'=>$this->_uid,'status'=>'CRT'];
 		$info = M('khkf_candidate')->field(true)->where($map)->find();
 		empty($info) && $this->error('请求的数据不存在！');
+		$assi = M('ucenter_member')->field('id,username')->select();
+		$tmp = [];
+		foreach($assi as $v)
+		{
+			$tmp[$v['id']]= $v['username'];
+		}
+		$this->assign('user', $tmp);
 		$this->assign('item',$info);
 		$this->meta_title = '查看客户信息';
 		$this->display();
@@ -64,6 +71,13 @@ class AssistController extends AdminController {
 		$info = M('khkf_candidate')->field(true)->where($map)->find();
 		empty($info) && $this->error('请求的数据不存在！');
 		$list = M('khkf_candidate_evaluation')->field(true)->where("candidate_id='$id'")->select();
+		$assi = M('ucenter_member')->field('id,username')->select();
+		$tmp = [];
+		foreach($assi as $v)
+		{
+			$tmp[$v['id']]= $v['username'];
+		}
+		$this->assign('user', $tmp);
 		$this->assign('item',$info);
 		$this->assign('list',$list);
 		$this->meta_title = '标注客户';

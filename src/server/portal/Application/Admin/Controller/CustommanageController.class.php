@@ -28,6 +28,10 @@ class CustommanageController extends AdminController {
 	    {
 		    $map['baby_sex']= I('baby_sex');
 	    }
+	    if(!empty(I('mobile_num')))
+	    {
+		    $map['mobile_num']= I('mobile_num');
+	    }
         $map['status']    =   'CRT';
         $list   =   $this->lists('khkf_candidate', $map,'update_time desc');
         $this->assign('_list', $list);
@@ -151,7 +155,14 @@ class CustommanageController extends AdminController {
         $assi = M('ucenter_member')->where("user_type='ASST'")->getField('id,username');
 	$list = M('khkf_candidate_evaluation')->field(true)->where("candidate_id='$id'")->select();
 	$this->assign('list',$list);
-        $this->assign('assi', $assi);
+	$this->assign('assi', $assi);
+	$tmp = [];
+        $user = M('ucenter_member')->field('id,username')->select();
+	foreach($user as $v)
+	{
+		$tmp[$v['id']]= $v['username'];
+	}
+        $this->assign('user', $tmp);
         $this->meta_title = '客户信息详情';
         $this->display();
     }
