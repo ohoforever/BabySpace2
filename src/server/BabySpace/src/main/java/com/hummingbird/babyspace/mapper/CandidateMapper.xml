@@ -34,6 +34,16 @@
     and current_assistant_id is null
     and (level is null  or  level in ('A','B','C'))
   </select>
+  <select id="getNeededNotifyCandidate" resultMap="BaseResultMap"  >
+    select 
+    c.*
+    from t_khkf_candidate c,t_khkf_candidate_develop d
+    where c.id = d.candidate_id and c. current_assistant_id = d.assistant_id
+    and c.status='CRT'
+    and current_assistant_id is not null
+    and (level = ('B'))
+    and mod((TO_DAYS(NOW()) - TO_DAYS(d.insert_time)),2)=0
+  </select>
    <select id="selectByMobileNum" resultMap="BaseResultMap" parameterType="java.lang.String" >
     select 
     <include refid="Base_Column_List" />

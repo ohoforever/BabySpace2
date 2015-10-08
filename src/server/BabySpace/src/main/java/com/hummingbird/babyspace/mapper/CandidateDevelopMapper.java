@@ -49,4 +49,6 @@ public interface CandidateDevelopMapper {
 	 * @return
 	 */
 	int change2z();
+
+	
 }

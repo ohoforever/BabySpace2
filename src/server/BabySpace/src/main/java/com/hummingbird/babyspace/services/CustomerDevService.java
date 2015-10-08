@@ -46,5 +46,9 @@ public interface CustomerDevService {
 	public List<Appointment> queryAppointments(String unionId)throws BusinessException;
 	void autosetNewAssistantDevelopCount();
 	void autoSetCandidateLevel();
+	/**
+	 * 定时通知业务员开发客户
+	 */
+	void notify2develop();
 	
 }

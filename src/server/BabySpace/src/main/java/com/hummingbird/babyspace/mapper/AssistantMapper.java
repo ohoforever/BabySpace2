@@ -32,4 +32,11 @@ public interface AssistantMapper {
      * 根据主键更新记录
      */
     int updateByPrimaryKey(Assistant record);
+
+	/**
+	 * 根据业务员id查询该业务员的微信openid
+	 * @param assistantId
+	 * @return
+	 */
+	String selectOpenIdbyAssistantId(Integer assistantId);
 }

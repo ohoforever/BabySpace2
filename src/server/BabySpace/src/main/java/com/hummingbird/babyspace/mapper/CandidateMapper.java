@@ -45,4 +45,9 @@ public interface CandidateMapper {
      * 根据手机号查询记录
      */
     List<Candidate> selectByMobileNum(String mobileNum);
+    /**
+	 * 查询需要通知的侯选人,它的等级为b,而且有业务员跟进
+	 * @return
+	 */
+	List<Candidate> getNeededNotifyCandidate();
 }

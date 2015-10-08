@@ -29,6 +29,12 @@
     from t_ucenter_member
     where id = #{id,jdbcType=INTEGER}
   </select>
+  <select id="selectOpenIdbyAssistantId" resultType="java.lang.String" parameterType="java.lang.Integer" >
+    select 
+    openid
+    from t_assistant_user u,t_ucenter_member m
+    where u.unionid = m.unionid and m.id = #{assistantId,jdbcType=INTEGER}
+  </select>
   <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
     delete from t_ucenter_member
     where id = #{id,jdbcType=INTEGER}
