@@ -81,7 +81,7 @@
                                                 <label style="padding-top: 4px;">课程名：</label>
                                             </div>
                                             <div class="col-xs-7">
-                                                <input type="text" name="courseName" value="" class="width-100" />
+                                                <input type="text" name="courseName" value="<?=$item['courseName']?>" class="width-100" />
                                             </div>
                                         </div>
                                     </li>

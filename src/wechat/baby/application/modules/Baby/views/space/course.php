@@ -1,6 +1,10 @@
 <!--main-->
 <section class="main">
+
     <div class="padm54 padt40">
+        <?php if(empty($list)):?>
+            <div class="class-sure-tit">您目前还没有课程，请先购买！</div>
+        <?php endif;?>
         <div class="ask-list">
             <ul>
                 <?php foreach($list as $item):?>

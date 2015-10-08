@@ -40,6 +40,13 @@
             </table>
             <include file="Public/page"/>
         </div>
+		<div class="clearfix form-actions">
+            <div class="col-xs-12 center">
+                <a onclick="history.go(-1)" class="btn btn-info" href="javascript:;">
+	               <i class="icon-reply"></i>返回上一页
+	            </a>  
+            </div>
+        </div>
     </div>
 </block>
 

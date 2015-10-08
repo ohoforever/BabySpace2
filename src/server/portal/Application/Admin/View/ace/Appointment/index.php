@@ -38,10 +38,10 @@ $baby_sex  = I('baby_sex');
 -->
 					<th class="">发生时间</th>
 					<th class="">宝宝名称</th>
-					<th class="">宝宝性别</th>
-					<th class="">宝宝生日</th>
+					<th class="hidden-480">宝宝性别</th>
+					<th class="hidden-480">宝宝生日</th>
 					<th class="">家长电话</th>
-					<th class="">所在城市</th>
+					<th class="hidden-480">所在城市</th>
 					<th class="">所在区域</th>
 					</tr>
 			    </thead>
@@ -59,10 +59,10 @@ $baby_sex  = I('baby_sex');
 -->
 						<td>{$vo.insert_time} </td>
 						<td>{$vo.baby_name}</td>
-						<td><?php echo $sex[$vo['baby_sex']];?></td>
-						<td>{$vo.baby_birthday}</td>
+						<td class="hidden-480"><?php echo $sex[$vo['baby_sex']];?></td>
+						<td class="hidden-480">{$vo.baby_birthday}</td>
 						<td>{$vo.mobile_num}</td>
-						<td>{$vo.city}</td>
+						<td class="hidden-480">{$vo.city}</td>
 						<td>{$vo.district}</td>
 					</tr>
 					</volist>

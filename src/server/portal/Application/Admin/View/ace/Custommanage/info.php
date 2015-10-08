@@ -30,7 +30,7 @@
 		</tr>
 		<tr>
 			<td><span style="color:#999;padding-right:8px;">用户级别:</span>{$item.level}</td>
-			<td><span style="color:#999;padding-right:8px;">候选人星数:</span>{$item.star}</td>
+			<td><span style="color:#999;padding-right:8px;">星数:</span>{$item.star}</td>
 		</tr>
 	 </tbody>
 	</table>
@@ -52,7 +52,7 @@
 <script type="text/javascript" charset="utf-8">
 	Think.setValue('type',{$type|default=1});
     //导航高亮
-    highlight_subnav('{:U('assist/index')}');
+    highlight_subnav('{:U('custommanage/index')}');
 </script>
     <script src="__ACE__/js/date-time/bootstrap-datepicker.min.js"></script>
     <script type="text/javascript">

@@ -26,7 +26,7 @@
 		</tr>
 		<tr>
 			<td><span style="color:#999;padding-right:8px;">宝宝生日:</span>{$item.baby_birthday}</td>
-			<td><span style="color:#999;padding-right:8px;">候选人星数:</span>{$item.star}星</td>
+			<td><span style="color:#999;padding-right:8px;">星数:</span>{$item.star}星</td>
 		</tr>
 		<tr>
 			<td colspan="1"><span style="color:#999;padding-right:8px;">客户评级:</span>{$item.level}</td>

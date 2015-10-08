@@ -68,7 +68,7 @@
                                     </li>
 
                                     <li>
-                                        <div class="row">
+                                        <div class="row" style="border-bottom:1px solid #DDD;">
                                             <div class="col-xs-5">
                                                 <label style="padding-top: 4px;">课时：</label>
                                             </div>
@@ -76,12 +76,20 @@
                                                 <input type="text" name="courseNum" value="1" class="width-100" />
                                             </div>
                                         </div>
-                                        <div class="row">
+                                        <div class="row" style="padding-bottom:12px;padding-top:12px;background-color:#eff3f8;">
                                             <div class="col-xs-5">
                                                 <label style="padding-top: 4px;">课程名：</label>
                                             </div>
                                             <div class="col-xs-7">
-                                                <input type="text" name="courseName" value="" class="width-100" />
+                                                <input type="text" name="courseName" value="<?=$item['courseName']?>" class="width-100" />
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-xs-5">
+                                                <label style="padding-top: 4px;">备注：</label>
+                                            </div>
+                                            <div class="col-xs-7">
+                                                <textarea name="remark" style="height: 110px;" class="width-100"   ></textarea>
                                             </div>
                                         </div>
                                     </li>

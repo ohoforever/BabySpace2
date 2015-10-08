@@ -35,7 +35,7 @@
 <?php foreach($list as $v){?>
 <div class="widget-box" style="opacity: 1; z-index: 0;margin-bottom:1em;">
 <div class="widget-header" style="color:#999;">
-          <h5 class="bigger lighter">标注人:<?php echo $v['assistant_id'];?></h5>        
+          <h5 class="bigger lighter">标注人:<?php echo $user[$v['assistant_id']];?></h5>        
 </div>
 <div class="widget-body">
 <div class=""> 
@@ -43,7 +43,7 @@
 	<tbody>
 		<tr>
 			<td><span style="color:#999;padding-right:8px;">用户级别:</span><?php echo $v['level']?></td>
-			<td><span style="color:#999;padding-right:8px;">候选人星数:</span><?php echo $v['star']?></td>
+			<td><span style="color:#999;padding-right:8px;">星数:</span><?php echo $v['star']?></td>
 		</tr>
 		<tr>
 			<td colspan="2"><span style="color:#999;padding-right:8px;">内容:</span><?php echo $v['evaluation']?></td>
@@ -72,7 +72,7 @@
 				<option value="C" >C级</option>
 				</select>
 			</td>
-			<td><span>候选人星数:</span>
+			<td><span>星数:</span>
 				<select name="star">
 				<?php for ($i=1;$i<=5;$i++){?>
 				<option value="<?php echo $i?>" ><?php echo $i?></option>
@@ -105,7 +105,6 @@
 </block>
 
 <block name="script">
-<script type="text/javascript" src="__STATIC__/uploadify/jquery.uploadify.min.js"></script>
 <script type="text/javascript" charset="utf-8">
 	Think.setValue('type',{$type|default=1});
     //导航高亮

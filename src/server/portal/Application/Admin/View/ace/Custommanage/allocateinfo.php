@@ -31,19 +31,20 @@ $status= ['CRT'=>'待开发','FLS'=>'开发失败','OK#'=>'开发完成'];
 		</tr>
 		<tr>
 			<td><span style="color:#999;padding-right:8px;">宝宝生日:</span>{$item.baby_birthday}</td>
-			<td><span style="color:#999;padding-right:8px;">候选人星数:</span>{$item.star}星</td>
+			<td><span style="color:#999;padding-right:8px;">星数:</span>{$item.star}星</td>
 		</tr>
 		<tr>
 			<td><span style="color:#999;padding-right:8px;">状态:</span><?=$status[$item['status']];?></td>
-			<td><span style="color:#999;padding-right:8px;">跟单人:</span><?=array_key_exists($item['current_assistant_id'],$assi) ? $assi[$item['current_assistant_id']] : ''?></td>
+			<td colspan="1"><span style="color:#999;padding-right:8px;">客户评级:</span>{$item.level}</td>
 		</tr>
 		<tr>
-			<td colspan="1"><span style="color:#999;padding-right:8px;">客户评级:</span>{$item.level}</td>
 			<td><span style="color:#999;padding-right:8px;">业务员:</span>
             <?php
-            echo form_dropdown('current_assistant_id',[''=>'请选择']+$assi,$item['current_assistant_id'],'class="chosen-select"');
+            echo form_dropdown('current_assistant_id',[''=>'请选择']+$assi,[$item['current_assistant_id']],'class="chosen-select"');
             ?>
 			</td>
+<!--<td><span style="color:#999;padding-right:8px;">跟单人:</span><?=array_key_exists($item['current_assistant_id'],$assi) ? $assi[$item['current_assistant_id']] : ''?></td>
+-->
 		</tr>
 	 </tbody>
 	</table>
@@ -52,6 +53,7 @@ $status= ['CRT'=>'待开发','FLS'=>'开发失败','OK#'=>'开发完成'];
 <?php foreach($list as $v){?>
 <div class="widget-box" style="opacity: 1; z-index: 0;margin-bottom:1em;">
 <div class="widget-header" style="color:#999;">
+标注人:<?php echo $user[$v['assistant_id']]?>
 </div>
 <div class="widget-body">
 <div class=""> 
@@ -59,7 +61,7 @@ $status= ['CRT'=>'待开发','FLS'=>'开发失败','OK#'=>'开发完成'];
 	<tbody>
 		<tr>
 			<td><span style="color:#999;padding-right:8px;">用户级别:</span><?php echo $v['level']?></td>
-			<td><span style="color:#999;padding-right:8px;">候选人星数:</span><?php echo $v['star']?></td>
+			<td><span style="color:#999;padding-right:8px;">星数:</span><?php echo $v['star']?></td>
 		</tr>
 		<tr>
 			<td colspan="2"><span style="color:#999;padding-right:8px;">内容:</span><?php echo $v['evaluation']?></td>
@@ -83,7 +85,6 @@ $status= ['CRT'=>'待开发','FLS'=>'开发失败','OK#'=>'开发完成'];
 </block>
 
 <block name="script">
-<script type="text/javascript" src="__STATIC__/uploadify/jquery.uploadify.min.js"></script>
 <script type="text/javascript" charset="utf-8">
 	Think.setValue('type',{$type|default=1});
     //导航高亮

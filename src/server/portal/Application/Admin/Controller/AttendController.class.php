@@ -36,8 +36,9 @@ class AttendController extends AdminController {
             header('Content-type: application/png');
             header('Content-Disposition: attachment; filename="'.urlencode('耗课'.$course_count.'节.png').'"');
             echo \QRcode::png($resp['url'],false,QR_ECLEVEL_L,15,2);
+            die;
         }
-        $this->meta_title = '耗课列表查询';
+        $this->meta_title = '耗课二维码生成';
         $this->display();
     }
 
@@ -223,6 +224,7 @@ class AttendController extends AdminController {
             $data['courseName'] = I('post.courseName');
             $data['courseNum']  = I('post.courseNum');
 	    (!is_numeric( $data['courseNum']) || $data['courseNum'] <=0)&& $this->error('耗课节数应该大于零！');
+	    empty($data['courseNum'])&& $this->error('课程名称不能为空！');
             $data['orderId']    = I('post.orderId');
             $data['operator']   = is_login();
 
@@ -262,6 +264,7 @@ class AttendController extends AdminController {
             $data['courseName'] = I('post.courseName');
             $data['type'] = 'CZH';
             $data['courseNum']  = I('post.courseNum');
+            $data['remark']  = I('post.remark');
 	    (!is_numeric( $data['courseNum']) || $data['courseNum'] <=0)&& $this->error('冲正节数应该大于零！');
             $data['orderId']    = I('post.orderId');
             $data['operator']   = is_login();
@@ -270,7 +273,7 @@ class AttendController extends AdminController {
             $resp = $api->setApiUrl(C('APIURI.baby'))
                         ->setData($data)->send('courseManager/course/spend');
             if(!empty($resp) && $resp['errcode'] == '0'){
-                $this->success($resp['errmsg']);
+                $this->success('冲正成功');
             }else{
                 $this->error($resp['errmsg']);
             }

@@ -1,6 +1,9 @@
 <!--main-->
 <section class="main">
     <div class="padm54 padt60">
+        <?php if(empty($list)):?>
+            <div class="class-sure-tit">您目前还没有课程，请先购买！</div>
+        <?php endif;?>
         <?php foreach($list as $item):?>
         <form class="class-sure ajax-form" action="/scan/doAttend.html" method="post">
             <div class="class-sure-tit">耗课确认</div>
