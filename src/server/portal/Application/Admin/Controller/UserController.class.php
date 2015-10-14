@@ -294,35 +294,40 @@ class UserController extends AdminController {
                 $this->error('密码和重复密码不一致！');
             }
 		
-	    $mobile = I('post.mobile');
+	        $district = I('post.district');
+            if(empty($district)){
+                $this->error('请选择所在城区！');
+            }
+
             /* 调用注册接口注册用户 */
             $User   =   new UserApi;
-            $uid    =   $User->register($username, $password, $email,$mobile);
+            $uid    =   $User->register($username, $password, $email,$username);
             if(0 < $uid){ //注册成功
                 $user = array('uid' => $uid, 'nickname' => I('nickname'), 'status' => 1);
                 if(!M('Member')->add($user)){
                     $this->error('用户添加失败！');
                 } else {
-			if(I('group_id')=='5')
-			{
-				$type= 'ASST';
-			}
-			if(I('group_id')=='8')
-			{
-				$type= 'TECH';
-			}
-			if(I('group_id')=='10')
-			{
-				$type= 'ASST';
-			}
-			M('ucenter_member')->where(['id'=>$uid])->save(['user_type'=>$type]);
+                    if(I('group_id')=='5'){
+                        $type= 'ASST';
+                    }
+                    if(I('group_id')=='8'){
+                        $type= 'TECH';
+                    }
+                    if(I('group_id')=='10'){
+                        $type= 'ASST';
+                    }
+                    
+                    if(empty($type)){
+                        M('ucenter_member')->where(['id'=>$uid])->save(['user_type'=>$type]);
+                    }
+
                     $this->success('用户添加成功！',U('index'));
                 }
             } else { //注册失败，显示错误信息
                 $this->error($this->showRegError($uid));
             }
         } else {
-	    $group = M('auth_group')->field('title,id')->where("module='admin'")->select();
+	        $group = M('auth_group')->field('title,id')->where(["module"=>"admin",'status'=>1])->select();
             $this->assign('group',$group);
             $this->meta_title = '新增用户';
             $this->display();

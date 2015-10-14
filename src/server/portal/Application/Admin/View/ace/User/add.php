@@ -3,19 +3,13 @@
 <block name="body"> 
     <?php 
         echo ace_form_open();
-        $options = array(
-            'label_text'=>'用户名',
-            'help'=>'',
-            'icon'=>'icon-user'
-        );
-        echo ace_input_m($options ,array('name'=>'username','class'=>'width-100'),'');
 
         $options = array(
             'label_text'=>'手机号码',
-            'help'=>'用于找回密码和微信端绑定账号用',
+            'help'=>'用于登录、找回密码和微信端绑定账号用',
             'icon'=>'icon-mobile-phone'
         );
-        echo ace_input_m($options ,array('name'=>'mobile','class'=>'width-100'),'');
+        echo ace_input_m($options ,array('name'=>'username','class'=>'width-100 mobile'),'',' maxlength="11"');
 
         $options = array(
             'label_text'=>'昵称',
@@ -45,7 +39,7 @@
 
 	?>
 <div class="form-group">
-    <label class="col-xs-12 col-sm-2 control-label no-padding-right"><span class="red">*</span>选择业务员所在城区</label>
+    <label class="col-xs-12 col-sm-2 control-label no-padding-right"><span class="red">*</span>选择所在城区</label>
     <div class="col-xs-12 col-sm-5">
     <div id="city_1"></div>
     <script>
