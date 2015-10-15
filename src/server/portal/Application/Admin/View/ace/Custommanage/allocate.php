@@ -10,7 +10,7 @@ $status= ['CRT'=>'待开发','FLS'=>'开发失败','OK#'=>'开发完成'];
             
             <div class="row">
                 <div class="col-sm-12">
-                    <div class="search-form">
+                    <form class="search-form">
                         <label>家长名称
                             <input type="text" class="search-input" name="parent_name" value="{:I('parent_name')}" placeholder="请输入家长名称">
                         </label>
@@ -29,25 +29,23 @@ $status= ['CRT'=>'待开发','FLS'=>'开发失败','OK#'=>'开发完成'];
 				</select>
                         </label>
                         <label>
-                            <button class="btn btn-sm btn-primary" type="button" id="search" url="{:U('allocate')}">
+                            <button class="btn btn-sm btn-primary" type="button" id="search-btn" url="{:U('allocate')}">
                                <i class="icon-search"></i>搜索
                             </button>
                         </label>
-                    </div>  
+                    </form>
                 </div>
             </div>
             <!-- 数据列表 -->
             <table class="table table-striped table-bordered table-hover dataTable">
 			    <thead>
 			        <tr>
-<!--
                     <th class="row-selected center">
                        <label>
                            <input class="ace check-all" type="checkbox"/>
                            <span class="lbl"></span>
                        </label>
                     </th>
--->
 					<th class="">家长姓名</th>
 					<th class="">家长电话</th>
 					<th class="">宝宝名称</th>
@@ -66,14 +64,12 @@ $status= ['CRT'=>'待开发','FLS'=>'开发失败','OK#'=>'开发完成'];
 					<notempty name="_list">
 					<volist name="_list" id="vo">
 					<tr>
-<!--
                         <td class="center">
                             <label>
                                 <input class="ace ids" type="checkbox" name="id[]" value="{$vo.id}" />
                                 <span class="lbl"></span>
                             </label>
                         </td>
--->
 						<td>{$vo.parent_name} </td>
 						<td><a href="{:U('Custommanage/allocateinfo?id='.$vo['id'])}">{$vo.mobile_num}</a></td>
 						<td>{$vo.baby_name}</td>
@@ -130,7 +126,21 @@ $status= ['CRT'=>'待开发','FLS'=>'开发失败','OK#'=>'开发完成'];
 					</notempty>
 				</tbody>
             </table>
-            <include file="Public/page"/>
+
+            <div class="row">
+                <div class="col-sm-4">
+                    <button type="button" id="batch-allocate-btn" class="btn btn-sm btn-pink">
+                        <i class="icon-beaker"></i>批量调配
+                    </button>
+                </div>
+                <div class="col-sm-8">
+                    <div class="dataTables_paginate paging_bootstrap">
+                        <ul class="pagination">
+                            {$_page}
+                        </ul>
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
 </block>
@@ -138,30 +148,73 @@ $status= ['CRT'=>'待开发','FLS'=>'开发失败','OK#'=>'开发完成'];
 <block name="script">
 	<script src="__STATIC__/thinkbox/jquery.thinkbox.js"></script>
 
+    <script src="__ACE__/js/chosen.jquery.min.js"></script>
 	<script type="text/javascript">
-	//搜索功能
-	$("#search").click(function(){
-		var url = $(this).attr('url');
-        var query  = $('.search-form').find('input').serialize();
-         query  += '&'+$('.search-form').find('select').serialize();
-        query = query.replace(/(&|^)(\w*?\d*?\-*?_*?)*?=?((?=&)|(?=$))/g,'');
-        query = query.replace(/^&/g,'');
-        if( url.indexOf('?')>0 ){
-            url += '&' + query;
-        }else{
-            url += '?' + query;
-        }
-		window.location.href = url;
-	});
-	//回车搜索
-	$(".search-input").keyup(function(e){
-		if(e.keyCode === 13){
-		    console.info($("#search"));
-			$("#search").click();
-			return false;
-		}
-	});
     //导航高亮
     highlight_subnav('{:U('custommanage/allocate')}');
+
+    var _box_html = '<div style=" padding: 15px;">' +
+        '<select name="yewuyuan" id="yewuyuan">';
+        $.each(<?=json_encode($assi)?>, function (k,v) {
+            _box_html += '<option value="'+k+'">'+v+'</option>'
+        })
+        _box_html += '</select>' +
+        '</div>';
+
+    function show_box(){
+        var data = $(".ids:checked").serializeArray();
+
+        if(data.length == 0){
+
+            layer.alert('请选择要批量处理的数据！',{icon:2});
+            return false;
+        }
+
+        //页面层
+        layer.open({
+            type: 1,
+            title:'您选择业务员',
+            content: _box_html,
+            btn: ['确认','取消'],
+            yes: function(index, layero){
+                //按钮【按钮一】的回调
+                var assi_id = $.trim($("#yewuyuan").val());
+                if(assi_id == ''){
+                    layer.alert('请选择业务员！',{icon:2});
+                    return false;
+                }
+                var $this = $(this);
+                $this.prop('disabled',true);
+                data.push({name:'assi_id',value:assi_id});
+
+                $.post('<?=U('custommanage/batchalloca')?>',data,function(resp){
+                    if(resp.status == 1){
+                        layer.alert(resp.info,{icon:1},function(ii){
+                            layer.close(ii);
+                            window.location = window.location;
+                        });
+                        layer.close(index);
+                    }else{
+                        layer.alert(resp.info,{icon:2});
+                    }
+                },'json').always(function(){
+                    $this.prop('disabled',false);
+                });
+            },
+            cancel: function(index){
+                //按钮【按钮二】的回调
+            },
+            success: function () {
+                $("#yewuyuan").chosen();
+                $(".layui-layer-content").css({'overflow':'visible'});
+            }
+        });
+        return false;
+    }
+
+    $("#batch-allocate-btn").click(show_box);
 	</script>
+</block>
+<block name="style">
+    <link rel="stylesheet" href="__ACE__/css/chosen.css" />
 </block>

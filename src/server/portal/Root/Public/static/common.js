@@ -73,9 +73,9 @@ window.updateAlert = function (text,c) {
     c = c||false;
     if ( text!='default' ) {
         if(c == 'alert-success'){
-                layer.msg(text,2,1);
+                layer.msg(text,{icon:1});
         }else{
-                layer.alert(text,3);
+                layer.alert(text,{icon:2});
         }
     }
 };
@@ -96,7 +96,7 @@ $(document).ready(function(){
         var target;
         var $this = $(this);
         if ( $this.hasClass('confirm') ) {
-            layer.confirm('确认要执行该操作吗?',function(index){
+            layer.confirm('确认要执行该操作吗?',{icon:3},function(index){
                 clean();
                 layer.close(index);
             });
@@ -106,7 +106,7 @@ $(document).ready(function(){
         
         function clean(){
             if ( (target = $this.attr('href')) || (target = $this.attr('url')) ) {
-                var loading = layer.load('请稍后...');
+                var loading = layer.load();
                 $.get(target).success(function(data){
                     if (data.status==1) {
                         if (data.url) {
@@ -173,7 +173,7 @@ $(document).ready(function(){
                     }
                     query = form.serialize();
                     if ( $(this).hasClass('confirm') ) {
-                        layer.confirm('确认要执行该操作吗?',function(index){
+                        layer.confirm('确认要执行该操作吗?',{icon:3},function(index){
                             do_post()
                             layer.close(index);
                         });
@@ -189,7 +189,7 @@ $(document).ready(function(){
                     query = form.serialize();
                     if ( nead_confirm || $(this).hasClass('confirm') ) {
                         
-                        layer.confirm('确认要执行该操作吗?',function(index){
+                        layer.confirm('确认要执行该操作吗?',{icon:3},function(index){
                             do_post()
                             layer.close(index);
                         });
@@ -198,7 +198,7 @@ $(document).ready(function(){
                 default:
                     query = form.find('input,select,textarea').serialize();
                     if ( $(this).hasClass('confirm') ) {
-                        layer.confirm('确认要执行该操作吗?',function(index){
+                        layer.confirm('确认要执行该操作吗?',{icon:3},function(index){
                             do_post()
                             layer.close(index);
                         });
@@ -207,7 +207,7 @@ $(document).ready(function(){
             
             function do_post(){
                 $(that).addClass('disabled').attr('autocomplete','off').prop('disabled',true);
-                var loading = layer.load('请稍后...');
+                var loading = layer.load();
                 $.post(target,query).success(function(data){
                     if (data.status==1) {
                         if (data.url) {

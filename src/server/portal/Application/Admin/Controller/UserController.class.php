@@ -316,7 +316,7 @@ class UserController extends AdminController {
                     if(I('group_id')=='10'){
                         $type= 'ASST';
                     }
-                    
+
                     if(empty($type)){
                         M('ucenter_member')->where(['id'=>$uid])->save(['user_type'=>$type]);
                     }

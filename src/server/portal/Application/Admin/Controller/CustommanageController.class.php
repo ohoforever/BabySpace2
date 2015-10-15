@@ -15,6 +15,7 @@ namespace Admin\Controller;
  */
 class CustommanageController extends AdminController {
 
+
     /**
      * 行为日志列表
      * @author huajie <banhuajie@163.com>
@@ -45,7 +46,7 @@ class CustommanageController extends AdminController {
     public function edit($id = 0){
         empty($id) && $this->error('参数错误！');
         $info = M('khkf_candidate')->field(true)->find($id);
-	$district = M('xbdistrict')->where(['name'=>$info['district']])->find();
+	    $district = M('xbdistrict')->where(['name'=>$info['district']])->find();
         $this->assign('selected', $district['id']);
         $this->assign('data', $info);
         $this->meta_title = '编辑客户信息';
@@ -59,10 +60,12 @@ class CustommanageController extends AdminController {
         $this->meta_title = '查看客户信息';
         $this->display();
     }
+
     public function add(){
         $this->meta_title = '添加客户信息';
         $this->display();
     }
+
     public function save(){
         $data['parent_name'] = I('post.parent_name');
         empty($data['parent_name']) && $this->error('请输入家长姓名');
@@ -75,27 +78,27 @@ class CustommanageController extends AdminController {
         $data['star'] = I('post.star');
         $data['star'] =='' && $this->error('请输入候选人星数');
         //$data['district'] = I('post.district');
-	$district = I('post.district');
+	    $district = I('post.district');
         empty($district) && $this->error('请输入家庭所在城市区域');
         //$data['city'] = I('post.city');
         //empty($data['city']) && $this->error('请输入家庭所有城市');
-	$district = M('xbdistrict')->where("id=$district")->find();
-	$city = M('xbdistrict')->where('id='.$district['pid'])->find();
-	$data['city']=$city['name'];
-	$data['district']=$district['name'];
+        $district = M('xbdistrict')->where("id=$district")->find();
+        $city = M('xbdistrict')->where('id='.$district['pid'])->find();
+        $data['city']=$city['name'];
+        $data['district']=$district['name'];
         $data['baby_birthday']= I('post.baby_birthday');
         empty($data['baby_birthday']) && $this->error('请输入宝宝出生年月');
         $data['level']= I('post.level');
         $id = I('post.id');
-	if(empty($id))
-	{
-		$data['insert_time'] = date("Y-m-d H:i:s");
-		$data['status'] = "CRT";
-		$res = M('khkf_candidate')->add($data);
-	}else{
-		$data['update_time'] = date("Y-m-d H:i:s");
-		$res = M('khkf_candidate')->where('id='.$id)->save($data);
-	} 
+        if(empty($id))
+        {
+            $data['insert_time'] = date("Y-m-d H:i:s");
+            $data['status'] = "CRT";
+            $res = M('khkf_candidate')->add($data);
+        }else{
+            $data['update_time'] = date("Y-m-d H:i:s");
+            $res = M('khkf_candidate')->where('id='.$id)->save($data);
+        }
         if($res !== false){
             $this->success('保存成功！',U('custommanage/index'));
         }else {
@@ -104,13 +107,14 @@ class CustommanageController extends AdminController {
     }
 
     public function allocate(){
+
 	    if(!empty(I('parent_name')))
 	    {
 		    $map['parent_name']= array('like', '%'.I('parent_name').'%');
 	    }
 	    if(!empty(I('mobile_num')))
 	    {
-		    $map['mobile_num']= I('parent_name');
+		    $map['mobile_num']= array('like', '%'.I('mobile_num').'%');
 	    }
 	    if(!empty(I('baby_name')))
 	    {
@@ -126,46 +130,87 @@ class CustommanageController extends AdminController {
 	    $this->assign('_list', $list);
 	    $this->assign('status', I('status'));
 	    $this->meta_title = '调配客户列表';
+
+        $assi = M('ucenter_member')->where("user_type='ASST'")->getField('id,username');
+        $this->assign('assi', $assi);
 	    $this->display();
     }
+
+    public function batchalloca(){
+
+        $ids = I('post.id',[]);
+        $assi_id = I('post.assi_id');
+        if(empty($ids) || !is_array($ids)){
+            $this->error('请选择要批量处理的数据！');
+        }
+        if(empty($assi_id)){
+            $this->error('请选择业务员！');
+        }
+
+        $model = M('khkf_candidate');
+
+        $model->startTrans();
+        $res = $model->where('id in('.join(',',$ids).')')->save(['current_assistant_id'=>$assi_id,'update_time'=>date("Y-m-d H:i:s")]);
+
+        $all_data = [];
+        foreach($ids as $id){
+            $all_data [] = ['candidate_id'=>$id,'assistant_id'=>$assi_id,'insert_time'=>date("Y-m-d H:i:s")];
+        }
+        if($res !== false){
+            $rest =  M('khkf_candidate_develop')->addAll($all_data);
+            if($rest !== false) {
+                $model->commit();
+                $this->success('批量调配成功！');
+            }
+        }
+        $model->rollback();
+        $this->error('批量调配失败，请重新再试！');
+
+    }
+
     public function allocatesave()
     {
 	    $current_assistant_id = I('post.current_assistant_id');
 	    $id = I('get.id');
-	    empty($id) && $this->error('参数错误');
+        if(empty($id)){
+            $this->error('参数错误');
+        }
+
 	    $model = M('khkf_candidate');
 	    $model->startTrans(); 
 	    $res = $model->where('id='.$id)->save(['current_assistant_id'=>$current_assistant_id,'update_time'=>date("Y-m-d H:i:s")]);
 	    if($res !== false){
 		    $rest =  M('khkf_candidate_develop')->add(['candidate_id'=>$id,'assistant_id'=>$current_assistant_id,'insert_time'=>date("Y-m-d H:i:s")]);
-		    if($rets!==false)
+		    if($rest !== false)
 		    {
 			    $model->commit();
 			    $this->success('保存成功！',U('custommanage/allocate'));
 		    }
 	    }
-	    $model->rollback(); 
+	    $model->rollback();
 	    $this->error('保存失败！');
     }
+
     public function allocateinfo($id=0)
     {
         empty($id) && $this->error('参数错误！');
         $info = M('khkf_candidate')->find($id);
         $this->assign('item', $info);
         $assi = M('ucenter_member')->where("user_type='ASST'")->getField('id,username');
-	$list = M('khkf_candidate_evaluation')->field(true)->where("candidate_id='$id'")->select();
-	$this->assign('list',$list);
-	$this->assign('assi', $assi);
-	$tmp = [];
-        $user = M('ucenter_member')->field('id,username')->select();
-	foreach($user as $v)
-	{
-		$tmp[$v['id']]= $v['username'];
-	}
+        $list = M('khkf_candidate_evaluation')->field(true)->where("candidate_id='$id'")->select();
+        $this->assign('list',$list);
+        $this->assign('assi', $assi);
+        $tmp = [];
+            $user = M('ucenter_member')->field('id,username')->select();
+        foreach($user as $v)
+        {
+            $tmp[$v['id']]= $v['username'];
+        }
         $this->assign('user', $tmp);
         $this->meta_title = '客户信息详情';
         $this->display();
     }
+
     public function setStatus()
     {
 	    $type = I('get.type');
@@ -181,11 +226,12 @@ class CustommanageController extends AdminController {
     function batchadd()
     {
         if(IS_POST){
-		$this->upload();
-	}
+            $this->upload();
+        }
         $this->meta_title = '批量导入';
         $this->display();
     }
+
     function upload()
     {
 	    $file_item = json_to_array(think_decrypt(I('post.file_id')));
